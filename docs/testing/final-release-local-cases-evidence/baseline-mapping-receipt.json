@@ -1,0 +1,27 @@
+{
+  "baselineSourceSha": "da5867a5ecdb5ae4705e3643e3e96298b9bd7574",
+  "javaActualCounts": {
+    "surefire-reports": {
+      "tests": 104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "tests": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "verifiedClassMethodCount": 194,
+  "matrixPASS": 55,
+  "matrixFAIL": [
+    "REC-07"
+  ],
+  "matrixNOT_RUN": 14,
+  "nodeLog": "/private/tmp/12times-final-release-evidence/integrated-node-43.log",
+  "nodeLogSha256": "83ba9bd015b6266e09585438dac0c93a6a06c9733a312724ba9a16c4b520d801",
+  "uniqueAutomatedCount": 271,
+  "note": "所有PASS映射方法在本轮XML逐个匹配；不含性能main，不加70用例数，浏览器另源"
+}

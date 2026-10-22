@@ -1,0 +1,1 @@
+只读目录启动异常=org.springframework.context.ApplicationContextException；未启动正常API，无公开错误响应；完整内部故障日志在Failsafe原报告，未使用真实凭据

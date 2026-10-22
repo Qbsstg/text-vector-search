@@ -1,0 +1,1 @@
+非法测试DDL启动异常=org.springframework.context.ApplicationContextException；仅test classpath注入，无公开业务响应，无真实凭据；未修改生产schema.sql
