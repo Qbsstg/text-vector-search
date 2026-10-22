@@ -1,0 +1,24 @@
+runId=BUSY-1d0cab14-2ad0-4084-8dd9-54fb31b712a8.txt;sourceSHA=68d80cb967c6d321047672811dea45b555ba5cbc;tests=本轮测试工作树;thread=main
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-1
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-2
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-3
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-4
+HTTP链返回
+HTTP链返回
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-2
+HTTP链返回
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-4
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-6
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-7
+HTTP链返回
+HTTP链返回
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-3
+HTTP链返回
+HTTP链返回
+HTTP链返回
+计数SQL id=hot
+HTTP链返回
+POST进入thread=http-nio-127.0.0.1-auto-25-exec-5
+计数SQL id=hot
+HTTP链返回
+对账attempted=10;committed=2;rejected429=8;hitCount=2

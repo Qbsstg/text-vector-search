@@ -1,0 +1,2 @@
+sourceSHA=68d80cb967c6d321047672811dea45b555ba5cbc;tests=本轮测试工作树
+events=[COUNT_BEFORE_COMMIT, COUNT_COMMITTED, CONTEXT_CLOSE_RETURNED];beforeCommitVisible=0;afterClosePersistent=1;DSclosed=true;state=STOPPED

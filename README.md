@@ -56,6 +56,8 @@ H2数据默认在启动工作目录的`data/knowledge.mv.db`，推荐显式`APP_
 - [B3集成验收](docs/testing/B3-verification.md)：真实生产终态、四点强杀恢复、正常/超时关闭及明确未验证范围。
 - [B4启动拆解](docs/tasks/B4-启动与任务拆解.md)：责任人、依赖、12组验收矩阵、工时估计及人工门禁。
 - [最终准备与审批](docs/tasks/最终交付准备与审批清单.md)：固定候选、真实健康、Chrome验收和DEP3门禁。
+- [最终验证报告](docs/testing/FINAL-verification.md)：本地和固定源码Linux CI均104 unit+110 IT+38 Node=252通过，另记Linux冷备恢复、下载JAR冒烟及真实未执行项。
+- [固定候选与Chrome入口](docs/tasks/最终候选与Chrome验收入口.md)：实际源码SHA、JAR摘要与人工启动变量，正式发布仍待单独批准。
 - [Chrome手工验收](docs/tasks/handoffs/frontend-final-ui.md)：29项真实与受控浏览器分支、专用临时库及证据模板，当前均未执行。
 - [DEP3发布计划](deploy/DEP3发布操作计划.md)：校验、全入口认证、持久单实例锁、冷备与首发失败处理，正式执行仍需单独批准。
 - [九项阶段报告](docs/tasks/B2-阶段进展报告.md)：职责、依赖、工时、网络与用户人工项。

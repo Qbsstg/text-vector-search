@@ -1,0 +1,26 @@
+sourceSHA=68d80cb967c6d321047672811dea45b555ba5cbc;jarSHA256=61bbb02df6742ee66e25e0d93dd13a18a8fb6caca69008761a80961707a9d42f;runId=e89f5c8926c34a40bf0da183d1ad24f1
+systemctl为仅此进程PATH内的inactive测试shim；不证明真实systemd停止/启动或服务器部署
+真实JAR已就绪：pid=5108;port=42319;mode=original
+DIAGNOSTIC cold-01-active-rejected-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/lib/vector-search/db
+PASS 拒绝存在其他进程文件占用
+真实JAR SIGTERM退出：pid=5108;exit=143
+DIAGNOSTIC cold-02-lock-rejected-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=False;directory=/var/lib/vector-search/db
+PASS 拒绝单实例锁被占用
+DIAGNOSTIC cold-03-backup-case-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/lib/vector-search/db
+PASS backup：/var/backups/vector-search/backup-case
+PASS 冷备manifest/SHA256/0700目录/0600文件：6cc2ddc700632138e29b042e24429b6cff648251b01ca30c0deafa83fb7b0823
+DIAGNOSTIC cold-04-backup-case-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/lib/vector-search/db
+PASS 拒绝目标已存在
+DIAGNOSTIC cold-05-restore-check-wrong-sha-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/backups/vector-search/backup-case
+DIAGNOSTIC cold-05-restore-check-wrong-sha-lsof-1: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/lib/vector-search/db
+PASS 拒绝备份版本或数据库校验和不匹配
+DIAGNOSTIC cold-06-restore-check-case-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/backups/vector-search/backup-case
+DIAGNOSTIC cold-06-restore-check-case-lsof-1: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/lib/vector-search/db
+PASS restore-check：/var/lib/vector-search/restore-check-case
+DIAGNOSTIC cold-07-restore-check-case-lsof-0: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/backups/vector-search/backup-case
+DIAGNOSTIC cold-07-restore-check-case-lsof-1: returncode=1;timeout=False;euid=0;lock_acquired=True;directory=/var/lib/vector-search/db
+PASS 拒绝目标已存在
+真实JAR已就绪：pid=5252;port=36515;mode=restored
+真实JAR SIGTERM退出：pid=5252;exit=143
+PASS 真实JAR恢复状态/向量就绪/首次时间/计数/失效保持且备份原件未改
+COMPLETE：仅一次性Linux runner本地验收；真实systemd/服务器数据恢复/发布仍NOT_RUN

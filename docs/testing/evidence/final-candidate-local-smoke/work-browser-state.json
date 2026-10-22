@@ -1,0 +1,14 @@
+{
+  "observedDate": "2026-10-23",
+  "tool": "mcp__cua_repl.js / cua.getState",
+  "result": {
+    "apps": [],
+    "browsers": [],
+    "errors": [
+      "Native apps: Error: The Mac is locked and automatic unlock is paused because physical input was detected. Ask the user to unlock the Mac manually before continuing.",
+      "Browsers: Error: Local browser use is disabled in Work settings"
+    ]
+  },
+  "uiResult": "NOT_RUN",
+  "fallback": "Chrome手工29项；Node与HTTP不算浏览器验收"
+}

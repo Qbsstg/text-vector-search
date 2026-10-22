@@ -1,0 +1,460 @@
+{
+  "sourceSha": "68d80cb967c6d321047672811dea45b555ba5cbc",
+  "jarSha256": "61bbb02df6742ee66e25e0d93dd13a18a8fb6caca69008761a80961707a9d42f",
+  "scope": "HTTP_ONLY_HTTPS_HEADERS；非浏览器、非真实TLS/Nginx或服务器发布验收",
+  "dataDir": "/private/tmp/12times-final-candidate-wcs_p30l/db",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "status": "UP",
+        "stage": "B4",
+        "businessReady": true,
+        "taskReady": true,
+        "taskState": "READY",
+        "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+        "checks": {
+          "databaseWritable": true,
+          "routesReady": true,
+          "algorithmReady": true,
+          "databaseReady": true,
+          "searchReady": true,
+          "dispatcherReady": true
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "status": "UP",
+        "stage": "B4",
+        "businessReady": true,
+        "taskReady": true,
+        "taskState": "READY",
+        "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+        "checks": {
+          "databaseWritable": true,
+          "routesReady": true,
+          "algorithmReady": true,
+          "databaseReady": true,
+          "searchReady": true,
+          "dispatcherReady": true
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "status": "UP",
+        "stage": "B4",
+        "businessReady": true,
+        "taskReady": true,
+        "taskState": "READY",
+        "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+        "checks": {
+          "databaseWritable": true,
+          "routesReady": true,
+          "algorithmReady": true,
+          "databaseReady": true,
+          "searchReady": true,
+          "dispatcherReady": true
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "origin": "https://untrusted.invalid",
+      "status": 403,
+      "response": {
+        "code": "ORIGIN_NOT_ALLOWED",
+        "message": "浏览器写入来源不被允许",
+        "fieldErrors": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 202,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "QUEUED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "RUNNING",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": "2026-10-22T18:49:10.860533Z",
+        "finishedAt": null,
+        "errorCode": null,
+        "errorMessage": null,
+        "document": null
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/tasks/92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "documentId": "final-candidate-fixture",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "startedAt": "2026-10-22T18:49:10.860533Z",
+        "finishedAt": "2026-10-22T18:49:10.872905Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "final-candidate-fixture",
+          "channel": "final-candidate",
+          "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T18:49:10.451947Z",
+          "vectorCompletedAt": "2026-10-22T18:49:10.872905Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "最终候选固定字节验收 ababa"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/final-candidate-fixture",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "documentId": "final-candidate-fixture",
+        "channel": "final-candidate",
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "vectorCompletedAt": "2026-10-22T18:49:10.872905Z",
+        "invalidatedAt": null,
+        "hitCount": "0",
+        "text": "最终候选固定字节验收 ababa"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents?page=0&size=20&channel=final-candidate",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "items": [
+          {
+            "documentId": "final-candidate-fixture",
+            "channel": "final-candidate",
+            "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+            "taskStatus": "SUCCEEDED",
+            "vectorReady": true,
+            "invalidated": false,
+            "submittedAt": "2026-10-22T18:49:10.451947Z",
+            "vectorCompletedAt": "2026-10-22T18:49:10.872905Z",
+            "invalidatedAt": null,
+            "hitCount": "0"
+          }
+        ],
+        "page": 0,
+        "size": 20,
+        "totalElements": 1
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/search",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "hits": [
+          {
+            "documentId": "final-candidate-fixture",
+            "channel": "final-candidate",
+            "score": 1.0,
+            "snippet": "最终候选固定字节验收 ababa"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/final-candidate-fixture",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "documentId": "final-candidate-fixture",
+        "channel": "final-candidate",
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "vectorCompletedAt": "2026-10-22T18:49:10.872905Z",
+        "invalidatedAt": null,
+        "hitCount": "1",
+        "text": "最终候选固定字节验收 ababa"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/documents/final-candidate-fixture/invalidation",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "documentId": "final-candidate-fixture",
+        "invalidated": true,
+        "invalidatedAt": "2026-10-22T18:49:10.975879Z"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/documents/final-candidate-fixture/invalidation",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "documentId": "final-candidate-fixture",
+        "invalidated": true,
+        "invalidatedAt": "2026-10-22T18:49:10.975879Z"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/search",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "hits": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/final-candidate-fixture",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "documentId": "final-candidate-fixture",
+        "channel": "final-candidate",
+        "taskId": "92fd59f6-1293-49e6-8dd1-43fca7f801c5",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": true,
+        "submittedAt": "2026-10-22T18:49:10.451947Z",
+        "vectorCompletedAt": "2026-10-22T18:49:10.872905Z",
+        "invalidatedAt": "2026-10-22T18:49:10.975879Z",
+        "hitCount": "1",
+        "text": "最终候选固定字节验收 ababa"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "status": "UP",
+        "stage": "B4",
+        "businessReady": true,
+        "taskReady": true,
+        "taskState": "READY",
+        "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+        "checks": {
+          "databaseWritable": true,
+          "routesReady": true,
+          "algorithmReady": true,
+          "databaseReady": true,
+          "searchReady": true,
+          "dispatcherReady": true
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "status": "UP",
+        "stage": "B4",
+        "businessReady": true,
+        "taskReady": true,
+        "taskState": "READY",
+        "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+        "checks": {
+          "databaseWritable": true,
+          "routesReady": true,
+          "algorithmReady": true,
+          "databaseReady": true,
+          "searchReady": true,
+          "dispatcherReady": true
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "origin": "https://text-vector-search.lemoncharger.com",
+      "status": 200,
+      "response": {
+        "status": "UP",
+        "stage": "B4",
+        "businessReady": true,
+        "taskReady": true,
+        "taskState": "READY",
+        "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+        "checks": {
+          "databaseWritable": true,
+          "routesReady": true,
+          "algorithmReady": true,
+          "databaseReady": true,
+          "searchReady": true,
+          "dispatcherReady": true
+        }
+      }
+    }
+  ],
+  "result": "PASS",
+  "pid": 54327,
+  "port": 57517,
+  "exitCode": 143
+}

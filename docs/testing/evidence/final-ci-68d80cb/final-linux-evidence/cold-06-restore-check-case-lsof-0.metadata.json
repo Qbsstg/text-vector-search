@@ -1,0 +1,10 @@
+{
+  "command": [
+    "lsof",
+    "-nP",
+    "+D",
+    "/var/backups/vector-search/backup-case"
+  ],
+  "returncode": 1,
+  "timeout": false
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "sourceSha": "68d80cb967c6d321047672811dea45b555ba5cbc",
+  "jarFile": "app.jar",
+  "jarSha256": "61bbb02df6742ee66e25e0d93dd13a18a8fb6caca69008761a80961707a9d42f",
+  "sizeBytes": 27308443,
+  "javaTarget": 17,
+  "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+  "schemaSha256": "54758965a66d42092da6049ed67a3043d57b1542705f38198975c424fed3d69d",
+  "createdAtUtc": "2026-10-22T18:46:55.871933Z",
+  "ciRunId": "39834086512",
+  "ciRunAttempt": "1"
+}
