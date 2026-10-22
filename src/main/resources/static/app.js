@@ -1,5 +1,6 @@
 import { createApi, documentId, taskId, listQuery, TASK_LABELS, InputError, errorText, formatTime, LatestRead } from "./api.mjs";
 import { TaskTracker, pollingText } from "./tasks.mjs";
+import { SearchSession, formatScore } from "./search.mjs";
 
 const api = createApi();
 const byId = (id) => document.getElementById(id);
@@ -68,12 +69,73 @@ function documentFields(doc) {
         ["失效时间（UTC+8）", formatTime(doc.invalidatedAt)]];
 }
 
-// 搜索尚未进入本阶段；即使键盘隐式提交表单，也不会调用不存在的搜索接口。
-byId("search-form").addEventListener("submit", (event) => event.preventDefault());
-byId("search-text").addEventListener("input", () => {
-    byId("empty-search").textContent = byId("search-text").value === ""
-        ? "空查询将返回零分排序结果，不能区分相关性；本阶段尚不执行查询。" : "本阶段尚不执行查询；后续将显示真实后端结果。";
+const search = new SearchSession({ load: (query) => api.search(query), onChange: renderSearch });
+function searchValues() {
+    return { ...formValues(byId("search-form")), topK: byId("search-top-k").valueAsNumber };
+}
+function renderSearch(state) {
+    byId("search-button").disabled = state.busy;
+    byId("search-button").textContent = state.busy ? "检索中…" : "检索";
+    if (state.error) {
+        feedback("search-message", errorText(state.error, "search"), true);
+        fieldErrors(byId("search-form"), state.error);
+    } else if (state.busy) {
+        feedback("search-message", "正在执行一次真实检索。完成前不会发送第二次搜索请求；当前若有结果仍是上次快照。");
+    } else if (state.result) {
+        feedback("search-message", state.result.hits.length === 0
+            ? "检索成功，当前条件没有命中。没有可展示的文档，不会补造结果。"
+            : "已收到真实检索结果。详情和列表可手动刷新计数快照，不会因读取额外计数。");
+    } else {
+        feedback("search-message", "尚未执行成功检索。输入不会自动提交；余弦分数并非概率或置信度。");
+    }
+    byId("search-results").hidden = !state.result;
+    if (!state.result) return;
+    const { hits, query, duration } = state.result;
+    const reasons = [];
+    if (state.busy) reasons.push("新的检索正在执行，以下仍为上次查询结果");
+    if (state.error) reasons.push("最近一次操作未取得有效结果，以下为上次成功查询的快照");
+    if (state.draftChanged) reasons.push("表单条件已修改，以下结果仍对应此前条件，请手动检索");
+    if (state.changedIds.length > 0) reasons.push("文档有效状态已变化，以下为历史查询结果；未自动重搜或本地重排");
+    byId("search-history").textContent = reasons.length ? reasons.join("。") + "。" : "本次查询快照；详情有效状态可能随之后的操作变化。";
+    fields(byId("search-summary"), [["实际结果数量", String(hits.length)], ["请求往返耗时", `${duration.toFixed(1)} ms`]]);
+    byId("search-query-options").textContent = `Top-K：${query.topK}；渠道：${query.channel ?? "全部渠道（未指定）"}；查询文本如下（空白原样保留）。`;
+    byId("search-query-text").textContent = query.text;
+    const rows = byId("search-rows");
+    rows.replaceChildren();
+    hits.forEach((hit, index) => {
+        const row = element("tr");
+        row.append(element("td", index + 1), element("td", hit.documentId), element("td", formatScore(hit.score)), element("td", hit.channel));
+        row.append(element("td", hit.snippet, "snippet"));
+        const actions = element("td");
+        const detail = element("button", "详情 / 计数快照");
+        detail.type = "button";
+        detail.addEventListener("click", () => void openDetail(hit.documentId));
+        actions.append(detail);
+        if (state.changedIds.includes(hit.documentId)) actions.append(element("span", "已失效 · 历史结果", "hint"));
+        row.append(actions);
+        rows.append(row);
+    });
+    if (hits.length === 0) {
+        const row = element("tr");
+        const cell = element("td", "没有符合本次条件的文档。");
+        cell.colSpan = 6;
+        row.append(cell);
+        rows.append(row);
+    }
+}
+byId("search-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (search.busy) return;
+    clearErrors(event.currentTarget);
+    void search.submit(searchValues());
 });
+byId("search-form").addEventListener("input", () => {
+    clearErrors(byId("search-form"));
+    search.edit(searchValues());
+    byId("empty-search").textContent = byId("search-text").value === ""
+        ? "空查询将返回零分排序结果，不能区分相关性，仍会正常计数。" : "查询使用确定性的字面特征；原始文本与渠道不会因输入而自动提交。";
+});
+byId("search-button").disabled = false;
 
 let selectedTask = null;
 const tracker = new TaskTracker({
@@ -134,6 +196,10 @@ byId("task-form").addEventListener("submit", (event) => {
 });
 byId("task-refresh").addEventListener("click", () => { if (selectedTask) void tracker.query(selectedTask, { auto: false }); });
 byId("task-stop").addEventListener("click", () => tracker.stop(selectedTask));
+byId("task-search").addEventListener("click", () => {
+    selectTab(byId("tab-search"), true);
+    byId("search-text").focus();
+});
 byId("task-detail").addEventListener("click", () => {
     const task = tracker.get(selectedTask)?.task;
     if (task) void openDetail(task.documentId);
@@ -162,7 +228,7 @@ byId("submit-form").addEventListener("submit", async (event) => {
         submittedTask = accepted.taskId.toLowerCase();
         byId("submit-actions").hidden = false;
         byId("submitted-task").hidden = false;
-        feedback("submit-message", `HTTP 202：已接收文档 ${accepted.documentId}，任务 ${accepted.taskId}。接收不表示完成；B3 未启用时保持排队中，搜索待 B4。`);
+        feedback("submit-message", `HTTP 202：已接收文档 ${accepted.documentId}，任务 ${accepted.taskId}。后台向量化尚待真实任务状态确认；完成且有效后才可参与检索。`);
         // 只使用 202 中真实返回的标识与状态，不补造时间、向量就绪或成功状态。
         void tracker.query(submittedTask, { initialTask: accepted });
     } catch (error) {
@@ -294,6 +360,7 @@ async function openDetail(id) {
         const doc = await api.detail(id, read.signal);
         if (!read.current()) return;
         detailData = doc;
+        if (doc.invalidated) search.markInvalidated(doc.documentId);
         renderDetail();
         feedback("detail-message", "已读取服务器快照；任务状态与有效状态相互独立。时间为北京时间（UTC+8）。");
     } catch (error) {
@@ -330,6 +397,8 @@ byId("invalidate-document").addEventListener("click", async () => {
     feedback("detail-message", "正在请求失效；成功响应前保留原有效状态。此请求不自动重试。");
     try {
         const result = await api.invalidate(id);
+        // 即使检索仍在途，也记录真实失效：迟到的候选快照不得冒充最新有效状态。
+        search.markInvalidated(id);
         if (detailData?.documentId === id) {
             detailData = { ...detailData, ...result };
             renderDetail();
@@ -353,11 +422,14 @@ byId("check-health").addEventListener("click", async () => {
     feedback("health-message", "正在读取基础健康接口…");
     try {
         const health = await api.health();
-        fields(byId("health-result"), [["status", health.status], ["stage", health.stage], ["businessReady", String(health.businessReady)]]);
+        const values = [["status", health.status], ["stage", health.stage], ["businessReady", String(health.businessReady)]];
+        if (typeof health.taskState === "string") values.push(["taskState", health.taskState]);
+        if (typeof health.taskReady === "boolean") values.push(["taskReady", String(health.taskReady)]);
+        fields(byId("health-result"), values);
         byId("health-result").hidden = false;
         feedback("health-message", health.businessReady === false
             ? "已收到真实基础健康响应；businessReady=false，完整业务尚未就绪。"
-            : "已展示真实健康响应。完整业务仍须后续验收；当前页面搜索按钮保持禁用。");
+            : "已展示真实健康响应；这不替代完整业务、浏览器与部署验收，也不会自动发起检索。");
     } catch (error) { feedback("health-message", errorText(error), true); }
     finally { button.disabled = false; }
 });

@@ -116,7 +116,6 @@ test("失效PUT无正文，状态仅由真实响应提供，不调用搜索", as
     assert.equal(calls[0].init.method, "PUT");
     assert.equal(calls[0].init.body, undefined);
     assert.equal(calls[0].url, "/api/documents/doc-1/invalidation");
-    assert.equal(api.search, undefined);
 });
 
 test("任务UUID校验，四态和成功文档遵循冻结结构", async () => {
