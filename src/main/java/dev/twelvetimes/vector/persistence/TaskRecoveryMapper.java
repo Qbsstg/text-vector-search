@@ -1,5 +1,6 @@
 package dev.twelvetimes.vector.persistence;
 
+import java.time.Instant;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -10,6 +11,10 @@ import org.apache.ibatis.annotations.Update;
 public interface TaskRecoveryMapper {
     @Select("SELECT task_id,attempt_count,embedding_version,submitted_at FROM embedding_tasks WHERE status='RUNNING' ORDER BY task_id")
     List<RecoveryTask> running();
+
+    /** 核对恢复前后的任务时间，不依赖文档时间与任务时间恰好相等。 */
+    @Select("SELECT submitted_at FROM embedding_tasks WHERE task_id=#{taskId}")
+    Instant taskSubmittedAt(String taskId);
 
     @Update("""
             UPDATE embedding_tasks SET status='QUEUED',run_token=NULL,started_at=NULL,finished_at=NULL,
