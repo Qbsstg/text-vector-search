@@ -147,14 +147,17 @@ class C0BootstrapIT {
                 .timeout(Duration.ofSeconds(5)).GET().build();
         var response = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build()
                 .send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, response.statusCode());
+        assertEquals(503, response.statusCode());
         var json = context.getBean(ObjectMapper.class).readTree(response.body());
-        assertEquals("UP", json.get("status").asString());
-        // 阶段元数据随真实健康控制器升级；该隔离组成仍仅测基础设施，不声称完整业务就绪。
-        assertEquals("B3", json.get("stage").asString());
+        // B2隔离组成缺少真实生产handler；完整健康必须失败，基础文件库测量原断言不变。
+        assertEquals("DOWN", json.get("status").asString());
+        assertEquals("B4", json.get("stage").asString());
         assertEquals("READY", json.get("taskState").asString());
-        assertTrue(json.get("taskReady").asBoolean());
+        assertFalse(json.get("taskReady").asBoolean());
         assertFalse(json.get("businessReady").asBoolean());
+        assertTrue(json.get("checks").get("databaseReady").asBoolean());
+        assertTrue(json.get("checks").get("databaseWritable").asBoolean());
+        assertFalse(json.get("checks").get("dispatcherReady").asBoolean());
     }
 
     private void assertDefaults(VectorProperties actual) {
