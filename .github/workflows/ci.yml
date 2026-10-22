@@ -41,6 +41,7 @@ jobs:
             target/surefire-reports/
             target/failsafe-reports/
             target/b3-process-evidence/
+            target/b4-evidence/
           if-no-files-found: error
           retention-days: 7
 
