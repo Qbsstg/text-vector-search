@@ -151,3 +151,24 @@ Java17编译成功（Unsafe内部API及待删除警告如实保留，仅固定JD
 第三新目录 `/var/lib/vector-search/perf-queue-d016-20261022T213513Z`（UTC标签），新data/logs0700、专用vector-search用户，8085空闲后创建；不复用前两库。固定业务JAR远端SHA仍64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50；独立agent SHA为1265d322a24b93b0cd2598b0555f15455b742cb16a64c8ac5043fe451b283fb7。瞬态unit `vector-search-perf-queue-d016-20261023.service`、PID8758，05:35:36北京时间启动，RuntimeMax300s、SuccessExitStatus143、原固定参数/堆/JFR/GC及独立/proc采样；约05:40:36到上限。
 
 **05:35:49** /health200、B4 businessReady=true，真实只读样本为 `OBSERVED,queuedCount=0,inFlightCount=0,isRunning=true`，间隔约50ms；不是WAIT或用持久积压替代。已通知主控READY发100长文。样本原件 `logs/queue-observations.jsonl`；此时负载峰/关闭结果尚未产生，不提前PASS。正式unit/Nginx/current/正式DB与D1备份均未改变；正常结束保留第三库/日志，仍不是正式部署GO。
+
+### 第三轮收尾与队列真实采样结果
+
+主控通知session84202退出0：100 attempts/accepted/SUCCEEDED100，unknown0/writeRetry0；客户端原件 `/private/tmp/12times-final-release-evidence/queue-probe`。按通知立即在**05:37:37北京时间**正常stop第三实验与采样，没有等待5分钟超时。Tomcat05:37:37.643 graceful complete，Hikari05:37:38.008 Shutdown completed；journal05:37:38明确Deactivated successfully和Stopped。启动时已配置SuccessExitStatus143，成功瞬态unit回收后不臆造Java数字退出码。PID8758已不存在、8085释放、生产unit仍inactive，未改Nginx、正式DB或current；三次实验均只回环8085，没有公开实验端口。
+
+真实队列JSONL共2398条：WAIT_BOOT_INITIALIZATION26、WAIT_EXISTING_SINGLETON121、OBSERVED2251、READ_UNAVAILABLE **0**。50ms采样的queuedCount峰 **32**、inFlightCount峰 **33**；冻结队列容量为64，**本次未观测到填满64**，不把容量当实测峰值。末次OBSERVED时间2026-10-22T21:37:37.585755203Z，queuedCount0/inFlightCount0/isRunningtrue（发生停止前，不能当停机后的状态）。agent源码仅containsSingleton/getSingleton读取现有对象，不调用getBean/业务构造/调度控制，等待状态亦有原始样本；这是对agent无主动初始化行为的代码和运行边界核证，不宣称反射采样零成本或绝对无时序影响。
+
+第三轮/proc全生命周期122点、121.081754秒，CPU增量85.68秒，单核口径间隔均值70.7477%、峰369.7989%，RSS采样峰477741056bytes，H2体积峰17264640bytes。GC完成Pause行67条、合计316.564ms、最大26.908ms。此为独立100长文补充实验全周期，不与第一轮1300压力或第二轮368.585秒窗口混算。
+
+第三库/JFR/日志原样保留 `/var/lib/vector-search/perf-queue-d016-20261022T213513Z`；补resource-summary、启动停止元数据及全文件manifest。关键摘要：
+
+| 对象 | SHA-256 |
+| --- | --- |
+| 固定业务app.jar | 64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50 |
+| agent源码 | 1ce54197346b05848aabdfee0f16a8306096567221c3a4bccbca354b60426a59 |
+| agent临时JAR | 1265d322a24b93b0cd2598b0555f15455b742cb16a64c8ac5043fe451b283fb7 |
+| logs/queue-observations.jsonl | b0d463740dd1ff5ce29a75c75f7f473d8bd42a1a539d0dffad83a6339ff598bd |
+| logs/flight.jfr（仅服务器保留） | 36ca91c9cb1df9f8597838015f9b53b698da8ca16856b4743b21b6aef93f8d11 |
+| experiment-file-manifest.json | 105269e8282fe907517216ddfe70c7a2a43f84fcc86c73bd538ac664f1ecd0b2 |
+
+可安全scp的root0600归档 `/var/backups/vector-search/perf-queue-d016-20261022T213513Z-resources.tar.gz`，34037bytes，SHA-256 `6ec7b6f4be90251cdd5d06fb4a4daaedd60a3a05e61e5f0ce104f9dda278573d`，只含queue/proc/GC/summary/源码和JAR摘要/停止元数据/manifest，不含DB、JFR实际内容、env或secret。未覆盖已有文件；全部实验已停止，不再创建实验。正式D2—D9仍等待REC07用户裁决/CI和主控GO；本次文档git diff --check通过，未重跑Maven/Node。
