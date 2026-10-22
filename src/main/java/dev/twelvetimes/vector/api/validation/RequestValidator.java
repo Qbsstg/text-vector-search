@@ -1,6 +1,7 @@
 package dev.twelvetimes.vector.api.validation;
 
 import dev.twelvetimes.vector.api.contract.ApiModels.SubmitDocumentRequest;
+import dev.twelvetimes.vector.api.contract.ApiModels.SearchRequest;
 import dev.twelvetimes.vector.api.error.BusinessException;
 import dev.twelvetimes.vector.config.VectorProperties;
 import java.text.Normalizer;
@@ -42,6 +43,30 @@ public final class RequestValidator {
         text(request.text());
         String channel = channel(request.channel());
         return new SubmitDocumentRequest(request.documentId(), request.text(), channel == null ? "default" : channel);
+    }
+
+    /** 检索不使用框架数值强转；1.0、字符串数字与整数溢出均不是合法topK。 */
+    public SearchRequest search(JsonNode body) {
+        if (body == null || !body.isObject()) { throw BusinessException.invalid("body", "正文必须是JSON对象"); }
+        JsonNode topK = body.get("topK");
+        if (topK == null || !topK.isIntegralNumber() || !topK.canConvertToInt()) {
+            throw BusinessException.invalid("topK", "topK必须是范围内的JSON整数");
+        }
+        JsonNode selectedChannel = body.get("channel");
+        if (selectedChannel != null && !selectedChannel.isNull() && !selectedChannel.isString()) {
+            throw BusinessException.invalid("channel", "渠道必须是字符串或null");
+        }
+        return search(new SearchRequest(requiredString(body, "text"), topK.asInt(),
+                selectedChannel == null || selectedChannel.isNull() ? null : selectedChannel.asString()));
+    }
+
+    public SearchRequest search(SearchRequest request) {
+        if (request == null) { throw BusinessException.invalid("body", "正文不能为空"); }
+        text(request.text());
+        if (request.topK() == null || request.topK() < 1 || request.topK() > properties.maxTopK()) {
+            throw BusinessException.invalid("topK", "topK必须是1到上限之间的整数");
+        }
+        return new SearchRequest(request.text(), request.topK(), channel(request.channel()));
     }
 
     public String documentId(String value) {

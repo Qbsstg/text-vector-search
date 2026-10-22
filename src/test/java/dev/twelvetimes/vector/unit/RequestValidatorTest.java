@@ -71,4 +71,18 @@ class RequestValidatorTest {
         assertThrows(BusinessException.class, () -> validator.invalidated("TRUE"));
         assertEquals(true, validator.invalidated("true"));
     }
+
+    @Test
+    void 搜索topK只接受范围内JSON整数且渠道缺省是全部() throws Exception {
+        for (String value : new String[] {"null", "0", "-1", "101", "1.0", "\"5\"", "true", "[]", "2147483648"}) {
+            var body = mapper.readTree("{\"text\":\"\",\"topK\":" + value + "}");
+            assertThrows(BusinessException.class, () -> validator.search(body), value);
+        }
+        assertThrows(BusinessException.class, () -> validator.search(mapper.readTree("{\"text\":\"\"}")));
+        assertThrows(BusinessException.class, () -> validator.search(mapper.readTree("{\"text\":null,\"topK\":1}")));
+        assertThrows(BusinessException.class, () -> validator.search(mapper.readTree("{\"text\":\"\",\"topK\":1,\"channel\":\" \"}")));
+        assertNull(validator.search(mapper.readTree("{\"text\":\"\",\"topK\":1}")).channel());
+        assertNull(validator.search(mapper.readTree("{\"text\":\"\",\"topK\":100,\"channel\":null}")).channel());
+        assertEquals("FAQ", validator.search(mapper.readTree("{\"text\":\"🙂\",\"topK\":5,\"channel\":\" FAQ \"}")).channel());
+    }
 }
