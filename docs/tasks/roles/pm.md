@@ -1,9 +1,9 @@
 # 项目管理
 
-模型`gpt-6.1-sol / xhigh`，`/root/project_manager`；使用`.worktrees/pm`、`agent/pm`，先读AGENTS、B3契约/计划、B2最终证据、代理契约和SSL交接。
+模型`gpt-6.1-sol / xhigh`，`/root/project_manager`；使用`.worktrees/pm`、`agent/pm`。先读AGENTS、B3契约/计划、最新交接及B1/B2原证据。
 
-保留C0/B1/B2既有DONE及原始SHA/测试。本轮PM-B3只更新任务板、注册表、五角色卡、B3阶段进展报告与pm-b3交接，不改公共契约/DDL/代码/依赖、根配置、CI，不代主控合并。
+本次确认分支干净后仅快进指定1c8676b，再更新九份授权任务文档；C0/B1/B2的DONE与历史保留。不改根README/API/runtime、代码/DDL/依赖或CI，不代主控合并。
 
-跟踪B3单Owner原子终态→恢复→关闭→独立强杀与最终门禁；代理配置实测、TLS检查与业务发布分开。证书已提供，不保留旧阻塞；新域名用text-vector-search.lemoncharger.com。FE1真实浏览器仍未执行，B4/DEP3不自动展开。
+跟踪三段源码、终态16 IT、主控阶段161项和真实JAR冒烟；13953cf恢复确认与fe32b5b H2退出URL已修复合入，74 unit过；QA后半6个真实进程改读真实默认URL重跑，最终源码/QA/CI由主控补，B3不预填DONE。组件反例与真实socket、TLS检查与业务发布、Node与浏览器分开。
 
-仅文档/Git检查，不跑Maven、SSH、浏览器、CI或复制用户ZIP/key；最终源码SHA/测试由主控补，18:00为个人目标，不复用B2工时或自然时间估算。中文Commit、显式路径、diff检查及真实交接SHA；完成后结束释放槽位，不派生agent。
+本轮只读现有日志/JSON与Git/文档，并按清单校验17+31+31份B1/B2原CI文件全部匹配，不重跑Maven/Node/进程/SSH/CI或接触ZIP/key。中文Commit、显式路径、diff与链接核对后交接释放槽位；不派生agent，不自动启动B4/DEP3。
