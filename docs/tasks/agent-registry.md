@@ -19,3 +19,7 @@ B4后端只新增搜索边界/服务/Mapper/unit并复用冻结B1；QA独立acce
 浏览器最新实测仍disabled：用户先选稍后，随后询问开启方法，主控已告知官方Settings Browser/Work入口，未收到已启用确认。B4通过后优先完整浏览器，不能拿Node/HTTP替代。私有仓库保持，新域名text-vector-search.lemoncharger.com只开放TLS检查；业务proxy/BasicAuth未启用、应用inactive/disabled，DEP3需独立发布授权，密钥/env不进Git或对话。
 
 工时与矩阵依赖见[B4启动与任务拆解](B4-启动与任务拆解.md)。中文维护注释/新Commit，真实分层测试/源码SHA交接；PM不跑Maven/服务器或替主控关闭门禁。
+
+## 主控实施结果更新（2026-10-23 01:48）
+
+后端c106e18/59f3c76、前端8a1ea67/2b93ec4、QA4ba76e5/9703c7f均已合入。主控源码b55473e全量95unit+96IT+38Node=229通过，22个新IT覆盖计数/并发/真实RST/资源关闭；真实前端HTTP闭环通过且本地进程45035已退出143。Linux CI待最终核验，浏览器最新仍禁用/NOT_RUN；上文为启动时快照，不覆盖本条实际结果。完整证据见[集成验收](../testing/B4-verification.md)。初始工时为估计，实际提交和测试时间均保留，不补造时间线。

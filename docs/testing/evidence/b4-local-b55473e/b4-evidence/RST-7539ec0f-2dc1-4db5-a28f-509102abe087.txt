@@ -1,0 +1,7 @@
+runId=RST-7539ec0f-2dc1-4db5-a28f-509102abe087.txt;sourceSHA=b55473e74e81c67ed1b721f81d4045fc71f50fba;tests=本轮测试工作树;thread=main
+POST进入thread=http-nio-127.0.0.1-auto-14-exec-1
+计数SQL id=network
+计数真实COMMIT已返回，响应前暂停
+客户端SO_LINGER=0关闭，发送RST；此时计数真实commit结束，响应尚未放行
+HTTP链返回
+对账POST入口=1;计数SQL=1;持久增量=1;客户端未接收响应;无自动重放

@@ -1,0 +1,8 @@
+{
+  "pid": 45035,
+  "url": "http://127.0.0.1:49490",
+  "root": "/private/tmp/12times-b4-live-cl4yi4i4",
+  "data": "/private/tmp/12times-b4-live-cl4yi4i4/db",
+  "automaticStopSeconds": 180,
+  "testedCodeSha": "820d1ffd6a435faf25715a8ed15142a35239c65c"
+}

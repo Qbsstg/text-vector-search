@@ -1,0 +1,214 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< dev.twelvetimes:vector-search >--------------------
+[INFO] Building vector-search 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ vector-search ---
+[INFO] Deleting /Users/qbss/code/12times/target
+[INFO] 
+[INFO] --- enforcer:3.5.0:enforce (target-jdk) @ vector-search ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ vector-search ---
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] Copying 7 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ vector-search ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 50 source files with javac [debug parameters release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ vector-search ---
+[INFO] skip non existing resourceDirectory /Users/qbss/code/12times/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ vector-search ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 37 source files with javac [debug parameters release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ vector-search ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.twelvetimes.vector.unit.TopKSelectorTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.040 s -- in dev.twelvetimes.vector.unit.TopKSelectorTest
+[INFO] Running dev.twelvetimes.vector.unit.RequestValidatorTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.085 s -- in dev.twelvetimes.vector.unit.RequestValidatorTest
+[INFO] Running dev.twelvetimes.vector.unit.TaskLifecycleTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.321 s -- in dev.twelvetimes.vector.unit.TaskLifecycleTest
+[INFO] Running dev.twelvetimes.vector.unit.DocumentManagementApiTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.993 s -- in dev.twelvetimes.vector.unit.DocumentManagementApiTest
+[INFO] Running dev.twelvetimes.vector.unit.EmbeddingConfigurationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in dev.twelvetimes.vector.unit.EmbeddingConfigurationTest
+[INFO] Running dev.twelvetimes.vector.unit.TaskTerminalServiceTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.098 s -- in dev.twelvetimes.vector.unit.TaskTerminalServiceTest
+[INFO] Running dev.twelvetimes.vector.unit.BootstrapHealthControllerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in dev.twelvetimes.vector.unit.BootstrapHealthControllerTest
+[INFO] Running dev.twelvetimes.vector.unit.TaskDispatcherTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.859 s -- in dev.twelvetimes.vector.unit.TaskDispatcherTest
+[INFO] Running dev.twelvetimes.vector.unit.VectorCodecTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in dev.twelvetimes.vector.unit.VectorCodecTest
+[INFO] Running dev.twelvetimes.vector.unit.DocumentAdmissionServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.383 s -- in dev.twelvetimes.vector.unit.DocumentAdmissionServiceTest
+[INFO] Running dev.twelvetimes.vector.unit.SearchHitCountServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.637 s -- in dev.twelvetimes.vector.unit.SearchHitCountServiceTest
+[INFO] Running dev.twelvetimes.vector.unit.CosineSimilarityTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in dev.twelvetimes.vector.unit.CosineSimilarityTest
+[INFO] Running dev.twelvetimes.vector.unit.SearchCandidateReaderTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.332 s -- in dev.twelvetimes.vector.unit.SearchCandidateReaderTest
+[INFO] Running dev.twelvetimes.vector.unit.TaskRecoveryServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.643 s -- in dev.twelvetimes.vector.unit.TaskRecoveryServiceTest
+[INFO] Running dev.twelvetimes.vector.unit.SearchControllerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.946 s -- in dev.twelvetimes.vector.unit.SearchControllerTest
+[INFO] Running dev.twelvetimes.vector.unit.SearchServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.427 s -- in dev.twelvetimes.vector.unit.SearchServiceTest
+[INFO] Running dev.twelvetimes.vector.unit.CharNgramTextEmbedderTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in dev.twelvetimes.vector.unit.CharNgramTextEmbedderTest
+[INFO] Running dev.twelvetimes.vector.unit.SchemaPersistenceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 s -- in dev.twelvetimes.vector.unit.SchemaPersistenceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 95, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ vector-search ---
+[INFO] Building jar: /Users/qbss/code/12times/target/vector-search.jar
+[INFO] 
+[INFO] --- spring-boot:4.0.3:repackage (repackage) @ vector-search ---
+[INFO] Replacing main artifact /Users/qbss/code/12times/target/vector-search.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /Users/qbss/code/12times/target/vector-search.jar.original
+[INFO] 
+[INFO] --- failsafe:3.5.4:integration-test (default) @ vector-search ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.twelvetimes.vector.acceptance.C0BootstrapIT
+2026-10-23T01:47:35.467+08:00  WARN 46690 --- [vector-search] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentController' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/api/DocumentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'documentAdmissionService' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/document/DocumentAdmissionService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'requestValidator' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/api/validation/RequestValidator.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'vector-dev.twelvetimes.vector.config.VectorProperties': Could not bind properties to 'VectorProperties' : prefix=vector, ignoreInvalidFields=false, ignoreUnknownFields=true
+2026-10-23T01:47:35.479+08:00 ERROR 46690 --- [vector-search] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target dev.twelvetimes.vector.config.VectorProperties failed:
+
+    Property: vector.queueCapacity
+    Value: "0"
+    Origin: "vector.queue-capacity" from property source "commandLineArgs"
+    Reason: 最小不能小于1
+
+
+Action:
+
+Update your application's configuration
+
+2026-10-23T01:47:35.554+08:00  WARN 46690 --- [vector-search] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentController' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/api/DocumentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'documentAdmissionService' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/document/DocumentAdmissionService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'requestValidator' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/api/validation/RequestValidator.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'vector-dev.twelvetimes.vector.config.VectorProperties': Could not bind properties to 'VectorProperties' : prefix=vector, ignoreInvalidFields=false, ignoreUnknownFields=true
+2026-10-23T01:47:35.560+08:00 ERROR 46690 --- [vector-search] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target dev.twelvetimes.vector.config.VectorProperties failed:
+
+    Property: vector.workerCount
+    Value: "17"
+    Origin: "vector.worker-count" from property source "commandLineArgs"
+    Reason: 最大不能超过16
+
+
+Action:
+
+Update your application's configuration
+
+2026-10-23T01:47:35.628+08:00  WARN 46690 --- [vector-search] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentController' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/api/DocumentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'documentAdmissionService' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/document/DocumentAdmissionService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'requestValidator' defined in file [/Users/qbss/code/12times/target/classes/dev/twelvetimes/vector/api/validation/RequestValidator.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'vector-dev.twelvetimes.vector.config.VectorProperties': Could not bind properties to 'VectorProperties' : prefix=vector, ignoreInvalidFields=false, ignoreUnknownFields=true
+2026-10-23T01:47:35.633+08:00 ERROR 46690 --- [vector-search] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target dev.twelvetimes.vector.config.VectorProperties failed:
+
+    Property: vector.maxTextCodePoints
+    Value: "20001"
+    Origin: "vector.max-text-code-points" from property source "commandLineArgs"
+    Reason: 最大不能超过20000
+
+
+Action:
+
+Update your application's configuration
+
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.864 s -- in dev.twelvetimes.vector.acceptance.C0BootstrapIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B1AlgorithmIT
+[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.523 s -- in dev.twelvetimes.vector.acceptance.B1AlgorithmIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B3ProcessIT
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.66 s -- in dev.twelvetimes.vector.acceptance.B3ProcessIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B2DispatchIT
+2026-10-23T01:47:55.014+08:00  WARN 46690 --- [vector-search] [  task-worker-1] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：领取提交结果无法确认
+2026-10-23T01:47:55.015+08:00  WARN 46690 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 本次领取未执行，保留持久状态：BusinessException
+2026-10-23T01:47:55.161+08:00  WARN 46690 --- [vector-search] [  task-worker-1] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：领取提交结果无法确认
+2026-10-23T01:47:55.162+08:00  WARN 46690 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 本次领取未执行，保留持久状态：BusinessException
+2026-10-23T01:47:55.272+08:00  WARN 46690 --- [vector-search] [  task-worker-1] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：领取提交结果无法确认
+2026-10-23T01:47:55.272+08:00  WARN 46690 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 本次领取未执行，保留持久状态：BusinessException
+2026-10-23T01:47:55.491+08:00  WARN 46690 --- [vector-search] [           main] d.t.vector.task.TaskDispatcher           : 本次任务扫描失败，后续周期将重试：DataAccessResourceFailureException
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.979 s -- in dev.twelvetimes.vector.acceptance.B2DispatchIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B2AdmissionIT
+2026-10-23T01:47:56.100+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：存在待B3恢复的RUNNING任务
+2026-10-23T01:47:56.453+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：接收事务提交结果无法确认
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.879 s -- in dev.twelvetimes.vector.acceptance.B2AdmissionIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B3TerminalIT
+2026-10-23T01:47:57.490+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+2026-10-23T01:47:57.565+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+2026-10-23T01:47:57.635+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+2026-10-23T01:47:57.706+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+2026-10-23T01:47:57.840+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态提交结果无法确认
+2026-10-23T01:47:58.096+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态提交结果无法确认
+[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.702 s -- in dev.twelvetimes.vector.acceptance.B3TerminalIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B4CountAndResourceIT
+2026-10-23T01:47:58.537+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：搜索命中计数提交结果无法确认
+2026-10-23T01:47:58.640+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：搜索命中计数提交结果无法确认
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.095 s -- in dev.twelvetimes.vector.acceptance.B4CountAndResourceIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B4SearchIT
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.625 s -- in dev.twelvetimes.vector.acceptance.B4SearchIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B2HttpIT
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.516 s -- in dev.twelvetimes.vector.acceptance.B2HttpIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B3LifecycleIT
+2026-10-23T01:48:00.859+08:00  WARN 46690 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：启动任务恢复无法可靠确认
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.599 s -- in dev.twelvetimes.vector.acceptance.B3LifecycleIT
+[INFO] Running dev.twelvetimes.vector.acceptance.ProxyOriginIT
+代理三元组证据：Seen[scheme=https, host=text-vector-search.lemoncharger.com, port=443, remoteAddress=198.51.100.20]
+代理三元组证据：Seen[scheme=https, host=text-vector-search.lemoncharger.com, port=443, remoteAddress=198.51.100.20]
+代理三元组证据：Seen[scheme=https, host=text-vector-search.lemoncharger.com, port=443, remoteAddress=198.51.100.20]
+代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.1]
+代理边界证据：平台无法绑定127.0.0.2，改用真实RemoteIpValve组件验证；非信任来源socket未执行
+代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.1]
+代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.1]
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.227 s -- in dev.twelvetimes.vector.acceptance.ProxyOriginIT
+[INFO] Running dev.twelvetimes.vector.acceptance.B4HttpIT
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.908 s -- in dev.twelvetimes.vector.acceptance.B4HttpIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 96, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.5.4:verify (default) @ vector-search ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  43.230 s
+[INFO] Finished at: 2026-10-23T01:48:02+08:00
+[INFO] ------------------------------------------------------------------------

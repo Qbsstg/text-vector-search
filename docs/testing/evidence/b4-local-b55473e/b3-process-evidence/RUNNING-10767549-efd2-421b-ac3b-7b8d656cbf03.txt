@@ -1,0 +1,7 @@
+命令=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe RUNNING /var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-18101994168248823032;pid=46714;SHA=b55473e74e81c67ed1b721f81d4045fc71f50fba
+QA_EVENT|46714|APP_READY|port=50919;state=READY
+QA_EVENT|46714|PRODUCTION_URL|jdbc:h2:file:/var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-18101994168248823032/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|46714|RUNNING_COMMITTED|status=RUNNING;token=ae26ce39-0d0d-4255-bae7-64acbab0dead;attempt=1;finished=null;sha=null;vectorTime=null;task=a75c6828-6856-4877-92b7-1b61e2cf1af0;hitCount=0;invalidated=false
+发送SIGKILL/destroyForcibly，pid=46714
+实际退出：pid=46714;exit=137
+强杀后快照=Snapshot[taskId=a75c6828-6856-4877-92b7-1b61e2cf1af0, status=RUNNING, token=ae26ce39-0d0d-4255-bae7-64acbab0dead, attempt=1, finished=null, vectorTime=null, sha=null, hitCount=0, invalidated=false]

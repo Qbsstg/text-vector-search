@@ -1,0 +1,2 @@
+sourceSHA=b55473e74e81c67ed1b721f81d4045fc71f50fba;tests=本轮测试工作树
+实际SQL顺序=[a, b];a=0;b=0
