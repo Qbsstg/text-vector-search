@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Read-only local checks. Does not source env files or open H2.
+# 仅执行本地只读检查，不加载环境文件或打开H2。
 set -euo pipefail
 usage() {
   cat <<'EOF'
@@ -40,7 +40,7 @@ printf 'PASS: Java17 executable\n'
 printf 'PASS: existing data directory access and artifact readability (no write performed)\n'
 if [[ -n "$previous_pid" ]]; then
   [[ "$previous_pid" =~ ^[1-9][0-9]{0,9}$ ]] || fail "Previous PID must be a positive process ID"
-  # A denied process inspection must not be mistaken for an exited process.
+  # 进程检查被拒绝时不能误判为进程已经退出。
   process_ids=$(ps -e -o pid= 2>/dev/null) || fail "Cannot inspect process IDs; previous process exit remains unverified"
   if printf '%s\n' "$process_ids" | awk -v wanted="$previous_pid" '$1 == wanted { found=1 } END { exit !found }'; then
     fail "Previous PID still exists; verify process identity and wait for exit"
@@ -48,13 +48,13 @@ if [[ -n "$previous_pid" ]]; then
   printf 'PASS: supplied previous PID no longer exists\n'
 fi
 if command -v lsof >/dev/null 2>&1; then
-  # Avoid printing process arguments or environment. Inspection visibility depends on account.
+  # 不打印进程参数或环境；检查可见性取决于运行账号。
   listener_status=0
   listener_output=$(lsof -nP -iTCP:"$port" -sTCP:LISTEN -t 2>&1) || listener_status=$?
   if (( listener_status == 0 )); then
     fail "Requested TCP port has a visible listener"
   fi
-  # lsof uses 1 with no output for no selected files. Diagnostics are UNKNOWN.
+  # lsof退出1且无输出表示未选中文件；有诊断则视为UNKNOWN。
   if (( listener_status != 1 )) || [[ -n "$listener_output" ]]; then
     fail "UNKNOWN: lsof could not reliably inspect the requested TCP port"
   fi

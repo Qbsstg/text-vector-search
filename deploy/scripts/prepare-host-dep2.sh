@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# DEP2 one-time preparation on the explicitly authorized host, not a release script.
-# Refuse every existing project resource instead of assuming ownership or overwriting it.
+# 仅用于明确授权主机上的DEP2一次性准备，不承担应用发布。
+# 已存在的项目资源一律拒绝，避免误认所有权或覆盖配置。
 set -euo pipefail
 if [[ "${1:-}" == --help && $# == 1 ]]; then
     printf 'Usage: bash prepare-host-dep2.sh --apply-on-authorized-host\nCreates project account/directories/env and an inactive unit. No application deployment.\n'
@@ -18,7 +18,7 @@ if getent passwd vector-search >/dev/null || getent group vector-search >/dev/nu
     printf 'CONFLICT: project account/group exists\n' >&2
     exit 1
 fi
-# This runtime was observed on the authorized host; do not install or switch Java.
+# 此运行时路径已在授权主机核实，不安装或切换Java。
 [[ $(readlink -f /usr/bin/java) == /usr/lib/jvm/jdk-17.0.15+6/bin/java ]]
 java_version=$(/usr/bin/java -version 2>&1)
 [[ "$java_version" =~ version[[:space:]]+\"17([.\"]|$) ]]
@@ -36,7 +36,7 @@ import grp
 import os
 import secrets
 
-# Generate the real credential only on the host; never print or return it.
+# 真实凭据仅在主机生成，不打印或返回。
 settings = [
     'APP_DATA_DIR=/var/lib/vector-search/db', 'PORT=8080',
     'DB_PASSWORD=' + secrets.token_hex(32),
@@ -57,7 +57,7 @@ os.chown(path, 0, grp.getgrnam('vector-search').gr_gid)
 os.chmod(path, 0o640)
 print('Created restricted app.env; contents withheld')
 PY
-# noclobber provides a second guard; no unit enable/start is performed.
+# noclobber再次防止覆盖文件；不启用或启动服务。
 (
     umask 022
     set -o noclobber
@@ -78,7 +78,7 @@ ExecStart=/usr/lib/jvm/jdk-17.0.15+6/bin/java -Xms256m -Xmx1024m -jar /opt/vecto
 Restart=on-failure
 RestartSec=10
 KillSignal=SIGTERM
-# Provisional outer budget; calibrate against actual lifecycle phases.
+# 临时外层等待预算，须按实际生命周期阶段校准。
 TimeoutStopSec=120s
 UMask=0077
 NoNewPrivileges=true
