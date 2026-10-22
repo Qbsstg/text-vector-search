@@ -32,3 +32,19 @@
 - Java17 全量 `./mvnw -B clean verify`、CI、不可变候选构建：未执行，按主控派发由集成方完成。
 - 未启动应用或浏览器，未连接服务器，未构建或发布候选，未改 Java、API、DDL、算法、依赖、资源参数或其他角色文件。
 - 风险限于默认计时函数调用方式；轮询调度、预算、并发上限、取消与写请求重试规则均未改变。需使用新候选在真实 Chrome 核验提交后查询、手动查询和停止，不能沿用旧 JAR 的结论。
+
+## 独立追加：UI-FINAL 静态图标入口修复
+
+- 前次计时器修复提交：`cda3f8c4fdd3e6744f5889794fca354a9328a16a`；以上根因、测试与未执行项保留为该次交付记录。
+- 本次在干净 `agent/frontend` 工作树经主控明确批准执行 `git merge --ff-only main`，基线为 `b52b5cb209a4ffc3a41b059427823844bb98c085`。本次图标修改单独提交，精确 SHA 由提交后的交付消息提供。
+- 已读取主控原件 `/private/tmp/12times-chrome-ui-skafk2b5/evidence/chrome-events.json`，确认同源 `GET http://127.0.0.1:8083/favicon.ico` 实际返回 HTTP 500、`application/json`；这不是对错误状态的推测。
+
+本次仅新增 `src/main/resources/static/favicon.svg`（内置 32×32 文档检索图标），并在 `src/main/resources/static/index.html` 的 `head` 中增加 `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`，让 Chrome 使用明确存在的同源静态图标。无外部 CDN、脚本或图标依赖，不改变页面业务及后端异常处理。
+
+真实验证：
+
+- `python3 -`：通过标准库 `HTMLParser` 检查唯一图标引用位于 `head`、路径 `/favicon.svg` 和类型正确；通过 `xml.etree.ElementTree` 解析 SVG，确认 SVG 命名空间、`viewBox="0 0 32 32"`、五个绘图元素，且无脚本或外部资源引用。退出 0。
+- `node --test tests/frontend/*.test.mjs`：退出 0，39 项全部通过，0 失败、0 跳过；未新增简单图标镜像测试，既有测试与断言不变。
+- `git diff --check`：退出 0。
+
+本次修改文件仅 `index.html`、`favicon.svg` 和本交接。未运行浏览器、应用、Java 全量、CI或候选构建，未改 Java/API/DDL/算法、资源参数或用户扩展。新候选的实际 `/favicon.svg` HTTP 状态、媒体类型，以及 Chrome 是否正常使用图标且不再产生默认图标错误请求，交主控真实复验；此处结构检查不等于浏览器通过。旧的直接 `/favicon.ico` 请求的服务端处理仍沿用原实现。
