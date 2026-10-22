@@ -1,0 +1,36 @@
+{
+  "sourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "ciRunId": 39838054946,
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946",
+  "releaseArtifactId": 12451951931,
+  "testReportsArtifactId": 12451009421,
+  "counts": {
+    "surefire-reports": {
+      "xmlFiles": 19,
+      "tests": 104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "xmlFiles": 14,
+      "tests": 110,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "node": {
+    "tests": 39,
+    "pass": 39,
+    "fail": 0,
+    "skipped": 0
+  },
+  "total": 253,
+  "jarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+  "jarSizeBytes": 27309072,
+  "manifestSha256": "5e7b06bae4a2829f788590889c1e519a2bb6118dd006e05e17381596184071ea",
+  "linuxSystemctlBoundary": "仅inactive shim，非实际服务器systemd验收"
+}

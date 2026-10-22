@@ -1,0 +1,20 @@
+[
+  {
+    "source": "chrome-events.json",
+    "sourceSha256": "05380f4b6d208bfa08e7338d3f85841762d216b97b718e0a6bfa86f0677e4d68",
+    "originalEvents": 296,
+    "archived": "chrome-events-project-only.json",
+    "archivedEvents": 280,
+    "omittedEvents": 16,
+    "mode": "仅本项目origin及请求ID；移除无关扩展、Debugger事件和敏感认证/Cookie头"
+  },
+  {
+    "source": "chrome-events-phase2.json",
+    "sourceSha256": "9c6a2e375295c1416d1ba49bb02da279d03c738e5f170cd388ac44431130d4d3",
+    "originalEvents": 442,
+    "archived": "chrome-events-phase2-project-only.json",
+    "archivedEvents": 424,
+    "omittedEvents": 18,
+    "mode": "仅本项目origin及请求ID；移除无关扩展、Debugger事件和敏感认证/Cookie头"
+  }
+]

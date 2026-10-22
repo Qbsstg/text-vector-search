@@ -1,19 +1,18 @@
 # 子agent注册表
 
-2026-10-23固定候选快照；本次PM分支以c5aebad3f7b916f05a0ac6ea26f9e87242effc56为父提交，按指令**不快进**。用户已原则批准B4核心，候选保持68d80cb967c6d321047672811dea45b555ba5cbc；后续纯文档HEAD/其他CI不替换候选。五角色配置与历史不改。
+2026-10-23真实Chrome收尾。固定修复候选为`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`；后续纯文档HEAD不替换它。历史角色、分支及SHA均保留，不派生新角色。
 
-| 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（/Users/qbss/code/12times下） | 当前交付/依赖 |
+| 角色 | 实际子agent | 模型/推理 | 分支/工作树 | 当前安排 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1—B4及最终只读事实健康已验；候选Linux104 unit+110 IT+38 Node=252通过，后续只接实际缺陷 |
-| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | 代码/38 Node/HTTP保留；Chrome29项仍NOT_RUN，Work disabled且Mac locked，待用户实际操作固定候选 |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | 最终健康与Linux活动H2/锁/冷备/新目录真实JAR恢复已验；systemctl inactive为shim，不推成实机运行；真人UI/DEP3另验 |
-| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | 02:41只读刷新TLS检查正常、应用inactive/disabled/NRestarts0；无release/current/DB、htpasswd缺失；待固定版本与必要安装/账号交互/上线操作批准 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | 本次仅四Owner文档与现有候选字节核对，不快进/测试/服务器操作，交接后结束 |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1—B4及真实健康已验，待命仅处理确证缺陷，不扩展接口或改算法 |
+| 前端工程师 | /root/frontend_engineer；本轮/root/frontend_ui_fix | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | 计时器receiver与SVG修复已合入，39 Node通过；本轮交接完成，不与主控并行改文件 |
+| 测试工程师 | /root/test_engineer；本轮/root/qa_ui_review | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | 独立核证253 CI、26 PASS与3 NOT_RUN，QA提交完成；真实FAILED/visibility及DEP3不提前关闭 |
+| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2/TLS及DEP3方案保持，等待固定版本/具体操作独立批准；本轮未启动业务/代理/创建凭据 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | 历史四份交接完成，主控更新本轮真实状态；继续跟踪未验与授权，不代为验收或合并 |
+| 主控 | /root | 当前会话 | main / /Users/qbss/code/12times | 独占Chrome、公共文档、证据归档和集成；清除受控页面并正常停止本轮服务，保留临时DB |
 
-成功CI39834086512/source68d80cb、artifact12450815373已由主控下载并以独立CI日志JAR hash、实际字节和六参验证器核证；失败8fd97e1原件保留，52cda701/caa6d020修复诊断不改历史；成功194份原件、FINAL-verification及固定Chrome入口已由主控88d1565提交。固定下载JAR另25个本机HTTP请求通过、pid54327 SIGTERM143，非浏览器/真实TLS或实机认证，不计入252项。PM读取本地候选仅复核hash/大小/manifest/SUM/schema，不声称自己运行CI。
+新CI39838054946为completed/success：104 unit+110 IT+39 Node=253，零失败/错误/跳过；JAR实字节与独立CI日志匹配。旧68候选真实Chrome FAIL、两个修复与重新验收过程保留。26/29浏览器PASS不等于完整UI门禁通过；U12/F03/F05仍NOT_RUN。
 
-当前PUBLIC/private=false符合用户直接授权，旧私有/公开快照保留；824blob格式审计不是任意秘密的完备证明。公共API/CI/Java、其他角色交接和历史验收由对应Owner持有，本次PM不修改。
+最多主控加三个子agent、2—3写入任务，使用独立branch/worktree/端口/数据库。所有权和模型沿AGENTS.md；不派生、不操作notes、不重写历史或清理他人目录。当前角色工作均已交接，无需为等待用户维持空转。
 
-最多主控+三个子agent、2—3写入任务，分支/端口/H2隔离，不派生、不操作notes/重写历史或清理他人目录。候选文件只读，ZIP/key/env不入Git或对话。
-
-当前只剩真人Chrome29项、云安全组人工确认及固定68发布批准/安全交互凭据/实际受保护服务器验收。SSL已装无需重给；必要apache2-utils、上传、proxy-env、unit持久flock、应用启动/业务Nginx认证切换/重启和分别开机策略均待独立授权。首发失败回TLS检查保留数据，无旧版，恢复生产另批。详见[固定候选与审批清单](最终交付准备与审批清单.md)。
+正式DEP3、入口认证、实际HTTPS同源/跨源、未认证拒绝、六接口/计数/失效、服务器重启持久化及开机策略仍待独立授权与实测；SSL无需重索，安全组仍由用户人工确认。

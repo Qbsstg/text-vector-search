@@ -1,0 +1,7 @@
+命令=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe TERMINAL_BEFORE_COMMIT /tmp/junit-8217336851250899636;pid=4058;SHA=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
+QA_EVENT|4058|APP_READY|port=38627;state=READY
+QA_EVENT|4058|PRODUCTION_URL|jdbc:h2:file:/tmp/junit-8217336851250899636/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|4058|TERMINAL_BEFORE_COMMIT|status=RUNNING;token=eb637331-3eec-4de7-ba7a-ed38051c0312;attempt=1;finished=null;sha=null;vectorTime=null;task=f3e5ebbe-a6cb-4125-939e-a7bf3209b9f7;hitCount=0;invalidated=false
+发送SIGKILL/destroyForcibly，pid=4058
+实际退出：pid=4058;exit=137
+强杀后快照=Snapshot[taskId=f3e5ebbe-a6cb-4125-939e-a7bf3209b9f7, status=RUNNING, token=eb637331-3eec-4de7-ba7a-ed38051c0312, attempt=1, finished=null, vectorTime=null, sha=null, hitCount=0, invalidated=false]

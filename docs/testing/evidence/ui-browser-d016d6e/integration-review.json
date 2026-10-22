@@ -1,0 +1,33 @@
+{
+  "observedAt": "2026-10-22T19:59:52.543449+00:00",
+  "sourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "jarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+  "pass": 26,
+  "notRun": [
+    "U12",
+    "F03",
+    "F05"
+  ],
+  "uiGate": "未完整通过",
+  "qaCommits": [
+    "f2675d2db322614c0c2dd021ad4a213d6153568a",
+    "1aa9bf739f2a8c27b372a9e4b2d57880b44cc4f4"
+  ],
+  "cleanup": {
+    "hookPresent": false,
+    "offlineRestored": true,
+    "blockedUrlsCleared": true,
+    "gatesBeforeCleanup": 0,
+    "debuggerDisabledPreviously": true,
+    "finalApplicationConsoleErrors": [],
+    "serviceExit": 143,
+    "databaseRetained": true
+  },
+  "caveats": [
+    "U09第一次已见RUNNING但失效晚于完成；第二次初始QUEUED，真实持久时间证明执行区间内失效，不能拼成同一次事前RUNNING观察。",
+    "U17仅同次dpr4/956x576及949x571原件证明200%；后续dpr2窗口快照和健康点击不作为200%证据。",
+    "早期U10过滤器切换和受控断点初始化有已记录采集缺口，不据此证明零请求；使用随后完整窗口复验。",
+    "F07初次动态按钮驱动超时保留为初步尝试；正式窗口使用稳定ID、仅一次POST，不能据此评价后端性能。",
+    "所有受控RUNNING的wireBody实际为SUCCEEDED；不冒称真实FAILED、未知数据库提交或后端SQL竞态。"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "before": {
+    "width": 1913,
+    "dpr": 2,
+    "scale": 1
+  },
+  "after": {
+    "width": 2560,
+    "height": 1153,
+    "dpr": 2,
+    "scale": 1,
+    "pageWidth": 2545
+  },
+  "operatorConfirmed": "Chrome 200%"
+}

@@ -1,0 +1,29 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.3)
+
+2026-10-22T19:14:19.575Z  INFO 5103 --- [vector-search] [           main] d.t.vector.VectorSearchApplication       : Starting VectorSearchApplication v0.1.0-SNAPSHOT using Java 17.0.15 with PID 5103 (/home/runner/work/text-vector-search/text-vector-search/target/vector-search.jar started by runner in /home/runner/work/text-vector-search/text-vector-search)
+2026-10-22T19:14:19.580Z  INFO 5103 --- [vector-search] [           main] d.t.vector.VectorSearchApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-10-22T19:14:20.809Z  INFO 5103 --- [vector-search] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-22T19:14:20.823Z  INFO 5103 --- [vector-search] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-22T19:14:20.823Z  INFO 5103 --- [vector-search] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-10-22T19:14:20.851Z  INFO 5103 --- [vector-search] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1186 ms
+2026-10-22T19:14:21.051Z  INFO 5103 --- [vector-search] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-22T19:14:21.331Z  INFO 5103 --- [vector-search] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/var/lib/vector-search/db/knowledge user=SA
+2026-10-22T19:14:21.335Z  INFO 5103 --- [vector-search] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-22T19:14:21.755Z  INFO 5103 --- [vector-search] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-10-22T19:14:22.102Z  INFO 5103 --- [vector-search] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 33915 (http) with context path '/'
+2026-10-22T19:14:22.118Z  INFO 5103 --- [vector-search] [           main] d.t.vector.VectorSearchApplication       : Started VectorSearchApplication in 3.118 seconds (process running for 3.702)
+2026-10-22T19:14:22.231Z  INFO 5103 --- [vector-search] [1-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-22T19:14:22.231Z  INFO 5103 --- [vector-search] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-22T19:14:22.233Z  INFO 5103 --- [vector-search] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-22T19:14:24.089Z  INFO 5103 --- [vector-search] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-22T19:14:24.092Z  INFO 5103 --- [vector-search] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-22T19:14:24.096Z  INFO 5103 --- [vector-search] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-22T19:14:24.121Z  INFO 5103 --- [vector-search] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

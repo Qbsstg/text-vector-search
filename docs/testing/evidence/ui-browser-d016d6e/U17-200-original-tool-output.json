@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-22T19:39:38.763Z",
+  "callId": "call_6cec8a1475334ddea9c7ed2f81448be9",
+  "output": [
+    {
+      "type": "input_text",
+      "text": "Wall time: 4.8966 seconds\nOutput:"
+    },
+    {
+      "type": "input_text",
+      "text": "{\n  result: {\n    type: 'string',\n    value: '{\"width\":956,\"height\":576,\"dpr\":4,\"scale\":1,\"pageWidth\":949}'\n  }\n}{ debuggerId: '1797074098987001225.3899536125434833676' }"
+    }
+  ]
+}

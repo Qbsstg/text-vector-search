@@ -1,0 +1,3 @@
+COMMAND  PID   USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+java    5103 runner    9uW  REG    8,1    69632 4737109 /var/lib/vector-search/db/knowledge.mv.db
+python3 5150   root    3rW  REG    8,1        0 4737101 /var/lib/vector-search/db/.instance.lock

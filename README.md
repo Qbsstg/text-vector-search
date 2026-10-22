@@ -1,6 +1,6 @@
 # 文本向量化与检索
 
-Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。用户已原则批准B1—B4后端核心，六业务接口及FE1—FE3已实现，当前进行最终健康、完整UI验收及DEP3发布准备。B4阶段本地与Linux CI的229项回归证据保留；最终健康由真实运行事实推导，完整浏览器和正式业务部署仍待验收与独立授权。
+Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。用户已原则批准B1—B4后端核心，六业务接口及FE1—FE3已实现，当前进行最终健康、完整UI验收及DEP3发布准备。B4阶段本地与Linux CI的229项回归证据保留；最终健康由真实运行事实推导，真实Chrome已核证26项通过、3项未完成；完整UI门禁和正式业务部署仍待验收与独立授权。
 
 公开源码仓库：[Qbsstg/text-vector-search](https://github.com/Qbsstg/text-vector-search)。用户已确认并授权公开，见[公开复核](docs/git/公开授权与安全复核-20261023.md)。GitHub Actions使用固定完整SHA的官方Actions，在Temurin17.0.15下运行单测及验收，成功后保存固定源码、JAR校验和与manifest的待批准候选，不自动部署。
 
@@ -10,13 +10,13 @@ Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库�
 
 B3生产处理器在事务外调用冻结B1，向量、完成时间和SUCCEEDED同事务提交；失败按稳定类别持久化。终态只允许匹配RUNNING及run_token的执行者写入，不覆盖失效或命中计数。启动恢复物理提交后才READY、接收与调度；关闭先拒接/停派，等待Worker，再排空短事务并关闭回写许可。超时CPU不能迟到写入已销毁的数据源。30秒是Worker等待预算，不能保证永久卡住的数据库事务也在此期限内结束。精确范围见[B3契约](docs/design/b3-implementation-contract.md)。
 
-前端真实同源请求、详情纯文本、确认失效、有限任务轮询已实现。前端测试命令：`node --test tests/frontend/*.test.mjs`（Node22.16.0）；服务器无需Node。浏览器验证目前因Work本地浏览器禁用未执行，不能把Node/HTTP测试当作完整UI验收。
+前端真实同源请求、详情纯文本、确认失效、有限任务轮询已实现。前端测试命令：`node --test tests/frontend/*.test.mjs`（Node22.16.0）；服务器无需Node。Work浏览器权限已恢复，已使用真实Chrome完成26/29项核证；隐藏/恢复轮询及其综合项、真实FAILED展示仍未完成。两处Chrome实测缺陷已修复，详情见[独立UI核证](docs/testing/UI-browser-verification.md)，不能把Node/HTTP测试当作完整UI验收。
 
 ## B4检索与计数
 
 `POST /api/search`复用冻结B1算法和Top-K，先以任务成功/向量就绪/未失效/同版本/渠道过滤，再遍历全部候选评分。仅最终命中按固定ID顺序同事务原子+1；快照后失效的在途结果仍可计数，后续新搜索排除。默认搜索许可1，忙429；提交未知503并降级，不重放增量，网络失败前后端均不自动重试。候选只读有界前缀与向量，CPU不持事务或数据库连接。
 
-真实JAR/前端HTTP闭环、独立并发/回滚/真实RST/关闭排空均有记录，见[B4验收](docs/testing/B4-verification.md)。完整浏览器、负载性能、语义效果和正式发布未验；最终`/health`报告B4阶段，只有恢复、数据库、调度、算法、搜索及六路由检查均通过才返回200/businessReady=true。此值表示当前应用运行就绪，UI和发布许可仍须独立验收，见[最终契约](docs/design/final-readiness-release-contract.md)。
+真实JAR/前端HTTP闭环、独立并发/回滚/真实RST/关闭排空均有记录，见[B4验收](docs/testing/B4-verification.md)。完整浏览器门禁、负载性能、语义效果和正式发布仍未通过或未验；最终`/health`报告B4阶段，只有恢复、数据库、调度、算法、搜索及六路由检查均通过才返回200/businessReady=true。此值表示当前应用运行就绪，UI和发布许可仍须独立验收，见[最终契约](docs/design/final-readiness-release-contract.md)。
 
 ## B1已实现
 
@@ -56,9 +56,9 @@ H2数据默认在启动工作目录的`data/knowledge.mv.db`，推荐显式`APP_
 - [B3集成验收](docs/testing/B3-verification.md)：真实生产终态、四点强杀恢复、正常/超时关闭及明确未验证范围。
 - [B4启动拆解](docs/tasks/B4-启动与任务拆解.md)：责任人、依赖、12组验收矩阵、工时估计及人工门禁。
 - [最终准备与审批](docs/tasks/最终交付准备与审批清单.md)：固定候选、真实健康、Chrome验收和DEP3门禁。
-- [最终验证报告](docs/testing/FINAL-verification.md)：本地和固定源码Linux CI均104 unit+110 IT+38 Node=252通过，另记Linux冷备恢复、下载JAR冒烟及真实未执行项。
-- [固定候选与Chrome入口](docs/tasks/最终候选与Chrome验收入口.md)：实际源码SHA、JAR摘要与人工启动变量，正式发布仍待单独批准。
-- [Chrome手工验收](docs/tasks/handoffs/frontend-final-ui.md)：29项真实与受控浏览器分支、专用临时库及证据模板，当前均未执行。
+- [最终验证报告](docs/testing/FINAL-verification.md)：保留原252项与失败历史；修复候选d016d6e的Linux CI为104 unit+110 IT+39 Node=253通过，另记26项Chrome通过与3项未完成。
+- [固定候选与Chrome入口](docs/tasks/最终候选与Chrome验收入口.md)：修复候选d016d6e的源码SHA、JAR摘要和真实Chrome结果，正式发布仍待单独批准。
+- [Chrome手工验收](docs/tasks/handoffs/frontend-final-ui.md)：29项真实与受控浏览器步骤、专用临时库及证据模板；实际结果以独立UI核证为准。
 - [DEP3发布计划](deploy/DEP3发布操作计划.md)：校验、全入口认证、持久单实例锁、冷备与首发失败处理，正式执行仍需单独批准。
 - [九项阶段报告](docs/tasks/B2-阶段进展报告.md)：职责、依赖、工时、网络与用户人工项。
 - [评审资料入口](docs/项目评审和实施资料/00_阅读说明.md)：保留原始材料，不把历史计划当运行结果。

@@ -1,5 +1,22 @@
 # 最终健康、UI与DEP3准备验证报告
 
+## 2026-10-23真实Chrome追加：当前以本节为准
+
+原准备快照与全部失败/修复记录保留在后文。Work浏览器权限已恢复，旧68d80cb候选虽CI252通过，真实Chrome出现计时器Illegal invocation、任务追踪阻断，因此UI FAIL。cda3f8c保留正确宿主receiver并增加修前失败/修后通过回归；bf7aeac显式同源SVG解决Chrome默认图标500。没有改B1算法、Java状态机、API、DDL或资源参数。
+
+新固定源码`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`；[CI39838054946](https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946) completed/success，104 unit+110 IT+39 Node=253，失败/错误/跳过0；Linux冷备恢复继续通过，systemctl inactive仍仅测试shim。JAR SHA-256 `64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`，27309072字节；schema及embeddingVersion未改。下载字节、独立CI日志jarSHA256与六参数verify-release已匹配，后续纯文档HEAD不替换此候选。
+
+真实Chrome最终26 PASS、U12/F03/F05 NOT_RUN，**完整UI门禁尚未通过**。已覆盖真实提交、有限轮询、详情/列表、检索与计数、失效、自然负分/零分/排序、XSS、真实Offline不重试、键盘/窄屏/200%及受控迟到响应。隐藏/恢复未捕获本页真实visibility，用户回执不替代事件；U12仅隐藏层未验；真实FAILED未安全触发，不用伪终态或HTTP/Node补齐。
+
+U09两次尝试分开保留：第一次已见RUNNING但失效晚于完成；第二次初始QUEUED，真实startedAt < invalidatedAt < finishedAt证明执行区间内失效且最终SUCCEEDED+invalidated，不拼成一次事前RUNNING观察。200%采用同次dpr4/956×576及949×571截图，后续窗口快照不当200%证据。注入模式不证明真实FAILED、未知数据库提交或后端SQL竞态；采集缺口与早期驱动失败均保留。
+
+证据：[独立UI报告](UI-browser-verification.md)、[Chrome原件与图片映射](evidence/ui-browser-d016d6e/来源说明.md)、[新CI原件](evidence/final-ci-d016d6e/来源说明.md)、[旧Chrome失败](evidence/ui-browser-68d80cb-failed/来源说明.md)。主控清除内存hook/离线/阻断后真实health200/B4/READY，Console为空；03:58:03北京时间正常SIGTERM143、Hikari关闭，仅停止本次PID59265，临时DB/原trace均保留。
+
+本次新增归档/当前文档提交仅执行证据汇总、SHA、格式秘密扫描与diff检查，不虚构重跑Java/Node。源码回归以固定新候选的实际CI253为准。服务器本轮未上传/启动业务、建认证、切代理或开机enable；SSL沿用。正式DEP3仍需完整UI门禁和对新完整SHA/hash/具体操作的独立批准，详见[更新清单](../tasks/最终交付准备与审批清单.md)。
+
+## 以下保留首次最终准备快照（原68候选，非当前发布候选）
+
+
 2026-10-23，北京时间。用户已原则批准B4后端核心，本轮只实现真实健康判断、最终验收及发布准备。正式业务尚未发布，浏览器门禁尚未通过。原B1—B4验收、历史SHA、CI和故障修复原件保留，不重写历史。
 
 ## 固定源码和实际候选

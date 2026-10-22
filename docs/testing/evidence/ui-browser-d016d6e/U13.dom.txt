@@ -1,0 +1,91 @@
+- main:
+  - paragraph: 文本向量化与检索 · 真实接口演示
+  - heading "文本检索演示台" [level=1]
+  - paragraph: 本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。
+  - region "提交、任务追踪与相似检索":
+    - heading "提交、任务追踪与相似检索" [level=2]
+    - paragraph: 所有操作只请求真实同源接口。文档接收后由后台计算，只有完成、向量就绪且有效的文档才参与检索。接口未合入当前后端或服务尚未就绪时，会如实显示错误。
+    - paragraph: 每次检索可能增加命中次数；网络失败不会自动重试。基础健康中的 businessReady=false 不代表完整业务就绪，页面不生成模拟结果、任务或进度。
+  - region "演示台":
+    - tablist "演示台功能区":
+      - tab "检索体验" [selected]
+      - tab "文档管理"
+      - tab "任务追踪"
+    - tabpanel "检索体验":
+      - heading "检索字面相似的文档" [level=2]
+      - generic: 查询文本（允许空字符串）
+      - textbox "查询文本（允许空字符串）" [active]: 字面向量检索人工验收，同文排序与真实计数。
+      - paragraph: 查询使用确定性的字面特征；原始文本与渠道不会因输入而自动提交。
+      - generic: Top-K（1—100 整数）
+      - spinbutton "Top-K（1—100 整数）": "100"
+      - generic: 渠道（不填表示全部渠道）
+      - textbox "渠道（不填表示全部渠道）"
+      - button "检索"
+      - paragraph: 仅点击检索或明确提交表单才发出请求。详情、列表刷新、任务完成和失效不会自动检索。
+      - status: 网络或响应读取失败。无法确认本次检索是否已完成，可能已计数；不会自动重试，再次检索将视为新请求并可能再次计数。取消浏览器等待不表示后台回滚。
+      - region "检索结果":
+        - paragraph: 最近一次操作未取得有效结果，以下为上次成功查询的快照。文档有效状态已变化，以下为历史查询结果；未自动重搜或本地重排。
+        - term: 实际结果数量
+        - definition: "5"
+        - term: 请求往返耗时
+        - definition: 14.0 ms
+        - generic "查看本次结果对应的查询条件"
+        - region "检索结果，可横向滚动":
+          - table "排序保持后端完整分数顺序；四位小数仅用于显示。没有命中率或置信度换算。":
+            - caption: 排序保持后端完整分数顺序；四位小数仅用于显示。没有命中率或置信度换算。
+            - rowgroup:
+              - row "排名 文档 ID 余弦分数 渠道 摘要（纯文本） 操作":
+                - columnheader "排名"
+                - columnheader "文档 ID"
+                - columnheader "余弦分数"
+                - columnheader "渠道"
+                - columnheader "摘要（纯文本）"
+                - columnheader "操作"
+            - rowgroup:
+              - row "1 ui-1792696650449-a 1.0000 ui-1792696650449 字面向量检索人工验收，同文排序与真实计数。 详情 / 计数快照":
+                - cell "1"
+                - cell "ui-1792696650449-a"
+                - cell "1.0000"
+                - cell "ui-1792696650449"
+                - cell "字面向量检索人工验收，同文排序与真实计数。"
+                - cell "详情 / 计数快照":
+                  - button "详情 / 计数快照"
+              - row "2 ui-1792696650449-b 1.0000 ui-1792696650449 字面向量检索人工验收，同文排序与真实计数。 详情 / 计数快照 已失效 · 历史结果":
+                - cell "2"
+                - cell "ui-1792696650449-b"
+                - cell "1.0000"
+                - cell "ui-1792696650449"
+                - cell "字面向量检索人工验收，同文排序与真实计数。"
+                - cell "详情 / 计数快照 已失效 · 历史结果":
+                  - button "详情 / 计数快照"
+                  - generic: 已失效 · 历史结果
+              - row "3 ui-1792696650449-xss 0.1798 ui-1792696650449 <img src=x onerror=\"window.__uiXssFlag=1\"><script>window.__uiXssFlag=2</script><a href=\"javascript:window.__uiXssFlag=3\">仅文本</a> 详情 / 计数快照":
+                - cell "3"
+                - cell "ui-1792696650449-xss"
+                - cell "0.1798"
+                - cell "ui-1792696650449"
+                - cell "<img src=x onerror=\"window.__uiXssFlag=1\"><script>window.__uiXssFlag=2</script><a href=\"javascript:window.__uiXssFlag=3\">仅文本</a>"
+                - cell "详情 / 计数快照":
+                  - button "详情 / 计数快照"
+              - row "4 ui-1792696650449-default 0.1791 default 默认渠道专用合成文档 详情 / 计数快照":
+                - cell "4"
+                - cell "ui-1792696650449-default"
+                - cell "0.1791"
+                - cell "default"
+                - cell "默认渠道专用合成文档"
+                - cell "详情 / 计数快照":
+                  - button "详情 / 计数快照"
+              - row "5 ui-1792696650449-empty 0.0000 ui-1792696650449 详情 / 计数快照":
+                - cell "5"
+                - cell "ui-1792696650449-empty"
+                - cell "0.0000"
+                - cell "ui-1792696650449"
+                - cell
+                - cell "详情 / 计数快照":
+                  - button "详情 / 计数快照"
+  - region "基础连接检查":
+    - heading "基础连接检查" [level=2]
+    - button "检查 /health"
+    - paragraph: 基础连接与任务就绪字段以真实响应为准，不能代替完整业务和浏览器验收。检查不会自动发起检索。
+    - status: 网络或响应读取失败。状态暂不可获取；保留上次已知状态。可手动刷新。
+  - generic: 真实同源 API · 北京时间（UTC+8）· 本阶段不代表完整业务与部署验收完成。

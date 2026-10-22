@@ -1,0 +1,67 @@
+- main:
+  - paragraph: 文本向量化与检索 · 真实接口演示
+  - heading "文本检索演示台" [level=1]
+  - paragraph: 本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。
+  - region "提交、任务追踪与相似检索":
+    - heading "提交、任务追踪与相似检索" [level=2]
+    - paragraph: 所有操作只请求真实同源接口。文档接收后由后台计算，只有完成、向量就绪且有效的文档才参与检索。接口未合入当前后端或服务尚未就绪时，会如实显示错误。
+    - paragraph: 每次检索可能增加命中次数；网络失败不会自动重试。基础健康中的 businessReady=false 不代表完整业务就绪，页面不生成模拟结果、任务或进度。
+  - region "演示台":
+    - tablist "演示台功能区":
+      - tab "检索体验"
+      - tab "文档管理"
+      - tab "任务追踪" [selected]
+    - tabpanel "任务追踪":
+      - heading "任务追踪" [level=2]
+      - paragraph: 任务状态来自真实后台：排队中、处理中、完成或失败。自动刷新最多 3 个任务，每次响应后间隔至少 2 秒，单任务从首次启用起总计 60 秒；隐藏页面暂停，终态停止。没有完成百分比。
+      - generic: taskId（UUID）
+      - textbox "taskId（UUID）": fc439a32-3b54-453a-9851-cc428991ce61
+      - button "查询并有限刷新" [active]
+      - status: 已展示服务器返回的状态。排队中不表示任务失败或已经完成。
+      - region "当前任务":
+        - term: taskId
+        - definition: fc439a32-3b54-453a-9851-cc428991ce61
+        - term: 关联文档
+        - definition: ui-1792696650449-page-07
+        - term: 上次已知状态
+        - definition: 处理中 · RUNNING
+        - term: 提交时间（UTC+8）
+        - definition: 2026/10/23 03:29:41
+        - term: 开始时间（UTC+8）
+        - definition: 2026/10/23 03:29:41
+        - term: 结束时间（UTC+8）
+        - definition: —
+        - term: 业务错误码
+        - definition: —
+        - term: 业务错误信息
+        - definition: —
+        - paragraph: 自动刷新中：每次响应后至少间隔 2 秒，累计最长 60 秒。
+        - button "手动刷新一次"
+        - button "停止自动刷新"
+        - button "关联文档详情"
+        - button "前往检索（手动查询）"
+      - region "本页会话任务":
+        - heading "本页会话任务" [level=2]
+        - paragraph: 最多保留 20 个查询过或提交返回的真实任务 ID，不是全系统任务列表。刷新页面后清空，不保存原文或凭据。
+        - list:
+          - button "fc439a32-3b54-453a-9851-cc428991ce61"
+          - generic: 处理中 · RUNNING；自动刷新中：每次响应后至少间隔 2 秒，累计最长 60 秒。
+          - button "742371f7-5756-4477-98e0-faa254bfd2bd"
+          - generic: 处理中 · RUNNING；自动刷新已暂停：60 秒总预算已结束，任务可能仍在后台运行。可手动刷新。
+          - button "48bf51e2-d106-4e13-b490-75963650161e"
+          - generic: 处理中 · RUNNING；自动刷新已暂停：60 秒总预算已结束，任务可能仍在后台运行。可手动刷新。
+          - button "10250a18-f4a1-47e2-8b14-da3c200d6f8c"
+          - generic: 处理中 · RUNNING；已有 3 个任务自动刷新，本任务仅手动查询。
+          - button "d68cefee-dade-4d72-b95f-9031c38fb9c2"
+          - generic: 处理中 · RUNNING；自动刷新已暂停：60 秒总预算已结束，任务可能仍在后台运行。可手动刷新。
+          - button "f22e4674-9978-4c64-b501-81a04a33ddd8"
+          - generic: 处理中 · RUNNING；自动刷新已暂停：60 秒总预算已结束，任务可能仍在后台运行。可手动刷新。
+          - button "0c480b23-f244-4d09-ac6f-4054560b4315"
+          - generic: 处理中 · RUNNING；自动刷新已暂停：60 秒总预算已结束，任务可能仍在后台运行。可手动刷新。
+  - region "基础连接检查":
+    - heading "基础连接检查" [level=2]
+    - button "检查 /health"
+    - paragraph: 基础连接与任务就绪字段以真实响应为准，不能代替完整业务和浏览器验收。检查不会自动发起检索。
+    - status: 尚未检查。点击按钮获取真实响应。
+  - generic: 真实同源 API · 北京时间（UTC+8）· 本阶段不代表完整业务与部署验收完成。
+- generic: 受控前端分支 · FAULT_INJECTION

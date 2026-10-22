@@ -1,0 +1,81 @@
+- main:
+  - paragraph: 文本向量化与检索 · 真实接口演示
+  - heading "文本检索演示台" [level=1]
+  - paragraph: 本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。
+  - region "提交、任务追踪与相似检索":
+    - heading "提交、任务追踪与相似检索" [level=2]
+    - paragraph: 所有操作只请求真实同源接口。文档接收后由后台计算，只有完成、向量就绪且有效的文档才参与检索。接口未合入当前后端或服务尚未就绪时，会如实显示错误。
+    - paragraph: 每次检索可能增加命中次数；网络失败不会自动重试。基础健康中的 businessReady=false 不代表完整业务就绪，页面不生成模拟结果、任务或进度。
+  - region "演示台":
+    - tablist "演示台功能区":
+      - tab "检索体验"
+      - tab "文档管理" [selected]
+      - tab "任务追踪"
+    - tabpanel "文档管理":
+      - heading "提交文档" [level=2]
+      - generic: 文档 ID
+      - textbox "文档 ID"
+      - paragraph: 1—128 位字母、数字、点、下划线或连字符，首位为字母或数字。不会自动去除空白。
+      - generic: 原文（允许空字符串，不裁剪或改写）
+      - textbox "原文（允许空字符串，不裁剪或改写）"
+      - generic: 渠道（不填时提交为 default）
+      - textbox "渠道（不填时提交为 default）"
+      - button "提交文档"
+      - status: 提交成功只代表接收，不代表向量化完成。空原文合法；服务器仍会校验原始及规范化后的长度。
+      - region "文档列表":
+        - heading "文档列表" [level=2]
+        - generic: 渠道（不填为全部）
+        - textbox "渠道（不填为全部）"
+        - generic: 有效状态
+        - combobox "有效状态":
+          - option "全部状态" [selected]
+          - option "有效"
+          - option "已失效"
+        - generic: 每页数量
+        - combobox "每页数量":
+          - option "20" [selected]
+          - option "50"
+          - option "100"
+        - button "应用筛选 / 刷新"
+        - status: 尚未加载列表。点击刷新读取真实数据。
+      - generic: 按文档 ID 查询详情（提交结果未知时可用）
+      - textbox "按文档 ID 查询详情（提交结果未知时可用）": ui-1792696650449-b
+      - button "查询详情"
+  - region "基础连接检查":
+    - heading "基础连接检查" [level=2]
+    - button "检查 /health"
+    - paragraph: 基础连接与任务就绪字段以真实响应为准，不能代替完整业务和浏览器验收。检查不会自动发起检索。
+    - status: 尚未检查。点击按钮获取真实响应。
+  - generic: 真实同源 API · 北京时间（UTC+8）· 本阶段不代表完整业务与部署验收完成。
+- dialog "文档详情":
+  - heading "文档详情" [level=2]
+  - button "关闭文档详情" [active]: 关闭
+  - status: 已读取服务器快照；任务状态与有效状态相互独立。时间为北京时间（UTC+8）。
+  - term: 文档 ID
+  - definition: ui-1792696650449-b
+  - term: 渠道
+  - definition: ui-1792696650449
+  - term: taskId
+  - definition: f22e4674-9978-4c64-b501-81a04a33ddd8
+  - term: 任务状态
+  - definition: 完成 · SUCCEEDED
+  - term: 向量就绪
+  - definition: 是
+  - term: 有效状态
+  - definition: 已失效
+  - term: 命中次数（快照）
+  - definition: "3"
+  - term: 提交时间（UTC+8）
+  - definition: 2026/10/23 03:17:52
+  - term: 向量完成时间（UTC+8）
+  - definition: 2026/10/23 03:17:52
+  - term: 失效时间（UTC+8）
+  - definition: 2026/10/23 03:24:30
+  - heading "原文（纯文本）" [level=3]
+  - generic "文档原文，可滚动": 字面向量检索人工验收，同文排序与真实计数。
+  - paragraph: 详情读取不增加命中次数；原文中的 HTML 和链接仅按文本显示。
+  - button "刷新详情"
+  - button "查看任务"
+  - button "已失效" [disabled]
+  - paragraph: 失效成功后不自动检索；与任务状态独立，不提供恢复有效。
+- generic: 受控前端分支 · FAULT_INJECTION

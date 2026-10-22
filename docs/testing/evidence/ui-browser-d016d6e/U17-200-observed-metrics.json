@@ -1,0 +1,24 @@
+{
+  "observedAtUtc": "2026-10-22T19:39:38.763Z",
+  "source": "同一CUA工具返回及同调用保存的截图/DOM，不是后续窗口快照",
+  "callId": "call_6cec8a1475334ddea9c7ed2f81448be9",
+  "metrics": {
+    "width": 956,
+    "height": 576,
+    "dpr": 4,
+    "scale": 1,
+    "pageWidth": 949
+  },
+  "baseline": {
+    "width": 1913,
+    "dpr": 2
+  },
+  "screenshot": "U17-actual-200-percent.png",
+  "actualScreenshotFormat": "JPEG",
+  "screenshotSize": [
+    949,
+    571
+  ],
+  "laterSnapshot": "U17-zoom-metrics.json为后续2560/dpr2状态，保留但不作为200%证据",
+  "scope": "200%布局、文字及控件可见性；不把后续健康点击宣称发生于200%。"
+}

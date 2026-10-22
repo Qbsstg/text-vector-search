@@ -1,0 +1,10 @@
+{
+  "command": [
+    "lsof",
+    "-nP",
+    "+D",
+    "/var/lib/vector-search/db"
+  ],
+  "returncode": 1,
+  "timeout": false
+}

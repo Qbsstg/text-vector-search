@@ -1,0 +1,546 @@
+[
+  {
+    "id": "U01",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": "冷加载首页、五静态文件与favicon.svg全部200且媒体类型正确；三Tab切换，首屏POST搜索0。",
+    "evidence": "U01",
+    "observedAt": "2026-10-22T19:17:12.600Z"
+  },
+  {
+    "id": "U18",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": "页面展示真实B4/READY/businessReady=true；请求来自同源，未自动检索，不代表服务器发布。",
+    "evidence": "U18",
+    "observedAt": "2026-10-22T19:17:12.980Z"
+  },
+  {
+    "id": "U02",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "created": {
+        "taskId": "0c480b23-f244-4d09-ac6f-4054560b4315",
+        "documentId": "ui-1792696650449-a",
+        "status": "QUEUED"
+      },
+      "submitButtonEnabled": true,
+      "taskResponses": [
+        {
+          "status": 200,
+          "requestId": "57422.33",
+          "body": "{\"taskId\":\"0c480b23-f244-4d09-ac6f-4054560b4315\",\"documentId\":\"ui-1792696650449-a\",\"status\":\"QUEUED\",\"submittedAt\":\"2026-10-22T19:17:30.827892Z\",\"startedAt\":null,\"finishedAt\":null,\"errorCode\":null,\"errorMessage\":null,\"document\":null}"
+        }
+      ]
+    },
+    "evidence": "U02-fixed-submit-task",
+    "observedAt": "2026-10-22T19:17:31.511Z"
+  },
+  {
+    "id": "U04",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": "重复A ID仅一次POST，真实409不覆盖、不换ID或重提；随后核对原文。",
+    "evidence": "U04",
+    "observedAt": "2026-10-22T19:17:56.253Z"
+  },
+  {
+    "id": "U03",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "task": {
+        "taskId": "d68cefee-dade-4d72-b95f-9031c38fb9c2",
+        "documentId": "ui-1792696650449-empty",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T19:17:53.032678Z",
+        "startedAt": "2026-10-22T19:17:53.529303Z",
+        "finishedAt": "2026-10-22T19:17:53.533350Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "ui-1792696650449-empty",
+          "channel": "ui-1792696650449",
+          "taskId": "d68cefee-dade-4d72-b95f-9031c38fb9c2",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T19:17:53.032678Z",
+          "vectorCompletedAt": "2026-10-22T19:17:53.533350Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": ""
+        }
+      },
+      "terminalGetCount": 3,
+      "elapsedMs": 39743,
+      "automaticGetsAfterTerminal": 0
+    },
+    "evidence": "U03-empty-stop-confirmed",
+    "observedAt": "2026-10-22T19:18:35.300Z"
+  },
+  {
+    "id": "U06",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "invalidValues": [
+        {
+          "message": "值必须大于或等于 1。",
+          "valid": false,
+          "value": "0"
+        },
+        {
+          "message": "值必须大于或等于 1。",
+          "valid": false,
+          "value": "-1"
+        },
+        {
+          "message": "请输入有效值。两个最接近的有效值分别为1和2。",
+          "valid": false,
+          "value": "1.5"
+        },
+        {
+          "message": "请填写此字段。",
+          "valid": false,
+          "value": ""
+        }
+      ],
+      "searchPosts": 0
+    },
+    "evidence": "U06",
+    "observedAt": "2026-10-22T19:18:54.645Z"
+  },
+  {
+    "id": "U14",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "detail": {
+        "childElements": 0,
+        "text": "<img src=x onerror=\"window.__uiXssFlag=1\"><script>window.__uiXssFlag=2</script><a href=\"javascript:window.__uiXssFlag=3\">仅文本</a>",
+        "unsafe": 0
+      },
+      "snippet": {
+        "children": 0,
+        "text": "<img src=x onerror=\"window.__uiXssFlag=1\"><script>window.__uiXssFlag=2</script><a href=\"javascript:window.__uiXssFlag=3\">仅文本</a>",
+        "unsafe": 0
+      },
+      "executionFlag": 0,
+      "extraXRequests": 0
+    },
+    "evidence": "U14",
+    "observedAt": "2026-10-22T19:19:31.053Z"
+  },
+  {
+    "id": "U08",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "hits": [
+        {
+          "documentId": "ui-1792696650449-a",
+          "channel": "ui-1792696650449",
+          "score": 0,
+          "snippet": "字面向量检索人工验收，同文排序与真实计数。"
+        },
+        {
+          "documentId": "ui-1792696650449-b",
+          "channel": "ui-1792696650449",
+          "score": 0,
+          "snippet": "字面向量检索人工验收，同文排序与真实计数。"
+        },
+        {
+          "documentId": "ui-1792696650449-empty",
+          "channel": "ui-1792696650449",
+          "score": 0,
+          "snippet": ""
+        },
+        {
+          "documentId": "ui-1792696650449-xss",
+          "channel": "ui-1792696650449",
+          "score": 0,
+          "snippet": "<img src=x onerror=\"window.__uiXssFlag=1\"><script>window.__uiXssFlag=2</script><a href=\"javascript:window.__uiXssFlag=3\">仅文本</a>"
+        }
+      ]
+    },
+    "evidence": "U08",
+    "observedAt": "2026-10-22T19:21:57.494Z"
+  },
+  {
+    "id": "U05",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "submit": {
+        "documentId": "ui-1792696650449-default",
+        "text": "默认渠道专用合成文档"
+      },
+      "detail": {
+        "documentId": "ui-1792696650449-default",
+        "channel": "default",
+        "taskId": "10250a18-f4a1-47e2-8b14-da3c200d6f8c",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T19:18:09.521082Z",
+        "vectorCompletedAt": "2026-10-22T19:18:09.739454Z",
+        "invalidatedAt": null,
+        "hitCount": "0",
+        "text": "默认渠道专用合成文档"
+      },
+      "search": {
+        "text": "字面向量检索人工验收，同文排序与真实计数。",
+        "topK": 100
+      },
+      "hits": [
+        {
+          "documentId": "ui-1792696650449-a",
+          "channel": "ui-1792696650449",
+          "score": 0.9999999999999998,
+          "snippet": "字面向量检索人工验收，同文排序与真实计数。"
+        },
+        {
+          "documentId": "ui-1792696650449-b",
+          "channel": "ui-1792696650449",
+          "score": 0.9999999999999998,
+          "snippet": "字面向量检索人工验收，同文排序与真实计数。"
+        },
+        {
+          "documentId": "ui-1792696650449-xss",
+          "channel": "ui-1792696650449",
+          "score": 0.17975712001982405,
+          "snippet": "<img src=x onerror=\"window.__uiXssFlag=1\"><script>window.__uiXssFlag=2</script><a href=\"javascript:window.__uiXssFlag=3\">仅文本</a>"
+        },
+        {
+          "documentId": "ui-1792696650449-default",
+          "channel": "default",
+          "score": 0.17914359097500468,
+          "snippet": "默认渠道专用合成文档"
+        },
+        {
+          "documentId": "ui-1792696650449-empty",
+          "channel": "ui-1792696650449",
+          "score": 0,
+          "snippet": ""
+        }
+      ]
+    },
+    "evidence": "U05",
+    "observedAt": "2026-10-22T19:21:58.268Z"
+  },
+  {
+    "id": "U15",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "beforeFirstSearch": "0",
+      "afterFirstSearch": "1",
+      "afterThreeSearches": [
+        {
+          "id": "ui-1792696650449-xss",
+          "hitCount": "3"
+        },
+        {
+          "id": "ui-1792696650449-empty",
+          "hitCount": "3"
+        },
+        {
+          "id": "ui-1792696650449-b",
+          "hitCount": "3"
+        },
+        {
+          "id": "ui-1792696650449-a",
+          "hitCount": "3"
+        }
+      ],
+      "getSearchRequests": 3
+    },
+    "evidence": "U15",
+    "observedAt": "2026-10-22T19:22:37.399Z"
+  },
+  {
+    "id": "U13",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "elapsedMs": 19063,
+      "searchAttempts": 1,
+      "automaticRetry": 0,
+      "oldResultsRetained": true,
+      "warning": "可能已计数；再次检索是新请求"
+    },
+    "evidence": "U13",
+    "observedAt": "2026-10-22T19:26:06.084Z"
+  },
+  {
+    "id": "U10",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "cancelPuts": 0,
+      "offlineAttempts": 1,
+      "automaticRetry": 0,
+      "afterRefresh": {
+        "documentId": "ui-1792696650449-a",
+        "channel": "ui-1792696650449",
+        "taskId": "0c480b23-f244-4d09-ac6f-4054560b4315",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T19:17:30.827892Z",
+        "vectorCompletedAt": "2026-10-22T19:17:31.225862Z",
+        "invalidatedAt": null,
+        "hitCount": "3",
+        "text": "字面向量检索人工验收，同文排序与真实计数。"
+      }
+    },
+    "evidence": "U10",
+    "observedAt": "2026-10-22T19:26:33.552Z"
+  },
+  {
+    "id": "U11",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "knownTask": "0c480b23-f244-4d09-ac6f-4054560b4315",
+      "offline": "真实GET网络失败保留上次SUCCEEDED，不改FAILED",
+      "missingTask": []
+    },
+    "evidence": "U11",
+    "observedAt": "2026-10-22T19:27:23.560Z"
+  },
+  {
+    "id": "U09",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "attempt1": {
+        "observed": "RUNNING",
+        "invalidatedAfterCompletion": true
+      },
+      "attempt2": {
+        "documentId": "ui-1792696650449-long2",
+        "initialDetail": "QUEUED",
+        "startedAt": "2026-10-22T19:28:16.101433Z",
+        "invalidatedAt": "2026-10-22T19:28:16.334595Z",
+        "finishedAt": "2026-10-22T19:28:16.374424Z",
+        "final": "SUCCEEDED+invalidated"
+      },
+      "scope": "第二文档的真实持久执行时间严格覆盖失效时间；未伪造RUNNING或终态。"
+    },
+    "evidence": "U09",
+    "observedAt": "2026-10-22T19:29:36.522Z"
+  },
+  {
+    "id": "U07",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "sameTextHits": [
+        {
+          "documentId": "ui-1792696650449-a",
+          "channel": "ui-1792696650449",
+          "score": 0.9999999999999998,
+          "snippet": "字面向量检索人工验收，同文排序与真实计数。"
+        },
+        {
+          "documentId": "ui-1792696650449-b",
+          "channel": "ui-1792696650449",
+          "score": 0.9999999999999998,
+          "snippet": "字面向量检索人工验收，同文排序与真实计数。"
+        }
+      ],
+      "naturalNegative": {
+        "documentId": "ui-1792696650449-page-18",
+        "channel": "ui-1792696650449",
+        "score": -0.05415303610738823,
+        "snippet": "分页合成片段 18 海洋山林与城市交通"
+      },
+      "fullScoreOrderPreserved": true
+    },
+    "evidence": "U07-real-negative-and-order",
+    "observedAt": "2026-10-22T19:30:34.943Z"
+  },
+  {
+    "id": "U16",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "invalidation": {
+        "documentId": "ui-1792696650449-xss",
+        "invalidated": true,
+        "invalidatedAt": "2026-10-22T19:31:06.199982Z"
+      },
+      "taskStatus": "SUCCEEDED",
+      "count": "4",
+      "automaticSearches": 0,
+      "oldRows": 24,
+      "newHits": 23
+    },
+    "evidence": "U16",
+    "observedAt": "2026-10-22T19:31:08.312Z"
+  },
+  {
+    "id": "U17",
+    "status": "PASS",
+    "mode": "REAL",
+    "actual": {
+      "keyboard": "方向键/Home/End及键盘提交已验，Escape返回触发按钮，原生modal阻止背景HTML交互；浏览器失焦不认作背景逃逸",
+      "viewports": [
+        "375x812",
+        "768x1024",
+        "桌面"
+      ],
+      "longId": 128,
+      "textScroll": "15867/298",
+      "tableHorizontal": "scrollWidth727/client294/scrollLeft>0",
+      "browserZoom": "用户确认200%，dpr2→4，宽1913→956，pageWidth949≤956，健康按钮可达"
+    },
+    "evidence": [
+      "U17-keyboard-submit",
+      "U17-375-dialog-long-id",
+      "U17-375-table-horizontal",
+      "U17-768-dialog",
+      "U17-actual-200-percent"
+    ],
+    "observedAt": "2026-10-22T19:40:22.048Z"
+  },
+  {
+    "id": "F01",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": "仅改浏览器展示的4项分数为0.123449/0.123441/0/-0.3，保持原返回顺序；真实后端原始命中和计数另存wireBody。",
+    "evidence": "F01",
+    "observedAt": "2026-10-22T19:42:13.089Z"
+  },
+  {
+    "id": "F09",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": "真实GET响应在浏览器被延迟，A关闭后B完成；释放A不覆盖B，另一次关闭A后释放不复活dialog。",
+    "evidence": "F09",
+    "observedAt": "2026-10-22T19:42:49.214Z"
+  },
+  {
+    "id": "F06",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "elapsedMs": 35183,
+      "controlledCalls": 1,
+      "realPostDelta": 0,
+      "warning": "可能计数/不能由累计值确认/新请求另计",
+      "oldResultsPreserved": true
+    },
+    "evidence": "F06",
+    "observedAt": "2026-10-22T19:42:49.324Z"
+  },
+  {
+    "id": "F07",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "realPosts": 1,
+      "buttonDisabledWhilePending": true,
+      "editedFormDoesNotResubmit": true,
+      "returnedSnapshotText": "字面向量检索人工验收，同文排序与真实计数。",
+      "preliminary": "首次驱动使用动态按钮旧名称超时，已释放且未计为通过；本窗口用稳定ID完整复测。"
+    },
+    "evidence": "F07",
+    "observedAt": "2026-10-22T19:43:54.688Z"
+  },
+  {
+    "id": "F08",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "realSearches": 1,
+      "realPuts": 1,
+      "lateRow": "1\tui-1792696650449-a\t1.0000\tui-1792696650449\t字面向量检索人工验收，同文排序与真实计数。\t详情 / 计数快照\n已失效 · 历史结果",
+      "scope": "浏览器延迟响应与真实PUT；非后端SQL快照竞态证明"
+    },
+    "evidence": "F08",
+    "observedAt": "2026-10-22T19:44:34.435Z"
+  },
+  {
+    "id": "F10",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "realPutDelta": 0,
+      "frontendCalls": 1,
+      "optimisticInvalidation": false,
+      "scope": "发包前受控失败，真实离线另见U10"
+    },
+    "evidence": "F10",
+    "observedAt": "2026-10-22T19:44:36.762Z"
+  },
+  {
+    "id": "F11",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "frontendSubmits": 1,
+      "realPosts": 0,
+      "queriedOriginalId": "ui-1792696650449-unknown",
+      "editedId": "ui-1792696650449-other",
+      "response": "真实404，不编造接收成功"
+    },
+    "evidence": "F11",
+    "observedAt": "2026-10-22T19:45:05.288Z"
+  },
+  {
+    "id": "F04",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "actual": "taskId\n0c480b23-f244-4d09-ac6f-4054560b4315\n关联文档\nui-1792696650449-a\n上次已知状态\n处理中 · RUNNING\n提交时间（UTC+8）\n2026/10/23 03:17:30\n开始时间（UTC+8）\n2026/10/23 03:17:31\n结束时间（UTC+8）\n—\n业务错误码\n—\n业务错误信息\n—\n\n自动刷新中：每次响应后至少间隔 2 秒，累计最长 60 秒。\n\n手动刷新一次\n停止自动刷新\n关联文档详情\n前往检索（手动查询）",
+      "realRequest": "发包前受控错误，Network无对应GET；状态保持RUNNING"
+    },
+    "evidence": "F04",
+    "observedAt": "2026-10-22T19:45:50.392Z"
+  },
+  {
+    "id": "F02",
+    "status": "PASS",
+    "mode": "FAULT_INJECTION",
+    "actual": {
+      "elapsedMs": 222206,
+      "stats": [
+        {
+          "id": "0c480b23-f244-4d09-ac6f-4054560b4315",
+          "calls": 31,
+          "minGapMs": 800.8000001907349,
+          "lastStartAfterFirstMs": 58497,
+          "noOverlap": true
+        },
+        {
+          "id": "f22e4674-9978-4c64-b501-81a04a33ddd8",
+          "calls": 29,
+          "minGapMs": 2001.4000000953674,
+          "lastStartAfterFirstMs": 58388,
+          "noOverlap": true
+        },
+        {
+          "id": "d68cefee-dade-4d72-b95f-9031c38fb9c2",
+          "calls": 30,
+          "minGapMs": 2001.7000000476837,
+          "lastStartAfterFirstMs": 58457,
+          "noOverlap": true
+        },
+        {
+          "id": "10250a18-f4a1-47e2-8b14-da3c200d6f8c",
+          "calls": 1,
+          "minGapMs": null,
+          "lastStartAfterFirstMs": 0,
+          "noOverlap": true
+        }
+      ],
+      "mode": "真实4个UUID响应在浏览器受控为RUNNING；真实GET不重叠，第四任务只1次，未改后端终态"
+    },
+    "evidence": "F02",
+    "observedAt": "2026-10-22T19:48:49.044Z"
+  }
+]

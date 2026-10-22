@@ -1,0 +1,10 @@
+命令=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe RESTART /tmp/junit-11825343311224616376;pid=3897;SHA=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
+QA_EVENT|3897|APP_READY|port=36447;state=READY
+QA_EVENT|3897|PRODUCTION_URL|jdbc:h2:file:/tmp/junit-11825343311224616376/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|3897|RESTART_SUCCEEDED|status=SUCCEEDED;token=9ad1572b-c258-4494-be25-6b7195c7694b;attempt=1;finished=2026-10-22 19:13:37.064217+00;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1;vectorTime=2026-10-22 19:13:37.064217+00;task=2506d28d-8959-42e4-bd91-f968e3063876;hitCount=0;invalidated=false
+发送SIGTERM，pid=3897
+QA_EVENT|3897|STOPPING|生产生命周期已拒接
+QA_EVENT|3897|DATASOURCE_CLOSED|closed=true
+QA_EVENT|3897|SHUTDOWN_SNAPSHOT|status=SUCCEEDED;token=9ad1572b-c258-4494-be25-6b7195c7694b;attempt=1;finished=2026-10-22 19:13:37.064217+00;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1;vectorTime=2026-10-22 19:13:37.064217+00;task=2506d28d-8959-42e4-bd91-f968e3063876;hitCount=0;invalidated=false
+实际退出：pid=3897;exit=143
+重启后快照=Snapshot[taskId=2506d28d-8959-42e4-bd91-f968e3063876, status=SUCCEEDED, token=9ad1572b-c258-4494-be25-6b7195c7694b, attempt=1, finished=2026-10-22 19:13:37.064217+00, vectorTime=2026-10-22 19:13:37.064217+00, sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1, hitCount=0, invalidated=false]

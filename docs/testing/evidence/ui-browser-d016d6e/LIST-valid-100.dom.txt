@@ -1,0 +1,367 @@
+- main:
+  - paragraph: 文本向量化与检索 · 真实接口演示
+  - heading "文本检索演示台" [level=1]
+  - paragraph: 本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。
+  - region "提交、任务追踪与相似检索":
+    - heading "提交、任务追踪与相似检索" [level=2]
+    - paragraph: 所有操作只请求真实同源接口。文档接收后由后台计算，只有完成、向量就绪且有效的文档才参与检索。接口未合入当前后端或服务尚未就绪时，会如实显示错误。
+    - paragraph: 每次检索可能增加命中次数；网络失败不会自动重试。基础健康中的 businessReady=false 不代表完整业务就绪，页面不生成模拟结果、任务或进度。
+  - region "演示台":
+    - tablist "演示台功能区":
+      - tab "检索体验"
+      - tab "文档管理" [selected]
+      - tab "任务追踪"
+    - tabpanel "文档管理":
+      - heading "提交文档" [level=2]
+      - generic: 文档 ID
+      - textbox "文档 ID": ui-1792696650449-page-20
+      - paragraph: 1—128 位字母、数字、点、下划线或连字符，首位为字母或数字。不会自动去除空白。
+      - generic: 原文（允许空字符串，不裁剪或改写）
+      - textbox "原文（允许空字符串，不裁剪或改写）": 分页合成片段 20 海洋山林与城市交通
+      - generic: 渠道（不填时提交为 default）
+      - textbox "渠道（不填时提交为 default）": ui-1792696650449
+      - button "提交文档"
+      - status: HTTP 202：已接收文档 ui-1792696650449-page-20，任务 cbf3efb2-a47d-46da-8571-6bdb0c4026a3。后台向量化尚待真实任务状态确认；完成且有效后才可参与检索。
+      - button "按提交 ID 查询详情"
+      - button "查看真实任务"
+      - region "文档列表":
+        - heading "文档列表" [level=2]
+        - generic: 渠道（不填为全部）
+        - textbox "渠道（不填为全部）": ui-1792696650449
+        - generic: 有效状态
+        - combobox "有效状态":
+          - option "全部状态"
+          - option "有效" [selected]
+          - option "已失效"
+        - generic: 每页数量
+        - combobox "每页数量":
+          - option "20"
+          - option "50"
+          - option "100" [selected]
+        - button "应用筛选 / 刷新"
+        - status: 已读取真实文档列表。列表和详情读取不增加命中次数。
+        - region "文档列表，可横向滚动":
+          - table "服务器返回的文档快照；所有时间为北京时间（UTC+8），命中次数为读取时快照。":
+            - caption: 服务器返回的文档快照；所有时间为北京时间（UTC+8），命中次数为读取时快照。
+            - rowgroup:
+              - row "文档 ID 渠道 任务状态 向量就绪 有效状态 提交时间 完成时间 命中次数 操作":
+                - columnheader "文档 ID"
+                - columnheader "渠道"
+                - columnheader "任务状态"
+                - columnheader "向量就绪"
+                - columnheader "有效状态"
+                - columnheader "提交时间"
+                - columnheader "完成时间"
+                - columnheader "命中次数"
+                - columnheader "操作"
+            - rowgroup:
+              - row "ui-1792696650449-page-20 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:50 2026/10/23 03:29:50 0 详情 / 失效":
+                - cell "ui-1792696650449-page-20":
+                  - button "ui-1792696650449-page-20"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:50"
+                - cell "2026/10/23 03:29:50"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-19 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:49 2026/10/23 03:29:49 0 详情 / 失效":
+                - cell "ui-1792696650449-page-19":
+                  - button "ui-1792696650449-page-19"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:49"
+                - cell "2026/10/23 03:29:49"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-18 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:48 2026/10/23 03:29:49 0 详情 / 失效":
+                - cell "ui-1792696650449-page-18":
+                  - button "ui-1792696650449-page-18"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:48"
+                - cell "2026/10/23 03:29:49"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-17 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:48 2026/10/23 03:29:48 0 详情 / 失效":
+                - cell "ui-1792696650449-page-17":
+                  - button "ui-1792696650449-page-17"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:48"
+                - cell "2026/10/23 03:29:48"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-16 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:47 2026/10/23 03:29:47 0 详情 / 失效":
+                - cell "ui-1792696650449-page-16":
+                  - button "ui-1792696650449-page-16"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:47"
+                - cell "2026/10/23 03:29:47"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-15 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:46 2026/10/23 03:29:47 0 详情 / 失效":
+                - cell "ui-1792696650449-page-15":
+                  - button "ui-1792696650449-page-15"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:46"
+                - cell "2026/10/23 03:29:47"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-14 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:46 2026/10/23 03:29:46 0 详情 / 失效":
+                - cell "ui-1792696650449-page-14":
+                  - button "ui-1792696650449-page-14"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:46"
+                - cell "2026/10/23 03:29:46"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-13 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:45 2026/10/23 03:29:45 0 详情 / 失效":
+                - cell "ui-1792696650449-page-13":
+                  - button "ui-1792696650449-page-13"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:45"
+                - cell "2026/10/23 03:29:45"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-12 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:44 2026/10/23 03:29:45 0 详情 / 失效":
+                - cell "ui-1792696650449-page-12":
+                  - button "ui-1792696650449-page-12"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:44"
+                - cell "2026/10/23 03:29:45"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-11 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:44 2026/10/23 03:29:44 0 详情 / 失效":
+                - cell "ui-1792696650449-page-11":
+                  - button "ui-1792696650449-page-11"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:44"
+                - cell "2026/10/23 03:29:44"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-10 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:43 2026/10/23 03:29:43 0 详情 / 失效":
+                - cell "ui-1792696650449-page-10":
+                  - button "ui-1792696650449-page-10"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:43"
+                - cell "2026/10/23 03:29:43"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-09 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:42 2026/10/23 03:29:43 0 详情 / 失效":
+                - cell "ui-1792696650449-page-09":
+                  - button "ui-1792696650449-page-09"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:42"
+                - cell "2026/10/23 03:29:43"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-08 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:42 2026/10/23 03:29:42 0 详情 / 失效":
+                - cell "ui-1792696650449-page-08":
+                  - button "ui-1792696650449-page-08"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:42"
+                - cell "2026/10/23 03:29:42"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-07 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:41 2026/10/23 03:29:41 0 详情 / 失效":
+                - cell "ui-1792696650449-page-07":
+                  - button "ui-1792696650449-page-07"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:41"
+                - cell "2026/10/23 03:29:41"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-06 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:40 2026/10/23 03:29:41 0 详情 / 失效":
+                - cell "ui-1792696650449-page-06":
+                  - button "ui-1792696650449-page-06"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:40"
+                - cell "2026/10/23 03:29:41"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-05 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:40 2026/10/23 03:29:40 0 详情 / 失效":
+                - cell "ui-1792696650449-page-05":
+                  - button "ui-1792696650449-page-05"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:40"
+                - cell "2026/10/23 03:29:40"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-04 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:39 2026/10/23 03:29:39 0 详情 / 失效":
+                - cell "ui-1792696650449-page-04":
+                  - button "ui-1792696650449-page-04"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:39"
+                - cell "2026/10/23 03:29:39"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-03 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:38 2026/10/23 03:29:39 0 详情 / 失效":
+                - cell "ui-1792696650449-page-03":
+                  - button "ui-1792696650449-page-03"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:38"
+                - cell "2026/10/23 03:29:39"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-02 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:38 2026/10/23 03:29:38 0 详情 / 失效":
+                - cell "ui-1792696650449-page-02":
+                  - button "ui-1792696650449-page-02"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:38"
+                - cell "2026/10/23 03:29:38"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-01 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:37 2026/10/23 03:29:37 0 详情 / 失效":
+                - cell "ui-1792696650449-page-01":
+                  - button "ui-1792696650449-page-01"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:37"
+                - cell "2026/10/23 03:29:37"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-page-00 ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:29:36 2026/10/23 03:29:37 0 详情 / 失效":
+                - cell "ui-1792696650449-page-00":
+                  - button "ui-1792696650449-page-00"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:29:36"
+                - cell "2026/10/23 03:29:37"
+                - cell "0"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-xss ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:18:10 2026/10/23 03:18:10 3 详情 / 失效":
+                - cell "ui-1792696650449-xss":
+                  - button "ui-1792696650449-xss"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:18:10"
+                - cell "2026/10/23 03:18:10"
+                - cell "3"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-empty ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:17:53 2026/10/23 03:17:53 3 详情 / 失效":
+                - cell "ui-1792696650449-empty":
+                  - button "ui-1792696650449-empty"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:17:53"
+                - cell "2026/10/23 03:17:53"
+                - cell "3"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+              - row "ui-1792696650449-a ui-1792696650449 完成 · SUCCEEDED 是 有效 2026/10/23 03:17:30 2026/10/23 03:17:31 3 详情 / 失效":
+                - cell "ui-1792696650449-a":
+                  - button "ui-1792696650449-a"
+                - cell "ui-1792696650449"
+                - cell "完成 · SUCCEEDED"
+                - cell "是"
+                - cell "有效"
+                - cell "2026/10/23 03:17:30"
+                - cell "2026/10/23 03:17:31"
+                - cell "3"
+                - cell "详情 / 失效":
+                  - button "详情 / 失效"
+        - button "上一页" [disabled]
+        - generic: 第 1 页 · 每页 100 条 · 筛选结果共 24 条
+        - button "下一页" [disabled]
+      - generic: 按文档 ID 查询详情（提交结果未知时可用）
+      - textbox "按文档 ID 查询详情（提交结果未知时可用）": ui-1792696650449-xss
+      - button "查询详情"
+  - region "基础连接检查":
+    - heading "基础连接检查" [level=2]
+    - button "检查 /health"
+    - paragraph: 基础连接与任务就绪字段以真实响应为准，不能代替完整业务和浏览器验收。检查不会自动发起检索。
+    - status: 已展示真实健康响应；这不替代完整业务、浏览器与部署验收，也不会自动发起检索。
+    - term: status
+    - definition: UP
+    - term: stage
+    - definition: B4
+    - term: businessReady
+    - definition: "true"
+    - term: taskState
+    - definition: READY
+    - term: taskReady
+    - definition: "true"
+  - generic: 真实同源 API · 北京时间（UTC+8）· 本阶段不代表完整业务与部署验收完成。
