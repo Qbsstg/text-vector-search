@@ -2,12 +2,10 @@
 
 模型：`gpt-6.1-sol`，推理：`medium`。实际子agent：`/root/test_engineer`。
 
-先读根AGENTS.md、评审方案、API/运行契约和任务板。主目录`/Users/qbss/code/12times`；写入使用主控分配的`.worktrees/qa`及`agent/qa`，不得写主工作区。
+先读根AGENTS、API/运行契约、B1算法契约和任务板。仅在`.worktrees/qa`、`agent/qa`写分配的acceptance/测试资源和docs/testing/**，不改业务/DDL/pom。
 
-所有权：acceptance测试及资源、docs/testing/**；不改业务、DDL、pom。
+C0已验收。本轮QA-B1 REVIEW：首轮16项独立算法验收通过，随后a82b425完整29 unit+22 IT全部通过、失败/错误/跳过0；主控合入27b850c已观察，最终集成verify仍由主控核证。独立黄金/跨JVM、并发barrier、Unicode、codec/余弦和参考全排序证据见qa-b1交接及b1-test-plan，不宣称性能或跨任意JDK兼容。
 
-后续工作：QA0基础验证 → QA1 T01-T18分层 → QA2竞态/进程/UI → QA3交付复演。
+后续按派发将QA1扩展到B2-B4，QA2竞态/进程强杀/UI，QA3交付复演。正常关闭重启与强杀恢复分别留证；任务竞态用latch/barrier，不以sleep证明正确性。不把未实现业务列作已验收，不削弱断言或修改业务迎合结果。
 
-本轮C0：编写C0 acceptance IT及矩阵；不把未实现业务计为失败。
-
-端口：随机或不运行服务；独立H2目录，不共用主库。交付真实命令/结果、未执行项、风险和SHA。完成当前任务后结束，等待新工作包；禁止继续创建子agent、擅自上线/推送/删数据。
+测试使用随机端口、独立绝对临时H2路径，有限等待并清理自己明确拥有的进程/目录。代码提交前运行对应测试、阶段合入前完整verify；交付基线/文件/真实命令数量结果/未执行项/风险/SHA。完成当前任务后等待派发，禁止继续创建子agent或擅自部署/清理持久数据。

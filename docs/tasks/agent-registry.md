@@ -1,37 +1,31 @@
 # 子agent注册表
 
-2026-10-22 C0记录。五角色已实际启动并完成首轮只读分析；模型/推理为用户指定配置，均为`gpt-6.1-sol`，极高对应`xhigh`。这是当前会话内部子agent记录，不是五个独立侧栏聊天；角色卡可复用，不保证应用重启后自动启动。
+2026-10-22更新：C0五角色已验收；当前B1跟踪及经授权DEP2/GitHub准备。五角色为当前会话内部子agent，模型/推理沿用用户配置，不代表五角色同时运行或应用重启后自动启动。
 
-共同写入基线：`0f692387577be629d296d3a5fe0ba626072f93b4`。PM在自己的工作树实际执行`git worktree list --porcelain`，确认下列五个工作树及分支已创建。表中是检查时的角色产物，不推定当前主控集成SHA，也不表示五角色此刻全部并发运行。
+五个独立worktree已实际创建；PM本轮再次执行git worktree list核对。PM分支本次安全快进基线为`2dfd90d1e3529dc13a36605d221f1c47793ce056`，不假定其他角色使用相同阶段基线，具体见各交接。
 
-| 角色 | 实际子agent | 模型 / 推理 | 实际分支与绝对工作树 | C0状态与角色证据 |
+| 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（均在/Users/qbss/code/12times下） | 当前交付状态 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend；`/Users/qbss/code/12times/.worktrees/backend` | DONE；交接提交`2c3b9a26a06b5297a73975b0a7877d1bcea1d09a`，已由主控合入 |
-| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend；`/Users/qbss/code/12times/.worktrees/frontend` | DONE；静态入口提交`6b0f5de4f88322ed6eba82895c88f386a0704e71`；主控已完成C0浏览器/真实health验证 |
-| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server；`/Users/qbss/code/12times/.worktrees/server` | DONE；本地样例/preflight提交`0335dc5ae6a75dbc125adf549e30ebf5ea11d2f3`；未部署 |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa；`/Users/qbss/code/12times/.worktrees/qa` | DONE；提交`7b81d2904c3e40080181c672c966df5d05def3ca`；角色交接记录2个unit+6个IT通过，已合入并完成主控复跑 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm；`/Users/qbss/code/12times/.worktrees/pm` | DONE；仅本轮指定三文档；实际提交SHA由交付消息回报，不写自引用哈希 |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1 REVIEW；源码fafcbd5/847210d、交接6dae03b已合入，29 unit+6 IT为后端证据 |
+| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | C0 DONE；业务FE1-3等待明确派发 |
+| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2基础准备DONE；3f0ef5c已合入并经主控独立SSH复核，DEP3未执行 |
+| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | QA-B1 REVIEW；a82b425完整29 unit+22 IT，已观察主控合入27b850c，最终集成门禁待主控 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B1 REVIEW；仅指定六份任务文档，实际SHA在交付消息回报 |
 
-## 职责和交接依赖
+## 所有权与依赖
 
-| 角色 | Owner职责与可修改范围 | 下一阶段依赖与限制 |
-| --- | --- | --- |
-| 后端 | Java业务/Mapper与`src/test/java/**/unit/**`；一个Owner守住向量、任务、搜索和事务一致性 | B1→B2→B3→B4；不改公共API/DDL/依赖，不拆散同一事务给多个角色 |
-| 前端 | `src/main/resources/static/**`及显式分配测试；真实三功能区、详情和有限轮询 | FE1按冻结契约开发；FE2依赖B4真API；FE3浏览器与网络竞态验收；不改Java/DDL/pom |
-| 服务器 | `deploy/**`；本地部署样例、只读预检、实机运行/备份/回滚设计 | DEP1属C0；DEP2/DEP3依赖真实主机和授权，业务发布还依赖集成门禁；CI只向主控提案 |
-| 测试 | `src/test/java/**/acceptance/**`、`docs/testing/**`；独立验收、复现和证据 | QA1设计提前、实际断言依赖对应B1-B4；QA2竞态/强杀/UI，QA3交付复演；不削弱断言或代改业务 |
-| 项目管理 | `docs/tasks/**`；需求、里程碑、依赖、风险和证据追踪 | 本次仅backlog/registry/pm-c0交接；PM0→PM1→PM2→PM3随主控派发，不改API/DDL/实现或代主控合并 |
+- 后端：分配的Java业务/Mapper及unit；B1→B2→B3→B4，公共契约/DDL/依赖变更提主控。Java17、清晰命名、显式import、关键逻辑详细注释，代码提交前运行对应unit，阶段合入前完整verify。
+- 前端：static及显式分配测试；FE2依赖真API，FE3实际浏览器/网络验证，不改Java/DDL/pom。
+- 服务器：deploy；DEP2基础准备已结束，DEP3按后续具体方案；CI仅提案，不代主控发布。
+- 测试：acceptance、docs/testing；B1独立算法验收已交接，B2+竞态/进程/UI待派发，不削弱断言或改业务迎合结果。
+- PM：docs/tasks；本轮只改backlog、registry、backend/server/qa角色卡及pm-b1交接，不改公共文件或代主控合并。
 
-主控独占pom、Wrapper、基础application配置、schema、公共DTO/契约、根README/AGENTS、CI及合并；C0最终DONE由主控核证。主控已回报集成代码3个unit+6个IT及C0浏览器验证通过，服务器样例已合入；BE/PM文档后续合入及最终证据仍归主控，详见任务板。角色可写主控显式分配的交接文档；不能因角色卡或规划存在就自动开始后续业务。
+主控独占pom、Wrapper、基础application、schema、公共DTO/契约、根README/AGENTS、CI及合并。角色分支通过仍须集成核证；C0历史证据见C0-verification，B1最终DONE由主控登记。
 
-## 隔离和并发
+## 隔离、并发与授权
 
-- 最多主控+三个子agent工作，最多2—3个写入任务；五个已创建工作树不等于五个角色同时运行。禁止角色继续派生子agent。
-- 本地主控8080、后端8081、前端8083、服务器骨架8084；QA使用随机端口及绝对临时H2目录；PM不启动服务。每个worktree自己的`data/`互相隔离，不能共用主库。
-- worktree不隔离CPU、环境变量或端口；不在其他角色或主工作区checkout/reset、全仓格式化、撤销或清理文件，不操作notes分支。
-- 所有提交显式列本角色文件，由主控审查后集成；没有发布、远程创建/push、登录服务器、开端口或恢复/删除持久数据授权。
-- 每个交接包含基线/分支、文件、契约/依赖变化、真实命令与结果、未执行项、风险和SHA；角色分支通过仍须集成复跑。
+最多主控+三个子agent工作、2—3个写入任务；禁止继续派生子agent。写入各自分支/worktree，不在其他角色或主控目录checkout/reset、清理/全仓格式化/撤销，不操作notes，不重写历史。
 
-## 主控最终核证
+本地主控8080、后端8081、前端8083、部署骨架8084；QA随机端口与绝对临时H2目录，PM不启动服务。worktree不隔离CPU/环境/端口，各自H2不可共用主库。
 
-C0五角色交接全部审查合入；主控3个unit+6个IT和真实JAR/浏览器验证通过，见`docs/testing/C0-verification.md`。五角色当前任务完成，等待后续明确派发；不是继续后台运行完整业务。各工作树统一快进至本轮完成后的主线基线；最新指针以`git worktree list`为准。
+用户已授权主控用个人GitHub账号创建私有仓库并推送，目标为`Qbsstg/text-vector-search`，私有性已双重复核；公开另需指令。运维已获`8.155.137.169:22`基础配置授权，DEP2专用资源准备与独立复核已完成，unit disabled/inactive。正式发布/入口认证TLS待后续方案；不改SSH/防火墙、开公网端口、重启机器或恢复/清理数据，密钥/env不进入Git或对话。
