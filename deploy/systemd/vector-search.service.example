@@ -1,5 +1,5 @@
-# TEMPLATE ONLY: replace @SERVICE_USER@, @SERVICE_GROUP@ and @JAVA17@.
-# Paths are proposed, not evidence that these resources exist.
+# 仅为模板：替换@SERVICE_USER@、@SERVICE_GROUP@和@JAVA17@。
+# 路径为建议，不表示资源已经存在。
 [Unit]
 Description=Vector search single-instance application
 After=network.target
@@ -16,8 +16,8 @@ ExecStart=@JAVA17@ -Xms256m -Xmx1024m -jar /opt/vector-search/current/app.jar
 Restart=on-failure
 RestartSec=10
 KillSignal=SIGTERM
-# 120s is a provisional outer budget, not a measured shutdown guarantee.
-# Spring's 45s is per phase; re-evaluate against actual lifecycle phases.
+# 120s为临时外层预算，不是实测关闭时限保证。
+# Spring的45s按每阶段计算，须根据实际生命周期阶段重新评估。
 TimeoutStopSec=120s
 UMask=0077
 NoNewPrivileges=true
