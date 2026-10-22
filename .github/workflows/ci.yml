@@ -32,9 +32,21 @@ jobs:
           node-version: '22.16.0'
       - name: 验证真实请求边界与有限轮询逻辑
         run: node --test tests/frontend/*.test.mjs
+      - name: 验证 Linux 隔离冷备恢复与单实例保护
+        env:
+          RUNNER_ENVIRONMENT: ${{ runner.environment }}
+        run: |
+          for script in deploy/scripts/*.sh; do bash -n "$script"; done
+          bash docs/testing/final-linux-check.sh --github-hosted-test-only target/vector-search.jar
       - name: 封装固定源码与校验和的候选JAR
         if: github.ref == 'refs/heads/main'
-        run: python3 .github/scripts/package_release_candidate.py --expected-sha "$GITHUB_SHA"
+        run: |
+          python3 .github/scripts/package_release_candidate.py --expected-sha "$GITHUB_SHA"
+          candidate_dir="target/release-candidate/$GITHUB_SHA"
+          jar_sha=$(sha256sum target/vector-search.jar | cut -d ' ' -f 1)
+          schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
+          bash deploy/scripts/verify-release.sh "$GITHUB_SHA" "$jar_sha" "$schema_sha" \
+            "$candidate_dir/release-manifest.json" "$candidate_dir/app.jar" "$candidate_dir/SHA256SUMS"
       - name: 保存待人工批准的发布候选
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -54,6 +66,7 @@ jobs:
             target/b3-process-evidence/
             target/b4-evidence/
             target/final-evidence/
+            target/final-linux-evidence/
           if-no-files-found: error
           retention-days: 7
 

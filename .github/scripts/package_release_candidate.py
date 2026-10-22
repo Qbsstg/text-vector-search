@@ -35,6 +35,8 @@ def main():
         raise SystemExit("源码HEAD与指定完整SHA不一致")
     if git("status", "--porcelain", "--untracked-files=no"):
         raise SystemExit("存在已跟踪文件改动，不能给候选标注为干净源码SHA")
+    if git("ls-files", "--others", "--exclude-standard", "--", "src", ".mvn"):
+        raise SystemExit("存在未跟踪构建输入，不能把其产物归入指定源码SHA")
     jar = root / "target/vector-search.jar"
     if not jar.is_file() or not jar.resolve().is_relative_to(root / "target"):
         raise SystemExit("缺少当前构建的JAR，或JAR路径越过构建目录")
@@ -43,6 +45,11 @@ def main():
                     "BOOT-INF/classes/dev/twelvetimes/vector/VectorSearchApplication.class"}
         if not required.issubset(archive.namelist()) or archive.testzip() is not None:
             raise SystemExit("产物不是完整的本项目Spring Boot JAR")
+        application_class = archive.read("BOOT-INF/classes/dev/twelvetimes/vector/VectorSearchApplication.class")
+        if application_class[:4] != b"\xca\xfe\xba\xbe" or int.from_bytes(application_class[6:8], "big") != 61:
+            raise SystemExit("应用主类不是Java17目标字节码")
+        if hashlib.sha256(archive.read("BOOT-INF/classes/schema.sql")).hexdigest() != sha256(root / "src/main/resources/schema.sql"):
+            raise SystemExit("JAR内DDL与当前固定源码不一致")
     destination = root / "target/release-candidate" / source_sha
     if destination.exists() or not destination.resolve().is_relative_to(root / "target"):
         raise SystemExit("候选目录已存在或路径异常，拒绝覆盖")
