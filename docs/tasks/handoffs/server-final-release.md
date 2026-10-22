@@ -137,3 +137,17 @@ GC统一日志中Pause且以ms结尾的完成行133条，总886.032ms、最长31
 字段应覆盖documents的ID/channel/submitted_at/invalidated/invalidated_at/hit_count（十进制字符串）/embedding_version/vector_completed_at；对raw_text按固定UTF-8计算SHA-256，vector_bytes以getBytes读取全部1024字节计算SHA-256，null与零向量明确区分，并记录长度。关联embedding_tasks的task_id/status/run_token/attempt_count/embedding_version/submitted_at/started_at/finished_at/error_code及脱敏错误摘要。时间统一UTC ISO，空值保留null，不输出原文/向量原始字节或密码。
 
 建立三份排序快照：正式首次停机冷副本基线、正常重启后的再次冷副本、独立恢复新目录。对已终态合成对象逐字段/完整向量SHA/textSHA比较；pending恢复的token/attempt/time合理变化按任务状态单独解释，不能硬称所有token永不改变。整库文件hash用于证明冷复制一致，因正常运行H2元数据变化不能要求重启后的整库文件hash仍相同；完整行/向量摘要才是跨重启的业务断言。此方案尚未在生产或实验库运行，不把vectorReady或API详情当作完整向量字节验收，后续实现/执行需主控GO。
+
+## 第三轮：只读执行器队列采样（独立测试GO）
+
+主控要求补齐PERF01实际Java执行器队列采样，不能拿durablePending996替代；仅批准100篇20k长文、5分钟第三新库，不重跑1300全压力。新增 `deploy/scripts/QueueReadOnlyAgent.java`，不改固定业务JAR、生产代码、资源参数、HTTP端点或正式运行环境。
+
+先从批准JAR提取真实spring-boot-4.0.3.jar到本次/private/tmp专用构建目录，用JDK17 javap -private/-c核实SpringApplication.shutdownHook为static final；SpringApplicationShutdownHook.contexts为LinkedHashSet，registerApplicationContext在其Class monitor内修改集合。发现Field.get(null)可能触发尚未初始化的SpringApplication，因此先向主控说明风险并获明确批准：JDK17只用Unsafe.shouldBeInitialized读取初始化状态，不get/put/allocate/ensureClassInitialized；确认Boot自己已初始化后才读取静态字段。
+
+agent仅使用Instrumentation.getAllLoadedClasses发现已加载类，绝不添加transformer/redefine。复制contexts在已核实Class monitor内极短持锁，锁外isActive/getBeanFactory、containsSingleton/getSingleton只拿现有完整单例，禁止getBean提前构建；仅调用dispatcher公开queuedCount/inFlightCount/isRunning。daemon最多300秒、每50ms写全新0600 JSONL。独立QUEUE_READ_ONLY_EXPERIMENT=1且APP_DATA_DIR canonical路径必须匹配 `/var/lib/vector-search/perf-queue-d016-专用标签/data`，生产db或其他路径拒绝；只读这两个实验环境变量，不读env秘密或数据库。反射/同步/采样存在观测成本，不承诺零时序影响；保证的是不改字节码、不主动初始化业务类/Bean、不控制调度或参数。两项计数为相邻读取非原子联合快照，峰值仅50ms观测峰，不是连续精确极值。
+
+Java17编译成功（Unsafe内部API及待删除警告如实保留，仅固定JDK17隔离诊断适用），无外部依赖。临时构建产物只在 `/private/tmp/12times-queue-agent-2n979guh`；编译class/JAR不入Git。实际guard夹具确认缺实验flag和非专用APP_DATA_DIR均拒绝；源码git diff --check通过。字段/guard不兼容不能自动退回有副作用办法，观测失败保持NOT_RUN。
+
+第三新目录 `/var/lib/vector-search/perf-queue-d016-20261022T213513Z`（UTC标签），新data/logs0700、专用vector-search用户，8085空闲后创建；不复用前两库。固定业务JAR远端SHA仍64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50；独立agent SHA为1265d322a24b93b0cd2598b0555f15455b742cb16a64c8ac5043fe451b283fb7。瞬态unit `vector-search-perf-queue-d016-20261023.service`、PID8758，05:35:36北京时间启动，RuntimeMax300s、SuccessExitStatus143、原固定参数/堆/JFR/GC及独立/proc采样；约05:40:36到上限。
+
+**05:35:49** /health200、B4 businessReady=true，真实只读样本为 `OBSERVED,queuedCount=0,inFlightCount=0,isRunning=true`，间隔约50ms；不是WAIT或用持久积压替代。已通知主控READY发100长文。样本原件 `logs/queue-observations.jsonl`；此时负载峰/关闭结果尚未产生，不提前PASS。正式unit/Nginx/current/正式DB与D1备份均未改变；正常结束保留第三库/日志，仍不是正式部署GO。
