@@ -85,3 +85,34 @@
 已向主控提出第二轮的具体方案：新建仅本实验的/run/systemd/system下SuccessExitStatus143 drop-in，verify后daemon-reload，运行JVM不restart、PID不变、DB不动。此时方案尚未执行；第一轮failed原始状态/证据保持，不重置或覆盖历史。该问题首先属于实验unit的退出状态策略，不据此宣称业务生命周期缺陷。
 
 后续主控明确批准该精确方案，**05:08:18北京时间**已执行：新建 `/run/systemd/system/vector-search-perf-search-d016-20261023.service.d/exit-status.conf`，仅Service的SuccessExitStatus143。`systemd-analyze verify /run/systemd/transient/vector-search-perf-search-d016-20261023.service`退出0（仍提示既有cloudmonitor KillMode/旧PID路径警告，未改该服务）；`systemctl daemon-reload`后show确认SuccessExitStatus143、MainPID7877不变、active、NRestarts0、DropInPaths为上述单文件。没有restart/stop或数据库操作；第一轮仍failed/Result exit-code/ExecMainStatus143，未reset-failed。该实测验证配置加载且进程持续运行，真正停止后的inactive/Hikari结果仍待第二轮结束，不提前记PASS。
+
+## PERF02/03正常停止、资源归档与真实状态
+
+主控报告第二轮客户端完成exit0：全新5000篇真实向量，N100/1000/5000×K1/10/100每组12次200；混合N1000共30成功；热点128次=4成功/124明确429，分散64次=7成功/57明确429，恢复探针200；全5000文档ledger核对热点增量4、分散7+恢复1增量8匹配，unknown0、writeRetry0。客户端负载窗口368.585秒。这些属于主控客户端实测，本角色不重新累计为独立服务器请求断言。
+
+主控通知无负载后，**2026-10-23 05:18:31北京时间**执行 `systemctl stop vector-search-perf-search-d016-20261023.service` 及对应-sampler。Tomcat05:18:31.864 graceful complete、Hikari05:18:32.495 Shutdown completed；05:18:32的 `journalctl -u ... -o short-iso` 明确 `Deactivated successfully` 和 `Stopped`，并记录Consumed 2min49.340s CPU、588.2M cgroup memory peak。PID7877已不存在、8085无监听、正式service仍inactive，实验库/日志不删不复用。
+
+**瞬态状态注意**：成功停止后systemd自动回收该transient unit，后查LoadState=not-found、ActiveState=inactive、SubState=dead；show曾给默认Result=success/ExecMainStatus0/SuccessExitStatus空，这些不是保留下来的真实Java退出码，不能写成“Java退出0”。停前已实际核验SuccessExitStatus143，成功停止证据采用journal及关闭日志。回收后journal出现无法再打开 `/run/systemd/transient/...service` 的诊断，未掩盖，也不将其误归业务异常。实验drop-in留存，第一轮failed原始证据未reset。
+
+### 第二轮全生命周期资源
+
+原件目录 `/var/lib/vector-search/perf-search-d016-20261023T0506`。766个约1秒采样，首末765.472030秒，包含启动、空闲、造数/负载及关闭，**不能当作368.585秒纯客户端负载窗口**。/proc utime+stime从0.26到168.73秒、增量168.47秒；相邻采样以100%=一核计算，平均22.0007%、峰367.3595%。RSS采样峰590,733,312bytes；H2文件体积峰186,638,336bytes，停止后主文件149,983,232bytes。RSS/GC/JFR均含观测开销，RSS不等于Java堆；体积不等于积压。
+
+GC统一日志中Pause且以ms结尾的完成行133条，总886.032ms、最长31.692ms，这是暂停完成行口径，不充当请求延迟或所有GC阶段次数。精确队列峰值未采集，不用客户端durablePending或H2大小冒充Java执行器队列。资源摘要为logs/resource-summary.json，含时间戳/定义/客户端报告窗口；JFR不进Git。
+
+### 第二轮文件manifest与安全归档
+
+服务器 `experiment-file-manifest.json` 记录停止后实验各普通文件，SHA-256为 `fc71b72a628c46ded3daaf6dffb0de01be88b5c9c9aa0b950f4c84d797bf8d1b`；manifest自身摘要单独记录，避免自引用。全部原件保留：
+
+| 相对文件 | bytes | SHA-256 |
+| --- | --- | --- |
+| app.jar | 27309072 | 64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50 |
+| data/knowledge.mv.db | 149983232 | 376bbb9dba22b8555c47eb9185593c795a60d2d17af37cb512b9b0bc8e9dca9c |
+| logs/app.log | 3945 | 49924521afe599e6ab7cf6cdfa34edaee54bc9392c36dd18bc00f2cf903ef35a |
+| logs/flight.jfr | 7558535 | b57b20fd2594e592c84b37fc756ebe8ead2ad994326f58740fe3339592f7ff24 |
+| logs/gc.log | 211115 | b01b3313c44c4de449c8b4499f60d2cbc83467994831139e2e8e850c66a284be |
+| logs/process-metrics.jsonl | 121076 | 4209325e9ed58a8f33693aea00eda916cc87e1934d4a58546d9c76dc1fd908a3 |
+| logs/resource-summary.json | 646 | 463ac4daca2b07d23a4b3a546f12d5919c4fb0145e167c2b675e2c85d410fb37 |
+| perf-sample.py | 1856 | c82bef0f0fbc9738c36ad49b84dd61fd7abc343d542724e051a03ecae7008609 |
+
+另新建root0600归档 `/var/backups/vector-search/perf-search-d016-20261023T0506-resources.tar.gz`，36267bytes，SHA-256 `0795b1ca00cf3fd0c9f70374a8d323535c8f5320eb63261b9969003f58972fc4`，仅含metrics、GC、resource-summary及全文件manifest，供主控安全scp；不含JFR、数据库、env、密码或私钥。没有覆盖已有归档。本次只追加执行记录，git diff --check通过，未重跑Maven/Node；正式D2—D9仍需主控测试/REC07门禁GO，没有启动正式service或改变Nginx。
