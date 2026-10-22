@@ -39,3 +39,18 @@
 认证验收由服务器root进程在内存读受限文件、构造HTTPS Authorization，输出仅状态/合成业务证据。真实Chrome所需密码由用户通过安全SSH终端查看并本地输入，不能要求发到对话；密码文件不会进入证据或公开材料。保留原DB_PASSWORD，不重建真实env。公网未认证与TLS检查可用外部无凭据请求。
 
 后续D2—D9及真实入口/六接口/重启/冷备新目录恢复/两项enable目前 **NOT_RUN**，不是已完成正式部署。无旧版时D9只能回TLS检查并保留现场，不虚构程序回滚。生产覆盖/删除和高风险故障不在本角色执行范围。
+
+## GO-ISOLATED-PERF：独立Linux实验（不是正式发布GO）
+
+主控在70用例/REC07发布门禁等待期间，另行授权独立Linux性能测试，客户端在本机经SSH转发压测，负载与服务端资源分离。本节不是D2—D9执行：正式current、DB、unit、Nginx、认证均未改变，D1备份保留。
+
+- 04:49:36北京时间只读确认8085空闲、vector-search正式unit inactive、专用用户及Java工具可用。
+- 本机两个历史Chrome候选逐一核对SHA，排除旧摘要61bbb02d...；仅使用 `/private/tmp/12times-chrome-ui-fixed-3z58ph84/candidate/app.jar`，SHA精确等于批准值64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50。传输后服务器sha256sum再次一致。
+- 新建实验 `/var/lib/vector-search/perf-d016-20261023T0450`，目录/data/logs均vector-search0700，JAR及采样脚本root:vector-search0640；不覆盖已有目录，无current链接。实验H2仅在此目录，未使用真实env或DB_PASSWORD。
+- 通过systemd-run建立瞬态 `vector-search-perf-d016-20261023.service`，User/Group=vector-search，独立PORT8085、APP_DATA_DIR，RuntimeMaxSec3600、TimeoutStopSec120，正常超时先SIGTERM。固定Java17、Xms256m/Xmx1024m，原冻结业务参数不变；实验回环直连，不加载proxy配置或开放公网端口。
+- JVM PID **7375**；04:51:04健康HTTP200、stageB4、businessReady=true、所有checks为true；ss仅显示回环8085。正式vector-search.service仍inactive/MainPID0/NRestarts0。
+- JVM开启 `-XX:StartFlightRecording=filename=.../logs/flight.jfr,settings=default,dumponexit=true,maxsize=256m,maxage=1h`；GC日志位于logs/gc.log，10MiB×3滚动。应用日志logs/app.log。JFR默认配置有观测成本，性能报告须注明，不能与无观测环境混作一组。
+- 新脚本 `deploy/scripts/perf-sample.py` 仅读实验PID的/proc stat/statm，每秒写CPU累计秒/单核百分比、RSS和实验H2文件体积；PID starttime改变即退出，最长3600秒，不增加测试API、不访问数据库。瞬态采样unit `vector-search-perf-d016-20261023-sampler.service`，PID7384。首行已真实写入，记录PID7375、cpuSeconds0.16、rssBytes41730048；启动初期h2FileBytes0不表示业务无库。
+- 没有第二JVM打开活动H2。现有健康/公开API没有精确Java执行器队列指标，JFR default不可靠提供队列长度峰值；不能把H2文件体积当积压。客户端可另估算接收减终态的pending，但须明确不是精确执行器队列峰值，未采到的指标保持未验证。
+- 主控已收到实验端口/目录/PID、固定hash及一小时上限，客户端自行建立本机SSH转发；压测结束由本角色只正常stop以上实验unit，保留H2/JAR/日志，不清理数据。若主控未提前结束，约05:50:51到达一小时上限，需记录实际SIGTERM结果而非假定通过。
+- Python AST语法、参数拒绝和/proc字段索引夹具检查通过；真实Linux监控首行与健康已验证。性能吞吐/延迟/队列实验由主控客户端执行，此时尚无性能结论；正式公网业务/认证仍NOT_RUN。
