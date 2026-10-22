@@ -73,3 +73,21 @@
 实际命令：`git status --short`、`git branch --show-current`、`git rev-parse HEAD`确认QA树干净；`git merge --ff-only main`快进至`8a6713c`；只读`cat`/`sed`/`rg`与Python解析旧轮JSON/事件；查看`U02-real-task.png`进行视觉核证。提交前执行`git diff --check`及矩阵结构静态检查。首次Git元数据写入受沙箱拒绝后以已授权提升重试成功，不影响文件历史。
 
 本次仅新增本文档，无代码测试新增通过数；Java/Node测试未执行，Chrome操作未执行，应用启动未执行，服务器未执行。新轮候选SHA/摘要/CI、完整真实Chrome矩阵及故障注入分支待主控提供后再核证；最终UI门禁仍未通过。证据位于本机临时目录，尚未归档进仓库，需主控保留或另行归档后再作长期交付。
+
+
+## 新候选准备核证：尚未判定UI
+
+2026-10-23追加；本次QA树未快进，继续从`838d614f408d429284f00c53d6ec80ca6b497266`独立提交。旧候选FAIL保留。旧轮项目证据已由主控归档至`docs/testing/evidence/ui-browser-68d80cb-failed/`；`review.json`明确修正原始`cases-initial.json`的U01初步PASS，原件不改。完整含扩展活动trace仍保留在旧临时目录，仓库仅归档项目trace。
+
+- 新源码SHA：`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`。
+- 新JAR SHA256：`64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`；大小`27309072`字节。
+- CI：[39838054946](https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946)。QA读取主控下载日志`/private/tmp/12times-ui-ci-39838054946.log`及主树`.cache/ui-ci-d016d6e/reports/`，不启动或重跑测试。
+- 独立汇总19份Surefire XML：104 tests，0 failures/errors/skipped；14份Failsafe XML：110 tests，0 failures/errors/skipped。日志有`BUILD SUCCESS`及Node 39 tests / 39 pass / 0 fail / 0 skipped，合计253项；这是CI证据核证，非本轮新增本机执行。
+- 日志的候选封装manifest与上述源码SHA、JAR摘要、字节数、Java17一致，算法版本仍为`char12-sha256-r32-nfkc-root-ws-v1`，schema摘要`54758965a66d42092da6049ed67a3043d57b1542705f38198975c424fed3d69d`。本次QA未另读JAR实际字节；主控已报告完成实际下载校验与六参数验证，二者来源分开记录。
+- Linux冷备日志确认拒绝活动文件占用/单实例锁占用、冷备校验及权限、拒绝已有目标和错误版本/摘要、独立恢复后真实JAR状态/向量/首次时间/计数/失效保留，原备份未改。日志明确systemctl为进程PATH内inactive shim，仅证明一次性Linux runner演练；真实systemd、服务器恢复与发布仍未执行。
+
+修复范围独立审查：`cda3f8c4fdd3e6744f5889794fca354a9328a16a`只包装默认`setTimeout/clearTimeout`经`globalThis`调用，保留注入与轮询参数；新增receiver敏感回归，覆盖首次查询、2秒刷新和停止清理。`bf7aeac2a5ba349486d7cc4319be9d59e18890bf`只增加同源`favicon.svg`及HTML显式引用。两提交另含前端交接文档。以旧候选与新候选比较，Java生产类、schema、基础application.yml与pom无差异；本次修复未扩大算法或后端业务范围。静态审查与Node回归尚不能证明真实Chrome问题已消失。
+
+新轮主控专用目录为`/private/tmp/12times-chrome-ui-fixed-3z58ph84/`、8083、PID59265，由主控独占浏览器与90分钟有界进程；QA未操作该进程/页面。29项新轮仍全部`NOT_RUN`，本次不提前填写任何UI PASS。待主控提供实际操作、截图、DOM、Network/响应与模式标注后逐项核证。
+
+本次实际检查为Git只读diff/show、Python汇总XML、日志与旧归档JSON读取、`git diff --check`和矩阵结构检查；未执行Java/Node测试、Chrome、应用启动、服务器操作。
