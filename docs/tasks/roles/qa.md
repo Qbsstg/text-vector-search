@@ -1,11 +1,11 @@
 # 测试工程师
 
-模型：`gpt-6.1-sol`，推理：`medium`。实际子agent：`/root/test_engineer`。
+模型`gpt-6.1-sol / medium`；实际子agent`/root/test_engineer`。使用`.worktrees/qa`、`agent/qa`，只改分配acceptance/资源与docs/testing，不改业务/DDL/pom；先读AGENTS、B2实施契约及b2-test-plan。
 
-先读根AGENTS、API/运行契约、B1算法契约和任务板。仅在`.worktrees/qa`、`agent/qa`写分配的acceptance/测试资源和docs/testing/**，不改业务/DDL/pom。
+C0/B1 DONE。中文化545c29d独立51项通过、黄金不变。B2接收前段9242a38已合入：目标9 IT，6345bd9基线完整40 unit+31 IT，失败/错误/跳过0；这是接收前段证据，不覆盖后来HTTP/扫描后段，完整B2主控门禁未做。
 
-C0已验收。本轮QA-B1 REVIEW：首轮16项独立算法验收通过，随后a82b425完整29 unit+22 IT全部通过、失败/错误/跳过0；主控合入27b850c已观察，最终集成verify仍由主控核证。独立黄金/跨JVM、并发barrier、Unicode、codec/余弦和参考全排序证据见qa-b1交接及b1-test-plan，不宣称性能或跨任意JDK兼容。
+下一短任务：独立管理HTTP/实际chunked正文/Origin、四态映射、失效；扫描补派/唯一领取/饱和及事务外handler。latch/barrier和真实物理提交证据优先，不以sleep猜时序。测试可注入受控handler，但不把夹具状态或替身终态当成生产B3；生产无handler须保留QUEUED，旧RUNNING不假恢复。
 
-后续按派发将QA1扩展到B2-B4，QA2竞态/进程强杀/UI，QA3交付复演。正常关闭重启与强杀恢复分别留证；任务竞态用latch/barrier，不以sleep证明正确性。不把未实现业务列作已验收，不削弱断言或修改业务迎合结果。
+B3终态/强杀恢复/完整关闭、B4计数、完整浏览器/部署均未执行。用户docs/测试工作原样保留，70条用例不能算已执行；不削弱断言迎合实现。中文维护注释、中文新Commit、代码提交前对应测试、阶段完整verify，保留失败修复记录。
 
-测试使用随机端口、独立绝对临时H2路径，有限等待并清理自己明确拥有的进程/目录。代码提交前运行对应测试、阶段合入前完整verify；交付基线/文件/真实命令数量结果/未执行项/风险/SHA。完成当前任务后等待派发，禁止继续创建子agent或擅自部署/清理持久数据。
+随机端口、绝对临时H2、有限等待且只清理自己明确拥有的进程/目录。交付基线/文件/真实命令数量结果/未执行/风险/SHA；短任务结束释放槽位，禁止派生agent或部署。

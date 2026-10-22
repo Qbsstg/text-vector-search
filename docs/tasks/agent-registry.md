@@ -1,33 +1,21 @@
 # 子agent注册表
 
-2026-10-22更新：C0五角色已验收；当前B1跟踪及经授权DEP2/GitHub准备。五角色为当前会话内部子agent，模型/推理沿用用户配置，不代表五角色同时运行或应用重启后自动启动。
+本轮：B2、FE1、独立QA、Nginx及中文化；C0/B1既有DONE保留。五角色均为当前会话内部子agent，模型/推理沿用用户配置，不表示全部同时运行。PM本轮实际核对五个worktree，写入基线`2b6330816ec908b25e232f23441f1d7291a826c6`；角色各自基线以交接为准。
 
-五个独立worktree已实际创建；PM本轮再次执行git worktree list核对。PM分支本次安全快进基线为`2dfd90d1e3529dc13a36605d221f1c47793ce056`，不假定其他角色使用相同阶段基线，具体见各交接。
-
-| 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（均在/Users/qbss/code/12times下） | 当前交付状态 |
+| 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（/Users/qbss/code/12times下） | 当前任务 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1 DONE；源码fafcbd5/847210d、交接6dae03b已合入，29 unit+6 IT为后端证据 |
-| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | C0 DONE；业务FE1-3等待明确派发 |
-| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2基础准备DONE；3f0ef5c已合入并经主控独立SSH复核，DEP3未执行 |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | QA-B1 DONE；a82b425完整29 unit+22 IT，已观察主控合入27b850c，主控集成51项已通过 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B1 DONE；仅指定六份任务文档，实际SHA在交付消息回报 |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1 DONE；B2三段1bfa33f/f834fa4/4523942已合入；调度24个对应unit通过，角色回归及最终门禁待核 |
+| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | C0 DONE；FE1运行中，25项Node测试通过待提交；B3/B4缺口不伪报成功 |
+| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2/NGINX-PREP DONE；b9e79bc及主控独立复核；DEP3未发布 |
+| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | B1 DONE；9242a38接收前段已合入，后段等待槽位与实现；不代主控关闭B2 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B2：任务板/注册/五角色卡/报告/交接，仅文档，完成后结束释放槽位 |
 
-## 所有权与依赖
+主控独占pom/Wrapper、基础配置、DDL、公共DTO/契约、根README/AGENTS、CI及合并。后端负责业务/Mapper/unit；前端仅static及分配测试；服务器deploy、CI提案；QA acceptance与docs/testing；PM docs/tasks。公共变更提主控，不越权代改。
 
-- 后端：分配的Java业务/Mapper及unit；B1→B2→B3→B4，公共契约/DDL/依赖变更提主控。Java17、清晰命名、显式import、关键逻辑详细注释，代码提交前运行对应unit，阶段合入前完整verify。
-- 前端：static及显式分配测试；FE2依赖真API，FE3实际浏览器/网络验证，不改Java/DDL/pom。
-- 服务器：deploy；DEP2基础准备已结束，DEP3按后续具体方案；CI仅提案，不代主控发布。
-- 测试：acceptance、docs/testing；B1独立算法验收已交接，B2+竞态/进程/UI待派发，不削弱断言或改业务迎合结果。
-- PM：docs/tasks；本轮只改backlog、registry、backend/server/qa角色卡及pm-b1交接，不改公共文件或代主控合并。
+B2依据实施契约：无B3处理器时生产不派发/领取，记录QUEUED真实可查；测试受控handler不代表终态/恢复完成。B3/B4/DEP3继续另行派发。编码和注释使用简体中文、代码提交前跑对应测试；存量注释独立提交，新Commit说明中文，旧SHA不重写。
 
-主控独占pom、Wrapper、基础application、schema、公共DTO/契约、根README/AGENTS、CI及合并。角色分支通过仍须集成核证；C0历史证据见C0-verification，B1最终DONE由主控登记。
+最多主控+三个子agent、2—3个写入任务；禁止继续派生子agent。各自worktree写入，不checkout/reset或清理他人目录，不操作notes；worktree不隔离CPU/端口/环境。主控8080、后端8081、前端8083、本地部署8084，QA随机端口与绝对临时H2，PM不启动服务；数据库不可共用主库。
 
-## 隔离、并发与授权
+私有GitHub创建/推送及指定SSH22基础配置已有授权；域名Nginx准备亦已授权并完成检查站点。当前只公开非敏感HTTP检查，真实API/H2/管理端点拒绝代理，后端unit仍disabled/inactive。证书由用户安全提供，云安全组80/443人工核对；正式业务发布/认证TLS按后续具体方案，不据网络准备启动未完成业务。密钥/env不进Git或对话，不借其他项目资源。
 
-最多主控+三个子agent工作、2—3个写入任务；禁止继续派生子agent。写入各自分支/worktree，不在其他角色或主控目录checkout/reset、清理/全仓格式化/撤销，不操作notes，不重写历史。
-
-本地主控8080、后端8081、前端8083、部署骨架8084；QA随机端口与绝对临时H2目录，PM不启动服务。worktree不隔离CPU/环境/端口，各自H2不可共用主库。
-
-用户已授权主控用个人GitHub账号创建私有仓库并推送，目标为`Qbsstg/text-vector-search`，私有性已双重复核；公开另需指令。运维已获`8.155.137.169:22`基础配置授权，DEP2专用资源准备与独立复核已完成，unit disabled/inactive。正式发布/入口认证TLS待后续方案；不改SSH/防火墙、开公网端口、重启机器或恢复/清理数据，密钥/env不进入Git或对话。
-
-主控B1最终核证：27b850c代码集成完整29 unit+22 IT通过，见`docs/testing/B1-verification.md`。B1角色任务已结束，等待后续派发；服务器当前仅基础配置，未运行应用。
+真实证据、未执行项和阶段依赖见[B2报告](B2-阶段进展报告.md)。各交接保留当时状态，最终B2集成SHA/门禁由主控核证，不以角色分支通过替代。
