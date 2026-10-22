@@ -1,0 +1,14 @@
+命令=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe SIGTERM_GRACEFUL /var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-2275473640283097914;pid=36938;SHA=afb3824d44556e587b8cf63f2ddd7c6d4b47fe15
+QA_EVENT|36938|APP_READY|port=58928;state=READY
+QA_EVENT|36938|CPU_READY|真实B1已计算;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1
+发送SIGTERM
+QA_EVENT|36938|STOPPING|生产生命周期已拒接
+QA_EVENT|36938|TX_FAILURE|org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction;root=org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+QA_EVENT|36938|TX_FAILURE|org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction;root=org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+QA_EVENT|36938|TX_FAILURE|org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction;root=org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+QA_EVENT|36938|TX_FAILURE|org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction;root=org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-240]
+QA_EVENT|36938|HANDLER_RETURNED|生产处理器已返回
+2026-10-23T01:00:41.316+08:00 ERROR 36938 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 任务执行暂停，需要诊断：BusinessException
+QA_EVENT|36938|DATASOURCE_CLOSED|closed=true
+QA_EVENT|36938|SHUTDOWN_SNAPSHOT|status=RUNNING;token=aeddc06e-cba9-4c41-b069-b6e144b64e24;attempt=1;finished=null;sha=null;vectorTime=null;task=7d57ba60-aa27-45ba-9273-88886403e801;hitCount=0;invalidated=false
+失败清理子进程：exit=137
