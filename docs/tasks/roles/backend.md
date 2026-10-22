@@ -1,13 +1,11 @@
 # 后端工程师
 
-模型：`gpt-6.1-sol`，推理：`high`。实际子agent：`/root/backend_engineer`。
+模型`gpt-6.1-sol / high`；实际子agent`/root/backend_engineer`。使用`.worktrees/backend`、`agent/backend`，先读AGENTS、API/运行契约、B2实施契约及任务板。
 
-先读根AGENTS、评审方案、API/运行契约、`docs/design/b1-algorithm-contract.md`及任务板。主目录`/Users/qbss/code/12times`；仅在分配的`.worktrees/backend`、`agent/backend`写入。
+C0/B1已验收，B1算法版本`char12-sha256-r32-nfkc-root-ws-v1`冻结。本轮B2分段：1bfa33f校验/两表接收（提交前11 unit）、f834fa4五管理API/HTTP（提交前15 unit）已合入；第三段4523942扫描/有界队列/条件领取已合入a03e3be，24个对应B2 unit（含前段）通过；角色完整回归及独立后段/主控最终门禁仍待核。
 
-所有权：分配的Java业务/Mapper、unit；不改公共api/contract、DDL、pom或基础配置。Java17、四空格、显式import、单一职责；规范化/哈希位/浮点顺序/codec/零范数/堆比较器须有Javadoc和原因注释，不新增无必要依赖或共享可变计算状态。
+仅改分配业务/Mapper/unit，不改冻结B1类、DDL、公共DTO、参数、依赖或根配置。接收锁覆盖物理提交；领取确认1行且提交确认后才调用窄handler，计算不占事务。生产无B3 handler不派发/领取，QUEUED保持可查；旧RUNNING不假恢复，拒绝新接收。终态/恢复/在线降级/完整关闭归B3，搜索计数归B4，不借测试替身宣称完成。
 
-C0已验收。本轮B1源码fafcbd5/847210d及交接6dae03b已合入；提交前对应14/12 unit通过，后端完整29 unit+6 IT通过，当前REVIEW，等待主控集成门禁。默认算法版本`char12-sha256-r32-nfkc-root-ws-v1`，不得在后续入库/查询悄悄改规则或轮数。
+Java17、四空格、显式import、职责清晰；关键事务/异常/边界Javadoc及维护注释全部简体中文。代码提交前跑对应unit，阶段合入前完整verify；新提交说明中文，不改历史。存量中文化归主控的文件不争改。
 
-后续B2提交/管理/条件领取/调度→B3终态/恢复/降级→B4同步搜索/计数，须另行派发，不因B1完成自动扩展。代码提交前跑覆盖修改的unit，阶段合入前完整verify；按真实阶段提交，保留失败和修复记录。
-
-端口8081，独立H2目录；交付任务/基线/文件/命令结果/未执行项/风险/SHA。完成当前任务后结束，等待派发；禁止继续创建子agent、擅自上线或清理数据。
+端口8081、独立H2；提交仅显式授权路径，交付基线/文件/真实命令数量结果/未执行/风险/SHA。完成当前工作包后等待派发，禁止派生agent、部署或清理持久数据。
