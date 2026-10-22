@@ -1,5 +1,6 @@
 package dev.twelvetimes.vector.acceptance;
 
+import com.zaxxer.hikari.HikariDataSource;
 import dev.twelvetimes.vector.api.contract.ApiModels.SearchRequest;
 import dev.twelvetimes.vector.api.error.BusinessException;
 import dev.twelvetimes.vector.embedding.TextEmbedder;
@@ -68,8 +69,13 @@ public final class LocalPerformanceProbe {
             }
         }
         try (var env = new B4QaEnvironment(root.resolve("contention"), false, false, null,
-                "--spring.datasource.url=jdbc:h2:file:" + root.resolve("contention/knowledge") + ";WRITE_DELAY=0;LOCK_TIMEOUT=200",
-                "--spring.datasource.hikari.maximum-pool-size=8")) {
+                "--spring.datasource.url=jdbc:h2:file:" + root.resolve("contention/knowledge") + ";WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=200",
+                "--spring.datasource.hikari.maximum-pool-size=4")) {
+            int poolSize = ((HikariDataSource) env.bean(DataSource.class)).getMaximumPoolSize();
+            assertEquals(4, poolSize);
+            report.put("countConnectionPoolSize", poolSize);
+            report.put("databaseUrlOptions", "WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=200");
+            report.put("faultParameterBoundary", "LOCK_TIMEOUT=200仅为隔离计数实验故障注入；其余连接池与文件参数沿用冻结值，不改变生产");
             seed(env, 8);
             var counter = new InstrumentedCounter(env);
             report.put("hotspot", parallel(env, counter, true));
