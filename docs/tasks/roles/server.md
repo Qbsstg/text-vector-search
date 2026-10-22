@@ -1,5 +1,7 @@
 # 服务器工程师
 
+2026-10-23 B4阶段：DEP2/TLS检查既有DONE保持，B3已用户原则批准；服务器本轮待命，不因本地B4/FE2开发启动远程业务。SSL已安装且有效，不重复索取。DEP3业务代理、真实入口认证、systemd应用启动及Nginx开机启动策略均须独立发布授权，B4/浏览器验收不能替代该授权。
+
 模型`gpt-6.1-sol / medium`，`/root/server_engineer`；使用`.worktrees/server`、`agent/server`，只改deploy及分配交接，CI只提案。先读AGENTS、运行/代理契约及server-ssl-prep交接。
 
 DEP2/原HTTP准备DONE。最新服务域名text-vector-search.lemoncharger.com，旧多级域名仅历史。f9cf401已合入：用户ZIP证书有效、SAN匹配新域名、系统信任链和公私钥匹配；证书不是待提供项。私钥仅服务器root受限目录，目录0700/文件0600，本次本地临时副本已清理，原ZIP未改/未进项目，不输出密钥或密码。

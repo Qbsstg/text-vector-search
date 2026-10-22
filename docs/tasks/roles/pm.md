@@ -1,9 +1,9 @@
 # 项目管理
 
-模型`gpt-6.1-sol / xhigh`，`/root/project_manager`；使用`.worktrees/pm`、`agent/pm`。先读AGENTS、B3契约/计划、最新交接及B1/B2原证据。
+模型`gpt-6.1-sol / xhigh`，`/root/project_manager`；使用`.worktrees/pm`、`agent/pm`。先读AGENTS、B4契约、任务板及QA十二矩阵。
 
-本次确认分支干净后仅快进指定1c8676b，再更新九份授权任务文档；C0/B1/B2的DONE与历史保留。不改根README/API/runtime、代码/DDL/依赖或CI，不代主控合并。
+本轮PM-B4确认干净并仅快进ad2fa143；只更新backlog、registry、PM/server角色卡、新B4启动拆解及自己交接。后端/前端/QA角色卡当前B4派发及历史不改，B3-verification、根公共文件和业务不触碰。
 
-跟踪三段源码、终态16 IT、主控阶段161项和真实JAR冒烟；13953cf恢复确认与fe32b5b H2退出URL已修复合入，74 unit过；QA后半6个真实进程改读真实默认URL重跑，最终源码/QA/CI由主控补，B3不预填DONE。组件反例与真实socket、TLS检查与业务发布、Node与浏览器分开。
+保留B3用户原则批准、dd96021 CI39821247938完整173通过，与B4实际编码/矩阵NOT_RUN分开；确认Owner/依赖/验收及初始人时估计。浏览器已告知开启方法但无启用确认，继续待办；SSL已装不索取，DEP3代理/认证/服务与开机策略独立授权。
 
-本轮只读现有日志/JSON与Git/文档，并按清单校验17+31+31份B1/B2原CI文件全部匹配，不重跑Maven/Node/进程/SSH/CI或接触ZIP/key。中文Commit、显式路径、diff与链接核对后交接释放槽位；不派生agent，不自动启动B4/DEP3。
+只文档/Git检查，不跑测试/服务器、CI查询或读取ZIP/key。中文Commit、显式路径、diff/链接检查，交接真实SHA后结束释放QA执行槽；不派生agent、不替主控集成或关闭B4门禁。
