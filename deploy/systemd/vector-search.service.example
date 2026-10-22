@@ -18,6 +18,9 @@ ExecStart=/usr/bin/flock --exclusive --nonblock --no-fork /var/lib/vector-search
 Restart=on-failure
 RestartSec=10
 KillSignal=SIGTERM
+# Java可完成Spring/Hikari优雅关闭后退出143；将其列为预期状态，避免误报failed。
+# 这不代替真实关闭日志、进程退出及H2无占用检查，其他错误仍按失败处理。
+SuccessExitStatus=143
 # 120s为临时外层预算，不是实测关闭时限保证。
 # Spring的45s按每阶段计算，须根据实际生命周期阶段重新评估。
 TimeoutStopSec=120s
