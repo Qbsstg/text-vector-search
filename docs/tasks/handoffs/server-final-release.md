@@ -224,3 +224,41 @@ JDK17 javac编译成功。本次全新 `/private/tmp/12times-cold-snapshot-om_47
 **06:17:35 CST +0800**最后复核：current仍不存在，正式vector-search.service inactive/dead/disabled、MainPID0、NRestarts0，8080无监听。未创建/修改认证或env，未安装或启用unit、未start/enable/restart应用、未改/加载Nginx，未打开生产H2或建立实验。此结果是批准包**已预置、未激活**，不是正式已发布；D3—D9仍等待用户REC07裁决/主控GO。
 
 回退策略仅维持不激活并保留固定包与暂存诊断，不删包、不清理数据、不创建current或伪造旧版回滚。本次仅追加本角色交接，git diff --check通过，未编译或重跑Maven/Node，未修改其他角色/主控树或公共规范。
+
+## D3/D4及pending独立未激活GO：准备完成，D5—D9仍未执行
+
+主控依据用户FINAL的D3/D4/reviewer授权，一次批准可独立完成的认证材料、正式unit和永久锁、未启用Nginx准备；REC07待用户裁决，**不是正式业务启用GO**。以下仅更新准备状态，不把未运行项目记为PASS。
+
+**2026-10-23 06:27:02北京时间**先只读复核：service inactive/disabled、PID0/NRestarts0、无current/8080；env仍root:vector-search0640，生产db、永久锁、认证材料、pending均不存在，pgrep java无进程。现有两HTTP/TLS准备站点及摘要与前次一致。若有并行变化应停止相关动作，本次未发现。
+
+### D3未引用认证材料
+
+执行必要 `NEEDRESTART_MODE=l DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y apache2-utils` 成功，仅新增apache2-utils2.4.58-1ubuntu8.17及libapr1t64/libaprutil1t64，0升级/0删除，无整机升级。needrestart列出的dbus/networkd-dispatcher/logind/unattended-upgrades重启被deferred，未主动执行服务重启，不隐藏这些提示。
+
+在服务器Python进程内用secrets生成reviewer强随机密码，通过stdin给 `htpasswd -niB -C 12 reviewer`，hash只在内存捕获；随后用 `htpasswd -vi` 和同样stdin验证，**REVIEWER_BCRYPT_VERIFIED=true**。没有密码参数、终端回显、聊天/日志/Git密码或hash。创建前检查credential/hash均不存在，均以O_EXCL新建，未覆盖或旋转任何旧材料。
+
+- 初始凭据仅 `/etc/vector-search/private/reviewer-initial.json`，root:root0600，父目录root0700；用户未来仅在安全SSH终端查看并本地使用，不发回对话。www-data和vector-search均无法读取该文件。
+- bcrypt文件仅 `/etc/nginx/vector-search.htpasswd`，root:www-data0640；实测www-data可读不可写。未输出文件内容/摘要，未让当前Nginx引用它。
+- 这是**离线密码/hash一致性校验**，不是已运行的HTTP401/成功认证验收；真实页面/API认证仍NOT_RUN。没有更换已有DB_PASSWORD。
+
+### D4正式unit已安装但未启动
+
+再次新建受限备份 `/var/backups/vector-search/config-d3d4-20261022T222702Z` root0700；原unit保留 `vector-search.service.original` root0600，SHA256 **ba8e165a0a6dfd536eeda3d99b6951ee8fecb72da1e404c71ae81a2bcb6ea439**。原件与副本在安装前逐字比较，确认未并行改变，不覆盖旧D1备份。
+
+data目录lsof确认无占用后，以O_EXCL/O_NOFOLLOW只新建永久 `/var/lib/vector-search/db/.instance.lock`，vector-search:vector-search0600，inode **261932**；没有删除重建锁或打开H2。该inode跨后续stop/start保持，备份也必须共用，H2原生文件锁仍保留。
+
+从已审模板仅替换真实账号与Java绝对路径生成candidate/vector-search.service，先systemd-analyze verify，原unit已备份且未变化后原子安装 `/etc/systemd/system/vector-search.service` root0644，再verify及daemon-reload。固定配置为Java17绝对路径、proxy profile、flock --no-fork永久锁、SuccessExitStatus143、Xms256m/Xmx1024m、TimeoutStopSec120，未改冻结业务并发/容量/关闭等待参数。新unit及candidate SHA256均 **64f762fdba9f94476e6384287af1fc679defc5799e1770c219096e4224d2a769**。
+
+两次verify退出0，仍只提示既有cloudmonitor KillMode/旧PID路径警告，未改该其他服务。所有静态校验stdout/stderr先在内存去除已知DB/认证秘密后才输出必要诊断；没有systemctl show Environment或打印env/htpasswd/初始密码文件。env与D1服务器受限副本在内存逐字比较，**ENV_UNCHANGED_FROM_D1=true**，没有输出env或其摘要。
+
+daemon-reload后安全字段为User/Group vector-search、SuccessExitStatus143、TimeoutStopUSec2min、inactive/dead/disabled、MainPID0、NRestarts0。未start/restart/enable或创建current；安装unit不代表Java、锁互斥、健康/停止/恢复验收完成。
+
+### Nginx新pending静态检查，未加载
+
+新建 `/etc/nginx/sites-available/vector-search-business.pending.conf` root0644，SHA256 **08b4500b0815381598064d4f88c96aaff5942cfae52e2f4f70e8236472edd1fb**，不覆盖既有template或HTTP/TLS准备文件。使用既有证书路径、新域名、回环8080，整站Basic Auth、内部health/actuator/H2拒绝、覆盖可信转发头/清空Forwarded与入口Authorization、proxy_next_upstream off。未改动SSL/80/443、SSH或其他项目。
+
+新建备份目录内root0600的 `nginx-pending-check.conf`（摘要4964c7d532c3131081d2b01694fb4b54893bc3471f94623b80fbf94cc58a76bd），仅包含events/http及pending路径，error_log指定stderr、独立pid路径；`nginx -t -c`真实成功。**这是隔离配置语法检查，没有启动或加载该代理**。未创建sites-enabled链接、未reload Nginx。启用目录仍恰为旧HTTP/新TLS准备两条，当前配置无引用认证hash，原主配置无sites-available加载；旧站点摘要仍7a6ecb42...e8e8fbf与4116878c...d8733a6，逐字配置未变。
+
+**06:29:48北京时间**最终确认：current仍无，service inactive/disabled、PID0/NRestarts0，8080无监听，knowledge.mv.db仍不存在；永久锁inode未变。D3/D4为材料/配置静态准备完成，D5—D9及真实HTTP认证/运行/业务/重启/冷备/恢复仍 **NOT_RUN**，继续等待REC07用户裁决与正式主控GO。
+
+回退为维持停用并保留凭据、hash、pending、锁与固定包，不删除材料/数据或重建锁；若需恢复原unit，已有上述受限原副本供主控在相同停用边界审查回切，仅daemon-reload，不启动业务。当前Nginx未加载pending，因此不需要入口回切。此次没有新实验或生产JVM/H2连接；本地只追加本交接、git diff --check通过，无必要模板变更，未编译/运行Maven/Node，未操作主控/public树。
