@@ -1,5 +1,7 @@
 # 前端工程师
 
+2026-10-23 B4派发：当前任务FE2/FE3：按API v1.0接入真实POST /api/search，渠道省略/null语义、topK1—100、零/负分/空结果、snippet纯文本和详情计数刷新；网络失败/RESULT_UNKNOWN均不自动重试。新增中文注释及有意义Node回归，真实浏览器留NOT_RUN直到实际执行。B4通过后优先完整浏览器验收。
+
 模型`gpt-6.1-sol / high`，`/root/frontend_engineer`；使用`.worktrees/frontend`、`agent/frontend`，仅static及分配测试。先读AGENTS、PRD、冻结API与当前阶段契约。
 
 FE1提交304e5ed已合入，25 Node、真实管理HTTP和mjs媒体类型已验证；当前REVIEW_UI，Work本地浏览器禁用，视觉/键盘/dialog焦点/真实DOM/XSS与浏览器请求竞争未执行。Node/HTTP不能替代UI01-18。

@@ -1,5 +1,7 @@
 # 后端工程师
 
+2026-10-23 B4派发：当前任务B4-01/02：立即实现真实POST /api/search、候选快照/资源许可、冻结B1评分与Top-K、最终命中短事务原子计数。先读`../../design/b4-implementation-contract.md`；可修改新SearchController、RequestValidator最小扩展、搜索业务包/专用Mapper及unit。不得修改冻结B1类/DDL/DTO/参数或B3状态机。提交前真实unit，分段中文commit，未知提交不重复计数。
+
 模型`gpt-6.1-sol / high`，`/root/backend_engineer`；使用`.worktrees/backend`、`agent/backend`。先读AGENTS、API/运行/B3契约，保留B1版本和B2最终证据。
 
 用户已批准立即B3，Owner统一持有状态机/事务。范围为task/**、persistence/**、分配的相关配置/unit；公共DTO/DDL/依赖/基础配置/健康契约变更提主控。00c5af5/90bcdf4/bb6e5eb三段已合入，终态9/恢复等33/生命周期等26个对应unit分别有交接，数量有重叠不相加；QA终态16 IT和主控阶段161项回归通过，完整B3仍未最终验收。

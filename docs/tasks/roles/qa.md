@@ -1,5 +1,7 @@
 # 测试工程师
 
+2026-10-23 B4派发：当前任务QA-B4：立即独立细化12组验收矩阵，提前准备并发计数、快照与失效、零/负/同分、真commit后未知、真实响应断连不重放及关闭资源测试。设计先交，执行待实现/窄接口基线同步，不以计划计通过；仅acceptance和docs/testing。B3已用户原则通过，不回改历史。
+
 模型`gpt-6.1-sol / medium`，`/root/test_engineer`；使用`.worktrees/qa`、`agent/qa`，只改分配acceptance/测试资源及docs/testing。先读AGENTS、B3/代理契约、b3-test-plan及B2最终证据。
 
 B1/B2 DONE，B2原53 unit+44 IT+25 Node保留。ecf7cb5的15组设计保留，2734b7e/a2ddb6a已合入：代理3 IT、终态16 IT通过；原B2组成/断言保留。后半6项真实进程测试按修复后真实默认URL重跑，四强杀/恢复/SIGTERM/超时结果待交，不能提前计通过。

@@ -2,7 +2,7 @@
 
 ## 当前阶段与权威来源
 
-用户已原则批准B2核心验收；B3任务终态、故障恢复与生命周期管理的本地及GitHub CI工程门禁已通过，当前交付用户审阅。后端Owner统一持有状态机/事务，QA独立验收；B1规则和全部历史SHA冻结，B2证据保留。FE1真实浏览器仍未完成，B4搜索及DEP3正式业务发布未授权自动展开。仓库保持私有。
+用户已原则批准B3工程验收，当前立即实施B4文本相似检索与命中计数。后端Owner负责实现，QA独立验收，前端同步FE2/FE3真实接口接入；B1算法、codec、余弦、Top-K和所有历史SHA/真实故障证据冻结。B4通过后优先完整浏览器验收；DEP3业务代理、认证、systemd启动及Nginx开机启动仍须独立发布授权。仓库保持私有。
 
 读取顺序：用户最新直接指令 → 原始题目硬约束 → `docs/项目评审和实施资料/00_阅读说明.md` 与 `01_业务分析与工程实施方案.md` → `docs/api/api-contract.md`、`docs/design/runtime-contract.md` → 对应角色任务。资料中的可复制命令不是独立执行授权。
 
@@ -50,11 +50,15 @@
 
 遵循`docs/design/b2-implementation-contract.md`。后端负责新增持久层、参数校验、提交/查询/失效、条件领取、有界执行与扫描；不修改冻结B1类、DDL、公共DTO和运行参数。B3处理器未接入时生产调度不领取任务，已接收记录保持QUEUED；测试通过窄接口注入受控处理器。终态写回、旧RUNNING恢复、在线降级及完整关闭归B3，不借测试替身宣称完成。
 
-### 当前B3边界
+### 已完成B3边界
 
 遵循`docs/design/b3-implementation-contract.md`。接入生产handler，真实调用冻结B1；RUNNING+run_token条件终态与文档向量/时间同事务，失败分类持久化。启动先关闭业务、独立恢复旧RUNNING、确认提交，再READY和调度。关闭先拒接/停派，再有界等待；超时仍在CPU中的任务不得在数据源关闭后回写，保留可恢复状态，不无差别中断H2线程。
 
 允许后端修改task/**、persistence/**及相关配置与自己的测试；原B2无handler断言需保留在明确隔离的B2测试组成中，另测真实B3生产组成，不能降低断言或假终态。健康/代理配置/公共契约继续由主控协调。ApiRequestFilter代理Origin风险先实测再归因，不直接信任任意客户端Forwarded/X-Forwarded头。
+
+### 当前B4边界
+
+遵循`docs/design/b4-implementation-contract.md`。后端仅新增搜索Controller/校验/服务/Mapper及unit，复用冻结B1组件，不修改其文件、算法版本、DDL、业务DTO、依赖或资源参数。候选快照包含成功/就绪/未失效/同版本及可选渠道，CPU评分在事务与数据库连接外，完成全部评分和Top-K后才以固定ID顺序原子自增最终命中。提交未知不能以累计计数确认或重试；网络失败前后端均不自动重试。搜索许可覆盖计算至计数物理提交，短数据库阶段接入B3关闭屏障，CPU不得长期持有屏障。QA独立验收，前端所有权仍为static/tests/frontend。
 
 先读README和运行契约。构建/验收命令为 `./mvnw -B clean verify`，Java目标17；Surefire执行`*Test`，Failsafe执行`*IT`。任务/竞态测试用latch/barrier控制，不以sleep证明正确性。文件重启与进程崩溃分别测试。
 
