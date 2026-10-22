@@ -36,3 +36,31 @@
 Linux隔离环境先用项目同路径专用夹具，测试持久锁跨stop/start同inode、备份持锁阻止新实例、真实活动H2/lsof拒绝、已存在目标/符号链接拒绝、备份和新目录恢复校验、篡改/丢文件拒绝、恢复库匹配版本启动可读及源库不变。不得指向真实服务器数据库。Mac语法与拒绝路径不是Linux冷备份/恢复PASS。
 
 下一步由主控选定成功CI不可变候选、补齐健康/UI/独立QA门禁，给用户固定SHA/hash和操作列表，获明确确认后再执行DEP3。无候选/认证/UI不应被发布脚本绕过；云安全组仍用户人工审查。
+
+## 2026-10-23 02:41北京时间追加只读快照
+
+此节为新快照，不覆盖前述历史结果。工作树保持 `6c261b3ed2bbf25ab891e0436e559c7b7099f098`，未快进到main或修改其他角色文件。主控提供上下文：main `8fd97e1`已推、104unit/110IT/38Node本地通过，CI run39833314291仍运行中；这些是主控通报，本角色本次没有另行核验CI或产物，不把它记作发布候选已批准。
+
+只读SSH在 **2026-10-23 02:41:17 CST +0800** 开始并结束。命令为 `ssh -o BatchMode=yes -o ConnectTimeout=10 -o ConnectionAttempts=1 -o StrictHostKeyChecking=yes root@8.155.137.169 'bash -s'`，脚本仅执行以下检查：
+
+| 检查命令 | 当次实际结果 |
+| --- | --- |
+| `TZ=Asia/Shanghai date` | 2026-10-23 02:41:17 CST +0800 |
+| `getent ahostsv4 text-vector-search.lemoncharger.com` | 8.155.137.169（STREAM/DGRAM/RAW） |
+| `openssl x509 -in /etc/vector-search/tls/20261023/fullchain.pem -noout -dates -fingerprint -sha256 -checkhost text-vector-search.lemoncharger.com` | 新域名匹配；有效期2026-07-29 07:05:35至2027-02-13 07:05:34 GMT；指纹仍为5D:07:C3:AB:38:51:A6:74:4A:7F:6E:DF:BA:DA:2F:B6:1E:D5:62:0B:12:6D:C6:14:6A:7D:10:5D:41:EF:52:AC |
+| `nginx -t` | syntax is ok；test is successful |
+| `systemctl show nginx.service -p ActiveState -p SubState -p UnitFileState -p NRestarts` | active / running / disabled / 0 |
+| 同上检查vector-search.service | inactive / dead / disabled / 0 |
+| `ss -ltn '( sport = :80 or sport = :443 or sport = :8080 )'` | IPv4/IPv6均监听80与443，8080无监听 |
+| `stat`检查current、release、knowledge.mv.db及htpasswd | current不存在；releases为root:root0755目录；knowledge.mv.db不存在；/etc/nginx/vector-search.htpasswd不存在 |
+| `find /opt/vector-search/releases -mindepth 1 -maxdepth 2` | 无条目，未发布任何release |
+| `command -v htpasswd` | 无输出，工具仍缺失 |
+| `df -h /opt /var/lib/vector-search` | /dev/vda3，40G总量，已用3.2G、可用35G，使用率9% |
+
+公网快照 **02:41:21 CST +0800**：`curl --noproxy '*' --connect-timeout 5 --max-time 10`普通DNS访问HTTPS `/deployment-check`返回固定 `stage=tls-preparation`，HTTP200、ssl_verify_result=0；本机当次remote_ip为28.0.3.211（本地代理解析路径），不能记成直接连接服务器IP。相同方式GET `/api/documents`返回404、ssl_verify_result=0，没有公开业务代理。
+
+补充定向快照 **02:41:30 CST +0800**：上述curl加 `--resolve text-vector-search.lemoncharger.com:443:8.155.137.169`，同检查端点HTTP200、ssl_verify_result=0、remote_ip=8.155.137.169，正文仍为 `stage=tls-preparation`。两次均未使用-k，单次请求最长10秒；没有请求用户数据或其他目标。
+
+复核结论：仍属**首发**，无旧release/生产数据可回切；SSL现有有效材料无需用户重给。当前仅TLS检查入口PASS，不是正式业务入口PASS。执行前仍需批准固定source SHA、独立JAR SHA-256与对应成功CI候选，以及具体上传/新release/current、持久锁和unit/proxy修改、必要apache2-utils安装及安全认证创建、启动策略、受保护业务站点切换和重启验收操作。首发失败回TLS检查并保留现场；任何生产恢复/删除另批。
+
+正式systemd业务启动/单实例/停止/重启持久化，以及真实入口401/认证/同源写/跨源403/六接口闭环仍 **NOT_RUN**。云安全组仍用户人工。此次没有远端写入、安装、认证生成、上传/启动/reload/restart，没有读env内容或私钥、打开H2、备份/恢复/删除。本次仅追加文档，`git diff --check`通过，未重跑Maven或Node。
