@@ -12,7 +12,9 @@ User=@SERVICE_USER@
 Group=@SERVICE_GROUP@
 WorkingDirectory=/var/lib/vector-search
 EnvironmentFile=/etc/vector-search/app.env
-ExecStart=@JAVA17@ -Xms256m -Xmx1024m -jar /opt/vector-search/current/app.jar
+# flock保留同一Java主进程身份；锁文件须预建且永不随stop/start删除，H2原生锁仍保留。
+ExecStartPre=/usr/bin/test -f /var/lib/vector-search/db/.instance.lock
+ExecStart=/usr/bin/flock --exclusive --nonblock --no-fork /var/lib/vector-search/db/.instance.lock @JAVA17@ -Xms256m -Xmx1024m -jar /opt/vector-search/current/app.jar --spring.profiles.active=proxy
 Restart=on-failure
 RestartSec=10
 KillSignal=SIGTERM

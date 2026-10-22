@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "sourceSha": "REPLACE_WITH_APPROVED_40_HEX_SOURCE_SHA",
+  "jarFile": "app.jar",
+  "jarSha256": "REPLACE_WITH_APPROVED_64_HEX_JAR_SHA256",
+  "sizeBytes": 0,
+  "javaTarget": 17,
+  "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+  "schemaSha256": "REPLACE_WITH_FROZEN_SCHEMA_SHA256",
+  "createdAtUtc": "REPLACE_WITH_ACTUAL_UTC_TIME"
+}
