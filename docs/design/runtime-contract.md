@@ -1,6 +1,6 @@
 # 运行与资源契约 v1.0
 
-C0/B1基线；参数是待测起点。配置已绑定并启动校验，B1已落实算法轮数、原文及规范化后code point限制；队列/容量/HTTP资源限制由后续Owner实现，不能把配置存在当成限制已生效。
+C0/B1参数基线保持不变；B2已实现队列、提交容量和HTTP字节限制，B3接入真实任务、终态、恢复和关闭。搜索许可及Top-K请求约束的完整业务执行仍待B4。参数存在不等于对应业务性能已经验收。
 
 | 配置 | 初值 | 责任/含义 |
 | --- | --- | --- |
@@ -22,11 +22,13 @@ C0/B1基线；参数是待测起点。配置已绑定并启动校验，B1已落�
 
 本地主控8080、后端8081、前端8083、部署骨架8084；每个worktree的`data/`互相独立。集成测试随机端口、绝对临时H2目录。部署数据目录固定绝对路径，例如`/var/lib/vector-search/db`，release切换不改变该目录；单实例，不使用AUTO_SERVER。
 
-JAR产物`target/vector-search.jar`；服务器发布目录可重命名为`releases/<full-sha>/app.jar`。C0健康`/health`明确businessReady=false；后续恢复门禁完成后才升级为业务就绪。公开入口仅经HTTPS/保护代理，不能直接开放8080或H2服务/Console。
+JAR产物`target/vector-search.jar`；服务器发布目录可重命名为`releases/<full-sha>/app.jar`。B3健康`/health`区分taskState/taskReady与businessReady=false；任务READY不代表包含B4的全部业务就绪。公开入口仅经HTTPS/保护代理，不能直接开放8080或H2服务/Console。
 
 B1算法已实现：NFKC→Locale.ROOT小写→Unicode空白折叠/首尾去除；按code point生成U:/B:特征，bigram不跨空白，标点作为普通非空白code point；同权重带符号SHA-256映射，固定逐特征摘要轮数，整数桶、double范数、固定下标归一化输出float。字节序BIG_ENDIAN。默认版本`char12-sha256-r32-nfkc-root-ws-v1`，精确规则与黄金验证见`b1-algorithm-contract.md`和B1验收记录。
 
-用户指定服务器`8.155.137.169:22`已完成DEP2基础准备。实测Ubuntu24.04.5LTS、4CPU、7526MiB内存、40G根盘，已有Temurin17.0.15+6；不沿用此前Ubuntu20.04估计。项目数据目录/受限env/独立unit已创建，unit disabled/inactive且无应用release。无需包安装，未因4核8G自动提高并发；域名、TLS、入口认证与真实发布仍待后续落实。
+用户指定服务器`8.155.137.169:22`已完成DEP2基础准备。实测Ubuntu24.04.5LTS、4CPU、7526MiB内存、40G根盘，已有Temurin17.0.15+6。项目数据目录/受限env/独立unit已创建，unit disabled/inactive且无应用release。未因4核8G自动提高并发；新域名`text-vector-search.lemoncharger.com`的TLS固定检查已启用，业务代理/入口认证仅未启用模板，正式业务发布仍需用户确认。仅未来受控Nginx业务代理启用时加载proxy配置，应用仍绑定回环，详见proxy-deployment-contract.md。
 
-失败处理初案：仅对明确回滚且确认可重试的DB错误最多3次，退避50/100ms；提交未知先独立连接查询，最多3次仍无法确认则降级并返回诚实错误。搜索计数提交未知不可重试自增。没有在线超时抢占、无限重试或手工重试旁路。此初案需B2/B3实际错误分类测试后确认，主控保留变更权。
+B3终态仅对明确回滚的暂时DB错误最多3次，退避50/100ms；提交未知先独立事务查询，最多3次仍无法确认则DEGRADED、拒接/停派，保留RUNNING现场。成功确认匹配token、版本、状态、时间和完整向量字节，不能只比长度。搜索计数提交未知不可重试自增，具体实现待B4。没有在线超时抢占、无限重试或手工重试旁路。
+
+启动恢复在单例初始化后、调度生命周期前执行：旧RUNNING恢复QUEUED并清理旧token/执行时间/错误，保留尝试次数和文档元数据；确认物理提交后才READY。只允许旧进程退出且H2文件锁释放后重启，不启用AUTO_SERVER。关闭先STOPPING拒接、停止派发，有界等待Worker，再关闭新写许可并排空已进入的短事务，最后STOPPED并销毁数据源。CPU不持写许可，超时计算不能迟到回写；30秒是Worker等待预算，永久卡住的数据库事务排空不承诺固定时限。
 

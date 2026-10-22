@@ -1,6 +1,6 @@
 # API契约 v1.0（C0冻结）
 
-依据已评审V1.1方案，日期2026-10-22。Owner：主控。字段/路径/业务规则仍为冻结v1.0。B2已实现五个文档/任务管理接口，搜索属于B4尚未实现；无B3处理器时任务保持QUEUED，不以占位成功响应冒充完成。基础`GET /health`仍保留C0形状且businessReady=false。
+依据已评审V1.1方案，日期2026-10-22，B3健康说明更新于2026-10-23。Owner：主控。六业务接口字段/路径/规则仍为冻结v1.0。B2已实现五个文档/任务管理接口，B3接入真实生产任务及恢复，搜索属于B4尚未实现；`GET /health`升级为明确的任务就绪元数据，businessReady仍为false。
 
 ## 通用规则
 
@@ -45,7 +45,9 @@ DocumentDetail：DocumentSummary全部字段（平铺）加`text`；不包含向
 
 提交结果未知时可按已知documentId查询，不自动换ID/重提。搜索RESULT_UNKNOWN可能已计数；不能由当前累计值推断本请求是否提交，不能盲重试。DB最终状态无法确认时进入可观测降级并拒绝新接收。
 
-## C0基础健康
+## B3任务健康与恢复门禁
 
-`GET /health`返回200 `{status:"UP",stage:"C0",businessReady:false}`表示基础连接可用，不能据此声称业务、恢复或调度就绪；连接不可用503。后续后端必须升级业务就绪门禁并更新本节，部署验收也必须跟随阶段。
+`GET /health`在任务READY且数据库连接有效时返回200 `{status:"UP",stage:"B3",taskState:"READY",taskReady:true,businessReady:false}`；其他状态或连接失败返回503，status为DOWN、taskReady为false。taskState为RECOVERING/READY/DEGRADED/STOPPING/STOPPED。非READY时不借用数据库连接，错误不泄露SQL。单次健康探针失败不会改变任务状态机。
+
+RECOVERING/STOPPING/STOPPED拒绝全部`/api/**`并返回503 SERVICE_NOT_READY；DEGRADED保留GET诊断读取、拒绝业务写入。启动恢复确认提交后才READY并开启调度；任务READY不能作为B4搜索、浏览器或正式发布通过的证据。C0原健康形状为历史证据，不回改既有验收记录。
 
