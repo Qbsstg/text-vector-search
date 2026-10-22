@@ -8,7 +8,7 @@
 
 `nginx/vector-search-tls-preparation.conf` 已启用：新域名80/443仅GET/HEAD `/deployment-check`返回固定 `stage=tls-preparation`。其他路径404，其他方法405，未知SNI拒握手；没有业务代理。正常DNS和`--resolve`公网访问均通过系统信任验证，API拒绝验证通过。后端仍disabled/inactive，UFW未改，云安全组审查仍需用户人工确认。
 
-`nginx/vector-search-business.conf.example`仅为待启用模板，服务器sites-available有副本，未链接到sites-enabled；单独`nginx -t`成功不代表业务联调成功。模板在页面/API统一Basic Auth下覆盖转发头并清除客户端Forwarded与入口Authorization；未来应用只应信任回环Nginx代理。实际Origin兼容性由主控/QA先复现再决定调整，不直接信任任意客户端转发头。没有生成真实入口密码、启动应用或开放真实API。证书公开元数据、命令、回滚和未执行项见 `docs/tasks/handoffs/server-ssl-prep.md`。
+`nginx/vector-search-business.conf.example`仅为待启用模板，服务器sites-available有副本，未链接到sites-enabled；单独`nginx -t`成功不代表业务联调成功。模板在页面/API统一Basic Auth下覆盖转发头并清除客户端Forwarded与入口Authorization；未来应用须设置`SPRING_PROFILES_ACTIVE=proxy`，仅信任回环Nginx。主控/QA已复现默认HTTP配置与HTTPS Origin不匹配，真实proxy profile同源202/跨源403，见代理契约及独立结果。仓库env模板已补该配置，服务器现有受限env未修改，未来正式发布前须显式核对。没有生成真实入口密码、启动应用或开放真实API。证书公开元数据、命令、回滚和未执行项见 `docs/tasks/handoffs/server-ssl-prep.md`。
 
 ## DEP2 实测与已准备资源
 
