@@ -18,6 +18,7 @@
 ## 产物与限制
 
 - manifest按主控CI格式：schemaVersion/sourceSha/jarFile/jarSha256/sizeBytes/javaTarget/embeddingVersion/schemaSha256/createdAtUtc；SHA256SUMS覆盖app.jar和manifest。验证器检查固定SHA、类型、路径、大小、DDL/算法、两个校验值，不能替代CI真实性/UI/用户批准。
+- 主控复核后增加独立审批JAR SHA-256必填参数：参数顺序为源码SHA、审批JAR SHA、schema SHA、manifest、JAR、SUM。manifest自报值和实际字节均必须等于审批值；审批值不能从当前未核实候选重新抄取。时间仍严格接受UTC的Z后缀，与主控更新的CI helper一致。
 - unit示例显式proxy，使用 `flock --no-fork` 加持久 `/var/lib/vector-search/db/.instance.lock`；备份共用同一inode，stop/start不删除重建，H2原生文件锁继续保留。首次锁文件预建与实际unit修改尚未执行，需批准后的运维步骤。
 - 冷复制脚本要求Linux root、service明确inactive、永久锁独占、lsof无其他进程占用；只白名单源/目标、全新目录和普通文件，禁止覆盖及生产恢复。复制主数据库并记录SHA，restore-check只进入新目录校验；失败保留现场，恢复库业务可读需另在独立端口验收。
 - 操作计划明确单版本不可变release、全入口认证/可信转发头、同源/跨源测试、正常停止、首发失败回TLS检查与保留数据，旧版兼容才能代码回切；生产恢复/清理另获具体授权。
@@ -26,6 +27,7 @@
 
 - 全部deploy Shell `bash -n`通过；`git diff --check`通过。
 - manifest使用本次/private/tmp专用普通字节夹具验证，非真实发布JAR：完整匹配通过；源码SHA、路径jarFile、Java类型、大小、DDL hash、算法不符及SHA256SUMS路径均拒绝；额外包篡改拒绝曾单独验证。夹具仅清理本次自建临时目录。
+- 审批值绑定修正后另做真实夹具：独立审批SHA匹配通过；同时重写JAR、manifest的hash/大小和两项SUM使三者一致，仍因独立审批SHA不符拒绝；缺审批参数及非法审批值均拒绝。`bash -n`和`git diff --check`通过。仅修改校验器/计划/交接，不触main、CI或远端；此夹具不是真实候选验收。
 - 冷复制六项拒绝检查通过：缺标志、未知模式、相对路径、非本项目源、restore指向生产db、备份指向其他目录。没有执行生产备份或恢复。
 - 未运行本轮Maven（无Java变化）；未对新unit做远端systemd-analyze verify或stop/start；本轮禁止远端写入，不能借“准备”执行测试变更。
 

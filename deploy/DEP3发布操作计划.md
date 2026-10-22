@@ -8,12 +8,12 @@
 
 ```bash
 # 仅验证下载的候选，替换为主控明确选定的真实值；不发布。
-bash deploy/scripts/verify-release.sh APPROVED_FULL_SOURCE_SHA FROZEN_SCHEMA_SHA256 \
+bash deploy/scripts/verify-release.sh APPROVED_FULL_SOURCE_SHA APPROVED_JAR_SHA256 FROZEN_SCHEMA_SHA256 \
   /ABSOLUTE/CANDIDATE/release-manifest.json /ABSOLUTE/CANDIDATE/app.jar \
   /ABSOLUTE/CANDIDATE/SHA256SUMS
 ```
 
-验证器核对类型、固定SHA、大小、算法/DDL版本及两个文件校验和，但不验证CI的网络真实性、JAR代码安全或真人UI。主控仍需把候选与成功CI对应；候选变更必须重验并重新批准。公开仓库不意味着证书/env/数据库可公开。
+验证器核对类型、固定SHA、独立审批JAR SHA-256、大小、算法/DDL版本及两个文件校验和。审批JAR值必须来自候选包之外已核实的CI记录/审批记录，不得读取当前manifest再作为“审批值”传回；即便JAR、manifest和SUM同时被换成相互一致的内容，也必须因审批值不符拒绝。但校验器不验证CI的网络真实性、JAR代码安全或真人UI，主控仍需把候选与成功CI对应；候选变更必须重验并重新批准。公开仓库不意味着证书/env/数据库可公开。
 
 ## 需另外批准的具体操作
 
