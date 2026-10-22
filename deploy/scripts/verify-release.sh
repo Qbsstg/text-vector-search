@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 仅只读核对固定候选，不生成发布授权，不上传或启动应用。
 set -euo pipefail
-[[ $# == 5 ]] || { printf '用法：bash verify-release.sh 完整源码SHA 固定schema校验值 release-manifest.json app.jar SHA256SUMS\n' >&2; exit 2; }
+[[ $# == 6 ]] || { printf '用法：bash verify-release.sh 完整源码SHA 独立审批JAR校验值 固定schema校验值 release-manifest.json app.jar SHA256SUMS\n' >&2; exit 2; }
 python3 - "$@" <<'PY'
 import hashlib
 import datetime
@@ -10,9 +10,11 @@ from pathlib import Path
 import re
 import sys
 
-expected, expected_schema, manifest_name, jar_name, sums_name = sys.argv[1:]
+expected, approved_jar_sha, expected_schema, manifest_name, jar_name, sums_name = sys.argv[1:]
 if not re.fullmatch(r'[0-9a-f]{40}', expected):
     raise SystemExit('拒绝：必须提供已批准的完整40位源码SHA')
+if not re.fullmatch(r'[0-9a-f]{64}', approved_jar_sha):
+    raise SystemExit('拒绝：必须提供候选包之外独立审批的JAR SHA-256')
 if not re.fullmatch(r'[0-9a-f]{64}', expected_schema):
     raise SystemExit('拒绝：必须提供冻结schema校验值')
 for name in (manifest_name, jar_name, sums_name):
@@ -28,6 +30,9 @@ if manifest.get('sourceSha') != expected:
     raise SystemExit('拒绝：候选源码SHA不匹配')
 if not re.fullmatch(r'[0-9a-f]{64}', manifest.get('jarSha256', '')):
     raise SystemExit('拒绝：缺少有效JAR校验值')
+# 三份候选文件可能同时被替换，不能仅相信manifest和SUM彼此一致。
+if manifest['jarSha256'] != approved_jar_sha:
+    raise SystemExit('拒绝：manifest的JAR校验值不符合独立审批值')
 if type(manifest.get('schemaVersion')) is not int or manifest['schemaVersion'] != 1:
     raise SystemExit('拒绝：manifest版本不符合契约')
 if type(manifest.get('javaTarget')) is not int or manifest['javaTarget'] != 17 or manifest.get('jarFile') != 'app.jar':
@@ -49,7 +54,7 @@ with jar.open('rb') as stream:
         digest.update(block)
 if type(manifest.get('sizeBytes')) is not int or manifest['sizeBytes'] != jar.stat().st_size:
     raise SystemExit('拒绝：JAR大小不匹配')
-if digest.hexdigest() != manifest['jarSha256']:
+if digest.hexdigest() != approved_jar_sha:
     raise SystemExit('拒绝：JAR SHA-256不匹配')
 expected_sums = {'app.jar': digest.hexdigest(), 'release-manifest.json': hashlib.sha256(Path(manifest_name).read_bytes()).hexdigest()}
 found = {}
