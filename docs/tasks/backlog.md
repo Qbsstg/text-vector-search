@@ -18,7 +18,7 @@
 | DEP2 / TLS-CHECK | 服务器/主控 | DONE | SSL沿用，02:41刷新TLS检查200/API404、80/443监听、8080无；业务inactive/disabled/NRestarts0 |
 | DEP3-PREP | 服务器/主控 | DONE | 只读预检/候选/本地及Linux方案验证完成；当前无release/current/DB，htpasswd缺失、35G可用；实机运行仍未验 |
 | DEP3正式业务发布 | 用户/服务器/主控 | TODO | 固定68版本+必要apache2-utils/交互认证/上传/proxy-env/unit持久锁/启动/业务Nginx切换/重启及分别开机策略需独立批准；本轮无正式部署、生产写入或删除 |
-| PM-FINAL | 项目管理 | REVIEW | 四份Owner文档更新，仅文档/Git/候选只读字节校验；不快进、不改公共/其他角色文件 |
+| PM-FINAL | 项目管理/主控 | DONE | 四份Owner文档已由主控审阅合入；PM仅文档/Git/候选只读字节校验，未代为关闭真人UI或正式发布门禁 |
 
 首次CI失败为lsof rc1有输出被过严判为矛盾；52cda701修解析、caa6d020留原始诊断后，68d80cb真实Linux复验成功。普通夹具/默认inactive shim不冒称实机systemd；原失败96文件路径docs/testing/evidence/final-ci-8fd97e1-failed保留。
 
