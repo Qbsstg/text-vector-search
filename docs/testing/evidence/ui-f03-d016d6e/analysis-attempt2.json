@@ -1,0 +1,51 @@
+{
+  "taskId": "3d3163a9-15f8-4a2b-a8b4-19b8768775c4",
+  "firstPollingAt": 1792700343013,
+  "originalBudgetStart": 1792700343012,
+  "originalDeadline": 1792700403012,
+  "budgetMs": 60000,
+  "firstPollingAtBeijing": "2026-10-23T04:19:03.013000+08:00",
+  "deadlineBeijing": "2026-10-23T04:20:03.012000+08:00",
+  "trustedVisibilityEventsDuringPolling": 4,
+  "preflightVisibilityEvents": 6,
+  "hiddenIntervals": [
+    {
+      "hiddenAtMs": 1792700353775,
+      "visibleAtMs": 1792700371579,
+      "hiddenAtT": 10.762,
+      "visibleAtT": 28.566,
+      "durationMs": 17804,
+      "allNewGetsWhileHidden": 0
+    },
+    {
+      "hiddenAtMs": 1792700388560,
+      "visibleAtMs": 1792700432792,
+      "hiddenAtT": 45.547,
+      "visibleAtT": 89.779,
+      "durationMs": 44232,
+      "allNewGetsWhileHidden": 0
+    }
+  ],
+  "getCounts": {
+    "initial": 1,
+    "automatic": 14,
+    "manual-refresh": 2
+  },
+  "networkTaskGetCount": 17,
+  "noOverlap": true,
+  "allDeadlinesUnchanged": true,
+  "automaticGetsAfterDeadline": 0,
+  "visibleResumeDelayMs": 1,
+  "afterManualPostDeadlineObservedMs": 20014,
+  "manualActionsAtT": [
+    35.306,
+    100.499
+  ],
+  "wireStatus": "SUCCEEDED",
+  "presentedStatus": "RUNNING",
+  "mode": "FAULT_INJECTION",
+  "focusCorrection": "解除自动化focus emulation后，用户预检及正式切页捕获真实事件；设置操作本身不作为通过证据。",
+  "observerCaveat": "visibility-handler-complete只是观察器微任务快照，可能先于其他事件监听器；不能把该标签当应用visibility处理完成的证据。采用真实visibility、后续请求、deadline及最终状态核证。",
+  "F03": "待独立QA核证",
+  "U12": "待结合既有证据独立QA核证"
+}

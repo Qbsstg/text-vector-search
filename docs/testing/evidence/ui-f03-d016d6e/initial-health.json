@@ -1,0 +1,16 @@
+{
+  "status": "UP",
+  "stage": "B4",
+  "businessReady": true,
+  "taskReady": true,
+  "taskState": "READY",
+  "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
+  "checks": {
+    "routesReady": true,
+    "databaseWritable": true,
+    "dispatcherReady": true,
+    "searchReady": true,
+    "databaseReady": true,
+    "algorithmReady": true
+  }
+}

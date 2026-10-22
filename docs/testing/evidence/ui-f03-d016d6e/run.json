@@ -1,0 +1,11 @@
+{
+  "runDir": "/private/tmp/12times-f03-xbvb00_6",
+  "sourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "jarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+  "url": "http://127.0.0.1:8083/",
+  "maxRunSeconds": 3600,
+  "startedAt": "2026-10-22T20:10:56.711358+00:00",
+  "pid": 62398,
+  "exitCode": 143,
+  "stoppedAt": "2026-10-22T20:22:16.587376+00:00"
+}

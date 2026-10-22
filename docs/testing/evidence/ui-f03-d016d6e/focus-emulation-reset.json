@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-22T20:17:17.189Z",
+  "command": "Emulation.setFocusEmulationEnabled",
+  "enabled": false,
+  "result": {},
+  "purpose": "排除自动化焦点模拟保持可见的可能；此配置操作引发的事件仅作准备，不能作为用户切页通过证据。"
+}

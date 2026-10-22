@@ -1,0 +1,22 @@
+{
+  "sourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "jarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+  "F03": "PASS",
+  "U12": "PASS",
+  "F05": "NOT_RUN",
+  "F05ExceptionApproval": "待用户明确决定",
+  "uiGate": "待F05例外决定",
+  "deploymentAuthorization": "未获得，未执行正式发布",
+  "qaOriginalCommit": "5b87e72e691f7331992787d952245d9ddd1be1d9",
+  "qaIntegrationCommit": "4d53e00",
+  "cleanup": {
+    "hookRemoved": true,
+    "consoleErrors": [],
+    "pid": 62398,
+    "exitCode": 143,
+    "databaseRetained": true
+  },
+  "codeTestsRerun": false,
+  "previous26ChromeRerun": false,
+  "serverOperations": []
+}

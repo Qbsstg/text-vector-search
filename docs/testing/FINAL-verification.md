@@ -1,6 +1,19 @@
 # 最终健康、UI与DEP3准备验证报告
 
-## 2026-10-23真实Chrome追加：当前以本节为准
+## F03/U12补测追加：最新28 PASS，F05例外待批
+
+2026-10-23，固定候选d016完整SHA、JAR摘要与CI39838054946保持不变。仅补测F03/U12，未重复原26项Chrome、未重跑代码测试，未改冻结算法/API/DDL/事务或资源参数，未操作服务器。
+
+真实用户配合第二尝试捕获4次正式isTrusted=true的visibilitychange，document.hidden一致；两段隐藏T10.762—28.566、T45.547—89.779期间新GET0。首次GET04:19:03.013，原deadline04:20:03.012始终不变；首次1+自动14+手动2=17与Network一致，单任务不重叠，预算内恢复，跨预算自动0，之后手动仅一次且再观察20.014秒无自动重启。实际偏差原样记录。
+
+初次无visibility尝试、focus emulation纠正与新task独立预算均保留；设置操作不作为通过证据。受控RUNNING仅浏览器层，wire全部真实SUCCEEDED；观察器微任务标签不代表应用监听器处理完成。QA独立核证F03 PASS，并结合既有真实终态停止、预算及三并发证据核证U12 PASS。
+
+最新为28 PASS、F05 NOT_RUN。[F05例外申请](F05-例外申请.md)已列真实终态测试、前端替身和端到端残余风险，待用户明确决定，不写测试PASS。本地PID62398已于04:22:16正常SIGTERM143/Hikari关闭，hook清除，DB保留。[补测原件](evidence/ui-f03-d016d6e/来源说明.md)、[独立UI核证](UI-browser-verification.md)、[正式发布待批准清单](../tasks/DEP3-最终发布审批单.md)。
+
+现有SSL、80/443及8080隔离沿用户确认，不重做基础准备；未上传业务、创建认证、改systemd/Nginx或正式发布。以下26/3与原68阶段均为历史快照。
+
+
+## 2026-10-23首轮真实Chrome收尾快照：当时26/3
 
 原准备快照与全部失败/修复记录保留在后文。Work浏览器权限已恢复，旧68d80cb候选虽CI252通过，真实Chrome出现计时器Illegal invocation、任务追踪阻断，因此UI FAIL。cda3f8c保留正确宿主receiver并增加修前失败/修后通过回归；bf7aeac显式同源SVG解决Chrome默认图标500。没有改B1算法、Java状态机、API、DDL或资源参数。
 

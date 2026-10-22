@@ -1,0 +1,2705 @@
+{
+  "tag": "F03-1023",
+  "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+  "firstPollingAt": 1792700101568,
+  "initialDeadline": 1792700161567,
+  "now": 1792700213891,
+  "events": [
+    {
+      "kind": "observer-installed",
+      "wall": 1792699988889,
+      "mono": 36046.09999990463,
+      "hidden": false,
+      "visibilityState": "visible"
+    },
+    {
+      "kind": "tracker-bound",
+      "wall": 1792699997952,
+      "mono": 45109.299999952316,
+      "hidden": false,
+      "visibilityState": "visible"
+    },
+    {
+      "kind": "observer-ready",
+      "wall": 1792700003997,
+      "mono": 51154.09999990463,
+      "hidden": false,
+      "visibilityState": "visible"
+    },
+    {
+      "kind": "first-poll",
+      "wall": 1792700101569,
+      "mono": 148725.89999985695,
+      "hidden": false,
+      "visibilityState": "visible",
+      "originalDeadline": 1792700161567,
+      "tracker": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": null,
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    }
+  ],
+  "actions": [
+    {
+      "kind": "initial",
+      "isTrusted": true,
+      "wall": 1792700101566,
+      "mono": 148723.79999995232,
+      "hidden": false,
+      "visibilityState": "visible"
+    },
+    {
+      "kind": "manual-refresh",
+      "isTrusted": true,
+      "tracker": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": false,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "wall": 1792700134723,
+      "mono": 181894,
+      "hidden": false,
+      "visibilityState": "visible"
+    },
+    {
+      "kind": "manual-refresh",
+      "isTrusted": true,
+      "tracker": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "timeout",
+        "busy": false,
+        "deadline": 1792700161567,
+        "auto": false
+      },
+      "wall": 1792700194285,
+      "mono": 241483.69999980927,
+      "hidden": false,
+      "visibilityState": "visible"
+    }
+  ],
+  "requests": [
+    {
+      "n": 1,
+      "kind": "initial",
+      "start": {
+        "wall": 1792700101568,
+        "mono": 148725.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": null,
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700101592,
+        "mono": 148749.39999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": null,
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 2,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700103596,
+        "mono": 150752.89999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700103606,
+        "mono": 150763.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 3,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700105609,
+        "mono": 152766.19999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700105617,
+        "mono": 152774.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 4,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700107619,
+        "mono": 154776.89999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700107635,
+        "mono": 154791.89999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 5,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700109637,
+        "mono": 156794,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700109655,
+        "mono": 156812.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 6,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700111656,
+        "mono": 158813.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700111674,
+        "mono": 158831.29999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 7,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700113676,
+        "mono": 160833.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700113688,
+        "mono": 160845.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 8,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700115692,
+        "mono": 162848.89999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700115698,
+        "mono": 162855.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 9,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700117702,
+        "mono": 164859,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700117715,
+        "mono": 164872.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 10,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700119718,
+        "mono": 166875.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700119733,
+        "mono": 166890.59999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 11,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700121737,
+        "mono": 168894.19999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700121750,
+        "mono": 168907.39999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 12,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700123751,
+        "mono": 170908.29999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700123762,
+        "mono": 170919,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 13,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700125763,
+        "mono": 172920.59999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700125780,
+        "mono": 172937.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 14,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700127782,
+        "mono": 174939.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700127791,
+        "mono": 174948.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 15,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700129792,
+        "mono": 176952.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700129805,
+        "mono": 176965.5,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 16,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700131804,
+        "mono": 178968.19999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700131817,
+        "mono": 178982,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 17,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700133816,
+        "mono": 180984.5,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700133833,
+        "mono": 181002.19999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 18,
+      "kind": "manual-refresh",
+      "start": {
+        "wall": 1792700134724,
+        "mono": 181895,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700134738,
+        "mono": 181908.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 19,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700136736,
+        "mono": 183910.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700136747,
+        "mono": 183921.59999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 20,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700138747,
+        "mono": 185924.29999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700138760,
+        "mono": 185937.19999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 21,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700140760,
+        "mono": 187939.89999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700140773,
+        "mono": 187953.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 22,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700142774,
+        "mono": 189956.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700142788,
+        "mono": 189970.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 23,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700144788,
+        "mono": 191972,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700144796,
+        "mono": 191980.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 24,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700146798,
+        "mono": 193984,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700146813,
+        "mono": 193998.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 25,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700148814,
+        "mono": 196001.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700148821,
+        "mono": 196008.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 26,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700150822,
+        "mono": 198011.5,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700150827,
+        "mono": 198016.29999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 27,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700152828,
+        "mono": 200018.39999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700152840,
+        "mono": 200030.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 28,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700154842,
+        "mono": 202033.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700154848,
+        "mono": 202039.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 29,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700156850,
+        "mono": 204042.39999985695,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700156864,
+        "mono": 204056.09999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 30,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700158865,
+        "mono": 206058.59999990463,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700158877,
+        "mono": 206069.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 31,
+      "kind": "automatic",
+      "start": {
+        "wall": 1792700160879,
+        "mono": 208073,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700160893,
+        "mono": 208086.5,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "polling",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": true
+      }
+    },
+    {
+      "n": 32,
+      "kind": "manual-refresh",
+      "start": {
+        "wall": 1792700194286,
+        "mono": 241484.69999980927,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtStart": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "timeout",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": false
+      },
+      "mode": "FAULT_INJECTION",
+      "wireSent": true,
+      "http": 200,
+      "wireBody": {
+        "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "documentId": "f03-1792699929036",
+        "status": "SUCCEEDED",
+        "submittedAt": "2026-10-22T20:12:09.065289Z",
+        "startedAt": "2026-10-22T20:12:09.400331Z",
+        "finishedAt": "2026-10-22T20:12:09.413051Z",
+        "errorCode": null,
+        "errorMessage": null,
+        "document": {
+          "documentId": "f03-1792699929036",
+          "channel": "f03-only",
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "taskStatus": "SUCCEEDED",
+          "vectorReady": true,
+          "invalidated": false,
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "vectorCompletedAt": "2026-10-22T20:12:09.413051Z",
+          "invalidatedAt": null,
+          "hitCount": "0",
+          "text": "F03 可见性补测专用合成文档"
+        }
+      },
+      "presentedStatus": "RUNNING",
+      "end": {
+        "wall": 1792700194300,
+        "mono": 241498.79999995232,
+        "hidden": false,
+        "visibilityState": "visible"
+      },
+      "trackerAtEnd": {
+        "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+        "task": {
+          "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+          "documentId": "f03-1792699929036",
+          "status": "RUNNING",
+          "submittedAt": "2026-10-22T20:12:09.065289Z",
+          "startedAt": "2026-10-22T20:12:09.400331Z",
+          "finishedAt": null,
+          "errorCode": null,
+          "errorMessage": null,
+          "document": null
+        },
+        "error": null,
+        "mode": "timeout",
+        "busy": true,
+        "deadline": 1792700161567,
+        "auto": false
+      }
+    }
+  ],
+  "tracker": {
+    "id": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+    "task": {
+      "taskId": "361329cb-70fc-4a91-acf4-cee6f80a37f9",
+      "documentId": "f03-1792699929036",
+      "status": "RUNNING",
+      "submittedAt": "2026-10-22T20:12:09.065289Z",
+      "startedAt": "2026-10-22T20:12:09.400331Z",
+      "finishedAt": null,
+      "errorCode": null,
+      "errorMessage": null,
+      "document": null
+    },
+    "error": null,
+    "mode": "timeout",
+    "busy": false,
+    "deadline": 1792700161567,
+    "auto": false
+  },
+  "hidden": false
+}

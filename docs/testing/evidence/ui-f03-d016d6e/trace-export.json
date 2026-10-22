@@ -1,0 +1,8 @@
+{
+  "originalTraceSha256": "4ffa3970cd4e1230ec8841e1dd326da3b820af63ed01edf8deb3800980048456",
+  "originalEvents": 168,
+  "exportedEvents": 140,
+  "originalRetainedAt": "/private/tmp/12times-f03-xbvb00_6/evidence/chrome-events.json",
+  "filter": "仅本项目origin和请求ID；移除无关扩展、Debugger事件、认证/Cookie头。",
+  "knownTruncation": false
+}
