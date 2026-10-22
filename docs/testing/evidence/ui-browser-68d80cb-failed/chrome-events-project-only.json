@@ -1,0 +1,1184 @@
+[
+  {
+    "sequence": 33,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "type": "other"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "request": {
+        "headers": {
+          "Upgrade-Insecure-Requests": "1",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "VeryHigh",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/"
+      },
+      "requestId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "timestamp": 1280028.909938,
+      "type": "Document",
+      "wallTime": 1792695943.934418
+    }
+  },
+  {
+    "sequence": 37,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458507,
+        "connectionReused": true,
+        "encodedDataLength": 148,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Accept-Ranges": "bytes",
+          "Content-Language": "zh-CN",
+          "Content-Length": "12542",
+          "Content-Type": "text/html",
+          "Date": "Thu, 22 Oct 2026 19:05:43 GMT",
+          "Last-Modified": "Thu, 22 Oct 2026 19:04:35 GMT"
+        },
+        "mimeType": "text/html",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695943941.702,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 5.813,
+          "receiveHeadersStart": 5.727,
+          "requestTime": 1280028.911502,
+          "sendEnd": 3.007,
+          "sendStart": 2.903,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/"
+      },
+      "timestamp": 1280028.921259,
+      "type": "Document"
+    }
+  },
+  {
+    "sequence": 44,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "columnNumber": 44,
+        "lineNumber": 7,
+        "type": "parser",
+        "url": "http://127.0.0.1:8083/"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "renderBlockingBehavior": "Blocking",
+      "request": {
+        "headers": {
+          "Referer": "http://127.0.0.1:8083/",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "VeryHigh",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/styles.css"
+      },
+      "requestId": "56882.16",
+      "timestamp": 1280028.926161,
+      "type": "Stylesheet",
+      "wallTime": 1792695943.950657
+    }
+  },
+  {
+    "sequence": 45,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "columnNumber": 38,
+        "lineNumber": 8,
+        "type": "parser",
+        "url": "http://127.0.0.1:8083/"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "renderBlockingBehavior": "NonBlocking",
+      "request": {
+        "headers": {
+          "Origin": "http://127.0.0.1:8083",
+          "Referer": "http://127.0.0.1:8083/",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/app.js"
+      },
+      "requestId": "56882.17",
+      "timestamp": 1280028.926322,
+      "type": "Script",
+      "wallTime": 1792695943.950803
+    }
+  },
+  {
+    "sequence": 58,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.17",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458479,
+        "connectionReused": true,
+        "encodedDataLength": 148,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Date": "Thu, 22 Oct 2026 19:05:43 GMT",
+          "Keep-Alive": "timeout=60",
+          "Last-Modified": "Thu, 22 Oct 2026 19:04:35 GMT"
+        },
+        "mimeType": "text/javascript",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695943972.967,
+        "securityState": "secure",
+        "status": 304,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 6.517,
+          "receiveHeadersStart": 6.454,
+          "requestTime": 1280028.94204,
+          "sendEnd": 2.203,
+          "sendStart": 2.176,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/app.js"
+      },
+      "timestamp": 1280028.952254,
+      "type": "Script"
+    }
+  },
+  {
+    "sequence": 61,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.16",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458507,
+        "connectionReused": true,
+        "encodedDataLength": 148,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Date": "Thu, 22 Oct 2026 19:05:43 GMT",
+          "Keep-Alive": "timeout=60",
+          "Last-Modified": "Thu, 22 Oct 2026 19:04:35 GMT"
+        },
+        "mimeType": "text/css",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695943973.065,
+        "securityState": "secure",
+        "status": 304,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 6.812,
+          "receiveHeadersStart": 6.788,
+          "requestTime": 1280028.941803,
+          "sendEnd": 2.36,
+          "sendStart": 2.235,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/styles.css"
+      },
+      "timestamp": 1280028.952357,
+      "type": "Stylesheet"
+    }
+  },
+  {
+    "sequence": 63,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "columnNumber": 117,
+        "lineNumber": 0,
+        "type": "script",
+        "url": "http://127.0.0.1:8083/app.js"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "renderBlockingBehavior": "NonBlocking",
+      "request": {
+        "headers": {
+          "Origin": "http://127.0.0.1:8083",
+          "Referer": "http://127.0.0.1:8083/app.js",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/api.mjs"
+      },
+      "requestId": "56882.20",
+      "timestamp": 1280028.952421,
+      "type": "Script",
+      "wallTime": 1792695943.976902
+    }
+  },
+  {
+    "sequence": 64,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "columnNumber": 41,
+        "lineNumber": 1,
+        "type": "script",
+        "url": "http://127.0.0.1:8083/app.js"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "renderBlockingBehavior": "NonBlocking",
+      "request": {
+        "headers": {
+          "Origin": "http://127.0.0.1:8083",
+          "Referer": "http://127.0.0.1:8083/app.js",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/tasks.mjs"
+      },
+      "requestId": "56882.21",
+      "timestamp": 1280028.952454,
+      "type": "Script",
+      "wallTime": 1792695943.976931
+    }
+  },
+  {
+    "sequence": 65,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "columnNumber": 43,
+        "lineNumber": 2,
+        "type": "script",
+        "url": "http://127.0.0.1:8083/app.js"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "renderBlockingBehavior": "NonBlocking",
+      "request": {
+        "headers": {
+          "Origin": "http://127.0.0.1:8083",
+          "Referer": "http://127.0.0.1:8083/app.js",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/search.mjs"
+      },
+      "requestId": "56882.22",
+      "timestamp": 1280028.95247,
+      "type": "Script",
+      "wallTime": 1792695943.976946
+    }
+  },
+  {
+    "sequence": 73,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.22",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458479,
+        "connectionReused": true,
+        "encodedDataLength": 148,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Date": "Thu, 22 Oct 2026 19:05:43 GMT",
+          "Keep-Alive": "timeout=60",
+          "Last-Modified": "Thu, 22 Oct 2026 19:04:35 GMT"
+        },
+        "mimeType": "text/javascript",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695943981.083,
+        "securityState": "secure",
+        "status": 304,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 2.836,
+          "receiveHeadersStart": 2.79,
+          "requestTime": 1280028.953821,
+          "sendEnd": 0.96,
+          "sendStart": 0.944,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/search.mjs"
+      },
+      "timestamp": 1280028.957466,
+      "type": "Script"
+    }
+  },
+  {
+    "sequence": 76,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.21",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458507,
+        "connectionReused": true,
+        "encodedDataLength": 148,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Date": "Thu, 22 Oct 2026 19:05:43 GMT",
+          "Keep-Alive": "timeout=60",
+          "Last-Modified": "Thu, 22 Oct 2026 19:04:35 GMT"
+        },
+        "mimeType": "text/javascript",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695943981.147,
+        "securityState": "secure",
+        "status": 304,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 2.967,
+          "receiveHeadersStart": 2.956,
+          "requestTime": 1280028.953717,
+          "sendEnd": 1.033,
+          "sendStart": 0.97,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/tasks.mjs"
+      },
+      "timestamp": 1280028.957586,
+      "type": "Script"
+    }
+  },
+  {
+    "sequence": 78,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.20",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1459021,
+        "connectionReused": false,
+        "encodedDataLength": 148,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Date": "Thu, 22 Oct 2026 19:05:43 GMT",
+          "Keep-Alive": "timeout=60",
+          "Last-Modified": "Thu, 22 Oct 2026 19:04:35 GMT"
+        },
+        "mimeType": "text/javascript",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695943981.165,
+        "securityState": "secure",
+        "status": 304,
+        "statusText": "",
+        "timing": {
+          "connectEnd": 1.488,
+          "connectStart": 1.331,
+          "dnsEnd": 1.331,
+          "dnsStart": 1.326,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 3.223,
+          "receiveHeadersStart": 3.215,
+          "requestTime": 1280028.953476,
+          "sendEnd": 1.533,
+          "sendStart": 1.507,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/api.mjs"
+      },
+      "timestamp": 1280028.957606,
+      "type": "Script"
+    }
+  },
+  {
+    "sequence": 123,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": false,
+      "initiator": {
+        "type": "other"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "request": {
+        "headers": {
+          "Referer": "http://127.0.0.1:8083/",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/favicon.ico"
+      },
+      "requestId": "56882.27",
+      "timestamp": 1280029.088695,
+      "type": "Other",
+      "wallTime": 1792695944.113179
+    }
+  },
+  {
+    "sequence": 132,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.27",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1459021,
+        "connectionReused": true,
+        "encodedDataLength": 133,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "close",
+          "Content-Type": "application/json",
+          "Date": "Thu, 22 Oct 2026 19:05:44 GMT",
+          "Transfer-Encoding": "chunked"
+        },
+        "mimeType": "application/json",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695944121.639,
+        "securityState": "secure",
+        "status": 500,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 7.779,
+          "receiveHeadersStart": 7.728,
+          "requestTime": 1280029.089437,
+          "sendEnd": 0.705,
+          "sendStart": 0.635,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/favicon.ico"
+      },
+      "timestamp": 1280029.097875,
+      "type": "Other"
+    }
+  },
+  {
+    "sequence": 142,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": true,
+      "initiator": {
+        "stack": {
+          "callFrames": [
+            {
+              "columnNumber": 35,
+              "functionName": "request",
+              "lineNumber": 128,
+              "scriptId": "15",
+              "url": "http://127.0.0.1:8083/api.mjs"
+            },
+            {
+              "columnNumber": 28,
+              "functionName": "health",
+              "lineNumber": 152,
+              "scriptId": "15",
+              "url": "http://127.0.0.1:8083/api.mjs"
+            },
+            {
+              "columnNumber": 33,
+              "functionName": "",
+              "lineNumber": 423,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            }
+          ]
+        },
+        "type": "script"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "request": {
+        "headers": {
+          "Accept": "application/json",
+          "Referer": "http://127.0.0.1:8083/",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "GET",
+        "mixedContentType": "none",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/health"
+      },
+      "requestId": "56882.29",
+      "timestamp": 1280039.895795,
+      "type": "Fetch",
+      "wallTime": 1792695954.920378
+    }
+  },
+  {
+    "sequence": 145,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.29",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458507,
+        "connectionReused": true,
+        "encodedDataLength": 162,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Content-Type": "application/json",
+          "Date": "Thu, 22 Oct 2026 19:05:54 GMT",
+          "Keep-Alive": "timeout=60",
+          "Transfer-Encoding": "chunked"
+        },
+        "mimeType": "application/json",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695954941.011,
+        "securityState": "secure",
+        "status": 200,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 19.528,
+          "receiveHeadersStart": 19.503,
+          "requestTime": 1280039.896977,
+          "sendEnd": 1.935,
+          "sendStart": 1.748,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/health"
+      },
+      "timestamp": 1280039.918118,
+      "type": "Fetch"
+    }
+  },
+  {
+    "sequence": 161,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.requestWillBeSent",
+    "params": {
+      "documentURL": "http://127.0.0.1:8083/",
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasUserGesture": true,
+      "initiator": {
+        "stack": {
+          "callFrames": [
+            {
+              "columnNumber": 35,
+              "functionName": "request",
+              "lineNumber": 128,
+              "scriptId": "15",
+              "url": "http://127.0.0.1:8083/api.mjs"
+            },
+            {
+              "columnNumber": 19,
+              "functionName": "submit",
+              "lineNumber": 156,
+              "scriptId": "15",
+              "url": "http://127.0.0.1:8083/api.mjs"
+            },
+            {
+              "columnNumber": 35,
+              "functionName": "",
+              "lineNumber": 226,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            }
+          ]
+        },
+        "type": "script"
+      },
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "redirectHasExtraInfo": false,
+      "request": {
+        "hasPostData": true,
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Referer": "http://127.0.0.1:8083/",
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Google Chrome\";v=\"155\", \"Chromium\";v=\"155\", \"Not(A:Brand\";v=\"24\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"macOS\""
+        },
+        "initialPriority": "High",
+        "isSameSite": true,
+        "method": "POST",
+        "mixedContentType": "none",
+        "postData": "{\"documentId\":\"ui-1792695973737-a\",\"text\":\"字面向量检索人工验收，同文排序与真实计数。\",\"channel\":\"ui-1792695973737\"}",
+        "postDataEntries": [
+          {
+            "bytes": "eyJkb2N1bWVudElkIjoidWktMTc5MjY5NTk3MzczNy1hIiwidGV4dCI6IuWtl+mdouWQkemHj+ajgOe0ouS6uuW3pemqjOaUtu+8jOWQjOaWh+aOkuW6j+S4juecn+WunuiuoeaVsOOAgiIsImNoYW5uZWwiOiJ1aS0xNzkyNjk1OTczNzM3In0="
+          }
+        ],
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "url": "http://127.0.0.1:8083/api/documents"
+      },
+      "requestId": "56882.30",
+      "timestamp": 1280058.950064,
+      "type": "Fetch",
+      "wallTime": 1792695973.974745
+    }
+  },
+  {
+    "sequence": 164,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Network.responseReceived",
+    "params": {
+      "frameId": "C540034CDF83631A2A6BD52E76220035",
+      "hasExtraInfo": true,
+      "loaderId": "278997FC726CB50EAD76FD1D14BE36EC",
+      "requestId": "56882.30",
+      "response": {
+        "alternateProtocolUsage": "unspecifiedReason",
+        "charset": "",
+        "connectionId": 1458507,
+        "connectionReused": true,
+        "encodedDataLength": 162,
+        "fromDiskCache": false,
+        "fromPrefetchCache": false,
+        "fromServiceWorker": false,
+        "headers": {
+          "Connection": "keep-alive",
+          "Content-Type": "application/json",
+          "Date": "Thu, 22 Oct 2026 19:06:14 GMT",
+          "Keep-Alive": "timeout=60",
+          "Transfer-Encoding": "chunked"
+        },
+        "mimeType": "application/json",
+        "protocol": "http/1.1",
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 8083,
+        "responseTime": 1792695974007.656,
+        "securityState": "secure",
+        "status": 202,
+        "statusText": "",
+        "timing": {
+          "connectEnd": -1,
+          "connectStart": -1,
+          "dnsEnd": -1,
+          "dnsStart": -1,
+          "proxyEnd": -1,
+          "proxyStart": -1,
+          "pushEnd": 0,
+          "pushStart": 0,
+          "receiveHeadersEnd": 31.193,
+          "receiveHeadersStart": 31.165,
+          "requestTime": 1280058.951861,
+          "sendEnd": 1.261,
+          "sendStart": 1.077,
+          "sslEnd": -1,
+          "sslStart": -1,
+          "workerFetchStart": -1,
+          "workerReady": -1,
+          "workerRespondWithSettled": -1,
+          "workerStart": -1
+        },
+        "url": "http://127.0.0.1:8083/api/documents"
+      },
+      "timestamp": 1280058.984579,
+      "type": "Fetch"
+    }
+  },
+  {
+    "sequence": 168,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Runtime.exceptionThrown",
+    "params": {
+      "exceptionDetails": {
+        "columnNumber": 13,
+        "exception": {
+          "className": "TypeError",
+          "description": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at HTMLFormElement.<anonymous> (http://127.0.0.1:8083/app.js:233:22)",
+          "objectId": "-7349783865054580034.8.1",
+          "preview": {
+            "description": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at HTMLFormElement.<anonymous> (http://127.0.0.1:8083/app.js:233:22)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: Illegal invocation\n    at TaskTracker.e…<anonymous> (http://127.0.0.1:8083/app.js:233:22)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "Illegal invocation"
+              }
+            ],
+            "subtype": "error",
+            "type": "object"
+          },
+          "subtype": "error",
+          "type": "object"
+        },
+        "exceptionId": 1,
+        "executionContextId": 8,
+        "lineNumber": 64,
+        "scriptId": "16",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 13,
+              "functionName": "enable",
+              "lineNumber": 64,
+              "scriptId": "16",
+              "url": "http://127.0.0.1:8083/tasks.mjs"
+            },
+            {
+              "columnNumber": 23,
+              "functionName": "query",
+              "lineNumber": 47,
+              "scriptId": "16",
+              "url": "http://127.0.0.1:8083/tasks.mjs"
+            },
+            {
+              "columnNumber": 21,
+              "functionName": "",
+              "lineNumber": 232,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            }
+          ]
+        },
+        "text": "Uncaught (in promise)",
+        "url": "http://127.0.0.1:8083/tasks.mjs"
+      },
+      "timestamp": 1792695974010.624
+    }
+  },
+  {
+    "sequence": 175,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Runtime.exceptionThrown",
+    "params": {
+      "exceptionDetails": {
+        "columnNumber": 13,
+        "exception": {
+          "className": "TypeError",
+          "description": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at showTask (http://127.0.0.1:8083/app.js:155:18)\n    at HTMLButtonElement.<anonymous> (http://127.0.0.1:8083/app.js:244:77)",
+          "objectId": "-7349783865054580034.8.2",
+          "preview": {
+            "description": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at showTask (http://127.0.0.1:8083/app.js:155:18)\n    at HTMLButtonElement.<anonymous> (http://127.0.0.1:8083/app.js:244:77)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: Illegal invocation\n    at TaskTracker.e…<anonymous> (http://127.0.0.1:8083/app.js:244:77)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "Illegal invocation"
+              }
+            ],
+            "subtype": "error",
+            "type": "object"
+          },
+          "subtype": "error",
+          "type": "object"
+        },
+        "exceptionId": 2,
+        "executionContextId": 8,
+        "lineNumber": 64,
+        "scriptId": "16",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 13,
+              "functionName": "enable",
+              "lineNumber": 64,
+              "scriptId": "16",
+              "url": "http://127.0.0.1:8083/tasks.mjs"
+            },
+            {
+              "columnNumber": 23,
+              "functionName": "query",
+              "lineNumber": 47,
+              "scriptId": "16",
+              "url": "http://127.0.0.1:8083/tasks.mjs"
+            },
+            {
+              "columnNumber": 17,
+              "functionName": "showTask",
+              "lineNumber": 154,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            },
+            {
+              "columnNumber": 76,
+              "functionName": "",
+              "lineNumber": 243,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            }
+          ]
+        },
+        "text": "Uncaught (in promise)",
+        "url": "http://127.0.0.1:8083/tasks.mjs"
+      },
+      "timestamp": 1792695979326.233
+    }
+  },
+  {
+    "sequence": 180,
+    "source": {
+      "tabId": 72761598
+    },
+    "method": "Runtime.exceptionThrown",
+    "params": {
+      "exceptionDetails": {
+        "columnNumber": 13,
+        "exception": {
+          "className": "TypeError",
+          "description": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at showTask (http://127.0.0.1:8083/app.js:155:18)\n    at HTMLFormElement.<anonymous> (http://127.0.0.1:8083/app.js:194:11)",
+          "objectId": "-7349783865054580034.8.3",
+          "preview": {
+            "description": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at showTask (http://127.0.0.1:8083/app.js:155:18)\n    at HTMLFormElement.<anonymous> (http://127.0.0.1:8083/app.js:194:11)",
+            "overflow": false,
+            "properties": [
+              {
+                "name": "stack",
+                "type": "string",
+                "value": "TypeError: Illegal invocation\n    at TaskTracker.e…<anonymous> (http://127.0.0.1:8083/app.js:194:11)"
+              },
+              {
+                "name": "message",
+                "type": "string",
+                "value": "Illegal invocation"
+              }
+            ],
+            "subtype": "error",
+            "type": "object"
+          },
+          "subtype": "error",
+          "type": "object"
+        },
+        "exceptionId": 3,
+        "executionContextId": 8,
+        "lineNumber": 64,
+        "scriptId": "16",
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 13,
+              "functionName": "enable",
+              "lineNumber": 64,
+              "scriptId": "16",
+              "url": "http://127.0.0.1:8083/tasks.mjs"
+            },
+            {
+              "columnNumber": 23,
+              "functionName": "query",
+              "lineNumber": 47,
+              "scriptId": "16",
+              "url": "http://127.0.0.1:8083/tasks.mjs"
+            },
+            {
+              "columnNumber": 17,
+              "functionName": "showTask",
+              "lineNumber": 154,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            },
+            {
+              "columnNumber": 10,
+              "functionName": "",
+              "lineNumber": 193,
+              "scriptId": "14",
+              "url": "http://127.0.0.1:8083/app.js"
+            }
+          ]
+        },
+        "text": "Uncaught (in promise)",
+        "url": "http://127.0.0.1:8083/tasks.mjs"
+      },
+      "timestamp": 1792695992366.802
+    }
+  }
+]

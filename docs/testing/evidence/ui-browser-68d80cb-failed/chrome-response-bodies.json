@@ -1,0 +1,10 @@
+{
+  "56882.29": {
+    "base64Encoded": false,
+    "body": "{\"status\":\"UP\",\"stage\":\"B4\",\"businessReady\":true,\"taskReady\":true,\"taskState\":\"READY\",\"embeddingVersion\":\"char12-sha256-r32-nfkc-root-ws-v1\",\"checks\":{\"routesReady\":true,\"databaseWritable\":true,\"dispatcherReady\":true,\"searchReady\":true,\"databaseReady\":true,\"algorithmReady\":true}}"
+  },
+  "56882.30": {
+    "base64Encoded": false,
+    "body": "{\"taskId\":\"71295722-9e09-4579-a5b0-5a150c4045e4\",\"documentId\":\"ui-1792695973737-a\",\"status\":\"QUEUED\"}"
+  }
+}

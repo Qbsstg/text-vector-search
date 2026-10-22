@@ -1,0 +1,11 @@
+{
+  "runDir": "/private/tmp/12times-chrome-ui-skafk2b5",
+  "sourceSha": "68d80cb967c6d321047672811dea45b555ba5cbc",
+  "jarSha256": "61bbb02df6742ee66e25e0d93dd13a18a8fb6caca69008761a80961707a9d42f",
+  "url": "http://127.0.0.1:8083/",
+  "startedAt": "2026-10-22T19:04:35.878187+00:00",
+  "maxRunSeconds": 5400,
+  "pid": 57418,
+  "exitCode": 143,
+  "stoppedAt": "2026-10-22T19:08:34.802402+00:00"
+}

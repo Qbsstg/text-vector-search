@@ -1,0 +1,20 @@
+[
+  {
+    "level": "error",
+    "message": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at HTMLFormElement.<anonymous> (http://127.0.0.1:8083/app.js:233:22)",
+    "timestamp": "2026-10-22T19:06:14.012Z",
+    "url": "http://127.0.0.1:8083/tasks.mjs"
+  },
+  {
+    "level": "error",
+    "message": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at showTask (http://127.0.0.1:8083/app.js:155:18)\n    at HTMLButtonElement.<anonymous> (http://127.0.0.1:8083/app.js:244:77)",
+    "timestamp": "2026-10-22T19:06:19.328Z",
+    "url": "http://127.0.0.1:8083/tasks.mjs"
+  },
+  {
+    "level": "error",
+    "message": "TypeError: Illegal invocation\n    at TaskTracker.enable (http://127.0.0.1:8083/tasks.mjs:65:14)\n    at TaskTracker.query (http://127.0.0.1:8083/tasks.mjs:48:24)\n    at showTask (http://127.0.0.1:8083/app.js:155:18)\n    at HTMLFormElement.<anonymous> (http://127.0.0.1:8083/app.js:194:11)",
+    "timestamp": "2026-10-22T19:06:32.368Z",
+    "url": "http://127.0.0.1:8083/tasks.mjs"
+  }
+]

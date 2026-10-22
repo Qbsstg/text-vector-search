@@ -1,0 +1,22 @@
+{
+  "candidate": "68d80cb967c6d321047672811dea45b555ba5cbc",
+  "overall": "FAIL",
+  "cases": [
+    {
+      "id": "U01",
+      "status": "NOT_RUN",
+      "actual": "初始页面实际显示正常，但静态资源304而非冷缓存200；cases-initial中的PASS是过早的初步标记，不作为完整U01通过。新轮禁用缓存后重验。"
+    },
+    {
+      "id": "U18",
+      "status": "PASS",
+      "scope": "本机真实health界面与响应，不含TLS或部署授权"
+    },
+    {
+      "id": "U02",
+      "status": "FAIL",
+      "actual": "POST202之后TaskTracker.enable报Illegal invocation，自动与手动查询均无GET。"
+    }
+  ],
+  "additionalIssue": "favicon.ico实际500，后续单独修复静态入口。"
+}

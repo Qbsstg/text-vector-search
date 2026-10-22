@@ -1,0 +1,21 @@
+[
+  {
+    "id": "U01",
+    "result": "PASS",
+    "mode": "REAL",
+    "evidence": "U01-initial"
+  },
+  {
+    "id": "U18",
+    "result": "PASS",
+    "mode": "REAL",
+    "evidence": "U18-health-and-documents"
+  },
+  {
+    "id": "U02",
+    "result": "FAIL",
+    "mode": "REAL",
+    "actual": "POST202成功但TaskTracker.enable触发Illegal invocation，自动轮询及手动查询均未执行",
+    "evidence": "U02-task-succeeded"
+  }
+]

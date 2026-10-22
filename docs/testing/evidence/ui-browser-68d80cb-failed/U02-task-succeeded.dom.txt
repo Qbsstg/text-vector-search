@@ -1,0 +1,41 @@
+- main:
+  - paragraph: 文本向量化与检索 · 真实接口演示
+  - heading "文本检索演示台" [level=1]
+  - paragraph: 本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。
+  - region "提交、任务追踪与相似检索":
+    - heading "提交、任务追踪与相似检索" [level=2]
+    - paragraph: 所有操作只请求真实同源接口。文档接收后由后台计算，只有完成、向量就绪且有效的文档才参与检索。接口未合入当前后端或服务尚未就绪时，会如实显示错误。
+    - paragraph: 每次检索可能增加命中次数；网络失败不会自动重试。基础健康中的 businessReady=false 不代表完整业务就绪，页面不生成模拟结果、任务或进度。
+  - region "演示台":
+    - tablist "演示台功能区":
+      - tab "检索体验"
+      - tab "文档管理"
+      - tab "任务追踪" [selected]
+    - tabpanel "任务追踪":
+      - heading "任务追踪" [level=2]
+      - paragraph: 任务状态来自真实后台：排队中、处理中、完成或失败。自动刷新最多 3 个任务，每次响应后间隔至少 2 秒，单任务从首次启用起总计 60 秒；隐藏页面暂停，终态停止。没有完成百分比。
+      - generic: taskId（UUID）
+      - textbox "taskId（UUID）": 71295722-9e09-4579-a5b0-5a150c4045e4
+      - button "查询并有限刷新" [active]
+      - status: 尚未查询任务。
+      - region "本页会话任务":
+        - heading "本页会话任务" [level=2]
+        - paragraph: 最多保留 20 个查询过或提交返回的真实任务 ID，不是全系统任务列表。刷新页面后清空，不保存原文或凭据。
+        - list:
+          - listitem: 尚无本页会话任务。
+  - region "基础连接检查":
+    - heading "基础连接检查" [level=2]
+    - button "检查 /health"
+    - paragraph: 基础连接与任务就绪字段以真实响应为准，不能代替完整业务和浏览器验收。检查不会自动发起检索。
+    - status: 已展示真实健康响应；这不替代完整业务、浏览器与部署验收，也不会自动发起检索。
+    - term: status
+    - definition: UP
+    - term: stage
+    - definition: B4
+    - term: businessReady
+    - definition: "true"
+    - term: taskState
+    - definition: READY
+    - term: taskReady
+    - definition: "true"
+  - generic: 真实同源 API · 北京时间（UTC+8）· 本阶段不代表完整业务与部署验收完成。
