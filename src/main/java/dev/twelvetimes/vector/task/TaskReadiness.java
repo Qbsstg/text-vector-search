@@ -3,12 +3,15 @@ package dev.twelvetimes.vector.task;
 import dev.twelvetimes.vector.api.error.BusinessException;
 import dev.twelvetimes.vector.persistence.KnowledgeMapper;
 import java.util.concurrent.atomic.AtomicReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.stereotype.Component;
 
 /** B2只保留门禁与诊断原因，既不重置旧RUNNING，也不伪装B3恢复已完成。 */
 @Component
 public final class TaskReadiness implements SmartInitializingSingleton {
+    private static final Logger LOG = LoggerFactory.getLogger(TaskReadiness.class);
     private final KnowledgeMapper mapper;
     private final AtomicReference<String> reason = new AtomicReference<>();
 
@@ -31,5 +34,7 @@ public final class TaskReadiness implements SmartInitializingSingleton {
 
     public boolean accepting() { return reason.get() == null; }
     public String reason() { return reason.get(); }
-    public void block(String value) { reason.compareAndSet(null, value); }
+    public void block(String value) {
+        if (reason.compareAndSet(null, value)) { LOG.warn("任务接收门禁关闭：{}", value); }
+    }
 }
