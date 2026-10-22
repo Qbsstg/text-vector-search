@@ -10,7 +10,7 @@
 3. 按主控批准仅给测试URL补`DB_CLOSE_ON_EXIT=FALSE`做A/B，原正常SIGTERM成功断言不变；pid37186实际exit143、SUCCEEDED、真实B1黄金及两表时间一致。日志`/private/tmp/12times-qa-b3-sigterm-close-false.log`。主控随后将该最小关闭配置纳入生产默认URL，并修复任务表时间确认。
 4. 最终探针不再覆盖`spring.datasource.url`，只传`APP_DATA_DIR`隔离目录，从实际HikariDataSource.getJdbcUrl读取并断言生产默认含关闭flag，快照也使用该实际URL。故最终通过不是继续依赖测试专用URL绕过生产配置。
 
-原失败和A/B进程事件在最终clean前已完整保留到`/private/tmp/12times-qa-b3-process-evidence-before-final-clean/`。按主控明确要求，pid36938默认失败和pid37186最小A/B成功的原始子进程日志字节不变复制为`docs/testing/evidence/b3-sigterm-close-race/default-failure-pid36938.txt`及`close-on-exit-false-success-pid37186.txt`，附SHA256SUMS；不含数据库、私钥或真实业务文本。最终完整进程日志位于`target/b3-process-evidence/`，已由主控配置CI产物上传。
+原失败和A/B进程事件在最终clean前已完整保留到`/private/tmp/12times-qa-b3-process-evidence-before-final-clean/`。按主控明确要求，pid36938默认失败和pid37186最小A/B成功的原始子进程日志字节不变复制为`docs/testing/evidence/b3-sigterm-ab/default-failure-pid36938.txt`及`close-on-exit-false-success-pid37186.txt`，附SHA256SUMS；不含数据库、私钥或真实业务文本。最终完整进程日志位于`target/b3-process-evidence/`，已由主控配置CI产物上传。
 
 ## 最终真实运行
 
