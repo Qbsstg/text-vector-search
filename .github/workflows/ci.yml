@@ -40,6 +40,7 @@ jobs:
           path: |
             target/surefire-reports/
             target/failsafe-reports/
+            target/b3-process-evidence/
           if-no-files-found: error
           retention-days: 7
 
