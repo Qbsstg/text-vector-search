@@ -1,73 +1,60 @@
 package dev.twelvetimes.vector.unit;
 
 import dev.twelvetimes.vector.api.BootstrapHealthController;
-import dev.twelvetimes.vector.task.TaskReadiness;
-import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.sql.DataSource;
+import dev.twelvetimes.vector.health.BusinessReadiness.Snapshot;
+import dev.twelvetimes.vector.task.TaskReadiness.State;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/** Controller只验HTTP映射；数据库借用/关闭竞态由真实探针单测和独立IT负责。 */
 class BootstrapHealthControllerTest {
-    @Test
-    void 恢复降级和停止健康拒绝且不抢占连接() {
-        TaskReadiness readiness = new TaskReadiness(null);
-        AtomicInteger borrows = new AtomicInteger();
-        var controller = new BootstrapHealthController(dataSource(borrows, false), readiness);
-        assertEquals(503, controller.health().getStatusCode().value());
-        assertEquals("RECOVERING", controller.health().getBody().get("taskState"));
-        readiness.block("仅测试降级");
-        assertEquals(503, controller.health().getStatusCode().value());
-        readiness.stopping();
-        assertEquals(503, controller.health().getStatusCode().value());
-        readiness.stopped();
-        assertEquals(503, controller.health().getStatusCode().value());
-        assertEquals(0, borrows.get());
-    }
+    private static final String VERSION = "char12-sha256-r32-nfkc-root-ws-v1";
 
     @Test
-    void 任务READY与数据库可用不冒称B4业务完成() {
-        TaskReadiness readiness = new TaskReadiness(null);
-        readiness.ready();
-        AtomicInteger borrows = new AtomicInteger();
-        var response = new BootstrapHealthController(dataSource(borrows, false), readiness).health();
+    void 全部真实检查就绪才返回业务READY且实现阶段为B4() {
+        var response = new BootstrapHealthController(() -> snapshot(State.READY, allReady(), VERSION)).health();
         assertEquals(200, response.getStatusCode().value());
-        assertEquals("B3", response.getBody().get("stage"));
+        assertEquals("UP", response.getBody().get("status"));
+        assertEquals("B4", response.getBody().get("stage"));
         assertEquals("READY", response.getBody().get("taskState"));
         assertEquals(true, response.getBody().get("taskReady"));
-        assertEquals(false, response.getBody().get("businessReady"));
-        assertEquals(1, borrows.get());
+        assertEquals(true, response.getBody().get("businessReady"));
+        assertEquals(VERSION, response.getBody().get("embeddingVersion"));
     }
 
     @Test
-    void 单次数据库探测失败不泄露细节也不擅自迁移门禁() {
-        TaskReadiness readiness = new TaskReadiness(null);
-        readiness.ready();
-        var response = new BootstrapHealthController(dataSource(new AtomicInteger(), true), readiness).health();
-        assertEquals(503, response.getStatusCode().value());
-        assertEquals("DOWN", response.getBody().get("status"));
-        assertEquals(false, response.getBody().get("taskReady"));
-        assertEquals(TaskReadiness.State.READY, readiness.state());
+    void 任一检查失败不能被硬编码成功掩盖() {
+        for (int failed = 0; failed < 7; failed++) {
+            boolean[] flags = allReady();
+            flags[failed] = false;
+            var response = new BootstrapHealthController(() -> snapshot(State.READY, flags, null)).health();
+            assertEquals(503, response.getStatusCode().value());
+            assertEquals("DOWN", response.getBody().get("status"));
+            assertEquals(false, response.getBody().get("businessReady"));
+            assertEquals(null, response.getBody().get("embeddingVersion"));
+        }
     }
 
-    /** 只替代本单测的连接探测边界，不模拟业务事务或恢复成功。 */
-    private static DataSource dataSource(AtomicInteger borrows, boolean fail) {
-        return (DataSource) Proxy.newProxyInstance(DataSource.class.getClassLoader(),
-                new Class<?>[] {DataSource.class}, (proxy, method, args) -> {
-                    if (method.getName().equals("getConnection")) {
-                        borrows.incrementAndGet();
-                        if (fail) { throw new SQLException("仅测试：不可向响应泄露的原因"); }
-                        return Proxy.newProxyInstance(Connection.class.getClassLoader(),
-                                new Class<?>[] {Connection.class}, (connection, call, parameters) -> {
-                                    if (call.getName().equals("isValid")) { return true; }
-                                    if (call.getName().equals("close")) { return null; }
-                                    throw new UnsupportedOperationException(call.getName());
-                                });
-                    }
-                    throw new UnsupportedOperationException(method.getName());
-                });
+    @Test
+    void 非READY即使其它检查均真也不得报告业务就绪() {
+        for (State state : State.values()) {
+            if (state == State.READY) { continue; }
+            var response = new BootstrapHealthController(() -> snapshot(state, allReady(), VERSION)).health();
+            assertEquals(503, response.getStatusCode().value());
+            assertEquals(state.name(), response.getBody().get("taskState"));
+            assertEquals(false, response.getBody().get("businessReady"));
+        }
+    }
+
+    private static boolean[] allReady() {
+        boolean[] result = new boolean[7];
+        Arrays.fill(result, true);
+        return result;
+    }
+
+    private static Snapshot snapshot(State state, boolean[] flags, String version) {
+        return new Snapshot(state, flags[0], flags[1], flags[2], flags[3], flags[4], flags[5], flags[6], version);
     }
 }

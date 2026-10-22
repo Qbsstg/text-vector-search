@@ -22,7 +22,7 @@ C0/B1参数基线保持不变；B2已实现队列、提交容量和HTTP字节限
 
 本地主控8080、后端8081、前端8083、部署骨架8084；每个worktree的`data/`互相独立。集成测试随机端口、绝对临时H2目录。部署数据目录固定绝对路径，例如`/var/lib/vector-search/db`，release切换不改变该目录；单实例，不使用AUTO_SERVER。
 
-JAR产物`target/vector-search.jar`；服务器发布目录可重命名为`releases/<full-sha>/app.jar`。B3健康`/health`区分taskState/taskReady与businessReady=false；任务READY不代表包含B4的全部业务就绪。公开入口仅经HTTPS/保护代理，不能直接开放8080或H2服务/Console。
+JAR产物`target/vector-search.jar`；服务器发布目录可重命名为`releases/<full-sha>/app.jar`。最终`/health`阶段B4，按任务恢复/关闭屏障、DB可读非只读、调度handler、统一算法版本、搜索组件和六映射推导businessReady，HTTP200仅完整合取成功；不执行探针业务写入。应用就绪不代表UI/HTTPS入口或人工发布已通过。公开入口仅经HTTPS/保护代理，不能直接开放8080或H2服务/Console。
 
 B1算法已实现：NFKC→Locale.ROOT小写→Unicode空白折叠/首尾去除；按code point生成U:/B:特征，bigram不跨空白，标点作为普通非空白code point；同权重带符号SHA-256映射，固定逐特征摘要轮数，整数桶、double范数、固定下标归一化输出float。字节序BIG_ENDIAN。默认版本`char12-sha256-r32-nfkc-root-ws-v1`，精确规则与黄金验证见`b1-algorithm-contract.md`和B1验收记录。
 

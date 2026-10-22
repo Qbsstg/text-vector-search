@@ -45,9 +45,12 @@ DocumentDetail：DocumentSummary全部字段（平铺）加`text`；不包含向
 
 提交结果未知时可按已知documentId查询，不自动换ID/重提。搜索RESULT_UNKNOWN可能已计数；不能由当前累计值推断本请求是否提交，不能盲重试。DB最终状态无法确认时进入可观测降级并拒绝新接收。
 
-## B3任务健康与恢复门禁
+## 最终业务健康与恢复门禁
 
-`GET /health`在任务READY且数据库连接有效时返回200 `{status:"UP",stage:"B3",taskState:"READY",taskReady:true,businessReady:false}`；其他状态或连接失败返回503，status为DOWN、taskReady为false。taskState为RECOVERING/READY/DEGRADED/STOPPING/STOPPED。非READY时不借用数据库连接，错误不泄露SQL。单次健康探针失败不会改变任务状态机。
+`GET /health`实现阶段为B4，HTTP200仅当真实businessReady=true，否则503。保留status(UP/DOWN)、stage、taskState、taskReady、businessReady；新增embeddingVersion（字符串或探针无法给出时null）与checks对象：databaseReady/databaseWritable/dispatcherReady/algorithmReady/searchReady/routesReady六布尔。六业务接口v1.0无变化。
 
-RECOVERING/STOPPING/STOPPED拒绝全部`/api/**`并返回503 SERVICE_NOT_READY；DEGRADED保留GET诊断读取、拒绝业务写入。启动恢复确认提交后才READY并开启调度；任务READY不能作为B4搜索、浏览器或正式发布通过的证据。C0原健康形状为历史证据，不回改既有验收记录。
+业务就绪是当前运行事实的合取：taskState=READY、关闭屏障开放、连接有效及必需表列可读、JDBC/数据库元数据非只读、调度器已运行且有handler/执行器未停、唯一统一算法实例版本匹配冻结配置、搜索服务与六个真实方法/路径映射已装配。taskReady要求上述任务/数据库/调度/算法条件，businessReady进一步要求搜索/六映射。不以硬编码true代替检查，也不把队列满等同于服务损坏。
 
+非READY不借数据库连接；READY探针短读取受共享关闭屏障保护，完成后重新核对状态。探针不调用embed、不新增文档/任务/计数、不执行DDL或修改readiness，响应不暴露SQL/路径/异常原因。只读标志检查不能保证后续磁盘写入永远成功，真实写路径由发布验收验证。
+
+RECOVERING/STOPPING/STOPPED拒绝全部`/api/**`并返回503 SERVICE_NOT_READY；DEGRADED保留GET诊断读取、拒绝业务写入。恢复物理提交后才READY。businessReady表示应用运行就绪，不包含真人UI、HTTPS认证或人工发布批准；这些仍需独立门禁。C0/B3旧健康形状及原验收证据保留，当前测试仅明确迁移健康元数据与状态预期，不伪造旧阶段成功。

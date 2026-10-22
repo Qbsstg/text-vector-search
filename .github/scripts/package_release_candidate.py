@@ -54,7 +54,7 @@ def main():
         "jarSha256": sha256(artifact), "sizeBytes": artifact.stat().st_size,
         "javaTarget": 17, "embeddingVersion": "char12-sha256-r32-nfkc-root-ws-v1",
         "schemaSha256": sha256(root / "src/main/resources/schema.sql"),
-        "createdAtUtc": datetime.now(timezone.utc).isoformat(),
+        "createdAtUtc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "ciRunId": os.environ.get("GITHUB_RUN_ID"), "ciRunAttempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
     }
     manifest_path = destination / "release-manifest.json"
