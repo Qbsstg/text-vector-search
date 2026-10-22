@@ -41,11 +41,11 @@ jobs:
           node-version: '22.16.0'
       - name: 验证真实请求边界与有限轮询逻辑
         run: node --test tests/frontend/*.test.mjs
-      - name: 显式执行隔离组件性能与锁超时恢复探针
+      - name: 验证隔离性能探针与部署诊断工具
         run: |
           python3 -m py_compile docs/testing/final-release-perf-client.py
           mkdir -p target/queue-observer-classes
-          javac --release 17 -encoding UTF-8 -d target/queue-observer-classes deploy/scripts/QueueReadOnlyAgent.java
+          javac --release 17 -encoding UTF-8 -d target/queue-observer-classes deploy/scripts/QueueReadOnlyAgent.java deploy/scripts/ColdSnapshot.java
           python3 - <<'PY'
           from pathlib import Path
           import subprocess
