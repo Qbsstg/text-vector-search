@@ -64,4 +64,10 @@ Nginx交接见`docs/tasks/handoffs/server-nginx.md`。主控独立SSH及公网�
 
 B3终态两表写回、失败回写、旧token迟到完成、旧RUNNING/强杀恢复、完整关闭；B4搜索/命中并发；语义相关性与性能；真实UI；HTTPS/认证/业务发布/备份恢复均未验证。简单小批扫描可能不能立即填满较大内存队列，吞吐待测，未用未经测量的优化改动B2。用户`docs/测试工作/`保持未跟踪原样，其中70条并未整体执行。
 
-本轮B2核心主控门禁通过，等待用户阶段审阅；不自动启动B3或正式发布。远程推送SHA和对应CI由本轮最终交付核对登记，不能用本地结果代替远程结果。
+本轮B2核心主控门禁通过，等待用户阶段审阅；不自动启动B3或正式发布。
+
+## 远程核证
+
+本地HEAD与私有仓库远程main已独立核对为`38eeb26156db997f590066e51f72bb30c8ef88f6`，运行源码/构建/CI与主控实测代码53769c6完全一致。该提交的[CI run39808131629](https://github.com/Qbsstg/text-vector-search/actions/runs/39808131629)于2026-10-22 23:48:43 +08:00完整completed/success，Java、Node测试和报告上传全部成功。
+
+主控实际下载`test-reports-38eeb26156db997f590066e51f72bb30c8ef88f6`并解析XML：53 unit+44 IT，失败/错误/跳过0；实际CI日志确认Node tests25/pass25/fail0/skipped0。产物留在`/private/tmp/12times-b2-ci-artifacts`。本节为随后独立文档提交，不能把文件所在SHA倒填为已执行的38eeb26；最新文档HEAD在最终交付与远端再核对。

@@ -35,3 +35,5 @@ B2细分Owner、依赖和验收见[实施契约](../design/b2-implementation-con
 ## 主控最终核证
 
 代码验证SHA `53769c69477cf43351280338a0938117ca6f0252`：Java17共53 unit+44 IT通过，Node25通过，全部失败/跳过0；见`docs/testing/B2-verification.md`。真实UI因Work设置禁用未执行，不影响B2核心测试，不能标完整UI通过。最终远程SHA/CI由交付时单独核对；用户新增测试资料保持未跟踪原样。
+
+远程核证已完成：38eeb26156db997f590066e51f72bb30c8ef88f6与当时本地HEAD一致，私有性保留；run39808131629完整success，下载XML及日志确认相同122项全部通过。随后仅新增本段核证文档，不改运行代码。
