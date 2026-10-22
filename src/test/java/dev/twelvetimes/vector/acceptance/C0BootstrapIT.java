@@ -28,7 +28,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/** C0 infrastructure only: no business endpoint or recovery claims. */
+/** 仅验证C0基础设施，不据此宣称业务接口或任务恢复已完成。 */
 class C0BootstrapIT {
     @TempDir Path directory;
 
@@ -51,7 +51,7 @@ class C0BootstrapIT {
             }
         }
         assertTrue(Files.exists(Path.of(db + ".mv.db")), "Must use a persistent H2 file");
-        // The first complete Spring context and its pool are closed before reopening the same file.
+        // 先完整关闭第一个Spring上下文及连接池，再重新打开同一数据库文件。
         try (var restarted = start(db, true)) {
             assertHealth(restarted);
             try (Connection connection = restarted.getBean(DataSource.class).getConnection();

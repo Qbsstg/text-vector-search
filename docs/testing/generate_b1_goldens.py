@@ -1,8 +1,8 @@
-"""Independent B1 oracle. No production code import; canonical text is reviewed explicitly.
+"""B1独立参考实现：不导入生产代码，显式审查规范化文本期望。
 
-Counter-based feature aggregation separates this reference from a streaming implementation.
-Run with Python 3; all imports are from the standard library.
-Golden generation consumes explicit canonical fixtures; unicodedata separately checks them.
+通过Counter聚合特征，使参考路径独立于生产流式实现。
+使用Python 3运行，所有依赖均来自标准库。
+黄金生成采用明确的规范化夹具，unicodedata另外核对这些期望。
 """
 from collections import Counter
 import hashlib
@@ -39,6 +39,6 @@ def vector_bytes(canonical, rounds):
 
 if __name__ == "__main__":
     for rounds, original, canonical in FIXTURES:
-        # Fixture-only sanity check: their whitespace characters agree in Python and Java.
+        # 仅核对夹具：这些样本中的空白字符在Python与Java中含义一致。
         assert " ".join(unicodedata.normalize("NFKC", original).lower().split()) == canonical
         print(rounds, repr(original), hashlib.sha256(vector_bytes(canonical, rounds)).hexdigest())

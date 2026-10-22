@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.HexFormat;
 
-/** Separate-JVM entry point; stdout is a three-line protocol, with no application startup. */
+/** 独立JVM探针入口；标准输出固定为三行协议，不启动Spring应用。 */
 public final class B1VectorProbe {
     private B1VectorProbe() {
     }

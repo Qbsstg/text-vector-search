@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Independent contract checks; fixed golden hashes come from the retained Python oracle. */
+/** 独立契约验收；固定黄金摘要来自保留在仓库中的Python参考脚本。 */
 class B1AlgorithmIT {
     @TempDir Path directory;
 
@@ -77,7 +77,7 @@ class B1AlgorithmIT {
     @Test
     void separateJvmReportsSameVersionDigestAndEveryEncodedByte() throws Exception {
         String javaExecutable = Path.of(System.getProperty("java.home"), "bin", "java").toString();
-        // Only these two class directories are required: the probe and framework-free production algorithms.
+        // 只加载探针与无框架依赖的生产算法这两个类目录，避免借助Spring启动验证。
         String classpath = Path.of(B1VectorProbe.class.getProtectionDomain().getCodeSource().getLocation().toURI())
                 + File.pathSeparator
                 + Path.of(TextEmbedder.class.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -151,7 +151,7 @@ class B1AlgorithmIT {
         var oneCodePoint = new CharNgramTextEmbedder(1, 1);
         assertEquals(256, oneCodePoint.embed("😀").length);
         assertThrows(IllegalArgumentException.class, () -> oneCodePoint.embed("😀😀"));
-        // U+FB03 is one source code point and NFKC expands it to three ASCII letters.
+        // U+FB03原文仅占一个码点，但NFKC会将其扩张为三个ASCII字母。
         assertThrows(IllegalArgumentException.class, () -> new CharNgramTextEmbedder(1, 2).embed("ﬃ"));
         assertThrows(IllegalArgumentException.class, () -> oneCodePoint.embed("İ"));
         assertThrows(IllegalArgumentException.class, () -> new CharNgramTextEmbedder(1, 2).embed("   "));
@@ -232,13 +232,13 @@ class B1AlgorithmIT {
     void topKMatchesIndependentFullSortAcrossShufflesTiesAndKBoundaries() {
         Random random = new Random(20261022L);
         List<ScoredDocument> candidates = new ArrayList<>();
-        // Quantized scores deliberately create many ties crossing heap boundaries, including negatives.
+        // 将分数离散化以构造跨堆边界的大量同分项，同时覆盖负分。
         for (int index = 0; index < 137; index++) {
             candidates.add(new ScoredDocument(String.format(Locale.ROOT, "doc-%03d", index),
                     (random.nextInt(21) - 10) / 10.0));
         }
         List<ScoredDocument> expected = new ArrayList<>(candidates);
-        // Reference sorts all candidates; it does not use the production heap or its comparator.
+        // 参考答案完整排序所有候选，不复用生产堆或生产比较器。
         expected.sort(Comparator.comparingDouble(ScoredDocument::score).reversed()
                 .thenComparing(ScoredDocument::documentId));
         for (int attempt = 0; attempt < 15; attempt++) {
@@ -295,7 +295,7 @@ class B1AlgorithmIT {
         });
     }
 
-    /** Raw bits avoid coupling the golden check to a potentially incorrect production codec. */
+    /** 直接读取原始位，避免黄金验收与可能有误的生产codec互相掩盖问题。 */
     private static byte[] rawBytes(float[] vector) {
         ByteBuffer buffer = ByteBuffer.allocate(vector.length * Float.BYTES).order(ByteOrder.BIG_ENDIAN);
         for (float value : vector) {
