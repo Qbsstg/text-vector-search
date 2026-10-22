@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "2.851"
+  },
+  "methods": [
+    {
+      "name": "测试资源非法DDL真实初始化失败且恢复默认DDL后可用",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.276"
+    },
+    {
+      "name": "只读临时目录真实拒绝启动且恢复权限后原路径可用",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.444"
+    }
+  ],
+  "rawReportSHA256": "42368a1831b6ef013310f1e65a98a1bc2a5ab55125728b3eb8c983af4e432186",
+  "rawLog": "/private/tmp/12times-rec08-run.log",
+  "rawLogSHA256": "8b5fc487685d8e10d25f3c752010be71e945ac38e5f63c961e8a16f23c946793"
+}

@@ -1,0 +1,86 @@
+{
+  "counts": {
+    "tests": "14",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "7.26"
+  },
+  "methods": [
+    {
+      "name": "原始过滤数学夹具先过滤再返回零负分",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.812"
+    },
+    {
+      "name": "测试资源非法DDL真实初始化失败且恢复默认DDL后可用",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.613"
+    },
+    {
+      "name": "十六篇合成文档真实HTTP闭环及增量向量不变",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.164"
+    },
+    {
+      "name": "六组余弦与五组TopK原始数学夹具逐条断言",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.002"
+    },
+    {
+      "name": "受控任务失败可查且后续任务继续成功",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.204"
+    },
+    {
+      "name": "真实HTTP在计算暂停时已返回接收且不可搜索",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.191"
+    },
+    {
+      "name": "只读临时目录真实拒绝启动且恢复权限后原路径可用",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.418"
+    },
+    {
+      "name": "八组语言关系记录真实Java分数不预设语义高低",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.08"
+    },
+    {
+      "name": "数学向量经真实H2往返保持每个原始位",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.091"
+    },
+    {
+      "name": "旧版本成功文档真实HTTP过滤诊断不混算",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.337"
+    },
+    {
+      "name": "四组工程等价对按位一致且各自原文真实落库",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.581"
+    },
+    {
+      "name": "无效存储路径启动失败且不偷偷换空库",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.06"
+    },
+    {
+      "name": "十四条请求夹具按已冻结协议逐条真实HTTP验证",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.2"
+    },
+    {
+      "name": "四态文件库重启只恢复未完成任务",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.373"
+    }
+  ],
+  "rawReport": "target/failsafe-reports/TEST-dev.twelvetimes.vector.acceptance.LocalCasesIT.xml",
+  "rawReportSHA256": "3903ad24191d778e2a732f4695e5bae651c58f2289f263ec3493c6fedd15b21e",
+  "rawLog": "/private/tmp/12times-local-cases14-run.log",
+  "rawLogSHA256": "b1aadf9141827e35e3f1cf33577cfca85554c824384eb0148c7b0d4f7f9e6abe",
+  "scope": "本轮新增14项；不与此前12项或指定REC08两项重复累加"
+}

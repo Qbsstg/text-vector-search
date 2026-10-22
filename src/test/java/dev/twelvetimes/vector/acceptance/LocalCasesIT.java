@@ -20,6 +20,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -331,6 +332,60 @@ class LocalCasesIT {
         });
         assertTrue(Files.isRegularFile(file));
         record("REC-08", "普通文件不能充当数据库目录，初始化失败，不改用其他空库");
+    }
+
+    @Test
+    void 只读临时目录真实拒绝启动且恢复权限后原路径可用() throws Exception {
+        Path owned = directory.toRealPath();
+        Path readOnly = Files.createDirectory(owned.resolve("readonly-db")).toRealPath();
+        assertEquals(owned, readOnly.getParent());
+        assertTrue(readOnly.startsWith(owned));
+        assertFalse(Files.isSymbolicLink(readOnly));
+        var original = Files.getPosixFilePermissions(readOnly);
+        try {
+            // chmod仅针对本方法新建子目录；finally恢复，避免JUnit清理或后续检查受阻。
+            Files.setPosixFilePermissions(readOnly, PosixFilePermissions.fromString("r-x------"));
+            assertFalse(Files.isWritable(readOnly), "本地执行用户必须实际无写权限，不能由root绕过后宣称已测只读");
+            RuntimeException failure = assertThrows(RuntimeException.class, () -> {
+                try (var ignored = new B4QaEnvironment(readOnly, true, true, null)) {
+                    throw new AssertionError("只读数据库目录不得正常启动业务");
+                }
+            });
+            try (var entries = Files.list(readOnly)) { assertEquals(0, entries.count(), "不能在只读目标内生成新库"); }
+            try (var siblings = Files.list(owned)) { assertEquals(1, siblings.count(), "不得悄悄另建空库目录"); }
+            record("REC-08-readonly", "只读目录启动异常=" + failure.getClass().getName()
+                    + "；未启动正常API，无公开错误响应；完整内部故障日志在Failsafe原报告，未使用真实凭据");
+        } finally {
+            Files.setPosixFilePermissions(readOnly, original);
+        }
+        assertTrue(Files.isWritable(readOnly));
+        try (var recovered = new B4QaEnvironment(readOnly, true, true, null)) {
+            assertTrue(send(recovered, "GET", "/health", null, 200).get("businessReady").asBoolean());
+            assertEquals(0, recovered.bean(KnowledgeMapper.class).countDocuments());
+        }
+    }
+
+    @Test
+    void 测试资源非法DDL真实初始化失败且恢复默认DDL后可用() throws Exception {
+        Path owned = directory.toRealPath();
+        Path data = Files.createDirectory(owned.resolve("invalid-ddl-db")).toRealPath();
+        assertEquals(owned, data.getParent());
+        assertTrue(data.startsWith(owned));
+        assertFalse(Files.isSymbolicLink(data));
+        RuntimeException failure = assertThrows(RuntimeException.class, () -> {
+            try (var ignored = new B4QaEnvironment(data, true, true, null,
+                    "--spring.sql.init.schema-locations=classpath:local-cases/invalid-schema.sql")) {
+                throw new AssertionError("非法DDL不得形成正常业务启动");
+            }
+        });
+        assertTrue(Files.exists(data.resolve("knowledge.mv.db")), "实际文件库必须位于本次声明路径");
+        try (var siblings = Files.list(owned)) { assertEquals(1, siblings.count(), "不得切换空目录掩盖初始化失败"); }
+        record("REC-08-ddl", "非法测试DDL启动异常=" + failure.getClass().getName()
+                + "；仅test classpath注入，无公开业务响应，无真实凭据；未修改生产schema.sql");
+        try (var recovered = new B4QaEnvironment(data, true, true, null)) {
+            assertTrue(send(recovered, "GET", "/health", null, 200).get("businessReady").asBoolean());
+            assertEquals(0, recovered.bean(KnowledgeMapper.class).countDocuments());
+        }
     }
 
     @Test
