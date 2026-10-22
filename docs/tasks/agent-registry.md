@@ -4,11 +4,11 @@
 
 | 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（/Users/qbss/code/12times下） | 当前真实派发 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B4-01/02编码中，source/counter接口已确认；观察首段c106e18，完整测试/合入待交接 |
-| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | FE2/FE3真实搜索接入编码；FE1 Node/HTTP保留，真实浏览器未验 |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | c9902c9的12组计划已合入；执行需可运行实现/窄接口基线，全部B4矩阵NOT_RUN |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B4候选/评分/许可/原子计数已交付，95unit及独立验收通过；待阶段评审/实际缺陷分派 |
+| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | FE2/FE3代码38Node及真实JAR HTTP闭环通过；REVIEW_UI，下一优先完整浏览器 |
+| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | B4新增22IT已交；本地/Linux全量229通过，浏览器/负载另验 |
 | 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2/TLS检查DONE；SSL已装，不重复索取；正式代理/认证/服务及开机策略等待独立DEP3授权 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B4启动拆解/任务状态与证据；只文档，交接后释放QA执行槽 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | B4拆解/估算已交，主控最终证据已登记；追踪浏览器与DEP3独立门禁 |
 
 B3已核：源码28cd42d本地173项通过，最新dd96021的CI run39821247938完整success（74 unit+74 IT+25 Node），用户原则批准；不回改B3-verification或原始证据。B4完整验收/CI仍未执行，不用B3数量代替。
 
@@ -22,4 +22,4 @@ B4后端只新增搜索边界/服务/Mapper/unit并复用冻结B1；QA独立acce
 
 ## 主控实施结果更新（2026-10-23 01:48）
 
-后端c106e18/59f3c76、前端8a1ea67/2b93ec4、QA4ba76e5/9703c7f均已合入。主控源码b55473e全量95unit+96IT+38Node=229通过，22个新IT覆盖计数/并发/真实RST/资源关闭；真实前端HTTP闭环通过且本地进程45035已退出143。Linux CI待最终核验，浏览器最新仍禁用/NOT_RUN；上文为启动时快照，不覆盖本条实际结果。完整证据见[集成验收](../testing/B4-verification.md)。初始工时为估计，实际提交和测试时间均保留，不补造时间线。
+后端c106e18/59f3c76、前端8a1ea67/2b93ec4、QA4ba76e5/9703c7f均已合入。主控源码b55473e全量95unit+96IT+38Node=229通过，22个新IT覆盖计数/并发/真实RST/资源关闭；真实前端HTTP闭环通过且本地进程45035已退出143。Linux CI run39826245521（main5f2f058）同为229通过且原件已归档，浏览器最新仍禁用/NOT_RUN；上文为启动时快照，不覆盖本条实际结果。完整证据见[集成验收](../testing/B4-verification.md)。初始工时为估计，实际提交和测试时间均保留，不补造时间线。

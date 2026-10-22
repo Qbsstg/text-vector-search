@@ -55,7 +55,7 @@ node --test tests/frontend/*.test.mjs
 | 主控首轮集成 | 源码`820d1ffd6a435faf25715a8ed15142a35239c65c`：95 unit+74 IT，01:38:55完成；38 Node通过，合计207，失败/错误/跳过0 |
 | QA独立专项 | 首21 IT与完整95 unit+95 IT+38 Node=228通过；随后追加计数关闭排空1 IT，目标95 unit+11 IT通过。两阶段真实结果分别保留，不将旧228改写为新全量 |
 | 主控最终源码/完整回归 | **`b55473e74e81c67ed1b721f81d4045fc71f50fba`**，Java17 clean verify于01:48:02完成：**95 unit+96 IT+38 Node=229通过**，失败/错误/跳过0。B4新增22 IT；全部报告、11个B3进程回归和12份B4事件原件见`evidence/b4-local-b55473e/` |
-| B4 Linux CI | 待推送私有main后核对真实headSha/报告/Node及B4事件，不用旧B3绿色替代 |
+| B4 Linux CI | **`5f2f0588ef45d969ee20829750708363048515e2`**，[run39826245521](https://github.com/Qbsstg/text-vector-search/actions/runs/39826245521) completed/success；原XML95 unit+96 IT均零失败/错误/跳过，完整日志确认38 Node，合计229。11个B3进程/12份B4事件齐全，原件与SHA256见`evidence/b4-ci-5f2f058/` |
 
 ## 最终本地验收矩阵
 
@@ -72,7 +72,7 @@ node --test tests/frontend/*.test.mjs
 | Q09 | 真commit后异常与实际rollback但调用方未知的两种反例，SQL只一次、无累计确认、DEGRADED/RESULT_UNKNOWN | PASS |
 | Q10 | 真实Socket SO_LINGER=0 RST，commit在先响应在后，入口1/SQL1/持久增量1；前端失败只一次POST | PASS，浏览器层仍待验 |
 | Q11 | 单连接池CPU无事务/连接；有界前缀/防御复制；关闭后迟到SQL0；真实close等待已入计数commit后才关Hikari | PASS |
-| Q12 | Java17/Node/JAR本地通过，Linux CI待核；完整浏览器未执行 | 分层记录，不宣称浏览器通过 |
+| Q12 | Java17/Node/JAR本地与Linux CI通过；完整浏览器未执行 | 分层记录，不宣称浏览器通过 |
 
 QA临时较高许可与单连接池只用于明确隔离的验收，未改生产配置。实际事件包括ATOMIC/UNKNOWN/ROLLBACK/RST/BOUNDED/STOPPED/COUNT_DRAIN，不把受控数学向量当真实语义效果。所有参与者有界等待，无降低断言或假终态。
 
@@ -93,3 +93,5 @@ FE2/FE3接入真实同源POST，Top-K默认5，零负分与显示小数同分均
 SSL已装且B3检查通过，不重复索取。B4本轮不登录/变更服务器，不启用正式业务代理、认证、systemd或Nginx开机启动；DEP3另需完整业务/浏览器门禁、发布SHA与回滚、安全入口凭据和用户具体授权。云安全组、浏览器启用、认证及启动策略属于人工后续项，本地B4编码不因此阻塞。
 
 个人目标仍为2026-10-23 18:00；启动估算是并行5—8小时、浏览器另1—2小时的工程判断，实际提交/测试时间以原件为准，不虚构开发时间线。
+
+主控结论：B4核心实现与本地/Linux CI工程门禁通过，等待用户阶段评审；六业务接口闭环已实现，B1/B3历史保持。FE1—FE3完整浏览器仍NOT_RUN，`/health`沿用B3任务探针及businessReady=false，不作为已批准上线标志。下一优先事项为实际启用浏览器后完整UI复演；DEP3未经正式授权不执行。

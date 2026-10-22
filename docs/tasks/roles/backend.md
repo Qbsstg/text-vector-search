@@ -1,5 +1,7 @@
 # 后端工程师
 
+主控最终状态：B4本地及Linux CI 95unit+96IT+38Node=229通过，核心实现/独立验收已交付；完整浏览器仍NOT_RUN，下一优先实际启用后的UI复演，DEP3须独立发布授权。以下B4派发段保留任务范围，不要求重新实施已完成工作。
+
 2026-10-23 B4派发：当前任务B4-01/02：立即实现真实POST /api/search、候选快照/资源许可、冻结B1评分与Top-K、最终命中短事务原子计数。先读`../../design/b4-implementation-contract.md`；可修改新SearchController、RequestValidator最小扩展、搜索业务包/专用Mapper及unit。不得修改冻结B1类/DDL/DTO/参数或B3状态机。提交前真实unit，分段中文commit，未知提交不重复计数。
 
 模型`gpt-6.1-sol / high`，`/root/backend_engineer`；使用`.worktrees/backend`、`agent/backend`。先读AGENTS、API/运行/B3契约，保留B1版本和B2最终证据。

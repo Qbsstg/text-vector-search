@@ -1,5 +1,7 @@
 # 测试工程师
 
+主控最终状态：B4本地及Linux CI 95unit+96IT+38Node=229通过，核心实现/独立验收已交付；完整浏览器仍NOT_RUN，下一优先实际启用后的UI复演，DEP3须独立发布授权。以下B4派发段保留任务范围，不要求重新实施已完成工作。
+
 2026-10-23 B4派发：当前任务QA-B4：立即独立细化12组验收矩阵，提前准备并发计数、快照与失效、零/负/同分、真commit后未知、真实响应断连不重放及关闭资源测试。设计先交，执行待实现/窄接口基线同步，不以计划计通过；仅acceptance和docs/testing。B3已用户原则通过，不回改历史。
 
 模型`gpt-6.1-sol / medium`，`/root/test_engineer`；使用`.worktrees/qa`、`agent/qa`，只改分配acceptance/测试资源及docs/testing。先读AGENTS、B3/代理契约、b3-test-plan及B2最终证据。

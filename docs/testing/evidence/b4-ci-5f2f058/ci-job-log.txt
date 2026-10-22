@@ -1,0 +1,704 @@
+verify	Set up job	﻿2026-10-22T17:51:01.5967962Z Current runner version: '2.338.0'
+verify	Set up job	2026-10-22T17:51:01.5994945Z ##[group]Runner Image Provisioner
+verify	Set up job	2026-10-22T17:51:01.5995920Z Hosted Compute Agent
+verify	Set up job	2026-10-22T17:51:01.5996727Z Version: 20261012.601
+verify	Set up job	2026-10-22T17:51:01.5997371Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+verify	Set up job	2026-10-22T17:51:01.5998183Z Build Date: 2026-10-12T17:48:21Z
+verify	Set up job	2026-10-22T17:51:01.5998886Z Worker ID: {f8a2b9a0-1f2b-4b36-bbda-54d1f9857fcd}
+verify	Set up job	2026-10-22T17:51:01.5999589Z Region: eastus
+verify	Set up job	2026-10-22T17:51:01.6000200Z Cloud: Azure
+verify	Set up job	2026-10-22T17:51:01.6000742Z ##[endgroup]
+verify	Set up job	2026-10-22T17:51:01.6002293Z ##[group]Operating System
+verify	Set up job	2026-10-22T17:51:01.6003020Z Ubuntu
+verify	Set up job	2026-10-22T17:51:01.6003544Z 24.04.5
+verify	Set up job	2026-10-22T17:51:01.6004507Z LTS
+verify	Set up job	2026-10-22T17:51:01.6005059Z ##[endgroup]
+verify	Set up job	2026-10-22T17:51:01.6005654Z ##[group]Runner Image
+verify	Set up job	2026-10-22T17:51:01.6006309Z Image: ubuntu-24.04
+verify	Set up job	2026-10-22T17:51:01.6006883Z Version: 20261012.334.1
+verify	Set up job	2026-10-22T17:51:01.6008005Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+verify	Set up job	2026-10-22T17:51:01.6009815Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+verify	Set up job	2026-10-22T17:51:01.6010840Z ##[endgroup]
+verify	Set up job	2026-10-22T17:51:01.6012042Z ##[group]GITHUB_TOKEN Permissions
+verify	Set up job	2026-10-22T17:51:01.6014392Z Contents: read
+verify	Set up job	2026-10-22T17:51:01.6015068Z Metadata: read
+verify	Set up job	2026-10-22T17:51:01.6015758Z ##[endgroup]
+verify	Set up job	2026-10-22T17:51:01.6017790Z Secret source: Actions
+verify	Set up job	2026-10-22T17:51:01.6018876Z Cache mode: write
+verify	Set up job	2026-10-22T17:51:01.6019583Z Prepare workflow directory
+verify	Set up job	2026-10-22T17:51:01.6351489Z Prepare all required actions
+verify	Set up job	2026-10-22T17:51:01.6399411Z Getting action download info
+verify	Set up job	2026-10-22T17:51:01.8783416Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+verify	Set up job	2026-10-22T17:51:02.2408277Z Download action repository 'actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3' (SHA:cf277c60eb25467037889841efdb72551f06f6c3)
+verify	Set up job	2026-10-22T17:51:02.4840586Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+verify	Set up job	2026-10-22T17:51:02.7554813Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+verify	Set up job	2026-10-22T17:51:03.0372399Z Complete job name: verify
+verify	Check out source	﻿2026-10-22T17:51:03.1332753Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+verify	Check out source	2026-10-22T17:51:03.1334979Z with:
+verify	Check out source	2026-10-22T17:51:03.1335947Z   persist-credentials: false
+verify	Check out source	2026-10-22T17:51:03.1337188Z   repository: Qbsstg/text-vector-search
+verify	Check out source	2026-10-22T17:51:03.1345945Z   token: ***
+verify	Check out source	2026-10-22T17:51:03.1346914Z   ssh-strict: true
+verify	Check out source	2026-10-22T17:51:03.1347894Z   ssh-user: git
+verify	Check out source	2026-10-22T17:51:03.1348794Z   clean: true
+verify	Check out source	2026-10-22T17:51:03.1349841Z   sparse-checkout-cone-mode: true
+verify	Check out source	2026-10-22T17:51:03.1350944Z   fetch-depth: 1
+verify	Check out source	2026-10-22T17:51:03.1351890Z   fetch-tags: false
+verify	Check out source	2026-10-22T17:51:03.1352895Z   show-progress: true
+verify	Check out source	2026-10-22T17:51:03.1354015Z   lfs: false
+verify	Check out source	2026-10-22T17:51:03.1354957Z   submodules: false
+verify	Check out source	2026-10-22T17:51:03.1355913Z   set-safe-directory: true
+verify	Check out source	2026-10-22T17:51:03.1356980Z   allow-unsafe-pr-checkout: false
+verify	Check out source	2026-10-22T17:51:03.1358495Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:03.2374371Z Syncing repository: Qbsstg/text-vector-search
+verify	Check out source	2026-10-22T17:51:03.2377538Z ##[group]Getting Git version info
+verify	Check out source	2026-10-22T17:51:03.2379533Z Working directory is '/home/runner/work/text-vector-search/text-vector-search'
+verify	Check out source	2026-10-22T17:51:03.2381977Z [command]/usr/bin/git version
+verify	Check out source	2026-10-22T17:51:03.3378640Z git version 2.55.0
+verify	Check out source	2026-10-22T17:51:03.3402333Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:03.3417755Z Temporarily overriding HOME='/home/runner/work/_temp/622138ec-138f-4507-982a-665e6d0da01e' before making global git config changes
+verify	Check out source	2026-10-22T17:51:03.3421189Z Adding repository directory to the temporary git global config as a safe directory
+verify	Check out source	2026-10-22T17:51:03.3424932Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/text-vector-search/text-vector-search
+verify	Check out source	2026-10-22T17:51:03.3722976Z Deleting the contents of '/home/runner/work/text-vector-search/text-vector-search'
+verify	Check out source	2026-10-22T17:51:03.3728173Z ##[group]Initializing the repository
+verify	Check out source	2026-10-22T17:51:03.3732067Z [command]/usr/bin/git init /home/runner/work/text-vector-search/text-vector-search
+verify	Check out source	2026-10-22T17:51:03.5536162Z hint: Using 'master' as the name for the initial branch. This default branch name
+verify	Check out source	2026-10-22T17:51:03.5540425Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+verify	Check out source	2026-10-22T17:51:03.5544820Z hint: to use in all of your new repositories, which will suppress this warning,
+verify	Check out source	2026-10-22T17:51:03.5548100Z hint: call:
+verify	Check out source	2026-10-22T17:51:03.5550904Z hint:
+verify	Check out source	2026-10-22T17:51:03.5553203Z hint: 	git config --global init.defaultBranch <name>
+verify	Check out source	2026-10-22T17:51:03.5556033Z hint:
+verify	Check out source	2026-10-22T17:51:03.5558736Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+verify	Check out source	2026-10-22T17:51:03.5562619Z hint: 'development'. The just-created branch can be renamed via this command:
+verify	Check out source	2026-10-22T17:51:03.5566107Z hint:
+verify	Check out source	2026-10-22T17:51:03.5568192Z hint: 	git branch -m <name>
+verify	Check out source	2026-10-22T17:51:03.5570386Z hint:
+verify	Check out source	2026-10-22T17:51:03.5573174Z hint: Disable this message with "git config set advice.defaultBranchName false"
+verify	Check out source	2026-10-22T17:51:03.5578179Z Initialized empty Git repository in /home/runner/work/text-vector-search/text-vector-search/.git/
+verify	Check out source	2026-10-22T17:51:03.5586589Z [command]/usr/bin/git remote add origin https://github.com/Qbsstg/text-vector-search
+verify	Check out source	2026-10-22T17:51:03.6527120Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:03.6528870Z ##[group]Disabling automatic garbage collection
+verify	Check out source	2026-10-22T17:51:03.6531067Z [command]/usr/bin/git config --local gc.auto 0
+verify	Check out source	2026-10-22T17:51:03.6572718Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:03.6576350Z ##[group]Setting up auth
+verify	Check out source	2026-10-22T17:51:03.6579309Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Check out source	2026-10-22T17:51:03.6623050Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Check out source	2026-10-22T17:51:04.4825625Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Check out source	2026-10-22T17:51:04.4862510Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Check out source	2026-10-22T17:51:04.5085205Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	Check out source	2026-10-22T17:51:04.5122900Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	Check out source	2026-10-22T17:51:04.5348023Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+verify	Check out source	2026-10-22T17:51:04.5390347Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:04.5391230Z ##[group]Fetching the repository
+verify	Check out source	2026-10-22T17:51:04.5400616Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5f2f0588ef45d969ee20829750708363048515e2:refs/remotes/origin/main
+verify	Check out source	2026-10-22T17:51:05.5443449Z From https://github.com/Qbsstg/text-vector-search
+verify	Check out source	2026-10-22T17:51:05.5444573Z  * [new ref]         5f2f0588ef45d969ee20829750708363048515e2 -> origin/main
+verify	Check out source	2026-10-22T17:51:05.5456604Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:05.5457609Z ##[group]Determining the checkout info
+verify	Check out source	2026-10-22T17:51:05.5458671Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:05.5459291Z [command]/usr/bin/git sparse-checkout disable
+verify	Check out source	2026-10-22T17:51:05.6116992Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+verify	Check out source	2026-10-22T17:51:05.6157430Z ##[group]Checking out the ref
+verify	Check out source	2026-10-22T17:51:05.6167267Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+verify	Check out source	2026-10-22T17:51:05.6519685Z Switched to a new branch 'main'
+verify	Check out source	2026-10-22T17:51:05.6527131Z branch 'main' set up to track 'origin/main'.
+verify	Check out source	2026-10-22T17:51:05.6537848Z ##[endgroup]
+verify	Check out source	2026-10-22T17:51:05.6624485Z [command]/usr/bin/git log -1 --format=%H
+verify	Check out source	2026-10-22T17:51:05.6627870Z 5f2f0588ef45d969ee20829750708363048515e2
+verify	Check out source	2026-10-22T17:51:05.6629319Z ##[group]Removing auth
+verify	Check out source	2026-10-22T17:51:05.6629998Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Check out source	2026-10-22T17:51:05.6659192Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Check out source	2026-10-22T17:51:05.6879095Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Check out source	2026-10-22T17:51:05.6907740Z http.https://github.com/.extraheader
+verify	Check out source	2026-10-22T17:51:05.6915403Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+verify	Check out source	2026-10-22T17:51:05.6949313Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Check out source	2026-10-22T17:51:05.7168657Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	Check out source	2026-10-22T17:51:05.7200598Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	Check out source	2026-10-22T17:51:05.7418308Z ##[endgroup]
+verify	Set up the golden-vector JDK baseline	﻿2026-10-22T17:51:05.7694690Z ##[group]Run actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7695138Z with:
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7695349Z   distribution: temurin
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7695576Z   java-version: 17.0.15
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7695807Z   cache: maven
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7696022Z   java-package: jdk
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7696276Z   check-latest: false
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7696491Z   server-id: github
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7696707Z   server-username: GITHUB_ACTOR
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7696959Z   server-password: GITHUB_TOKEN
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7697209Z   overwrite-settings: true
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7697437Z   job-status: success
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7699779Z   token: ***
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.7699989Z ##[endgroup]
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.9351497Z ##[warning]setup-java v4 is deprecated and will no longer receive updates. Please migrate to actions/setup-java@v5.
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.9359534Z ##[group]Installed distributions
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:05.9960719Z Trying to resolve the latest version from remote
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:06.0064356Z (node:2393) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:06.0065417Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:06.2451384Z Resolved latest version as 17.0.15+6
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:06.2452004Z Trying to download...
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:06.2453470Z Downloading Java 17.0.15+6 (Temurin-Hotspot) from https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.15%2B6/OpenJDK17U-jdk_x64_linux_hotspot_17.0.15_6.tar.gz ...
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:07.4439597Z Extracting Java archive...
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:07.4559846Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/73f993c4-f036-4336-9e21-f82d7985cf36 -f /home/runner/work/_temp/1ba896df-d037-4a3b-acd5-5dc143370fc9
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8393558Z Java 17.0.15+6 was downloaded
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8394335Z Setting Java 17.0.15+6 as the default
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8402936Z Creating toolchains.xml for JDK version 17.0.15 from temurin
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8476119Z Writing to /home/runner/.m2/toolchains.xml
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8476527Z 
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8476685Z Java configuration:
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8479503Z   Distribution: temurin
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8479950Z   Version: 17.0.15+6
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8480602Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8481026Z 
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8482102Z ##[endgroup]
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8501094Z Creating settings.xml with server-id: github
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:09.8501669Z Writing to /home/runner/.m2/settings.xml
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:10.1755696Z Cache hit for: setup-java-Linux-x64-maven-9f15ea0d651f70175f831e91a7f506096846adf01059b7d2c741c283d8ed321d
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:10.1873632Z (node:2393) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:10.6679504Z Received 63135592 of 63135592 (100.0%), 138.7 MBs/sec
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:10.6680305Z Cache Size: ~60 MB (63135592 B)
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:10.6710287Z [command]/usr/bin/tar -xf /home/runner/work/_temp/7d43822a-2225-41ec-a0ef-60e1c0e0a897/cache.tzst -P -C /home/runner/work/text-vector-search/text-vector-search --use-compress-program unzstd
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:11.2126051Z Cache restored successfully
+verify	Set up the golden-vector JDK baseline	2026-10-22T17:51:11.2157327Z Cache restored from key: setup-java-Linux-x64-maven-9f15ea0d651f70175f831e91a7f506096846adf01059b7d2c741c283d8ed321d
+verify	Run unit and acceptance tests before packaging	﻿2026-10-22T17:51:11.2400997Z ##[group]Run ./mvnw -B -ntp clean verify
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:11.2401395Z [36;1m./mvnw -B -ntp clean verify[0m
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:11.3413475Z shell: /usr/bin/bash -e {0}
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:11.3414131Z env:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:11.3414551Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:11.3415227Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:11.3415746Z ##[endgroup]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:12.9406844Z [INFO] Scanning for projects...
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.1984080Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.1985151Z [INFO] -------------------< dev.twelvetimes:vector-search >--------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.2004765Z [INFO] Building vector-search 0.1.0-SNAPSHOT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.2014672Z [INFO]   from pom.xml
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.2023404Z [INFO] --------------------------------[ jar ]---------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.6395955Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.6398325Z [INFO] --- clean:3.5.0:clean (default-clean) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.6944823Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.6945891Z [INFO] --- enforcer:3.5.0:enforce (target-jdk) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.8430281Z [INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.8432705Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.8449445Z [INFO] --- resources:3.3.1:resources (default-resources) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.9099513Z [INFO] Copying 2 resources from src/main/resources to target/classes
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.9264988Z [INFO] Copying 7 resources from src/main/resources to target/classes
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.9274458Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:13.9305523Z [INFO] --- compiler:3.14.1:compile (default-compile) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:14.0264538Z [INFO] Recompiling the module because of changed source code.
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:14.0353644Z [INFO] Compiling 50 source files with javac [debug parameters release 17] to target/classes
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5536866Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5565180Z [INFO] --- resources:3.3.1:testResources (default-testResources) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5607861Z [INFO] skip non existing resourceDirectory /home/runner/work/text-vector-search/text-vector-search/src/test/resources
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5638670Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5680587Z [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5732384Z [INFO] Recompiling the module because of changed dependency.
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:15.5769904Z [INFO] Compiling 37 source files with javac [debug parameters release 17] to target/test-classes
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.0091991Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.0105187Z [INFO] --- surefire:3.5.4:test (default-test) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.1379744Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.1780570Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.1781510Z [INFO] -------------------------------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.1782313Z [INFO]  T E S T S
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:18.1782955Z [INFO] -------------------------------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:19.0633392Z [INFO] Running dev.twelvetimes.vector.unit.DocumentAdmissionServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.8235417Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.708 s -- in dev.twelvetimes.vector.unit.DocumentAdmissionServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.8236802Z [INFO] Running dev.twelvetimes.vector.unit.VectorCodecTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.8375237Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s -- in dev.twelvetimes.vector.unit.VectorCodecTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.8406523Z [INFO] Running dev.twelvetimes.vector.unit.RequestValidatorTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.8805094Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.066 s -- in dev.twelvetimes.vector.unit.RequestValidatorTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.8834528Z [INFO] Running dev.twelvetimes.vector.unit.TopKSelectorTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.9384515Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in dev.twelvetimes.vector.unit.TopKSelectorTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:22.9394543Z [INFO] Running dev.twelvetimes.vector.unit.TaskDispatcherTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:25.1249091Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.184 s -- in dev.twelvetimes.vector.unit.TaskDispatcherTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:25.1286376Z [INFO] Running dev.twelvetimes.vector.unit.SearchServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:26.3405421Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.211 s -- in dev.twelvetimes.vector.unit.SearchServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:26.3407269Z [INFO] Running dev.twelvetimes.vector.unit.SearchControllerTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3513286Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.010 s -- in dev.twelvetimes.vector.unit.SearchControllerTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3545000Z [INFO] Running dev.twelvetimes.vector.unit.CharNgramTextEmbedderTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3640178Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s -- in dev.twelvetimes.vector.unit.CharNgramTextEmbedderTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3644470Z [INFO] Running dev.twelvetimes.vector.unit.EmbeddingConfigurationTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3895451Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in dev.twelvetimes.vector.unit.EmbeddingConfigurationTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3959654Z [INFO] Running dev.twelvetimes.vector.unit.CosineSimilarityTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3997735Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in dev.twelvetimes.vector.unit.CosineSimilarityTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:29.3999160Z [INFO] Running dev.twelvetimes.vector.unit.TaskLifecycleTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:31.1570736Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.760 s -- in dev.twelvetimes.vector.unit.TaskLifecycleTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:31.1591561Z [INFO] Running dev.twelvetimes.vector.unit.DocumentManagementApiTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:32.2509182Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.092 s -- in dev.twelvetimes.vector.unit.DocumentManagementApiTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:32.2518933Z [INFO] Running dev.twelvetimes.vector.unit.TaskTerminalServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:33.6911187Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.436 s -- in dev.twelvetimes.vector.unit.TaskTerminalServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:33.6927562Z [INFO] Running dev.twelvetimes.vector.unit.SearchHitCountServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:34.7635372Z [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.069 s -- in dev.twelvetimes.vector.unit.SearchHitCountServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:34.7655991Z [INFO] Running dev.twelvetimes.vector.unit.BootstrapHealthControllerTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:34.7677327Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in dev.twelvetimes.vector.unit.BootstrapHealthControllerTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:34.7679055Z [INFO] Running dev.twelvetimes.vector.unit.TaskRecoveryServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:36.5032645Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.742 s -- in dev.twelvetimes.vector.unit.TaskRecoveryServiceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:36.5035146Z [INFO] Running dev.twelvetimes.vector.unit.SchemaPersistenceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:36.5643308Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in dev.twelvetimes.vector.unit.SchemaPersistenceTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:36.5665023Z [INFO] Running dev.twelvetimes.vector.unit.SearchCandidateReaderTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1510365Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.591 s -- in dev.twelvetimes.vector.unit.SearchCandidateReaderTest
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1923154Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1923667Z [INFO] Results:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1924275Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1929226Z [INFO] Tests run: 95, Failures: 0, Errors: 0, Skipped: 0
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1929954Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1956710Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.1957378Z [INFO] --- jar:3.4.2:jar (default-jar) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.3715621Z [INFO] Building jar: /home/runner/work/text-vector-search/text-vector-search/target/vector-search.jar
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.4216662Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.4225089Z [INFO] --- spring-boot:4.0.3:repackage (repackage) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.6988186Z [INFO] Replacing main artifact /home/runner/work/text-vector-search/text-vector-search/target/vector-search.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7001529Z [INFO] The original artifact has been renamed to /home/runner/work/text-vector-search/text-vector-search/target/vector-search.jar.original
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7014990Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7015811Z [INFO] --- failsafe:3.5.4:integration-test (default) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7626911Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7853250Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7854068Z [INFO] -------------------------------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7859606Z [INFO]  T E S T S
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:37.7860315Z [INFO] -------------------------------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:38.6405039Z [INFO] Running dev.twelvetimes.vector.acceptance.B1AlgorithmIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:41.7900528Z [INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.127 s -- in dev.twelvetimes.vector.acceptance.B1AlgorithmIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:41.7922293Z [INFO] Running dev.twelvetimes.vector.acceptance.B2AdmissionIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:42.4837511Z 2026-10-22T17:51:42.437Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：存在待B3恢复的RUNNING任务
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:43.2049223Z 2026-10-22T17:51:43.194Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：接收事务提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:44.3619843Z [INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.585 s -- in dev.twelvetimes.vector.acceptance.B2AdmissionIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:44.3625162Z [INFO] Running dev.twelvetimes.vector.acceptance.C0BootstrapIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0934509Z 2026-10-22T17:51:46.071Z  WARN 3135 --- [vector-search] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentController' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/api/DocumentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'documentAdmissionService' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/document/DocumentAdmissionService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'requestValidator' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/api/validation/RequestValidator.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'vector-dev.twelvetimes.vector.config.VectorProperties': Could not bind properties to 'VectorProperties' : prefix=vector, ignoreInvalidFields=false, ignoreUnknownFields=true
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0979467Z 2026-10-22T17:51:46.085Z ERROR 3135 --- [vector-search] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0980766Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0981209Z ***************************
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0981837Z APPLICATION FAILED TO START
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0982448Z ***************************
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0982864Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0983159Z Description:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0983537Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0984487Z Binding to target dev.twelvetimes.vector.config.VectorProperties failed:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0985225Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0985573Z     Property: vector.queueCapacity
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0986183Z     Value: "0"
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0987252Z     Origin: "vector.queue-capacity" from property source "commandLineArgs"
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0988166Z     Reason: must be greater than or equal to 1
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0988682Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0988841Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0989125Z Action:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0989465Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0989805Z Update your application's configuration
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.0990295Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2691649Z 2026-10-22T17:51:46.262Z  WARN 3135 --- [vector-search] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentController' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/api/DocumentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'documentAdmissionService' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/document/DocumentAdmissionService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'requestValidator' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/api/validation/RequestValidator.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'vector-dev.twelvetimes.vector.config.VectorProperties': Could not bind properties to 'VectorProperties' : prefix=vector, ignoreInvalidFields=false, ignoreUnknownFields=true
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2715621Z 2026-10-22T17:51:46.265Z ERROR 3135 --- [vector-search] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2741368Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2741949Z ***************************
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2742711Z APPLICATION FAILED TO START
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2743330Z ***************************
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2744173Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2744520Z Description:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2744961Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2745535Z Binding to target dev.twelvetimes.vector.config.VectorProperties failed:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2746298Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2746657Z     Property: vector.workerCount
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2747285Z     Value: "17"
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2748027Z     Origin: "vector.worker-count" from property source "commandLineArgs"
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2748925Z     Reason: must be less than or equal to 16
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2749449Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2749633Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2749943Z Action:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2750319Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2750701Z Update your application's configuration
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.2751255Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4303389Z 2026-10-22T17:51:46.422Z  WARN 3135 --- [vector-search] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentController' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/api/DocumentController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'documentAdmissionService' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/document/DocumentAdmissionService.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'requestValidator' defined in file [/home/runner/work/text-vector-search/text-vector-search/target/classes/dev/twelvetimes/vector/api/validation/RequestValidator.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'vector-dev.twelvetimes.vector.config.VectorProperties': Could not bind properties to 'VectorProperties' : prefix=vector, ignoreInvalidFields=false, ignoreUnknownFields=true
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4326606Z 2026-10-22T17:51:46.426Z ERROR 3135 --- [vector-search] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4327702Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4328102Z ***************************
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4328719Z APPLICATION FAILED TO START
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4329332Z ***************************
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4329791Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4330119Z Description:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4330519Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4331097Z Binding to target dev.twelvetimes.vector.config.VectorProperties failed:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4331869Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4332272Z     Property: vector.maxTextCodePoints
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4332944Z     Value: "20001"
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4334053Z     Origin: "vector.max-text-code-points" from property source "commandLineArgs"
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4335174Z     Reason: must be less than or equal to 20000
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4344787Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4347403Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4347719Z Action:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4347930Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4348143Z Update your application's configuration
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.4348509Z 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.6815054Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.320 s -- in dev.twelvetimes.vector.acceptance.C0BootstrapIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.6844679Z [INFO] Running dev.twelvetimes.vector.acceptance.B2DispatchIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.9418526Z 2026-10-22T17:51:46.921Z  WARN 3135 --- [vector-search] [  task-worker-1] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：领取提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:46.9425301Z 2026-10-22T17:51:46.921Z  WARN 3135 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 本次领取未执行，保留持久状态：BusinessException
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:47.1429855Z 2026-10-22T17:51:47.133Z  WARN 3135 --- [vector-search] [  task-worker-1] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：领取提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:47.1432297Z 2026-10-22T17:51:47.133Z  WARN 3135 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 本次领取未执行，保留持久状态：BusinessException
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:47.3292404Z 2026-10-22T17:51:47.322Z  WARN 3135 --- [vector-search] [  task-worker-1] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：领取提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:47.3325572Z 2026-10-22T17:51:47.322Z  WARN 3135 --- [vector-search] [  task-worker-1] d.t.vector.task.TaskDispatcher           : 本次领取未执行，保留持久状态：BusinessException
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:47.7212336Z 2026-10-22T17:51:47.703Z  WARN 3135 --- [vector-search] [           main] d.t.vector.task.TaskDispatcher           : 本次任务扫描失败，后续周期将重试：DataAccessResourceFailureException
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:48.2407829Z [INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.563 s -- in dev.twelvetimes.vector.acceptance.B2DispatchIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:48.2434770Z [INFO] Running dev.twelvetimes.vector.acceptance.B3LifecycleIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:48.5789591Z 2026-10-22T17:51:48.567Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：启动任务恢复无法可靠确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:49.6205803Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.380 s -- in dev.twelvetimes.vector.acceptance.B3LifecycleIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:49.6234856Z [INFO] Running dev.twelvetimes.vector.acceptance.B4CountAndResourceIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:49.7886838Z 2026-10-22T17:51:49.767Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：搜索命中计数提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:49.9885975Z 2026-10-22T17:51:49.962Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：搜索命中计数提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:51.5545274Z [INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.933 s -- in dev.twelvetimes.vector.acceptance.B4CountAndResourceIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:51:51.5574861Z [INFO] Running dev.twelvetimes.vector.acceptance.B3ProcessIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:29.4460305Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 37.85 s -- in dev.twelvetimes.vector.acceptance.B3ProcessIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:29.4514815Z [INFO] Running dev.twelvetimes.vector.acceptance.B4SearchIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:30.3539724Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.949 s -- in dev.twelvetimes.vector.acceptance.B4SearchIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:30.3542913Z [INFO] Running dev.twelvetimes.vector.acceptance.B2HttpIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:31.8095005Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.454 s -- in dev.twelvetimes.vector.acceptance.B2HttpIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:31.8114765Z [INFO] Running dev.twelvetimes.vector.acceptance.B4HttpIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:33.5147677Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.702 s -- in dev.twelvetimes.vector.acceptance.B4HttpIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:33.5149398Z [INFO] Running dev.twelvetimes.vector.acceptance.B3TerminalIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:34.5266224Z 2026-10-22T17:52:34.518Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:34.6278915Z 2026-10-22T17:52:34.619Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:34.7293145Z 2026-10-22T17:52:34.723Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:34.8671986Z 2026-10-22T17:52:34.859Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态事务无法可靠完成
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:35.1454698Z 2026-10-22T17:52:35.135Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:35.4216199Z 2026-10-22T17:52:35.415Z  WARN 3135 --- [vector-search] [           main] d.twelvetimes.vector.task.TaskReadiness  : 任务接收门禁关闭：终态提交结果无法确认
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.0738799Z [INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.555 s -- in dev.twelvetimes.vector.acceptance.B3TerminalIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.0774694Z [INFO] Running dev.twelvetimes.vector.acceptance.ProxyOriginIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.2646283Z 代理三元组证据：Seen[scheme=https, host=text-vector-search.lemoncharger.com, port=443, remoteAddress=198.51.100.20]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.2653508Z 代理三元组证据：Seen[scheme=https, host=text-vector-search.lemoncharger.com, port=443, remoteAddress=198.51.100.20]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.2655298Z 代理三元组证据：Seen[scheme=https, host=text-vector-search.lemoncharger.com, port=443, remoteAddress=198.51.100.20]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.2656865Z 代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.1]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.4283630Z 代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.2]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.4285713Z 代理边界证据：真实socket源127.0.0.2不受信任，未应用转发头
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.6099488Z 代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.1]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.6125331Z 代理三元组证据：Seen[scheme=http, host=text-vector-search.lemoncharger.com, port=80, remoteAddress=127.0.0.1]
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.6175167Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.546 s -- in dev.twelvetimes.vector.acceptance.ProxyOriginIT
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9577717Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9578211Z [INFO] Results:
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9578677Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9580571Z [INFO] Tests run: 96, Failures: 0, Errors: 0, Skipped: 0
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9581234Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9610719Z [INFO] 
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9611297Z [INFO] --- failsafe:3.5.4:verify (default) @ vector-search ---
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9947934Z [INFO] ------------------------------------------------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9948506Z [INFO] BUILD SUCCESS
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9948909Z [INFO] ------------------------------------------------------------------------
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9957985Z [INFO] Total time:  01:24 min
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9960040Z [INFO] Finished at: 2026-10-22T17:52:36Z
+verify	Run unit and acceptance tests before packaging	2026-10-22T17:52:36.9960666Z [INFO] ------------------------------------------------------------------------
+verify	设置前端测试环境	﻿2026-10-22T17:52:37.0360517Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+verify	设置前端测试环境	2026-10-22T17:52:37.0360957Z with:
+verify	设置前端测试环境	2026-10-22T17:52:37.0361154Z   node-version: 22.16.0
+verify	设置前端测试环境	2026-10-22T17:52:37.0361380Z   always-auth: false
+verify	设置前端测试环境	2026-10-22T17:52:37.0361593Z   check-latest: false
+verify	设置前端测试环境	2026-10-22T17:52:37.0364292Z   token: ***
+verify	设置前端测试环境	2026-10-22T17:52:37.0364501Z env:
+verify	设置前端测试环境	2026-10-22T17:52:37.0364805Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	设置前端测试环境	2026-10-22T17:52:37.0365303Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	设置前端测试环境	2026-10-22T17:52:37.0365691Z ##[endgroup]
+verify	设置前端测试环境	2026-10-22T17:52:37.1863760Z Attempting to download 22.16.0...
+verify	设置前端测试环境	2026-10-22T17:52:37.1971525Z (node:4582) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	设置前端测试环境	2026-10-22T17:52:37.1973283Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	设置前端测试环境	2026-10-22T17:52:37.7408363Z Acquiring 22.16.0 - x64 from https://github.com/actions/node-versions/releases/download/22.16.0-15177438473/node-22.16.0-linux-x64.tar.gz
+verify	设置前端测试环境	2026-10-22T17:52:38.2148134Z Extracting ...
+verify	设置前端测试环境	2026-10-22T17:52:38.2302866Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/287855fd-c0fc-4fa8-8e3b-dda9fe519ad8 -f /home/runner/work/_temp/0d7dbd67-5b9d-4b40-8941-60d6ebd1b687
+verify	设置前端测试环境	2026-10-22T17:52:39.3815440Z Adding to the cache ...
+verify	设置前端测试环境	2026-10-22T17:52:41.2452634Z ##[group]Environment details
+verify	设置前端测试环境	2026-10-22T17:52:41.5775547Z node: v22.16.0
+verify	设置前端测试环境	2026-10-22T17:52:41.5776014Z npm: 10.9.2
+verify	设置前端测试环境	2026-10-22T17:52:41.5776329Z yarn: 1.22.22
+verify	设置前端测试环境	2026-10-22T17:52:41.5777031Z ##[endgroup]
+verify	验证真实请求边界与有限轮询逻辑	﻿2026-10-22T17:52:41.5950891Z ##[group]Run node --test tests/frontend/*.test.mjs
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.5951332Z [36;1mnode --test tests/frontend/*.test.mjs[0m
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.6013103Z shell: /usr/bin/bash -e {0}
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.6013376Z env:
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.6013840Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.6014400Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.6014818Z ##[endgroup]
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.6541268Z TAP version 13
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7425567Z # Subtest: 空文与原文保持不变，缺省渠道省略而不是发送空白
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7445028Z ok 1 - 空文与原文保持不变，缺省渠道省略而不是发送空白
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7446020Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7446638Z   duration_ms: 2.639598
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7447254Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7447774Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7448587Z # Subtest: 渠道空白与 Java 谓词一致，U+0085不是空白且不被裁剪
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7449481Z ok 2 - 渠道空白与 Java 谓词一致，U+0085不是空白且不被裁剪
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7450123Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7450667Z   duration_ms: 0.441456
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7451465Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7452091Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7453165Z # Subtest: ID不裁剪，null文本/非法Unicode被拒，字符限额按code point
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7454684Z ok 3 - ID不裁剪，null文本/非法Unicode被拒，字符限额按code point
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7455500Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7456143Z   duration_ms: 8.421506
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7456825Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7457451Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7528868Z # Subtest: 列表缺省全渠道，筛选编码，分页范围对齐服务端
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7531307Z ok 4 - 列表缺省全渠道，筛选编码，分页范围对齐服务端
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7563767Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7569788Z   duration_ms: 0.788084
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7570584Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7571083Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7571715Z # Subtest: POST仅一次，真实202才接受，显式同源凭据及JSON正文
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7572281Z ok 5 - POST仅一次，真实202才接受，显式同源凭据及JSON正文
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7572687Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7573014Z   duration_ms: 29.295419
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7573373Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7573972Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7574788Z # Subtest: 409保留错误且不重提/换ID；429不假成功
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7575612Z ok 6 - 409保留错误且不重提/换ID；429不假成功
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7576043Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7576376Z   duration_ms: 1.263985
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7576630Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7576833Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7577174Z # Subtest: 网络断开或不可信成功响应视为未知，不自动重试提交
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7577529Z ok 7 - 网络断开或不可信成功响应视为未知，不自动重试提交
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7577772Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7578001Z   duration_ms: 0.73743
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7578220Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7578417Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7761586Z # Subtest: 超时停止等待且不自动重试，不声称服务器回滚
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7762886Z ok 8 - 超时停止等待且不自动重试，不声称服务器回滚
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7764079Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7765104Z   duration_ms: 9.41409
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7766068Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7766785Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7767835Z # Subtest: 网关非JSON错误兜底，字段错误结构保留
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7769007Z ok 9 - 网关非JSON错误兜底，字段错误结构保留
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7769923Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7770833Z   duration_ms: 1.466784
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7771669Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7772826Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7774426Z # Subtest: 详情保留超大计数字符串和恶意文本，拒绝数值hitCount
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7775967Z ok 10 - 详情保留超大计数字符串和恶意文本，拒绝数值hitCount
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7776874Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7777671Z   duration_ms: 1.419075
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7778461Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7779140Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7780315Z # Subtest: 失效PUT无正文，状态仅由真实响应提供，不调用搜索
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7781522Z ok 11 - 失效PUT无正文，状态仅由真实响应提供，不调用搜索
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7782370Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7783153Z   duration_ms: 1.813363
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7784219Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7785045Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7786140Z # Subtest: 任务UUID校验，四态和成功文档遵循冻结结构
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7787209Z ok 12 - 任务UUID校验，四态和成功文档遵循冻结结构
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7787993Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7788627Z   duration_ms: 1.760755
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7789319Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7789973Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7791569Z # Subtest: 旧读响应失效，取消不会被当成服务端事务回滚
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7792512Z ok 13 - 旧读响应失效，取消不会被当成服务端事务回滚
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7793232Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7794073Z   duration_ms: 0.339415
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7794785Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7795428Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7796287Z # Subtest: 时间固定显示北京时间，缺失时间不伪造
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7797172Z ok 14 - 时间固定显示北京时间，缺失时间不伪造
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7798048Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7798843Z   duration_ms: 22.311993
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7799991Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7800644Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7916024Z # Subtest: 搜索空文合法且原样发送，省略/null/表单空白渠道均不指定渠道
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7916719Z ok 15 - 搜索空文合法且原样发送，省略/null/表单空白渠道均不指定渠道
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7917099Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7917353Z   duration_ms: 1.843309
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7917589Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7917823Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7918307Z # Subtest: Top-K拒绝空值/小数/字符串/越界，文本拒绝null及不完整Unicode
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7918872Z ok 16 - Top-K拒绝空值/小数/字符串/越界，文本拒绝null及不完整Unicode
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7919339Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7919543Z   duration_ms: 3.018287
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7919804Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7920056Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7920439Z # Subtest: 真实POST搜索正文是整数topK；零负分及显示同分保留完整后端顺序
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7921000Z ok 17 - 真实POST搜索正文是整数topK；零负分及显示同分保留完整后端顺序
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7921332Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7921540Z   duration_ms: 22.55019
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7921790Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7922071Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7922452Z # Subtest: 空命中合法，不制造结果；摘要中的HTML保持纯字符串及emoji边界
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7923003Z ok 18 - 空命中合法，不制造结果；摘要中的HTML保持纯字符串及emoji边界
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7923295Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7923489Z   duration_ms: 0.847295
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7924045Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7924305Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7924680Z # Subtest: 拒绝非有限/越界分数、缺少摘要及超Top-K的成功响应，不伪报成功
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7925238Z ok 19 - 拒绝非有限/越界分数、缺少摘要及超Top-K的成功响应，不伪报成功
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7925600Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7925802Z   duration_ms: 2.103214
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7926086Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7926338Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7926719Z # Subtest: 搜索网络失败/超时/RESULT_UNKNOWN只请求一次并提示可能已计数
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7927277Z ok 20 - 搜索网络失败/超时/RESULT_UNKNOWN只请求一次并提示可能已计数
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7927650Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7927886Z   duration_ms: 15.160004
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7928121Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7928335Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7928763Z # Subtest: SEARCH_BUSY/服务未就绪/访问受限与字段错误不变成文档提交反馈
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7929301Z ok 21 - SEARCH_BUSY/服务未就绪/访问受限与字段错误不变成文档提交反馈
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7929609Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7929862Z   duration_ms: 2.327434
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7930084Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7930273Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7930707Z # Subtest: 只允许一个在途搜索，返回时以原条件快照展示并测量实际等待时长
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7931097Z ok 22 - 只允许一个在途搜索，返回时以原条件快照展示并测量实际等待时长
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7931436Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7931635Z   duration_ms: 1.155963
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7931950Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7932147Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7932954Z # Subtest: 参数错误不调用API，修正后可明确提交
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7933307Z ok 23 - 参数错误不调用API，修正后可明确提交
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7933588Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7934051Z   duration_ms: 0.733903
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7934360Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7934584Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7934914Z # Subtest: 编辑条件和文档失效均不自动搜索，旧结果不被删除或重排
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7935373Z ok 24 - 编辑条件和文档失效均不自动搜索，旧结果不被删除或重排
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7935654Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7936124Z   duration_ms: 0.902729
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7936380Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7936655Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7936988Z # Subtest: 在途检索后文档先失效，迟到响应仍标历史结果且不自动重搜
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7937368Z ok 25 - 在途检索后文档先失效，迟到响应仍标历史结果且不自动重搜
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7937700Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7937899Z   duration_ms: 0.333895
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7938157Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7938404Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7938798Z # Subtest: 搜索失败保留上次结果，未知结果不从累计数推断或重试
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7939169Z ok 26 - 搜索失败保留上次结果，未知结果不从累计数推断或重试
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7939438Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7939714Z   duration_ms: 0.525744
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7939946Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7940140Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7940556Z # Subtest: 详情命中数始终取服务器十进制字符串，搜索与读取不在本地合成次数
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7941029Z ok 27 - 详情命中数始终取服务器十进制字符串，搜索与读取不在本地合成次数
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7941296Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7941491Z   duration_ms: 1.44345
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7941708Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7941898Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7952003Z # Subtest: 响应完成后2秒才刷新，同一任务不重叠
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7953117Z ok 28 - 响应完成后2秒才刷新，同一任务不重叠
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7953590Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7954430Z   duration_ms: 3.317617
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7954887Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7955272Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7955960Z # Subtest: SUCCEEDED和FAILED均立即停止，终态只来自后端
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7964898Z ok 29 - SUCCEEDED和FAILED均立即停止，终态只来自后端
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7965408Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7965745Z   duration_ms: 0.76949
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7966133Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7966501Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7967024Z # Subtest: 隐藏暂停，返回可见后查询；隐藏时间计入60秒预算
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7967640Z ok 30 - 隐藏暂停，返回可见后查询；隐藏时间计入60秒预算
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7968045Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7968370Z   duration_ms: 1.184948
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7968958Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7969284Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7969822Z # Subtest: 总预算不因手动刷新或重新启用重置，超时仍允许单次手动查询
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7970467Z ok 31 - 总预算不因手动刷新或重新启用重置，超时仍允许单次手动查询
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7970929Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7971253Z   duration_ms: 4.710272
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7971624Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7971958Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7972526Z # Subtest: 最多三个任务自动刷新，第四个仅手动查询
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7973043Z ok 32 - 最多三个任务自动刷新，第四个仅手动查询
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7973428Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7973944Z   duration_ms: 1.120075
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7974342Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7974669Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7975233Z # Subtest: 网络失败保留RUNNING，有限退避后暂停，不改FAILED
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7975903Z ok 33 - 网络失败保留RUNNING，有限退避后暂停，不改FAILED
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7976615Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7977007Z   duration_ms: 1.055023
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7977240Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7977435Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7977740Z # Subtest: 404不自动重试，也不发明FAILED
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7978041Z ok 34 - 404不自动重试，也不发明FAILED
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7978275Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7978478Z   duration_ms: 0.495818
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7978715Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7978917Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7979398Z # Subtest: 预算耗尽取消在途GET，迟到成功不能覆盖上次状态
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7979764Z ok 35 - 预算耗尽取消在途GET，迟到成功不能覆盖上次状态
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7980005Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7980199Z   duration_ms: 1.824975
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7980422Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7980613Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7980908Z # Subtest: 手动停止不再刷新，会话最多20项且清除淘汰项轮询
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7981246Z ok 36 - 手动停止不再刷新，会话最多20项且清除淘汰项轮询
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7981480Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7981668Z   duration_ms: 1.714327
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7981883Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7982101Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7982391Z # Subtest: 隐藏期间新启用自动跟踪不发GET，返回后才读取
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7982729Z ok 37 - 隐藏期间新启用自动跟踪不发GET，返回后才读取
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7982966Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7983154Z   duration_ms: 0.897138
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7983368Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7983558Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7984228Z # Subtest: 不同任务迟到响应分别保存在自己的记录，不覆盖新选择的任务
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7984612Z ok 38 - 不同任务迟到响应分别保存在自己的记录，不覆盖新选择的任务
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7984885Z   ---
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7985094Z   duration_ms: 1.591372
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7985324Z   type: 'test'
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7985523Z   ...
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7985710Z 1..38
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7985893Z # tests 38
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7986082Z # suites 0
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7986270Z # pass 38
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7986465Z # fail 0
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7986661Z # cancelled 0
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7986868Z # skipped 0
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7987062Z # todo 0
+verify	验证真实请求边界与有限轮询逻辑	2026-10-22T17:52:41.7987276Z # duration_ms 157.458471
+verify	Preserve actual test reports	﻿2026-10-22T17:52:41.8106873Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+verify	Preserve actual test reports	2026-10-22T17:52:41.8107316Z with:
+verify	Preserve actual test reports	2026-10-22T17:52:41.8107599Z   name: test-reports-5f2f0588ef45d969ee20829750708363048515e2
+verify	Preserve actual test reports	2026-10-22T17:52:41.8108173Z   path: target/surefire-reports/
+verify	Preserve actual test reports	target/failsafe-reports/
+verify	Preserve actual test reports	target/b3-process-evidence/
+verify	Preserve actual test reports	target/b4-evidence/
+verify	Preserve actual test reports	
+verify	Preserve actual test reports	2026-10-22T17:52:41.8108682Z   if-no-files-found: error
+verify	Preserve actual test reports	2026-10-22T17:52:41.8108921Z   retention-days: 7
+verify	Preserve actual test reports	2026-10-22T17:52:41.8109152Z   compression-level: 6
+verify	Preserve actual test reports	2026-10-22T17:52:41.8109367Z   overwrite: false
+verify	Preserve actual test reports	2026-10-22T17:52:41.8109611Z   include-hidden-files: false
+verify	Preserve actual test reports	2026-10-22T17:52:41.8109843Z env:
+verify	Preserve actual test reports	2026-10-22T17:52:41.8110137Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	Preserve actual test reports	2026-10-22T17:52:41.8110629Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64
+verify	Preserve actual test reports	2026-10-22T17:52:41.8111000Z ##[endgroup]
+verify	Preserve actual test reports	2026-10-22T17:52:41.9757698Z (node:4658) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	Preserve actual test reports	2026-10-22T17:52:41.9759351Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	Preserve actual test reports	2026-10-22T17:52:42.0088886Z Multiple search paths detected. Calculating the least common ancestor of all paths
+verify	Preserve actual test reports	2026-10-22T17:52:42.0090441Z The least common ancestor is /home/runner/work/text-vector-search/text-vector-search/target. This will be the root directory of the artifact
+verify	Preserve actual test reports	2026-10-22T17:52:42.0091197Z With the provided path, there will be 84 files uploaded
+verify	Preserve actual test reports	2026-10-22T17:52:42.0091728Z Artifact name is valid!
+verify	Preserve actual test reports	2026-10-22T17:52:42.0092028Z Root directory input is valid!
+verify	Preserve actual test reports	2026-10-22T17:52:42.2173227Z Beginning upload of artifact content to blob storage
+verify	Preserve actual test reports	2026-10-22T17:52:42.3219120Z (node:4658) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+verify	Preserve actual test reports	2026-10-22T17:52:42.3556907Z Uploaded bytes 133044
+verify	Preserve actual test reports	2026-10-22T17:52:42.3727462Z Finished uploading artifact content to blob storage!
+verify	Preserve actual test reports	2026-10-22T17:52:42.3728870Z SHA256 digest of uploaded artifact zip is a0efd259ee7c0b52558a3789a93b20b83f256e4dd0987c1c69368f23c2c9cd83
+verify	Preserve actual test reports	2026-10-22T17:52:42.3733137Z Finalizing artifact upload
+verify	Preserve actual test reports	2026-10-22T17:52:45.3124732Z Artifact test-reports-5f2f0588ef45d969ee20829750708363048515e2.zip successfully finalized. Artifact ID 12446207870
+verify	Preserve actual test reports	2026-10-22T17:52:45.3127893Z Artifact test-reports-5f2f0588ef45d969ee20829750708363048515e2 has been successfully uploaded! Final size is 133044 bytes. Artifact ID is 12446207870
+verify	Preserve actual test reports	2026-10-22T17:52:45.3131716Z Artifact download URL: https://github.com/Qbsstg/text-vector-search/actions/runs/39826245521/artifacts/12446207870
+verify	Post 设置前端测试环境	﻿2026-10-22T17:52:45.3315307Z Post job cleanup.
+verify	Post 设置前端测试环境	2026-10-22T17:52:45.4533056Z (node:4671) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	Post 设置前端测试环境	2026-10-22T17:52:45.4534391Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	Post Set up the golden-vector JDK baseline	﻿2026-10-22T17:52:45.4721645Z Post job cleanup.
+verify	Post Set up the golden-vector JDK baseline	2026-10-22T17:52:45.6195567Z (node:4679) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+verify	Post Set up the golden-vector JDK baseline	2026-10-22T17:52:45.6197095Z (Use `node --trace-deprecation ...` to show where the warning was created)
+verify	Post Set up the golden-vector JDK baseline	2026-10-22T17:52:45.6202749Z Cache hit occurred on the primary key setup-java-Linux-x64-maven-9f15ea0d651f70175f831e91a7f506096846adf01059b7d2c741c283d8ed321d, not saving cache.
+verify	Post Check out source	﻿2026-10-22T17:52:45.6409868Z Post job cleanup.
+verify	Post Check out source	2026-10-22T17:52:45.7262977Z [command]/usr/bin/git version
+verify	Post Check out source	2026-10-22T17:52:45.7308743Z git version 2.55.0
+verify	Post Check out source	2026-10-22T17:52:45.7347734Z Temporarily overriding HOME='/home/runner/work/_temp/d2985c09-2fb4-4e92-81fc-542a83a78be3' before making global git config changes
+verify	Post Check out source	2026-10-22T17:52:45.7349264Z Adding repository directory to the temporary git global config as a safe directory
+verify	Post Check out source	2026-10-22T17:52:45.7352859Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/text-vector-search/text-vector-search
+verify	Post Check out source	2026-10-22T17:52:45.7392127Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	Post Check out source	2026-10-22T17:52:45.7427608Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	Post Check out source	2026-10-22T17:52:45.7674401Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	Post Check out source	2026-10-22T17:52:45.7741422Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	Post Check out source	2026-10-22T17:52:45.8004882Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	Post Check out source	2026-10-22T17:52:45.8044314Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	Complete job	﻿2026-10-22T17:52:45.8463566Z Cleaning up orphan processes
+verify	Complete job	2026-10-22T17:52:45.8741951Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

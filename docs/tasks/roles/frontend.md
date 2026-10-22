@@ -1,5 +1,7 @@
 # 前端工程师
 
+主控最终状态：B4本地及Linux CI 95unit+96IT+38Node=229通过，核心实现/独立验收已交付；完整浏览器仍NOT_RUN，下一优先实际启用后的UI复演，DEP3须独立发布授权。以下B4派发段保留任务范围，不要求重新实施已完成工作。
+
 2026-10-23 B4派发：当前任务FE2/FE3：按API v1.0接入真实POST /api/search，渠道省略/null语义、topK1—100、零/负分/空结果、snippet纯文本和详情计数刷新；网络失败/RESULT_UNKNOWN均不自动重试。新增中文注释及有意义Node回归，真实浏览器留NOT_RUN直到实际执行。B4通过后优先完整浏览器验收。
 
 模型`gpt-6.1-sol / high`，`/root/frontend_engineer`；使用`.worktrees/frontend`、`agent/frontend`，仅static及分配测试。先读AGENTS、PRD、冻结API与当前阶段契约。
