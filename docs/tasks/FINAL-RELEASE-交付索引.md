@@ -13,7 +13,7 @@
 
 | 用户交付物 | 已有可读入口 | 当前产物状态 | 仍不能宣布正式已交付的原因 |
 | --- | --- | --- | --- |
-| A 最终测试总报告 | [新增执行记录](../testing/final-release-local-cases-results.md)、[最新独立实证核证](../testing/final-release-evidence-review.md)、[本地Chrome差异](../testing/final-release-browser-additions.md)、[组件性能原记录](../testing/final-release-local-cases-performance.md) | IN_PROGRESS：工程/本地分层结果已交，原失败/修复/复验保留 | REC-07原FAIL仍待决；正式服务器/公网5项未验，不能只用工程271绿色给全部PASS |
+| A 最终测试总报告 | [本轮总报告](../testing/FINAL-RELEASE-测试总报告.md)、[新增执行记录](../testing/final-release-local-cases-results.md)、[独立核证](../testing/final-release-evidence-review.md)、[本地Chrome差异](../testing/final-release-browser-additions.md) | IN_PROGRESS：工程/本地分层结果已交，原失败/修复/复验保留 | REC-07原FAIL仍待决；正式服务器/公网5项未验，不能只用工程271绿色给全部PASS |
 | B 本地新增测试矩阵 | [70条原编号/来源/方法/结果矩阵](../testing/final-release-local-cases-matrix.md) | DONE（矩阵产物），不是70全PASS | 64/1/5为真实结果；原资料10文件只读保护，02/04不算140，后续现场结果由QA更新 |
 | C DEP3正式部署报告 | [服务器执行记录](handoffs/server-final-release.md)；D1真实预检/受限配置备份已交，隔离PERF及工具范围分别记录 | IN_PROGRESS：目前正式D1完成，D2—D9 WAIT_GO/NOT_RUN | 尚未正式上传/启动/切Nginx/Auth/enable，不把配置备份、TLS检查或临时实验unit当正式DEP3 |
 | D 完整业务验收记录 | QA矩阵/核证、本地真实HTTP/Chrome及预部署清单已有工程范围；正式范围按跟踪文件第六节 | IN_PROGRESS，正式业务未交付 | 公网HTTPS六接口/计数失效、服务器重启持久化、真实D8冷备独立恢复、UI-08尚未现场执行 |
@@ -24,8 +24,8 @@
 
 ## 本轮归档与真实性边界
 
-- [预部署来源清单](../testing/evidence/final-release-predeploy-d016d6e/source-manifest.json)与[校验清单](../testing/evidence/final-release-predeploy-d016d6e/SHA256SUMS.txt)：主控已生成约20MB归档，清单绑定批准d016/64bc、测试源230c347与CI39859349901；主控脱敏扫描/提交进行中，PM不提前声称已公开归档完成。
-- [新增本地Chrome归档说明](../testing/evidence/final-release-browser-local-d016d6e/来源说明.md)：本机回环REAL/FAULT_INJECTION与单次受控429分层，不代正式HTTPS认证/服务器UI-08。
+- [公开摘要与本地原件说明](../testing/evidence/final-release-predeploy-d016d6e/来源说明.md)：原始请求、截图、资源明细与逐成员清单保留本地隔离分支，原提交3a142e7不推公开；本页只发布聚合结果及原件SHA。原件公开推送被自动审批拒绝后，主控选择更小公开范围，不丢弃证据或改历史。
+- [新增本地Chrome核证](../testing/final-release-browser-additions.md)：本机回环REAL/FAULT_INJECTION与单次受控429分层，不代正式HTTPS认证/服务器UI-08；44个原件条目和12张JPEG完整保留本地。
 - PERF分机HTTP、组件样本、全生命周期CPU/RSS/GC和独立队列轮分别归档；只证明本轮有界观察，采样峰不是连续精确最大，不宣传未定义SLA或无标签语义准确率。
 - 原REC-07 wire/原断言错误保留，JUnit诊断绿不消除原FAIL；失败和早期快照不抹。PUBLIC有限格式扫描不保证任意秘密都已识别，新归档继续审查；用户原材料不原样公开，秘密不进索引/日志。
 

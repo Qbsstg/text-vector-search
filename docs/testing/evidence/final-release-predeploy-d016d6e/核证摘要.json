@@ -1,0 +1,119 @@
+{
+  "capturedAtUtc": "2026-10-22T21:59:36.764985+00:00",
+  "approvedSourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "approvedJarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+  "testSourceSha": "230c3471b789e994c46346c06d3dd83989273f95",
+  "linuxCI": 39859349901,
+  "regression": {
+    "unit": 104,
+    "integration": 124,
+    "node": 43,
+    "total": 271,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "localCaseMatrix": {
+    "total": 70,
+    "PASS": 64,
+    "FAIL": 1,
+    "NOT_RUN": 5,
+    "contractConflict": "REC-07"
+  },
+  "performance": {
+    "ingestAttempts": 1300,
+    "accepted": 1088,
+    "succeeded": 1088,
+    "rejected429": 212,
+    "ingestUnknown": 0,
+    "ingestWriteRetries": 0,
+    "searchCorpus": 5000,
+    "searchUnknown": 0,
+    "searchWriteRetries": 0,
+    "hotspotStatusCounts": {
+      "429": 124,
+      "200": 4
+    },
+    "scatteredStatusCounts": {
+      "429": 57,
+      "200": 7
+    },
+    "independentQueueObservation": {
+      "accepted": 100,
+      "succeeded": 100,
+      "sampledQueuePeak": 32,
+      "sampledInFlightPeak": 33,
+      "finalQueued": 0,
+      "finalInFlight": 0,
+      "sampleIntervalMs": 50,
+      "notFirstRunPeak": true
+    }
+  },
+  "rawEvidence": {
+    "localOnlyBranch": "codex/final-release-local-evidence",
+    "immutableArchiveCommit": "3a142e78b32d73811e50e1177fee60cf5627276d",
+    "originalManifestSha256": "b3135d7db85a6abfa0a611bf1318ddd8322cf9a43856741a4f01852b65da668d",
+    "archiveChecksumListSha256": "7c6cf5afcdabe54e315f617ae2e67f7c6f6f35381f8fdf5eccc16882a0378e9c",
+    "selectedArchiveDigests": [
+      {
+        "label": "final-reports-14new.tar.gz",
+        "archiveBytes": 52743,
+        "archiveSha256": "2b19aac616569083afe3cea91fe951b10a5a7ed7c2707d9a03aa24bf7a60127c",
+        "sourceSha256": null,
+        "contentIncludedInPublicGit": false
+      },
+      {
+        "label": "linux-ci-39856764435.tar.gz",
+        "archiveBytes": 64780,
+        "archiveSha256": "ad68be4e0e6a33bb5c5f53bec5a3c261ee3cba2d8d28803aa0d36e117127b24e",
+        "sourceSha256": null,
+        "contentIncludedInPublicGit": false
+      },
+      {
+        "label": "linux-ci-39859349901.tar.gz",
+        "archiveBytes": 65752,
+        "archiveSha256": "6951b08f395b72b3fcfe9d47b416a3a20bc3db5026a579530186c21379706ae6",
+        "sourceSha256": null,
+        "contentIncludedInPublicGit": false
+      },
+      {
+        "label": "perf-ingest/requests.jsonl.gz",
+        "archiveBytes": 7494517,
+        "archiveSha256": "c874b1a463eea39ae0e3ef6540ef08693f84cbf5541d44faf430c9d072fa03e3",
+        "sourceSha256": "69f8f123d1911531de723b687d2e1f566e4b7f985a56caba6c3ebd062979b446",
+        "contentIncludedInPublicGit": false
+      },
+      {
+        "label": "perf-search/requests.jsonl.gz",
+        "archiveBytes": 11237730,
+        "archiveSha256": "be23b705e49e907fb0d7caaf29649b62e1cb774dc22777497d7db34c8168028b",
+        "sourceSha256": "9a60ff6cb2c30f4be5981e3712ed5d2eb422376946d023f3edd7f51482aab67f",
+        "contentIncludedInPublicGit": false
+      },
+      {
+        "label": "queue-probe/requests.jsonl.gz",
+        "archiveBytes": 159230,
+        "archiveSha256": "9f38de0eb40d06ba11caf2d592b732e6f9280addf004df2b64d7f4da7285a89f",
+        "sourceSha256": "98e91b1ab450fccc2db4f219d055c4b4808159c0d7a987b88ba08ddefc079281",
+        "contentIncludedInPublicGit": false
+      }
+    ]
+  },
+  "publicScope": "仅聚合结果和SHA，不含请求/响应原始载荷、截图、凭据、数据库、JAR、JFR或资源明细。",
+  "formalDEP3": "NOT_RUN；REC-07裁决前未GO",
+  "independentContentProvenanceReview": {
+    "requestResponseRecords": 12546,
+    "reconstructedDocumentRequestDigests": 6301,
+    "reconstructedSearchRequestDigests": 340,
+    "documentIdReferencesMatched": 482041,
+    "channelReferencesMatched": 474765,
+    "textFieldsMatched": 1088,
+    "snippetsMatched": 4641,
+    "unknownRecordedBusinessValues": 0,
+    "authenticationCookieKeys": 0,
+    "queueUnrecordedSubmissionText": "未记录，不能据此证明未保存的正文；未公开原始载荷",
+    "browserImagesReviewedLocally": 12,
+    "publicRawImageFiles": 0,
+    "otherRuntimeMetadata": "个人主机名、绝对路径和自由日志未逐项裁定披露适宜性；原件继续本地保留"
+  }
+}
