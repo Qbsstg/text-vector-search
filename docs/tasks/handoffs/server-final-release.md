@@ -54,3 +54,24 @@
 - 没有第二JVM打开活动H2。现有健康/公开API没有精确Java执行器队列指标，JFR default不可靠提供队列长度峰值；不能把H2文件体积当积压。客户端可另估算接收减终态的pending，但须明确不是精确执行器队列峰值，未采到的指标保持未验证。
 - 主控已收到实验端口/目录/PID、固定hash及一小时上限，客户端自行建立本机SSH转发；压测结束由本角色只正常stop以上实验unit，保留H2/JAR/日志，不清理数据。若主控未提前结束，约05:50:51到达一小时上限，需记录实际SIGTERM结果而非假定通过。
 - Python AST语法、参数拒绝和/proc字段索引夹具检查通过；真实Linux监控首行与健康已验证。性能吞吐/延迟/队列实验由主控客户端执行，此时尚无性能结论；正式公网业务/认证仍NOT_RUN。
+
+## PERF01正常收尾与PERF02/03新库切换
+
+主控报告PERF01客户端session22413退出0：1300次尝试、1088接收且全部SUCCEEDED、212明确429、unknown0、writeRetry0，观测durablePending峰996（不是Java执行器队列），客户端总414.67秒。本角色不将客户端报告重计为独立服务器断言。
+
+北京时间 **2026-10-23 05:05:27** 仅对第一实验及采样执行 `systemctl stop`。应用日志确认Tomcat05:05:27.854 graceful shutdown complete、Hikari05:05:36.532 Shutdown completed，8085释放，JFR落盘。Java SIGTERM退出码143，瞬态unit未配置SuccessExitStatus143，实际记录Result=exit-code、ExecMainCode=1、ExecMainStatus143、failed；不能把这个unit状态改记inactive，也不能仅据其failed断言强杀或关库失败。日志证明本次执行了正常关闭；正式unit仍inactive。未来正式unit退出状态策略需主控协调，未借此次实验改正式配置。
+
+第一轮原件保留于 `/var/lib/vector-search/perf-d016-20261023T0450`，数据库未删/未重用。logs文件及SHA-256：
+
+| 文件 | 大小bytes | SHA-256 |
+| --- | --- | --- |
+| app.log | 3924 | a471d6444ea5c7c33d1ad141342647ad74b4b2dcb891a4e59b86cf30bd7eb75b |
+| flight.jfr | 16853432 | 3b4d2431faa6210bc91e3b1c705a1f7a72ed745f7f4a7598b93eea0db3fe9e78 |
+| gc.log | 962079 | d464f323478218a3bfb7be704a142e5c06e91bd57baec90dd835811e4c5ac86a |
+| process-metrics.jsonl | 139754 | a6bd1eba81d00a823d19c42c15cb354d03764ac0e3b7a05cb5b6250997058300 |
+
+资源摘要从这些原件实际计算：885个约1秒采样点、首末跨度884.541903秒，覆盖启动/空闲/实际负载/关闭，**不是414.67秒纯负载窗口**。/proc utime+stime累计CPU从0.16到610.61秒，差610.45秒；每间隔CPU增量÷墙钟÷CLK_TCK，100%表示一核，平均69.0072%、采样峰380.6580%（4CPU主机可超过100%）。RSS采样峰1,468,198,912bytes，包含堆外/线程等，不等于Xmx；H2体积采样峰1,051,131,904bytes，不代表积压或最终压缩后大小。GC统一日志中以Pause且以毫秒结束的完成行621条，行耗时和9165.903ms，最长194.739ms；这是完成暂停行口径，不将其当所有GC阶段/收集次数或请求p95。JFR summary真实可读，2个chunks、875秒，默认观测配置保留，不外推无限持续负载性能。
+
+随后获主控授权只建立第二轮全新目录 `/var/lib/vector-search/perf-search-d016-20261023T0506`，从第一实验已校验JAR复制代码与采样脚本，不复制或清空数据库。新JAR再次sha256sum等于批准64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50。瞬态unit `vector-search-perf-search-d016-20261023.service`、PID **7877**，vector-search用户、独立data、原冻结参数/堆/GC/JFR、8085回环、1小时保护；新采样unit同名-sampler。约06:05:46到达上限，结束后仍须核对实际状态/日志。
+
+05:05:55第一次健康探测发生监听前curl000，没有假记READY或业务重试；05:06:16复核health200、businessReady=true，ss确认PID7877仅回环8085，已通知主控可继续同一SSH转发的第二轮N100/1000/5000、K1/10/100、混合与热点压测。生产unit/current/Nginx/正式DB、D1备份均未改变，正式D2—D9仍等待主控GO。此次仅追加真实记录，无Java/脚本行为变更，git diff --check通过；未重跑Maven/Node。
