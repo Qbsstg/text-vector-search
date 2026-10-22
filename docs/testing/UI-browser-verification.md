@@ -66,16 +66,16 @@
 | F10 | 发包前失效失败不乐观成功 | FAULT_INJECTION | NOT_RUN；真实Offline另记 | PASS |
 | F11 | 提交未知按原ID确认、不换ID重提 | FAULT_INJECTION | NOT_RUN | PASS |
 
-列表分页、筛选条件、20/50/100、21条以上及空结果、详情长ID/空原文/独立滚动是上述脚本的补充范围，目前均未执行，不能因29行填完而遗漏。
+初始旧轮快照中，列表分页、筛选条件、20/50/100、21条以上及空结果、详情长ID/空原文/独立滚动等补充范围均未执行；新轮补充范围见下文最终核证，不能因29行填完而遗漏。
 
-## 本次交付与未执行项
+## 首次旧轮核证快照：本次交付与未执行项
 
 实际命令：`git status --short`、`git branch --show-current`、`git rev-parse HEAD`确认QA树干净；`git merge --ff-only main`快进至`8a6713c`；只读`cat`/`sed`/`rg`与Python解析旧轮JSON/事件；查看`U02-real-task.png`进行视觉核证。提交前执行`git diff --check`及矩阵结构静态检查。首次Git元数据写入受沙箱拒绝后以已授权提升重试成功，不影响文件历史。
 
 本次仅新增本文档，无代码测试新增通过数；Java/Node测试未执行，Chrome操作未执行，应用启动未执行，服务器未执行。新轮候选SHA/摘要/CI、完整真实Chrome矩阵及故障注入分支待主控提供后再核证；最终UI门禁仍未通过。证据位于本机临时目录，尚未归档进仓库，需主控保留或另行归档后再作长期交付。
 
 
-## 新候选准备核证：尚未判定UI
+## 新候选准备核证快照：当时尚未判定UI
 
 2026-10-23追加；本次QA树未快进，继续从`838d614f408d429284f00c53d6ec80ca6b497266`独立提交。旧候选FAIL保留。旧轮项目证据已由主控归档至`docs/testing/evidence/ui-browser-68d80cb-failed/`；`review.json`明确修正原始`cases-initial.json`的U01初步PASS，原件不改。完整含扩展活动trace仍保留在旧临时目录，仓库仅归档项目trace。
 
@@ -88,7 +88,7 @@
 
 修复范围独立审查：`cda3f8c4fdd3e6744f5889794fca354a9328a16a`只包装默认`setTimeout/clearTimeout`经`globalThis`调用，保留注入与轮询参数；新增receiver敏感回归，覆盖首次查询、2秒刷新和停止清理。`bf7aeac2a5ba349486d7cc4319be9d59e18890bf`只增加同源`favicon.svg`及HTML显式引用。两提交另含前端交接文档。以旧候选与新候选比较，Java生产类、schema、基础application.yml与pom无差异；本次修复未扩大算法或后端业务范围。静态审查与Node回归尚不能证明真实Chrome问题已消失。
 
-新轮主控专用目录为`/private/tmp/12times-chrome-ui-fixed-3z58ph84/`、8083、PID59265，由主控独占浏览器与90分钟有界进程；QA未操作该进程/页面。29项新轮仍全部`NOT_RUN`，本次不提前填写任何UI PASS。待主控提供实际操作、截图、DOM、Network/响应与模式标注后逐项核证。
+新轮主控专用目录为`/private/tmp/12times-chrome-ui-fixed-3z58ph84/`、8083、PID59265，由主控独占浏览器与90分钟有界进程；QA未操作该进程/页面。在该次准备快照中，29项新轮当时全部`NOT_RUN`，未提前填写任何UI PASS；随后依据实际操作、截图、DOM、Network/响应与模式标注逐项核证，最终结果见下文及上方新轮矩阵。
 
 本次实际检查为Git只读diff/show、Python汇总XML、日志与旧归档JSON读取、`git diff --check`和矩阵结构检查；未执行Java/Node测试、Chrome、应用启动、服务器操作。
 
