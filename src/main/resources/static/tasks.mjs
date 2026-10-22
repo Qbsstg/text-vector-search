@@ -5,7 +5,10 @@ import { isTerminal } from "./api.mjs";
  * 网络异常仅记录读取错误，绝不改写服务端任务状态；写请求也不由此模块重试。
  */
 export class TaskTracker {
-    constructor({ load, onChange = () => {}, now = Date.now, setTimer = setTimeout, clearTimer = clearTimeout,
+    constructor({ load, onChange = () => {}, now = Date.now,
+        // 浏览器计时器要求全局接收者，不能把宿主函数直接保存后作为 TaskTracker 的方法调用。
+        setTimer = (callback, delay) => globalThis.setTimeout(callback, delay),
+        clearTimer = (id) => globalThis.clearTimeout(id),
         hidden = false, interval = 2000, budget = 60000, maxAuto = 3, maxRecords = 20, maxFailures = 3 } = {}) {
         this.load = load;
         this.onChange = onChange;

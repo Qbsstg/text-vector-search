@@ -34,6 +34,42 @@ function tracker(load, options = {}) {
     return { state, time };
 }
 
+test("默认计时器保留浏览器全局接收者，查询后能刷新并停止", async (context) => {
+    const time = clock();
+    const scheduled = [];
+    const cleared = [];
+    // Node 的原生计时器不限制接收者，替换为浏览器式检查，避免注入箭头函数掩盖绑定错误。
+    context.mock.method(globalThis, "setTimeout", function (callback, delay) {
+        if (this !== globalThis) throw new TypeError("Illegal invocation");
+        const id = time.setTimer(callback, delay);
+        scheduled.push({ id, delay });
+        return id;
+    });
+    context.mock.method(globalThis, "clearTimeout", function (id) {
+        if (this !== globalThis) throw new TypeError("Illegal invocation");
+        cleared.push(id);
+        time.clearTimer(id);
+    });
+    let calls = 0;
+    const state = new TaskTracker({ now: time.now, load: async (id) => { calls++; return task(id); } });
+    await state.query("a");
+    assert.equal(calls, 1);
+    assert.deepEqual(scheduled.map(({ delay }) => delay), [60000, 2000]);
+    await time.advance(1999);
+    assert.equal(calls, 1);
+    await time.advance(1);
+    assert.equal(calls, 2);
+    const expiryId = scheduled[0].id;
+    const refreshId = scheduled.at(-1).id;
+    state.stop("a");
+    assert.ok(cleared.includes(expiryId));
+    assert.ok(cleared.includes(refreshId));
+    await time.advance(60000);
+    assert.equal(calls, 2);
+    assert.equal(state.get("a").mode, "manual");
+    state.dispose();
+});
+
 test("响应完成后2秒才刷新，同一任务不重叠", async () => {
     let resolve;
     let calls = 0;
