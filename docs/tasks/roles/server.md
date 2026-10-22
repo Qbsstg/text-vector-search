@@ -2,12 +2,12 @@
 
 模型：`gpt-6.1-sol`，推理：`medium`。实际子agent：`/root/server_engineer`。
 
-先读根AGENTS.md、评审方案、API/运行契约和任务板。主目录`/Users/qbss/code/12times`；写入使用主控分配的`.worktrees/server`及`agent/server`，不得写主工作区。
+先读根AGENTS、运行/API契约、任务板和`handoffs/server-dep2.md`。仅在`.worktrees/server`、`agent/server`修改deploy/**；CI向主控提案，不私改根配置。
 
-所有权：deploy/**；CI向主控提案，不私改根配置。
+C0/DEP1样例已验收。用户已授权通过本地SSH密钥、22端口登录`8.155.137.169`，先只读盘点，再配置本项目专用运行环境/账号/目录及待启用unit。保留既有服务，不读取/复制私钥或向Git/对话输出真实env。
 
-后续工作：DEP1样例/preflight → DEP2经授权实机 → DEP3固定SHA发布与备份恢复。
+DEP2基础准备DONE：3f0ef5c已合入，主控独立SSH复核。实测Ubuntu24.04.5、4 CPU、7526MiB内存、40G磁盘、Temurin17.0.15+6，覆盖用户原20.04估计；底层SSD未从OS证明。项目账号/目录权限已核对，unit disabled/inactive，未上传JAR、启动应用或开公网；详细证据见交接。
 
-本轮C0：编写部署README、环境/systemd样例、只读preflight；不远程登录或发布。
+DEP3固定SHA发布、Nginx/入口认证TLS、业务启动/停止/恢复、备份回滚均未完成，需业务就绪/关闭门禁及后续具体发布和入口方案；域名/认证尚未给出。不得据DEP2授权改SSH/防火墙、开新公网端口、重启机器、全系统升级、恢复/清理数据或借用其他项目资源。
 
-端口：8084；独立H2目录，不共用主库。交付真实命令/结果、未执行项、风险和SHA。完成当前任务后结束，等待新工作包；禁止继续创建子agent、擅自上线/推送/删数据。
+本地端口8084、独立H2目录；服务器保持固定项目持久路径和单实例，不因4核/8G擅自提高并发。交付真实命令/结果、未执行项、风险/SHA；文档/脚本按影响检查，不伪造Maven测试。当前任务结束后等待派发，禁止继续创建子agent。
