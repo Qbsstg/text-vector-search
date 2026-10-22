@@ -1,0 +1,10 @@
+命令=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe SIGTERM_GRACEFUL /tmp/junit-15675406459706085375;pid=3511;SHA=dd96021a5dcc49acb31b4639eb4d1ae9ed6e4054
+QA_EVENT|3511|APP_READY|port=44969;state=READY
+QA_EVENT|3511|PRODUCTION_URL|jdbc:h2:file:/tmp/junit-15675406459706085375/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|3511|CPU_READY|真实B1已计算;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1
+发送SIGTERM
+QA_EVENT|3511|STOPPING|生产生命周期已拒接
+QA_EVENT|3511|HANDLER_RETURNED|生产处理器已返回
+QA_EVENT|3511|DATASOURCE_CLOSED|closed=true
+QA_EVENT|3511|SHUTDOWN_SNAPSHOT|status=SUCCEEDED;token=5ca9ed2d-9c05-4a62-9b18-4787fc67ee1c;attempt=1;finished=2026-10-22 17:18:26.943125+00;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1;vectorTime=2026-10-22 17:18:26.943125+00;task=55e52e31-21e8-4847-a7ea-82ac2f20de04;hitCount=0;invalidated=false
+实际退出：pid=3511;exit=143
