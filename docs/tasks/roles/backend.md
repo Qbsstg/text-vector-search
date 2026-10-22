@@ -1,13 +1,13 @@
 # 后端工程师
 
-模型`gpt-6.1-sol / high`；实际子agent`/root/backend_engineer`。使用`.worktrees/backend`、`agent/backend`，先读AGENTS、API/运行契约、B2实施契约及任务板。
+模型`gpt-6.1-sol / high`，`/root/backend_engineer`；使用`.worktrees/backend`、`agent/backend`。先读AGENTS、API/运行/B3契约，保留B1版本和B2最终证据。
 
-C0/B1已验收，B1算法版本`char12-sha256-r32-nfkc-root-ws-v1`冻结。本轮B2分段：1bfa33f校验/两表接收（提交前11 unit）、f834fa4五管理API/HTTP（提交前15 unit）已合入；第三段4523942扫描/有界队列/条件领取已合入a03e3be，24个对应B2 unit（含前段）通过；角色完整回归及独立后段/主控最终门禁仍待核。
+用户已批准立即B3，Owner统一持有状态机/事务。范围为task/**、persistence/**、分配的相关配置/unit；公共DTO/DDL/依赖/基础配置/健康契约变更提主控。当前观察到终态角色提交00c5af5，不能由提交存在推断测试/完整实现或集成验收通过。
 
-仅改分配业务/Mapper/unit，不改冻结B1类、DDL、公共DTO、参数、依赖或根配置。接收锁覆盖物理提交；领取确认1行且提交确认后才调用窄handler，计算不占事务。生产无B3 handler不派发/领取，QUEUED保持可查；旧RUNNING不假恢复，拒绝新接收。终态/恢复/在线降级/完整关闭归B3，搜索计数归B4，不借测试替身宣称完成。
+生产handler真实调用冻结B1；RUNNING+run_token确认后向量/时间/成功同短事务，旧token成功/失败均不能覆盖新尝试。失败分类脱敏持久化；明确回滚有限重试，未知提交先独立核对，不假FAILED或盲写。
 
-Java17、四空格、显式import、职责清晰；关键事务/异常/边界Javadoc及维护注释全部简体中文。代码提交前跑对应unit，阶段合入前完整verify；新提交说明中文，不改历史。存量中文化归主控的文件不争改。
+先RECOVERING拒接/停派→恢复旧RUNNING并确认commit→READY/扫描。关闭先拒接/停派、有界等待，再关闭新写许可并等已进入短事务退出；超时CPU不能在数据源关闭后回写，不无差别中断H2。恢复/实际强杀/关闭尚待验收。
 
-端口8081、独立H2；提交仅显式授权路径，交付基线/文件/真实命令数量结果/未执行/风险/SHA。完成当前工作包后等待派发，禁止派生agent、部署或清理持久数据。
+B2无handler/旧RUNNING原断言保留在明确隔离组成，另测真实B3，不能全局禁handler或假终态。B4搜索/计数与DEP3发布不自动实现；代理Origin先真实配置实测再归因，不信任任意外来转发头。
 
-主控收尾状态：本轮角色交接已集成，B2核心全回归通过；FE1代码/Node/HTTP已验证，真实UI受Work本地浏览器设置限制未执行。B3/B4/DEP3仍待后续任务。所有新注释和Commit继续简体中文，禁止改写旧历史。
+Java17、中文关键Javadoc/注释、新Commit中文；提交前对应unit、阶段完整verify。端口8081、独立H2，交付基线/文件/真实命令数量结果/未执行/风险/SHA；不派生agent、部署或清理持久数据。

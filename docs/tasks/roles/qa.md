@@ -1,13 +1,11 @@
 # 测试工程师
 
-模型`gpt-6.1-sol / medium`；实际子agent`/root/test_engineer`。使用`.worktrees/qa`、`agent/qa`，只改分配acceptance/资源与docs/testing，不改业务/DDL/pom；先读AGENTS、B2实施契约及b2-test-plan。
+模型`gpt-6.1-sol / medium`，`/root/test_engineer`；使用`.worktrees/qa`、`agent/qa`，只改分配acceptance/测试资源及docs/testing。先读AGENTS、B3/代理契约、b3-test-plan及B2最终证据。
 
-C0/B1 DONE。中文化545c29d独立51项通过、黄金不变。B2接收前段9242a38已合入：目标9 IT，6345bd9基线完整40 unit+31 IT，失败/错误/跳过0；这是接收前段证据，不覆盖后来HTTP/扫描后段，完整B2主控门禁未做。
+B1/B2 DONE，B2原53 unit+44 IT+25 Node保留。ecf7cb5已交15组B3设计，含Q12—15四个真实强杀检查点；仅计划完成，执行均NOT_RUN。当前短任务ProxyOriginIT独立观察有效scheme/host/port、可信/不可信转发头，不改生产过滤器或借测试开启公网API。
 
-下一短任务：独立管理HTTP/实际chunked正文/Origin、四态映射、失效；扫描补派/唯一领取/饱和及事务外handler。latch/barrier和真实物理提交证据优先，不以sleep猜时序。测试可注入受控handler，但不把夹具状态或替身终态当成生产B3；生产无handler须保留QUEUED，旧RUNNING不假恢复。
+主控实测默认HTTP同源202、默认HTTPS头组合403；仅回环可信proxy配置同HTTPS202/跨源403。它证明配置组合不匹配和初步对照，不代表所有信任边界已验，更不能未经实测归因代码缺陷。
 
-B3终态/强杀恢复/完整关闭、B4计数、完整浏览器/部署均未执行。用户docs/测试工作原样保留，70条用例不能算已执行；不削弱断言迎合实现。中文维护注释、中文新Commit、代码提交前对应测试、阶段完整verify，保留失败修复记录。
+收到实现及审查后的组成基线再执行真实B3：终态两表回滚、旧token拒写、失效交错、未知commit、恢复先于接收、SIGTERM与超时写许可、四点SIGKILL。用真实B1、真实commit/进程事件、latch/barrier和有限等待；普通异常/正常重启不冒充强杀，SIGKILL不承诺断电安全。
 
-随机端口、绝对临时H2、有限等待且只清理自己明确拥有的进程/目录。交付基线/文件/真实命令数量结果/未执行/风险/SHA；短任务结束释放槽位，禁止派生agent或部署。
-
-主控收尾状态：本轮角色交接已集成，B2核心全回归通过；FE1代码/Node/HTTP已验证，真实UI受Work本地浏览器设置限制未执行。B3/B4/DEP3仍待后续任务。所有新注释和Commit继续简体中文，禁止改写旧历史。
+B2历史无handler/旧RUNNING断言保留在隔离组成，真实B3生产另测，禁止全局禁handler、假终态或降断言。随机端口/绝对临时H2，只清理明确拥有的测试资源。中文注释/新Commit、提交前对应测试、阶段完整verify；用户70条资料不计为已执行，不派生agent或部署。

@@ -83,6 +83,7 @@ public final class TaskReadiness implements SmartInitializingSingleton {
     }
 
     public void stopped() {
+        if (state() == State.STOPPED) { return; }
         if (state() != State.STOPPING) { throw new IllegalStateException("必须先停止接收再结束任务服务"); }
         current.set(new Snapshot(State.STOPPED, "任务服务已停止"));
     }

@@ -5,6 +5,7 @@ import dev.twelvetimes.vector.persistence.KnowledgeMapper;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
@@ -30,6 +31,7 @@ public final class TaskDispatcher implements SmartLifecycle, AutoCloseable {
     private final Set<String> inFlight = ConcurrentHashMap.newKeySet();
     private final ThreadPoolExecutor workers;
     private final ScheduledExecutorService scanner;
+    private final CountDownLatch stopCompleted = new CountDownLatch(1);
     private volatile boolean running;
     private volatile boolean closed;
 
@@ -109,23 +111,48 @@ public final class TaskDispatcher implements SmartLifecycle, AutoCloseable {
 
     @Override
     public void close() {
+        boolean owner;
         synchronized (this) {
-            if (closed) { return; }
-            closed = true;
-            running = false;
-            scanner.shutdown();
-            workers.shutdown();
+            owner = !closed;
+            if (owner) {
+                // 先拒绝新的服务写入，再停止派发；已持短事务许可的请求可以完成物理提交。
+                readiness.stopping();
+                closed = true;
+                running = false;
+                scanner.shutdown();
+                workers.shutdown();
+            }
         }
-        // B2仅停止自身基础设施，不抢占任务、不强制中断H2；完整业务关闭验收仍属B3。
+        if (!owner) {
+            awaitStopCompleted();
+            return;
+        }
         try {
             if (!workers.awaitTermination(properties.shutdownWaitSeconds(), TimeUnit.SECONDS)) {
-                readiness.block("任务停止等待超时");
-                LOG.error("任务停止等待超时，保留执行现场待诊断");
+                LOG.warn("CPU任务停止等待超时，即将关闭回写许可并保留RUNNING");
             }
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
-            readiness.block("任务停止等待被中断");
+            LOG.warn("停止等待被中断，仍需排空已有数据库短事务");
+        } finally {
+            try {
+                // CPU不持此许可。超时后的CPU即使晚于数据源销毁返回，也只能得到WRITE_CLOSED。
+                // 排空已入短事务是数据安全屏障，不宣称底层数据库卡死时仍能在30秒内完成。
+                readiness.writeBarrier().closeAndDrain();
+                readiness.stopped();
+            } finally {
+                stopCompleted.countDown();
+            }
         }
+    }
+
+    private void awaitStopCompleted() {
+        boolean interrupted = false;
+        while (true) {
+            try { stopCompleted.await(); break; }
+            catch (InterruptedException exception) { interrupted = true; }
+        }
+        if (interrupted) { Thread.currentThread().interrupt(); }
     }
 
     private static ThreadFactory threads(String prefix) {

@@ -1,13 +1,11 @@
 # 服务器工程师
 
-模型`gpt-6.1-sol / medium`；实际子agent`/root/server_engineer`。使用`.worktrees/server`、`agent/server`，仅改deploy及分配交接，CI只提案；先读AGENTS、运行契约、server-dep2/server-nginx交接。
+模型`gpt-6.1-sol / medium`，`/root/server_engineer`；使用`.worktrees/server`、`agent/server`，只改deploy及分配交接，CI只提案。先读AGENTS、运行/代理契约及server-ssl-prep交接。
 
-DEP2 DONE：8.155.137.169:22、Ubuntu24.04.5、4 CPU、7526MiB/40G、Temurin17.0.15+6；专用账号/目录/unit已复核。NGINX-PREP DONE：b9e79bc，Nginx1.24独立域名站点、固定检查端点；主控SSH+公网复核，80监听、443/8080无监听，后端unit仍disabled/inactive。
+DEP2/原HTTP准备DONE。最新服务域名text-vector-search.lemoncharger.com，旧多级域名仅历史。f9cf401已合入：用户ZIP证书有效、SAN匹配新域名、系统信任链和公私钥匹配；证书不是待提供项。私钥仅服务器root受限目录，目录0700/文件0600，本次本地临时副本已清理，原ZIP未改/未进项目，不输出密钥或密码。
 
-DNS服务器/公共A解析指向指定IP，本地解析有代理差异；不擅改DNS。GET/HEAD /deployment-check固定文本200，POST405；真实API/H2/管理/其余路径和未知Host404，当前无proxy_pass。UFW inactive、iptables默认ACCEPT未改；云安全组80/443由用户人工核对。
+角色TLS检查用正常DNS和--resolve系统信任验证，不用-k；检查GET/HEAD200、POST405，其余API/H2/管理404、未知SNI拒握手。80/443监听，8080无监听、应用unit仍inactive/disabled；主控独立TLS复核待补。
 
-用户已授权本轮Nginx/站点及必要主机入站准备，不再写未授权安装/登录。证书由用户后续安全提供；无证书不启用/宣称HTTPS，不生成替代证书。认证/正式应用发布、单实例更新、备份恢复仍属DEP3，需业务门禁和具体方案，网络检查不是发布授权。
+业务proxy/BasicAuth只是未启用模板，无真实入口密码。覆盖转发头/清空Forwarded、保护页面/API，不自动启用业务代理。可信回环proxy配置与Origin验收归主控/QA协调，不把配置组合403直接定性过滤器缺陷。
 
-deploy注释整改6d935a8独立完成，相关脚本/配置无有效内容变化，51项回归有交接。新注释与Commit说明中文；保留既有服务，不改SSH、不重启机器、不全系统升级或清理数据，密钥/env不入Git/对话。每次变更记录命令/结果/配置/回滚/未完成项；交接结束等待派发，禁止派生agent。
-
-主控收尾状态：本轮角色交接已集成，B2核心全回归通过；FE1代码/Node/HTTP已验证，真实UI受Work本地浏览器设置限制未执行。B3/B4/DEP3仍待后续任务。所有新注释和Commit继续简体中文，禁止改写旧历史。
+云安全组80/443用户人工；真实入口认证与正式DEP3需业务门禁和具体确认。保留既有站点/服务，不改SSH、不重启、不全系统升级/清理数据，不借其他项目资源。每次变更留命令/配置/回滚/未完成项，中文注释/Commit；不以TLS检查冒充业务发布，不派生agent。
