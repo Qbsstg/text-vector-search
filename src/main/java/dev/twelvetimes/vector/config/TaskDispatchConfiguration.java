@@ -9,7 +9,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/** 可选B3处理器缺省为空；不注册占位处理器，避免生产任务误入RUNNING。 */
+/** 生产由B3配置提供真实处理器；仅显式隔离的B2测试组成允许缺省，不注册空实现。 */
 @Configuration(proxyBeanMethods = false)
 public class TaskDispatchConfiguration {
     @Bean
