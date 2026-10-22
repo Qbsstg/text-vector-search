@@ -26,6 +26,12 @@ jobs:
           cache: maven
       - name: Run unit and acceptance tests before packaging
         run: ./mvnw -B -ntp clean verify
+      - name: 设置前端测试环境
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.16.0'
+      - name: 验证真实请求边界与有限轮询逻辑
+        run: node --test tests/frontend/*.test.mjs
       - name: Preserve actual test reports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
