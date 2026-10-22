@@ -1,6 +1,6 @@
 package dev.twelvetimes.vector.acceptance;
 
-import dev.twelvetimes.vector.VectorSearchApplication;
+import dev.twelvetimes.b2.B2CompositionTestApplication;
 import dev.twelvetimes.vector.api.contract.ApiModels.SubmitDocumentRequest;
 import dev.twelvetimes.vector.document.DocumentAdmissionService;
 import dev.twelvetimes.vector.persistence.KnowledgeMapper;
@@ -32,7 +32,7 @@ final class B2QaEnvironment implements AutoCloseable {
                 "--server.port=0", "--spring.datasource.url=jdbc:h2:file:" + directory.toAbsolutePath()
                         + "/knowledge;WRITE_DELAY=0", "--spring.datasource.username=sa", "--spring.datasource.password="));
         args.addAll(List.of(overrides));
-        context = new SpringApplication(VectorSearchApplication.class).run(args.toArray(String[]::new));
+        context = new SpringApplication(B2CompositionTestApplication.class).run(args.toArray(String[]::new));
     }
 
     <T> T bean(Class<T> type) {

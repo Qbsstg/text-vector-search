@@ -1,6 +1,6 @@
 package dev.twelvetimes.vector.acceptance;
 
-import dev.twelvetimes.vector.VectorSearchApplication;
+import dev.twelvetimes.b2.B2CompositionTestApplication;
 import dev.twelvetimes.vector.api.contract.ApiModels.SubmitDocumentRequest;
 import dev.twelvetimes.vector.api.error.BusinessException;
 import dev.twelvetimes.vector.api.validation.RequestValidator;
@@ -307,7 +307,7 @@ class B2AdmissionIT {
                 "--spring.datasource.url=jdbc:h2:file:" + directory.resolve(database + "/knowledge").toAbsolutePath()
                         + ";WRITE_DELAY=0", "--spring.datasource.username=sa", "--spring.datasource.password="));
         args.addAll(List.of(overrides));
-        return new SpringApplication(VectorSearchApplication.class).run(args.toArray(String[]::new));
+        return new SpringApplication(B2CompositionTestApplication.class).run(args.toArray(String[]::new));
     }
 
     /** 每次均借用新的数据源连接，直接检查两表与关联数，不只依赖JOIN映射掩盖孤立行。 */

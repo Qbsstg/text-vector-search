@@ -1,6 +1,6 @@
 package dev.twelvetimes.vector.acceptance;
 
-import dev.twelvetimes.vector.VectorSearchApplication;
+import dev.twelvetimes.b2.B2CompositionTestApplication;
 import dev.twelvetimes.vector.persistence.KnowledgeMapper;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -104,7 +104,7 @@ class ProxyOriginIT {
             // 直接加载主控已提交的拟发布资源，不用CLI属性替代资源本身的验证。
             args.add("--spring.profiles.active=proxy");
         }
-        return new SpringApplication(VectorSearchApplication.class, ObserverConfiguration.class)
+        return new SpringApplication(B2CompositionTestApplication.class, ObserverConfiguration.class)
                 .run(args.toArray(String[]::new));
     }
 

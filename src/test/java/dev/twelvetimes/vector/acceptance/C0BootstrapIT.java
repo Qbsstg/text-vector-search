@@ -1,6 +1,6 @@
 package dev.twelvetimes.vector.acceptance;
 
-import dev.twelvetimes.vector.VectorSearchApplication;
+import dev.twelvetimes.b2.B2CompositionTestApplication;
 import dev.twelvetimes.vector.api.contract.ApiModels;
 import dev.twelvetimes.vector.api.contract.TaskStatus;
 import dev.twelvetimes.vector.config.VectorProperties;
@@ -137,7 +137,7 @@ class C0BootstrapIT {
                 "--spring.datasource.username=sa", "--spring.datasource.password=",
                 "--logging.level.root=WARN", "--spring.main.banner-mode=off"));
         arguments.addAll(List.of(overrides));
-        return new SpringApplication(VectorSearchApplication.class).run(arguments.toArray(String[]::new));
+        return new SpringApplication(B2CompositionTestApplication.class).run(arguments.toArray(String[]::new));
     }
 
     private void assertHealth(ConfigurableApplicationContext context) throws Exception {
@@ -150,7 +150,10 @@ class C0BootstrapIT {
         assertEquals(200, response.statusCode());
         var json = context.getBean(ObjectMapper.class).readTree(response.body());
         assertEquals("UP", json.get("status").asString());
-        assertEquals("C0", json.get("stage").asString());
+        // 阶段元数据随真实健康控制器升级；该隔离组成仍仅测基础设施，不声称完整业务就绪。
+        assertEquals("B3", json.get("stage").asString());
+        assertEquals("READY", json.get("taskState").asString());
+        assertTrue(json.get("taskReady").asBoolean());
         assertFalse(json.get("businessReady").asBoolean());
     }
 
