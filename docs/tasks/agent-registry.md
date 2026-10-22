@@ -6,11 +6,11 @@
 
 | 角色 | 实际子agent | 模型 / 推理 | 实际分支与绝对工作树 | C0状态与角色证据 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend；`/Users/qbss/code/12times/.worktrees/backend` | REVIEW；交接提交`2c3b9a26a06b5297a73975b0a7877d1bcea1d09a`，待主控合入 |
-| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend；`/Users/qbss/code/12times/.worktrees/frontend` | REVIEW；静态入口提交`6b0f5de4f88322ed6eba82895c88f386a0704e71`；主控已完成C0浏览器/真实health验证 |
-| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server；`/Users/qbss/code/12times/.worktrees/server` | REVIEW；本地样例/preflight提交`0335dc5ae6a75dbc125adf549e30ebf5ea11d2f3`；未部署 |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa；`/Users/qbss/code/12times/.worktrees/qa` | REVIEW；提交`7b81d2904c3e40080181c672c966df5d05def3ca`；角色交接记录2个unit+6个IT通过，待合入复跑 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm；`/Users/qbss/code/12times/.worktrees/pm` | REVIEW；仅本轮指定三文档；实际提交SHA由交付消息回报，不写自引用哈希 |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend；`/Users/qbss/code/12times/.worktrees/backend` | DONE；交接提交`2c3b9a26a06b5297a73975b0a7877d1bcea1d09a`，已由主控合入 |
+| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend；`/Users/qbss/code/12times/.worktrees/frontend` | DONE；静态入口提交`6b0f5de4f88322ed6eba82895c88f386a0704e71`；主控已完成C0浏览器/真实health验证 |
+| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server；`/Users/qbss/code/12times/.worktrees/server` | DONE；本地样例/preflight提交`0335dc5ae6a75dbc125adf549e30ebf5ea11d2f3`；未部署 |
+| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa；`/Users/qbss/code/12times/.worktrees/qa` | DONE；提交`7b81d2904c3e40080181c672c966df5d05def3ca`；角色交接记录2个unit+6个IT通过，已合入并完成主控复跑 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm；`/Users/qbss/code/12times/.worktrees/pm` | DONE；仅本轮指定三文档；实际提交SHA由交付消息回报，不写自引用哈希 |
 
 ## 职责和交接依赖
 
@@ -31,3 +31,7 @@
 - worktree不隔离CPU、环境变量或端口；不在其他角色或主工作区checkout/reset、全仓格式化、撤销或清理文件，不操作notes分支。
 - 所有提交显式列本角色文件，由主控审查后集成；没有发布、远程创建/push、登录服务器、开端口或恢复/删除持久数据授权。
 - 每个交接包含基线/分支、文件、契约/依赖变化、真实命令与结果、未执行项、风险和SHA；角色分支通过仍须集成复跑。
+
+## 主控最终核证
+
+C0五角色交接全部审查合入；主控3个unit+6个IT和真实JAR/浏览器验证通过，见`docs/testing/C0-verification.md`。五角色当前任务完成，等待后续明确派发；不是继续后台运行完整业务。各工作树统一快进至本轮完成后的主线基线；最新指针以`git worktree list`为准。

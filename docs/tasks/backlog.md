@@ -10,14 +10,14 @@
 
 | ID | Owner | 工作 | 状态 | 当前证据与下一门禁 |
 | --- | --- | --- | --- | --- |
-| C0-01 | 主控 | 分析评审差异，冻结范围、API/运行契约和参数 | REVIEW | `docs/design/c0-analysis.md`、API/运行契约v1.0已存在；主控核对DTO/DDL及各角色交接一致性 |
-| C0-02 | 主控 | Git、Wrapper、最小应用、文件H2、幂等DDL、DTO | REVIEW | 主控回报集成代码Java17 clean verify：3个unit+6个IT全部通过，含Unicode存储；JAR已真实启动/正常停止，最终DONE仍由主控核证 |
-| C0-03 | 主控 | AGENTS、五角色和独立分支/worktree | REVIEW | PM实际执行git worktree list确认五工作树；模型/推理按AGENTS指定，等待主控总核证 |
-| C0-BE | 后端 | 基线审查、后续工作包及后端交接 | REVIEW | 提交`2c3b9a26a06b5297a73975b0a7877d1bcea1d09a`，仅handoff，待主控合入；不扩展业务实现 |
-| C0-FE | 前端 | 诚实的静态初始化入口 | REVIEW | 角色提交`6b0f5de4f88322ed6eba82895c88f386a0704e71`已由主控合入并完成C0浏览器/真实health验证；不是完整PRD验收 |
-| C0-DEP / DEP1 | 服务器 | 本地部署样例、只读preflight | REVIEW | 已观察提交`0335dc5ae6a75dbc125adf549e30ebf5ea11d2f3`；脚本语法/参数及本地预检有记录，未进行任何实机部署 |
-| C0-QA / QA0 | 测试 | C0 acceptance IT及分层矩阵 | REVIEW | 提交`7b81d2904c3e40080181c672c966df5d05def3ca`的交接记录2个unit+6个IT通过，失败/错误/跳过均0；主控合入后须复跑 |
-| C0-PM | 项目管理 | 首轮结论、职责、依赖、风险和证据追踪 | REVIEW | 本任务板、注册表、`handoffs/pm-c0.md`；仅文档检查，不跑Maven，不替主控合并或认定C0完成 |
+| C0-01 | 主控 | 分析评审差异，冻结范围、API/运行契约和参数 | DONE | `docs/design/c0-analysis.md`、API/运行契约v1.0已存在；主控核对DTO/DDL及各角色交接一致性 |
+| C0-02 | 主控 | Git、Wrapper、最小应用、文件H2、幂等DDL、DTO | DONE | 主控回报集成代码Java17 clean verify：3个unit+6个IT全部通过，含Unicode存储；JAR已真实启动/正常停止，主控集成核证完成 |
+| C0-03 | 主控 | AGENTS、五角色和独立分支/worktree | DONE | PM实际执行git worktree list确认五工作树；模型/推理按AGENTS指定，主控总核证完成 |
+| C0-BE | 后端 | 基线审查、后续工作包及后端交接 | DONE | 提交`2c3b9a26a06b5297a73975b0a7877d1bcea1d09a`，仅handoff，已主控合入；不扩展业务实现 |
+| C0-FE | 前端 | 诚实的静态初始化入口 | DONE | 角色提交`6b0f5de4f88322ed6eba82895c88f386a0704e71`已由主控合入并完成C0浏览器/真实health验证；不是完整PRD验收 |
+| C0-DEP / DEP1 | 服务器 | 本地部署样例、只读preflight | DONE | 已观察提交`0335dc5ae6a75dbc125adf549e30ebf5ea11d2f3`；脚本语法/参数及本地预检有记录，未进行任何实机部署 |
+| C0-QA / QA0 | 测试 | C0 acceptance IT及分层矩阵 | DONE | 提交`7b81d2904c3e40080181c672c966df5d05def3ca`的交接记录2个unit+6个IT通过，失败/错误/跳过均0；主控合入后3个unit+6个IT已复跑通过 |
+| C0-PM | 项目管理 | 首轮结论、职责、依赖、风险和证据追踪 | DONE | 本任务板、注册表、`handoffs/pm-c0.md`；仅文档检查，PM未跑Maven；交接已合入，主控已核证C0 |
 
 主控回报的代码验证版本为`2e29030c91d834a24773fee29a6295038cf39e2f`：3个unit+6个IT，失败/错误/跳过均0；JAR启动后浏览器三Tab、禁用业务按钮、手动真实health UP/C0/businessReady=false已验证，截图`docs/testing/evidence/c0-browser.png`，测试进程正常关闭数据源后停止。该SHA不是随后BE/PM文档合入后的最终集成SHA，最终证据由主控登记。
 
@@ -59,7 +59,7 @@ QA正常关闭后同文件库重启只证明对应C0持久化行为，不证明�
 
 | 事项 | 影响及处理 |
 | --- | --- |
-| BE/PM交接待合入，C0状态及最终版本证据待主控核证 | C0维持REVIEW；已有代码实测不替代最终门禁，不把独立角色SHA当作当前集成SHA |
+| C0最终门禁已关闭 | 五角色交接已合入，主控已核证；详见`docs/testing/C0-verification.md`。后续提交仅文档/属性，无运行代码变化 |
 | 业务算法/API/调度/限额/恢复尚未实现 | 后续B1-B4/FE/QA范围；不属于C0缺陷，不报告业务通过 |
 | 服务器、SSH/非root账号、持久目录、域名/TLS或隧道/VPN、访问认证与操作授权缺失 | 仅阻塞DEP2/DEP3相应实机交付；不得借用其他项目资源 |
 | GitHub所属账号/组织、目标仓库、私有性、认证、评审访问及材料发布许可缺失 | 仅阻塞GH远程交付；保留用户资料，不上传原题PDF/密钥/运行数据库 |
@@ -67,3 +67,5 @@ QA正常关闭后同文件库重启只证明对应C0持久化行为，不证明�
 
 外部信息缺失不阻塞本地C0。当前未获远程创建/push、登录、部署、开端口或持久数据恢复/删除授权；后续先准备可审查产物再按用户授权执行。
 
+
+主控最终核证：本轮C0全部DONE，业务里程碑仍TODO。五个工作树在本轮最终文档提交后统一快进主线，后续从该新基线派发。代码实测SHA及文档变更边界见C0集成验收记录；无需把角色历史交接的REVIEW改写为当时已经通过。
