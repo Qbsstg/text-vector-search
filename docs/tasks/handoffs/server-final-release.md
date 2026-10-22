@@ -116,3 +116,24 @@ GC统一日志中Pause且以ms结尾的完成行133条，总886.032ms、最长31
 | perf-sample.py | 1856 | c82bef0f0fbc9738c36ad49b84dd61fd7abc343d542724e051a03ecae7008609 |
 
 另新建root0600归档 `/var/backups/vector-search/perf-search-d016-20261023T0506-resources.tar.gz`，36267bytes，SHA-256 `0795b1ca00cf3fd0c9f70374a8d323535c8f5320eb63261b9969003f58972fc4`，仅含metrics、GC、resource-summary及全文件manifest，供主控安全scp；不含JFR、数据库、env、密码或私钥。没有覆盖已有归档。本次只追加执行记录，git diff --check通过，未重跑Maven/Node；正式D2—D9仍需主控测试/REC07门禁GO，没有启动正式service或改变Nginx。
+
+## 两轮可下载资源包及待审查离线字节核验方案
+
+按主控要求补齐第一轮resource-summary及脱敏startup-stop-metadata JSON，保留原有app/GC/JFR/metrics，新增experiment-file-manifest.json，摘要为 `6e0bf0ef502ebf4aac04b549de94359d346b5f69832be606348096e52039c67a`。启动停止元数据明确第一轮143/failed及未配置预期退出码，不改写历史。新包root拥有且0600，第二包重新只读核验摘要未变：
+
+| 可安全scp绝对路径 | bytes | SHA-256 |
+| --- | --- | --- |
+| /var/backups/vector-search/perf-d016-20261023T0450-resources.tar.gz | 101235 | 0be219a2fb6c5e29e1dc3be2513d8efa4f7f1a9cd01a0e07857cb9248f3f0e24 |
+| /var/backups/vector-search/perf-search-d016-20261023T0506-resources.tar.gz | 36267 | 0795b1ca00cf3fd0c9f70374a8d323535c8f5320eb63261b9969003f58972fc4 |
+
+两包仅metrics/GC/summary/manifest，第一包另含脱敏启动停止JSON；没有数据库或JFR实际内容，也没有env/secret/私钥。manifest仅列原件路径和摘要不等于包含原件。原始库、JAR、JFR、日志继续保留实验目录；正式unit仍inactive，Nginx未变。
+
+### D8完整字节核验替代方案（仅供主控审查，未实现/未执行）
+
+不增加测试API，不同时以第二JVM打开活动库。建议在正式STOP、Hikari完成、永久锁独占且lsof确认H2无占用后，先做已有受控冷复制；验证源/新副本整库文件SHA一致，再仅对新副本执行离线SELECT。如此既能证明停机时原库内容，又避免诊断连接可能在正式目录创建H2边车文件。保持生产原件不变，记录每次副本来源/时间/整库hash。
+
+最小Java诊断工具由主控审查后再实现：使用批准JAR内同版本H2驱动（新受限目录提取，不升级驱动），进程内读取root0600的凭据副本/受限env中DB_PASSWORD，绝不将密码放args、输出或日志。URL显式 `IFEXISTS=TRUE;ACCESS_MODE_DATA=r;DB_CLOSE_ON_EXIT=FALSE`，JDBC再标readOnly，不执行初始化/迁移/写入。只允许主控固定的合成ID前缀参数，以PreparedStatement绑定，排序document_id/task_id；不得直接拼SQL或读取非测试文档。
+
+字段应覆盖documents的ID/channel/submitted_at/invalidated/invalidated_at/hit_count（十进制字符串）/embedding_version/vector_completed_at；对raw_text按固定UTF-8计算SHA-256，vector_bytes以getBytes读取全部1024字节计算SHA-256，null与零向量明确区分，并记录长度。关联embedding_tasks的task_id/status/run_token/attempt_count/embedding_version/submitted_at/started_at/finished_at/error_code及脱敏错误摘要。时间统一UTC ISO，空值保留null，不输出原文/向量原始字节或密码。
+
+建立三份排序快照：正式首次停机冷副本基线、正常重启后的再次冷副本、独立恢复新目录。对已终态合成对象逐字段/完整向量SHA/textSHA比较；pending恢复的token/attempt/time合理变化按任务状态单独解释，不能硬称所有token永不改变。整库文件hash用于证明冷复制一致，因正常运行H2元数据变化不能要求重启后的整库文件hash仍相同；完整行/向量摘要才是跨重启的业务断言。此方案尚未在生产或实验库运行，不把vectorReady或API详情当作完整向量字节验收，后续实现/执行需主控GO。
