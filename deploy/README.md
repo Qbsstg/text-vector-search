@@ -1,6 +1,18 @@
-# C0 部署准备
+# 部署准备：C0模板与DEP2主机基础环境
 
-本目录仅提供待审查模板和只读预检，不表示已经部署。基线：`0f692387577be629d296d3a5fe0ba626072f93b4`，运行/API契约 v1.0。真实服务器、域名、账号、证书和 SSH 信息均未提供；文中路径为建议。当前不执行安装、远程登录、端口调整、服务控制、数据恢复或发布。
+本目录包含C0模板和DEP2基础环境准备记录，不表示应用已经部署。C0基线：`0f692387577be629d296d3a5fe0ba626072f93b4`；DEP2基线：`224bc791b114b1e3a788585dad0ee6baa8c86ad2`，运行/API契约 v1.0。用户已授权配置指定服务器，DEP2实测及变更见下节；域名、TLS与入口认证仍待确定。其他模板路径仍需按真实目标核对。
+
+## DEP2 实测与已准备资源
+
+2026-10-22通过现有本地SSH密钥，以root登录用户指定的 `8.155.137.169:22`。首次用accept-new保存主机公钥，后续连接严格校验。实测Ubuntu **24.04.5 LTS**，覆盖先前20.04的估计；4CPU、7526MiB内存、40G ext4根盘（当次可用35G）。已有Temurin17.0.15+6，无需安装包；未安装Nginx或改变现有云代理/SSH等服务。
+
+准备了 `vector-search` 专用系统用户/组（nologin）、root拥有的 `/opt/vector-search/releases`、服务可写的 `/var/lib/vector-search/db`、root维护的 `/etc/vector-search`、0700的 `/var/backups/vector-search`。真实随机DB密码只生成在服务器 `/etc/vector-search/app.env`（root:vector-search，0640），未输出或保存到仓库。Worker仍为1，不因主机资源较多自动提高并发。
+
+`/etc/systemd/system/vector-search.service` 使用已核实的 `/usr/lib/jvm/jdk-17.0.15+6/bin/java`；已通过 `systemd-analyze verify` 并执行daemon-reload，保持 **disabled / inactive**，NRestarts=0。校验工具另报告既有cloudmonitor unit的KillMode/旧PID路径警告，未修改它。尚无current链接、JAR或应用数据库，8080未监听。
+
+`scripts/prepare-host-dep2.sh` 是本次一次性准备过程的可审查脚本：仅在明确授权的root会话中使用 `--apply-on-authorized-host`。脚本不通过SSH自行选择主机，不安装包、不上传/启动应用、不启用unit；任何已存在项目目录、用户/组或unit都会拒绝，因此**不是可反复重跑的配置管理工具**。中途失败须先盘点已有状态，不得清理后盲目重跑。此脚本绑定当次已验证Java路径，未来JDK改变后需重新审查。
+
+验证了脚本bash语法、help/缺少执行标志拒绝分支、远端首次执行及第二次因已有目录拒绝覆盖。以专用账号只读检查数据/配置可访问，release及配置不可写；没有写探针或读取现有数据库。完整命令结果与边界见 `docs/tasks/handoffs/server-dep2.md`。
 
 ## 冻结契约
 
@@ -47,4 +59,4 @@ bash deploy/scripts/preflight.sh \
 5. 至少一次备份恢复到独立路径/端口验证可读，不能仅验证文件存在。恢复/删除持久数据须另获明确授权，禁止静默覆盖。
 6. 回滚前核对旧程序与新schema、H2、算法版本兼容性；兼容才回切程序。不兼容时不能只切current。恢复旧备份会丢弃备份后写入，必须列明影响并由主控确认具体恢复操作。
 
-真实主机检查、systemd验证、Nginx/TLS/认证验证、业务冒烟、正常关闭/崩溃恢复、备份恢复均未执行。没有服务器信息只阻塞外部交付，不阻塞本地C0模板审查。
+DEP2已完成基础主机检查和unit静态校验；应用启动、Nginx/TLS/认证、业务冒烟、正常关闭/崩溃恢复、备份恢复均未执行。外部入口与正式发布仍待后续方案和相应授权，不以基础环境准备代替上线验收。
