@@ -194,3 +194,33 @@ JDK17 javac编译成功。本次全新 `/private/tmp/12times-cold-snapshot-om_47
 本次源/冷副本数据库SHA256为a9a8a7c8b3b4e07e40b3020469b508fce8cf2774e660d8f9d87da34fb08629f1；两份JSONL同为da0d3b4816add3c4d7c7721884526dd487a7fa35c202f55c55207922abfc39d9，仅对应这次合成夹具，不作为生产预期摘要。
 
 本地夹具/class/驱动/输出留专用tmp目录，不在仓库；git diff --check通过。未运行Maven/Node，未在正式Linux或生产数据执行；不把本地工具通过当成D8生产/重启/恢复验收。后续需主控GO及合成ID采用固定前缀，在基线冷副本、重启后冷副本、独立恢复新目录逐字段/完整vector SHA比对；生产源码/JAR改变须重新审查工具固定版本与用户批准，不能绕过。
+
+## D2独立范围GO：固定包预置完成，未激活业务
+
+主控另行下达仅D2不可变包预置GO，可在REC07待用户裁决期间执行，不含D3—D9或正式业务启用。以下新结果更新“D2未执行”状态为**仅预置完成**，不覆盖此前等待门禁的真实历史。D1配置备份、三轮实验和生产数据均保留。
+
+**2026-10-23 06:15:00 CST +0800**先只读核对root@8.155.137.169（原hostkey严格校验）、hostname与Ubuntu24.04.5；正式service inactive/dead/disabled、MainPID0/NRestarts0，8080无监听；current与固定目标目录均不存在，releases根仍root:root0755，无覆盖冲突。
+
+源为主控指定本地 `.cache/delivery/d016d6e8bb431ff17ba81f8977d31a1b96f51f7f` 三个普通文件。本地先执行 `bash deploy/scripts/verify-release.sh` 六参数：批准完整source SHA、独立批准JAR SHA、schema SHA54758965a66d42092da6049ed67a3043d57b1542705f38198975c424fed3d69d、manifest/JAR/SUM路径，成功。manifest核ciRunId39838054946、sizeBytes27309072、Java17、冻结算法版本及UTC时间；主控源码/CI历史不因此重写。
+
+### 第一次传输安全拒绝与保留现场
+
+创建同父新目录 `/opt/vector-search/releases/.incoming-d016-20261023T061500`，root受限接收。macOS tar传输虽然三个文件摘要一致并通过远端六参校验，却额外生成 `._app.jar`、`._release-manifest.json`、`._SHA256SUMS` 各163bytes，并提示LIBARCHIVE.xattr.com.apple.provenance被忽略。**精确三文件白名单断言在权限变更/原子落位前拒绝**，未创建固定目标，不把首次步骤写为成功。
+
+已向主控报告并获得相同D2范围的安全修正确认；原暂存现场完整保留，未删除AppleDouble文件、未改本地源文件、未放宽白名单或覆盖目标。其三文件root0600，目录root:vector-search0750，不参与current或应用运行。
+
+### 第二次三文件直传、核验与原子落位
+
+另建同父 `/opt/vector-search/releases/.incoming-d016-20261023T061620-plain`，逐个通过SSH stdin和noclobber接收app.jar、release-manifest.json、SHA256SUMS，不再使用tar/xattr。远端以同一六参数脚本经stdin只读执行重新核验，退出0；再核精确文件集合、普通文件/非链接/单硬链接、CI39838054946、批准source/JAR/schema、27309072字节及两个SUM，全部匹配。
+
+三文件封存root:vector-search0440、目录root:vector-search0550。调用Linux `renameat2(..., RENAME_NOREPLACE)` 从同父plain暂存原子改名为 `/opt/vector-search/releases/d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`，目标若在检查后出现也必定失败，不会覆盖或嵌套移动；本次成功。没有修改releases父目录权限，服务账号逐文件test可读且不可写。
+
+| 固定目录内文件 | bytes | 本地与远端SHA-256 |
+| --- | --- | --- |
+| app.jar | 27309072 | 64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50 |
+| release-manifest.json | 481 | 5e7b06bae4a2829f788590889c1e519a2bb6118dd006e05e17381596184071ea |
+| SHA256SUMS | 162 | 1727577ca90a0bb877060c818f172bc4794747ee9d451c07a90e2cb03120c1c8 |
+
+**06:17:35 CST +0800**最后复核：current仍不存在，正式vector-search.service inactive/dead/disabled、MainPID0、NRestarts0，8080无监听。未创建/修改认证或env，未安装或启用unit、未start/enable/restart应用、未改/加载Nginx，未打开生产H2或建立实验。此结果是批准包**已预置、未激活**，不是正式已发布；D3—D9仍等待用户REC07裁决/主控GO。
+
+回退策略仅维持不激活并保留固定包与暂存诊断，不删包、不清理数据、不创建current或伪造旧版回滚。本次仅追加本角色交接，git diff --check通过，未编译或重跑Maven/Node，未修改其他角色/主控树或公共规范。
