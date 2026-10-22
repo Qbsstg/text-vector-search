@@ -44,6 +44,8 @@ jobs:
       - name: 显式执行隔离组件性能与锁超时恢复探针
         run: |
           python3 -m py_compile docs/testing/final-release-perf-client.py
+          mkdir -p target/queue-observer-classes
+          javac --release 17 -encoding UTF-8 -d target/queue-observer-classes deploy/scripts/QueueReadOnlyAgent.java
           python3 - <<'PY'
           from pathlib import Path
           import subprocess
