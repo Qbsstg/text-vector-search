@@ -172,3 +172,25 @@ Java17编译成功（Unsafe内部API及待删除警告如实保留，仅固定JD
 | experiment-file-manifest.json | 105269e8282fe907517216ddfe70c7a2a43f84fcc86c73bd538ac664f1ecd0b2 |
 
 可安全scp的root0600归档 `/var/backups/vector-search/perf-queue-d016-20261022T213513Z-resources.tar.gz`，34037bytes，SHA-256 `6ec7b6f4be90251cdd5d06fb4a4daaedd60a3a05e61e5f0ce104f9dda278573d`，只含queue/proc/GC/summary/源码和JAR摘要/停止元数据/manifest，不含DB、JFR实际内容、env或secret。未覆盖已有文件；全部实验已停止，不再创建实验。正式D2—D9仍等待REC07用户裁决/CI和主控GO；本次文档git diff --check通过，未重跑Maven/Node。
+
+## D8冷副本完整字节核验工具（仅本地准备）
+
+按主控另行指令实现 `deploy/scripts/ColdSnapshot.java`，没有访问服务器或生产库。工具固定批准d016源码/JAR、合成ID前缀 **FINAL-RELEASE-**，只允许专用restore-check/cold-snapshot目录或本地专用tmp/copy夹具；canonical生产db路径及其后代、符号链接、非规范路径一律拒绝。副本目录须0500，数据库和marker须0400，目录只能有knowledge.mv.db与cold-snapshot.properties，不接受锁/未知附件。前置冷复制仍必须正式STOP/Hikari完成、永久锁独占和lsof确认，不把marker视为授权。
+
+marker为Properties文本，必须逐项匹配：purpose=vector-search-cold-snapshot-v1、sourceSha=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f、jarSha256=64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50、syntheticPrefix=FINAL-RELEASE-、copyDirectory=该副本canonical绝对路径、databaseSha256=整库冷复制后已核验摘要。marker只在新副本中准备后封存，不能对生产原件制造标识以绕过路径门禁。
+
+从再次核验64bc固定候选中提取H2 **2.4.240**（SHA256 **29b70e427cc1c40cdc376283adbb0cc62853073797bb5fe5761f81fe73d57ce0**），临时编译/运行，不将驱动/class/JAR入Git。工具在连接前同时校验驱动VERSION和实际驱动JAR摘要，不接受同名不同字节驱动；不存在依赖、路径、凭据或标识不符均拒绝，不自动初始化空库。
+
+调用仅提供副本目录和受限env文件路径，例如 `java -cp 临时classes:批准H2.jar ColdSnapshot 全新冷副本目录 受限env文件路径`，参数不含密码/SQL/JDBC URL。凭据只在进程内读取DB_PASSWORD，禁止重复配置、空密码、全局可读/可写和group写权限；兼容本项目安全生成的字母数字/下划线/横杠格式，不source脚本、不打印内容。失败仅输出异常类名，不输出JDBC消息/堆栈或半份成功快照。正式Linux执行应root以完整核验lsof可见性，不将Mac进程可见性当所有平台证明。
+
+连接前用有界lsof对副本主文件检查，任何匹配或诊断/异常退出均拒绝；连接URL强制 `IFEXISTS=TRUE;ACCESS_MODE_DATA=r;DB_CLOSE_ON_EXIT=FALSE` 并调用JDBC readOnly。仅PreparedStatement绑定固定前缀的SELECT，排序document_id/task_id，无DDL/迁移/写SQL。输出JSONL含document/task版本、token、attempt、UTC时间、十进制字符串hit_count/attempt_count、失效、完整1024字节vector SHA（null/零向量区分）、UTF-8原文SHA、脱敏错误消息SHA；不输出原文或向量原始字节。连接关闭且整库摘要再次一致后才输出成功行。
+
+### 真实本地验证与限制
+
+JDK17 javac编译成功。本次全新 `/private/tmp/12times-cold-snapshot-om_474sp` 内创建真实H2源库和两份封存copyA/copyB，临时凭据0600且值不输出；测试使用现有schema.sql初始化**夹具源库**，快照工具本身从不初始化。夹具包含普通1024字节向量、1024零字节、null向量FAILED、失效SUCCEEDED、Unicode/换行原文、9007199254740993起的长计数、token/attempt/UTC时间，另有非合成前缀对象必须排除。
+
+两份冷副本均成功输出4行、JSONL逐字相同；以独立Python hashlib核验完整vector/text SHA、零/null、计数精度、token/time/失效/FAILED字段；源与两副本在连接前后SHA均未变。未封存目录、marker版本错误、整库hash不符、宽权限凭据、锁附件、符号链接目录均真实拒绝。另启动**真实独立只读H2子JVM**，以stdout READY事件确认连接已建立（无sleep猜测），lsof确实匹配该PID，工具以IllegalStateException在连接前拒绝且无stdout；正常关闭子JVM后同副本快照成功，文件hash仍不变。
+
+本次源/冷副本数据库SHA256为a9a8a7c8b3b4e07e40b3020469b508fce8cf2774e660d8f9d87da34fb08629f1；两份JSONL同为da0d3b4816add3c4d7c7721884526dd487a7fa35c202f55c55207922abfc39d9，仅对应这次合成夹具，不作为生产预期摘要。
+
+本地夹具/class/驱动/输出留专用tmp目录，不在仓库；git diff --check通过。未运行Maven/Node，未在正式Linux或生产数据执行；不把本地工具通过当成D8生产/重启/恢复验收。后续需主控GO及合成ID采用固定前缀，在基线冷副本、重启后冷副本、独立恢复新目录逐字段/完整vector SHA比对；生产源码/JAR改变须重新审查工具固定版本与用户批准，不能绕过。
