@@ -1,0 +1,78 @@
+{
+  "基线": "da5867a5ecdb5ae4705e3643e3e96298b9bd7574",
+  "生产包仍为": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "来源": "QA独立树真实Java17 Failsafe；新增源码尚未提交时执行",
+  "总数": {
+    "tests": "12",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "5.512"
+  },
+  "逐方法": [
+    {
+      "name": "原始过滤数学夹具先过滤再返回零负分",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.811"
+    },
+    {
+      "name": "十六篇合成文档真实HTTP闭环及增量向量不变",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.404"
+    },
+    {
+      "name": "六组余弦与五组TopK原始数学夹具逐条断言",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.002"
+    },
+    {
+      "name": "受控任务失败可查且后续任务继续成功",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.217"
+    },
+    {
+      "name": "真实HTTP在计算暂停时已返回接收且不可搜索",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.206"
+    },
+    {
+      "name": "八组语言关系记录真实Java分数不预设语义高低",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.105"
+    },
+    {
+      "name": "数学向量经真实H2往返保持每个原始位",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.098"
+    },
+    {
+      "name": "旧版本成功文档真实HTTP过滤诊断不混算",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.364"
+    },
+    {
+      "name": "四组工程等价对按位一致且各自原文真实落库",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.554"
+    },
+    {
+      "name": "无效存储路径启动失败且不偷偷换空库",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "1.059"
+    },
+    {
+      "name": "十四条请求夹具按已冻结协议逐条真实HTTP验证",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.186"
+    },
+    {
+      "name": "四态文件库重启只恢复未完成任务",
+      "classname": "dev.twelvetimes.vector.acceptance.LocalCasesIT",
+      "time": "0.376"
+    }
+  ],
+  "原始报告": "target/failsafe-reports/TEST-dev.twelvetimes.vector.acceptance.LocalCasesIT.xml",
+  "原始报告SHA256": "6a9d5c93d374546dec5c8a7be03e933bc072cfc955f0ecf30b75303e88545544",
+  "原始日志": "/private/tmp/12times-local-cases-run-final.log",
+  "原始日志SHA256": "ec9014154decf9640207ae9d1c1d2666ca48a5cd5f0a065a52d2c456302a08f2"
+}

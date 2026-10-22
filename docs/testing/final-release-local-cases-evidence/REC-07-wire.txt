@@ -1,0 +1,6 @@
+GET /health HTTP200
+{"status":"UP","stage":"B4","businessReady":true,"taskReady":true,"taskState":"READY","embeddingVersion":"char12-sha256-r33-nfkc-root-ws-v1","checks":{"searchReady":true,"dispatcherReady":true,"databaseWritable":true,"routesReady":true,"algorithmReady":true,"databaseReady":true}}
+POST /api/search HTTP200
+{"hits":[]}
+旧数据详情HTTP200
+{"documentId":"OLD","channel":"version","taskId":"49f34174-99ee-4642-ade5-5d2ad57f19e3","taskStatus":"SUCCEEDED","vectorReady":true,"invalidated":false,"submittedAt":"2026-10-22T20:50:46.933968Z","vectorCompletedAt":"2026-10-22T20:50:46.986816Z","invalidatedAt":null,"hitCount":"1","text":"版本诊断合成文本"}

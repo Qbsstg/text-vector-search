@@ -1,0 +1,105 @@
+{
+  "documents": [
+    {
+      "documentId": "D-001",
+      "text": "共享充电宝押金退款规则",
+      "channel": "faq"
+    },
+    {
+      "documentId": "D-002",
+      "text": "共享充电宝押金退款规则",
+      "channel": "faq"
+    },
+    {
+      "documentId": "D-003",
+      "text": "共享充电宝押金退还操作说明",
+      "channel": "faq"
+    },
+    {
+      "documentId": "D-004",
+      "text": "设备离线故障排查方法",
+      "channel": "operation"
+    },
+    {
+      "documentId": "D-005",
+      "text": "ERR_504：网关响应超时，检查上游连接。",
+      "channel": "tech"
+    },
+    {
+      "documentId": "D-006",
+      "text": "",
+      "channel": "faq"
+    },
+    {
+      "documentId": "D-007",
+      "text": " \t\n "
+    },
+    {
+      "documentId": "D-008",
+      "text": "JAVA 后端开发",
+      "channel": "tech"
+    },
+    {
+      "documentId": "D-009",
+      "text": "ＪＡＶＡ　后端开发",
+      "channel": "tech"
+    },
+    {
+      "documentId": "D-010",
+      "text": "向量检索😀组合字符é",
+      "channel": "tech"
+    },
+    {
+      "documentId": "D-011",
+      "text": "订单退款可以申请。",
+      "channel": "faq"
+    },
+    {
+      "documentId": "D-012",
+      "text": "订单退款不可以申请。",
+      "channel": "faq"
+    },
+    {
+      "documentId": "D-013",
+      "text": "<script>window.__kb_test_marker=true</script> 这段原文必须作为文本显示。",
+      "channel": "test"
+    },
+    {
+      "documentId": "D-014",
+      "text": "今天阳光明媚，适合去公园散步。",
+      "channel": "misc"
+    },
+    {
+      "documentId": "D-015",
+      "text": "用户可以重置登录密码",
+      "channel": "tech"
+    },
+    {
+      "documentId": "D-016",
+      "text": "忘记密码要怎么处理",
+      "channel": "faq"
+    }
+  ],
+  "exampleQueries": [
+    {
+      "text": "充电宝押金退款",
+      "topK": 2,
+      "channel": "faq"
+    },
+    {
+      "text": "",
+      "topK": 3
+    },
+    {
+      "text": "设备离线",
+      "topK": 3,
+      "channel": "operation"
+    },
+    {
+      "text": "退款",
+      "topK": 3,
+      "channel": "does-not-exist"
+    }
+  ],
+  "sourceSha256": "cc7de2b2c37a8ae3b611d9227260cac6b79cbd98a399668c096154d64d24786a"
+}
