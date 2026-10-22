@@ -75,3 +75,11 @@
 随后获主控授权只建立第二轮全新目录 `/var/lib/vector-search/perf-search-d016-20261023T0506`，从第一实验已校验JAR复制代码与采样脚本，不复制或清空数据库。新JAR再次sha256sum等于批准64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50。瞬态unit `vector-search-perf-search-d016-20261023.service`、PID **7877**，vector-search用户、独立data、原冻结参数/堆/GC/JFR、8085回环、1小时保护；新采样unit同名-sampler。约06:05:46到达上限，结束后仍须核对实际状态/日志。
 
 05:05:55第一次健康探测发生监听前curl000，没有假记READY或业务重试；05:06:16复核health200、businessReady=true，ss确认PID7877仅回环8085，已通知主控可继续同一SSH转发的第二轮N100/1000/5000、K1/10/100、混合与热点压测。生产unit/current/Nginx/正式DB、D1备份均未改变，正式D2—D9仍等待主控GO。此次仅追加真实记录，无Java/脚本行为变更，git diff --check通过；未重跑Maven/Node。
+
+### SIGTERM退出码配置复核
+
+主控收到第一轮143/failed真实记录后授权部署模板最小调整。只读 `systemctl show ... -p SuccessExitStatus -p MainPID -p ActiveState` 确认实际正式unit与第二实验unit的SuccessExitStatus均为空，第二轮PID7877仍active，正式PID0/inactive。
+
+仅在本地systemd示例新增 `SuccessExitStatus=143`，解释Java在Spring/Hikari优雅关闭后可能以143退出；其他错误仍按失败处理，不改变JAR、线程/容量/等待参数，也不把143单独当作数据库已干净关闭的证明。正式D4必须安装后执行systemd-analyze verify并真实stop核实unit非failed、Hikari完成及进程退出。本地无systemd，当前不把静态文本修改标为Linux验证通过。
+
+已向主控提出第二轮的具体方案：新建仅本实验的/run/systemd/system下SuccessExitStatus143 drop-in，verify后daemon-reload，运行JVM不restart、PID不变、DB不动。此时方案尚未执行；第一轮failed原始状态/证据保持，不重置或覆盖历史。该问题首先属于实验unit的退出状态策略，不据此宣称业务生命周期缺陷。
