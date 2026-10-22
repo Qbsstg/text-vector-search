@@ -40,8 +40,12 @@ MAVEN_USER_HOME=/private/tmp/12times-maven-user-home \
 
 ## 外部交付状态与边界
 
-私有仓库`Qbsstg/text-vector-search`已创建并完成初次真实Git历史推送，private经连接器与CLI核对。最小CI固定官方Action完整SHA，在Temurin17.0.15执行clean verify并保存测试报告；当前B1最终远程SHA/CI结论由收尾时核证，不以本地通过代替远程通过。
+私有仓库`Qbsstg/text-vector-search`已创建并推送完整B1及真实Git历史，private经连接器与CLI核对。远程main已核对为`de576934167049ca4104567b8773b69a942f411a`，随后仅补充文档记录。
+
+最小CI固定官方Action完整SHA。[B1 CI运行39796113841](https://github.com/Qbsstg/text-vector-search/actions/runs/39796113841)对应该提交，verify任务`119883663996`于22:30:23 +08:00完成，状态completed、结论success，全部步骤成功。主控已下载其`test-reports-de576934167049ca4104567b8773b69a942f411a`产物逐份解析：Surefire29、Failsafe22，失败/错误/跳过均0。XML实测环境为Eclipse Adoptium17.0.15、Linux/amd64，证实本轮固定黄金在本机macOS/arm64及CI Linux/amd64均通过。核对时工作流汇总元数据尚在收尾，不将任务状态和汇总状态混称；没有只根据本地结果判断远程通过。
 
 服务器基础准备见`docs/tasks/handoffs/server-dep2.md`。主控另用严格主机校验SSH复核：unit loaded/disabled/inactive/dead、NRestarts=0；db目录0700、env0640、backup0700、unit0644；无current发布链接，8080无监听。未读取env内容。
 
-未验证其他JDK/平台、算法相关性准确率或性能；未执行B2-B4事务/任务/命中/强杀恢复、全量UI或应用服务器发布。正常进程向量一致性不等于业务崩溃恢复。
+未验证上述两环境之外的JDK/平台、算法相关性准确率或性能；未执行B2-B4事务/任务/命中/强杀恢复、全量UI或应用服务器发布。正常进程向量一致性不等于业务崩溃恢复。
+
+执行期间用户新放入`docs/测试工作/`资料包。已快速核对其算法验收边界，原文件保留未提交；其中70条用例并未由本轮逐项执行，不能与51项实际JUnit测试数量混算。

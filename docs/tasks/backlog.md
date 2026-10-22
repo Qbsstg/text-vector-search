@@ -13,7 +13,8 @@ REVIEW表示角色产物/证据待主控最终核证；角色分支通过不等�
 | QA1-B1 | 测试 | DONE | 独立黄金、跨JVM、并发和全排序参考已合入，主控51项总回归通过；B2+验收另行派发 |
 | DEP2基础准备 | 服务器 | DONE | 3f0ef5c已合入，主控独立SSH复核账号/目录权限、unit disabled/inactive；没有启动应用、上传JAR或开放公网 |
 | GH1创建/首推 | 主控 | DONE | [text-vector-search](https://github.com/Qbsstg/text-vector-search)已创建，C0+CI main 0a78eef已推送，private双重复核；继续保持私有 |
-| GH2最终B1推送/CI | 主控 | IN_PROGRESS | 本地最终51项回归已通过，收尾提交后推送并核对远程SHA/private及对应CI终态；不把本地测试冒充远程通过 |
+| GH2最终B1推送 | 主控 | DONE | 远程main de57693与本地核对一致，仓库保持private；后续仅补文档记录 |
+| GH3 B1 CI验证任务 | 主控 | DONE | run39796113841的verify任务completed/success，下载报告29 unit+22 IT全通过；工作流汇总状态核对时仍在收尾，详见B1-verification |
 | PM-B1 | 项目管理 | DONE | 六份角色/任务文档已审查合入，主控核证B1本地门禁；未代主控执行外部变更 |
 
 服务器实测为Ubuntu24.04.5 LTS、4 CPU、7526MiB内存、40G磁盘、Temurin17.0.15+6，覆盖用户先前20.04估计；底层SSD介质未从OS证明。项目专用账号/持久目录/env/unit已准备，凭据不入库，unit保持disabled/inactive；现有服务、SSH和防火墙保留。依据[DEP2交接](handoffs/server-dep2.md)及主控独立复核。
