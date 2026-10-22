@@ -1,0 +1,33 @@
+# TEMPLATE ONLY: replace @SERVICE_USER@, @SERVICE_GROUP@ and @JAVA17@.
+# Paths are proposed, not evidence that these resources exist.
+[Unit]
+Description=Vector search single-instance application
+After=network.target
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_GROUP@
+WorkingDirectory=/var/lib/vector-search
+EnvironmentFile=/etc/vector-search/app.env
+ExecStart=@JAVA17@ -Xms256m -Xmx1024m -jar /opt/vector-search/current/app.jar
+Restart=on-failure
+RestartSec=10
+KillSignal=SIGTERM
+# 120s is a provisional outer budget, not a measured shutdown guarantee.
+# Spring's 45s is per phase; re-evaluate against actual lifecycle phases.
+TimeoutStopSec=120s
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/vector-search/db
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=vector-search
+
+[Install]
+WantedBy=multi-user.target
