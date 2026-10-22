@@ -1,0 +1,2 @@
+sourceSHA=8fd97e17f6907686d1a206ce512834ffd87d9703;tests=本轮测试工作树
+物理提交=false;sqlCalls=1;hitCount=0;state=DEGRADED

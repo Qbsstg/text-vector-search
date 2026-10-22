@@ -1,0 +1,3 @@
+sourceSHA=8fd97e17f6907686d1a206ce512834ffd87d9703;jarSHA256=93b54533668869661d85cb48bc2fa7b3e12583224d564e38ce8d2ad6e58dd927;runId=1c8318f7bff54274a0abf03ec4603b73
+systemctl为仅此进程PATH内的inactive测试shim；不证明真实systemd停止/启动或服务器部署
+真实JAR已就绪：pid=5146;port=44969;mode=original

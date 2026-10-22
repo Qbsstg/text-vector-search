@@ -1,0 +1,2 @@
+sourceSHA=8fd97e17f6907686d1a206ce512834ffd87d9703;tests=本轮测试工作树
+databaseSHA256=25b4b8dcc3b3cb5964e86a64a99cbc2d92272dca3264aa7ccdf4d29773a50fa5;sourcePreserved=true;backupPreserved=true;keptHitCount=2;invalidHitCount=1;invalidatedAt=2026-10-22T18:41:22.049288Z
