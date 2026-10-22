@@ -1,6 +1,14 @@
 # 部署准备：C0模板与DEP2主机基础环境
 
-本目录包含C0模板和DEP2基础环境准备记录，不表示应用已经部署。C0基线：`0f692387577be629d296d3a5fe0ba626072f93b4`；DEP2基线：`224bc791b114b1e3a788585dad0ee6baa8c86ad2`，运行/API契约 v1.0。用户已授权配置指定服务器，DEP2实测及变更见下节；域名、TLS与入口认证仍待确定。其他模板路径仍需按真实目标核对。
+本目录包含C0模板和DEP2基础环境准备记录，不表示应用已经部署。C0基线：`0f692387577be629d296d3a5fe0ba626072f93b4`；DEP2基线：`224bc791b114b1e3a788585dad0ee6baa8c86ad2`，运行/API契约 v1.0。用户已授权配置指定服务器，最新域名及TLS检查见下节；真实入口认证与业务发布仍待完成。其他模板路径仍需按真实目标核对。
+
+## 当前TLS检查与新域名
+
+最新域名为 `text-vector-search.lemoncharger.com`；旧多级域名仅保留历史HTTP检查。2026-10-23已核验用户证书ZIP：证书在有效期内、SAN覆盖新域名、私钥匹配、系统信任链验证通过。仅叶证书和中间证书提供给客户端，不发送根证书。材料仅存服务器 `/etc/vector-search/tls/20261023`（目录root0700、文件0600），本地本次临时解压副本已清理；原ZIP未修改，仓库不含证书或私钥。
+
+`nginx/vector-search-tls-preparation.conf` 已启用：新域名80/443仅GET/HEAD `/deployment-check`返回固定 `stage=tls-preparation`。其他路径404，其他方法405，未知SNI拒握手；没有业务代理。正常DNS和`--resolve`公网访问均通过系统信任验证，API拒绝验证通过。后端仍disabled/inactive，UFW未改，云安全组审查仍需用户人工确认。
+
+`nginx/vector-search-business.conf.example`仅为待启用模板，服务器sites-available有副本，未链接到sites-enabled；单独`nginx -t`成功不代表业务联调成功。模板在页面/API统一Basic Auth下覆盖转发头并清除客户端Forwarded与入口Authorization；未来应用只应信任回环Nginx代理。实际Origin兼容性由主控/QA先复现再决定调整，不直接信任任意客户端转发头。没有生成真实入口密码、启动应用或开放真实API。证书公开元数据、命令、回滚和未执行项见 `docs/tasks/handoffs/server-ssl-prep.md`。
 
 ## DEP2 实测与已准备资源
 
@@ -42,7 +50,7 @@ bash deploy/scripts/preflight.sh \
 
 可选 `--previous-pid PID` 检查指定旧进程是否已退出。端口检查依赖本机 `lsof` 或 `ss`，不会自行安装。脚本访问检查不写探针文件，不能证明配额/挂载空间充足。lsof受账号可见性影响；无监听也不能证明没有尚未监听的JVM占用H2。发布操作者仍需核对服务状态、完整进程身份、解析后的数据路径、磁盘和文件锁；不要通过删除锁文件“修复”。预检通过不能触发自动发布。
 
-## Nginx网络准备（证书前阶段）
+## Nginx网络准备（旧域名证书前历史阶段）
 
 已安装Nginx 1.24.0，为 `text.vector.search.lemoncharger.com` 配置独立HTTP站点；仓库配置为 `nginx/vector-search-http-preparation.conf`，服务器位于 `/etc/nginx/sites-available/vector-search-http-preparation`，同名链接置于 `sites-enabled`。仅精确 `/deployment-check` 的GET/HEAD返回 `stage=network-preparation`；其余方法、路径或Host拒绝，不含任何后端代理。当前Nginx active但未enable开机启动，后端unit继续disabled/inactive。
 
@@ -65,4 +73,4 @@ bash deploy/scripts/preflight.sh \
 5. 至少一次备份恢复到独立路径/端口验证可读，不能仅验证文件存在。恢复/删除持久数据须另获明确授权，禁止静默覆盖。
 6. 回滚前核对旧程序与新schema、H2、算法版本兼容性；兼容才回切程序。不兼容时不能只切current。恢复旧备份会丢弃备份后写入，必须列明影响并由主控确认具体恢复操作。
 
-DEP2已完成基础主机检查和unit静态校验，Nginx已完成证书前固定HTTP检查与拒绝规则验证；应用启动、TLS/认证、业务冒烟、正常关闭/崩溃恢复、备份恢复均未执行。正式业务入口与发布仍待后续方案和相应授权，不以基础环境准备代替上线验收。
+DEP2已完成基础主机检查和unit静态校验，Nginx已完成固定HTTP/TLS检查与拒绝规则验证；应用启动、真实入口认证、业务代理/冒烟、正常关闭/崩溃恢复、备份恢复均未执行。正式业务入口与发布仍待后续方案和相应授权，不以基础环境准备代替上线验收。
