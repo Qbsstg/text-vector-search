@@ -1,0 +1,1111 @@
+{
+  "mode" : "COMPONENT_MICROBENCHMARK_NOT_HTTP_TRACE",
+  "startedAt" : "2026-10-22T20:53:58.408762Z",
+  "java" : "17.0.15+6",
+  "os" : "Mac OS X aarch64",
+  "processors" : 10,
+  "isolatedDataRoot" : "/var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/12times-local-components-14193235276494266344",
+  "scope" : "真实B1/真实H2/当前组件；预构造合成成功文档；评分含解码并物化；无HTTP、CPU/RSS/GC或SLA结论",
+  "stages" : [ {
+    "n" : 100,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 457500,
+    "candidateLoadNs" : 2739000,
+    "decodeScoreMaterializeNs" : 389083,
+    "topKNs" : 36708,
+    "countIncludingCommitNs" : 647875,
+    "componentWallNs" : 4270166
+  }, {
+    "n" : 100,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 340250,
+    "candidateLoadNs" : 3157041,
+    "decodeScoreMaterializeNs" : 384000,
+    "topKNs" : 43875,
+    "countIncludingCommitNs" : 773292,
+    "componentWallNs" : 4698458
+  }, {
+    "n" : 100,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 219000,
+    "candidateLoadNs" : 2754083,
+    "decodeScoreMaterializeNs" : 368334,
+    "topKNs" : 31958,
+    "countIncludingCommitNs" : 858708,
+    "componentWallNs" : 4232083
+  }, {
+    "n" : 100,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 183666,
+    "candidateLoadNs" : 2886167,
+    "decodeScoreMaterializeNs" : 398125,
+    "topKNs" : 64833,
+    "countIncludingCommitNs" : 2064042,
+    "componentWallNs" : 5596833
+  }, {
+    "n" : 100,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 173500,
+    "candidateLoadNs" : 1336291,
+    "decodeScoreMaterializeNs" : 350334,
+    "topKNs" : 30541,
+    "countIncludingCommitNs" : 1600167,
+    "componentWallNs" : 3490833
+  }, {
+    "n" : 100,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 277166,
+    "candidateLoadNs" : 1800459,
+    "decodeScoreMaterializeNs" : 356000,
+    "topKNs" : 25791,
+    "countIncludingCommitNs" : 8157125,
+    "componentWallNs" : 10616541
+  }, {
+    "n" : 100,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 171916,
+    "candidateLoadNs" : 1479292,
+    "decodeScoreMaterializeNs" : 87292,
+    "topKNs" : 91791,
+    "countIncludingCommitNs" : 7889834,
+    "componentWallNs" : 9720125
+  }, {
+    "n" : 100,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 171833,
+    "candidateLoadNs" : 1153083,
+    "decodeScoreMaterializeNs" : 82584,
+    "topKNs" : 97041,
+    "countIncludingCommitNs" : 8936292,
+    "componentWallNs" : 10440833
+  }, {
+    "n" : 100,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 207834,
+    "candidateLoadNs" : 1315916,
+    "decodeScoreMaterializeNs" : 216125,
+    "topKNs" : 231875,
+    "countIncludingCommitNs" : 7624834,
+    "componentWallNs" : 9596584
+  }, {
+    "n" : 1000,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 344834,
+    "candidateLoadNs" : 5358958,
+    "decodeScoreMaterializeNs" : 862333,
+    "topKNs" : 84250,
+    "countIncludingCommitNs" : 491334,
+    "componentWallNs" : 7141709
+  }, {
+    "n" : 1000,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 206125,
+    "candidateLoadNs" : 3960375,
+    "decodeScoreMaterializeNs" : 848250,
+    "topKNs" : 81875,
+    "countIncludingCommitNs" : 512750,
+    "componentWallNs" : 5609375
+  }, {
+    "n" : 1000,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 142417,
+    "candidateLoadNs" : 7195125,
+    "decodeScoreMaterializeNs" : 843583,
+    "topKNs" : 81625,
+    "countIncludingCommitNs" : 537959,
+    "componentWallNs" : 8800709
+  }, {
+    "n" : 1000,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 149000,
+    "candidateLoadNs" : 4080959,
+    "decodeScoreMaterializeNs" : 864750,
+    "topKNs" : 102708,
+    "countIncludingCommitNs" : 1281917,
+    "componentWallNs" : 6479334
+  }, {
+    "n" : 1000,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 153709,
+    "candidateLoadNs" : 3819583,
+    "decodeScoreMaterializeNs" : 853250,
+    "topKNs" : 91000,
+    "countIncludingCommitNs" : 970250,
+    "componentWallNs" : 5887792
+  }, {
+    "n" : 1000,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 147750,
+    "candidateLoadNs" : 4142959,
+    "decodeScoreMaterializeNs" : 974750,
+    "topKNs" : 120208,
+    "countIncludingCommitNs" : 1535042,
+    "componentWallNs" : 6920709
+  }, {
+    "n" : 1000,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 161417,
+    "candidateLoadNs" : 4045417,
+    "decodeScoreMaterializeNs" : 1071625,
+    "topKNs" : 186125,
+    "countIncludingCommitNs" : 3937083,
+    "componentWallNs" : 9401667
+  }, {
+    "n" : 1000,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 168708,
+    "candidateLoadNs" : 3988542,
+    "decodeScoreMaterializeNs" : 932791,
+    "topKNs" : 178084,
+    "countIncludingCommitNs" : 3443500,
+    "componentWallNs" : 8711625
+  }, {
+    "n" : 1000,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 165542,
+    "candidateLoadNs" : 4370167,
+    "decodeScoreMaterializeNs" : 831500,
+    "topKNs" : 174750,
+    "countIncludingCommitNs" : 3027458,
+    "componentWallNs" : 8569417
+  }, {
+    "n" : 5000,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 158584,
+    "candidateLoadNs" : 19034541,
+    "decodeScoreMaterializeNs" : 3936625,
+    "topKNs" : 615792,
+    "countIncludingCommitNs" : 707125,
+    "componentWallNs" : 24452667
+  }, {
+    "n" : 5000,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 164333,
+    "candidateLoadNs" : 19895750,
+    "decodeScoreMaterializeNs" : 3428792,
+    "topKNs" : 694375,
+    "countIncludingCommitNs" : 583375,
+    "componentWallNs" : 24766625
+  }, {
+    "n" : 5000,
+    "k" : 1,
+    "warmup" : false,
+    "queryEmbeddingNs" : 635333,
+    "candidateLoadNs" : 21709583,
+    "decodeScoreMaterializeNs" : 3469417,
+    "topKNs" : 580417,
+    "countIncludingCommitNs" : 562750,
+    "componentWallNs" : 26957500
+  }, {
+    "n" : 5000,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 167333,
+    "candidateLoadNs" : 15772375,
+    "decodeScoreMaterializeNs" : 3430375,
+    "topKNs" : 640958,
+    "countIncludingCommitNs" : 755334,
+    "componentWallNs" : 20766375
+  }, {
+    "n" : 5000,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 160667,
+    "candidateLoadNs" : 14160416,
+    "decodeScoreMaterializeNs" : 3417334,
+    "topKNs" : 630125,
+    "countIncludingCommitNs" : 611375,
+    "componentWallNs" : 18979917
+  }, {
+    "n" : 5000,
+    "k" : 10,
+    "warmup" : false,
+    "queryEmbeddingNs" : 157083,
+    "candidateLoadNs" : 13968959,
+    "decodeScoreMaterializeNs" : 3403541,
+    "topKNs" : 610584,
+    "countIncludingCommitNs" : 1019208,
+    "componentWallNs" : 19159375
+  }, {
+    "n" : 5000,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 162500,
+    "candidateLoadNs" : 10846000,
+    "decodeScoreMaterializeNs" : 3228042,
+    "topKNs" : 657750,
+    "countIncludingCommitNs" : 2850708,
+    "componentWallNs" : 17745000
+  }, {
+    "n" : 5000,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 166625,
+    "candidateLoadNs" : 8662917,
+    "decodeScoreMaterializeNs" : 2870500,
+    "topKNs" : 421333,
+    "countIncludingCommitNs" : 2377125,
+    "componentWallNs" : 14498500
+  }, {
+    "n" : 5000,
+    "k" : 100,
+    "warmup" : false,
+    "queryEmbeddingNs" : 163917,
+    "candidateLoadNs" : 8227333,
+    "decodeScoreMaterializeNs" : 2953334,
+    "topKNs" : 396875,
+    "countIncludingCommitNs" : 2274166,
+    "componentWallNs" : 14015625
+  } ],
+  "embeddingVersion" : "char12-sha256-r32-nfkc-root-ws-v1",
+  "hotspot" : {
+    "mode" : "four_workers_one_row",
+    "attempted" : 80,
+    "confirmedCommitted" : 80,
+    "unknown" : 0,
+    "persistentDelta" : 80,
+    "exactReconciliation" : true,
+    "samples" : [ {
+      "sqlUpdateIncludingLockWaitNs" : 217291,
+      "physicalCommitNs" : 996125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 2660209
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 54958,
+      "physicalCommitNs" : 206958,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 680041
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 52583,
+      "physicalCommitNs" : 121125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 526792
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 83250,
+      "physicalCommitNs" : 227417,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 615125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 161959,
+      "physicalCommitNs" : 338125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 547917
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 88125,
+      "physicalCommitNs" : 103500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 541834
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 36875,
+      "physicalCommitNs" : 196750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 258459
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 59375,
+      "physicalCommitNs" : 251625,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 709500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 49084,
+      "physicalCommitNs" : 197333,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 531666
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 105250,
+      "physicalCommitNs" : 132667,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 735625
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 83667,
+      "physicalCommitNs" : 326375,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 724000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 62625,
+      "physicalCommitNs" : 236000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 572958
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 76917,
+      "physicalCommitNs" : 206125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 753250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 102458,
+      "physicalCommitNs" : 253625,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 729125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 35125,
+      "physicalCommitNs" : 488458,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 780042
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 146291,
+      "physicalCommitNs" : 292417,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 629667
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 96834,
+      "physicalCommitNs" : 118250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 251291
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 65917,
+      "physicalCommitNs" : 93166,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 528084
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 66584,
+      "physicalCommitNs" : 256833,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 642542
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 83083,
+      "physicalCommitNs" : 97708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 503250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 532042,
+      "physicalCommitNs" : 498708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 1423625
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 146709,
+      "physicalCommitNs" : 251000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 1615750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 80667,
+      "physicalCommitNs" : 240209,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 610500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 97458,
+      "physicalCommitNs" : 146500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 477708
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 117417,
+      "physicalCommitNs" : 280000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 747416
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 97166,
+      "physicalCommitNs" : 143958,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 551042
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 61667,
+      "physicalCommitNs" : 232583,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 625833
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 91167,
+      "physicalCommitNs" : 188459,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 581875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 66375,
+      "physicalCommitNs" : 125708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 541334
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 183084,
+      "physicalCommitNs" : 243583,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 801500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 92042,
+      "physicalCommitNs" : 189625,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 667750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 72166,
+      "physicalCommitNs" : 176084,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 589667
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 87750,
+      "physicalCommitNs" : 241083,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 790666
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 66125,
+      "physicalCommitNs" : 274500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 621750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 95334,
+      "physicalCommitNs" : 174375,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 755208
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 35333,
+      "physicalCommitNs" : 244333,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 593541
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 32458,
+      "physicalCommitNs" : 222125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 699958
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 31333,
+      "physicalCommitNs" : 247459,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 516625
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 62250,
+      "physicalCommitNs" : 165792,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 572875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 92042,
+      "physicalCommitNs" : 232791,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 717875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 167167,
+      "physicalCommitNs" : 1067041,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 2878250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 89500,
+      "physicalCommitNs" : 169750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 603833
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 31375,
+      "physicalCommitNs" : 255292,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 571708
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 166792,
+      "physicalCommitNs" : 115208,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 472000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 107666,
+      "physicalCommitNs" : 174000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 664291
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 69667,
+      "physicalCommitNs" : 198625,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 556000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 63583,
+      "physicalCommitNs" : 236375,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 644958
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 90208,
+      "physicalCommitNs" : 211041,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 605292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 106542,
+      "physicalCommitNs" : 222833,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 580209
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 79500,
+      "physicalCommitNs" : 242541,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 807875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 70334,
+      "physicalCommitNs" : 240291,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 603959
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 69083,
+      "physicalCommitNs" : 361208,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 708458
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 75291,
+      "physicalCommitNs" : 161625,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 594917
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 91500,
+      "physicalCommitNs" : 353417,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 860417
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 122208,
+      "physicalCommitNs" : 128625,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 562917
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 57084,
+      "physicalCommitNs" : 258000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 893500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 107083,
+      "physicalCommitNs" : 163375,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 428583
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 74083,
+      "physicalCommitNs" : 206083,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 663042
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 81791,
+      "physicalCommitNs" : 177167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 500750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 119833,
+      "physicalCommitNs" : 308042,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 450792
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 200167,
+      "physicalCommitNs" : 493500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 1611458
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 98958,
+      "physicalCommitNs" : 220000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 1577125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 77542,
+      "physicalCommitNs" : 180167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 540041
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 47208,
+      "physicalCommitNs" : 104459,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 468292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 46958,
+      "physicalCommitNs" : 252250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 1135459
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 51250,
+      "physicalCommitNs" : 297208,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 870750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 44291,
+      "physicalCommitNs" : 195959,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 588959
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 152959,
+      "physicalCommitNs" : 270375,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 700042
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 61334,
+      "physicalCommitNs" : 217542,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 580500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 67709,
+      "physicalCommitNs" : 173125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 693292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 59709,
+      "physicalCommitNs" : 359875,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 751584
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 98375,
+      "physicalCommitNs" : 235500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 676625
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 86208,
+      "physicalCommitNs" : 114584,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 600958
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 54625,
+      "physicalCommitNs" : 106750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 751875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 198000,
+      "physicalCommitNs" : 233250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 913500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 82292,
+      "physicalCommitNs" : 97208,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 497750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 75625,
+      "physicalCommitNs" : 211500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 625500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 79292,
+      "physicalCommitNs" : 265500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 603750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 79792,
+      "physicalCommitNs" : 211000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 662292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 65125,
+      "physicalCommitNs" : 122708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 224959
+    } ]
+  },
+  "distributed" : {
+    "mode" : "four_workers_four_rows",
+    "attempted" : 80,
+    "confirmedCommitted" : 80,
+    "unknown" : 0,
+    "persistentDelta" : 80,
+    "exactReconciliation" : true,
+    "samples" : [ {
+      "sqlUpdateIncludingLockWaitNs" : 124666,
+      "physicalCommitNs" : 281209,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 464292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 124000,
+      "physicalCommitNs" : 289500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 1128542
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 43458,
+      "physicalCommitNs" : 114459,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 424708
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 110625,
+      "physicalCommitNs" : 214500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 738500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 53166,
+      "physicalCommitNs" : 259250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 618709
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 65583,
+      "physicalCommitNs" : 190125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 654750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 68958,
+      "physicalCommitNs" : 415750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 782792
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 96708,
+      "physicalCommitNs" : 175334,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 586292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 93542,
+      "physicalCommitNs" : 128833,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 606500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 85708,
+      "physicalCommitNs" : 209125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 668584
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 44917,
+      "physicalCommitNs" : 79667,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 394375
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 104917,
+      "physicalCommitNs" : 224000,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 591792
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 49875,
+      "physicalCommitNs" : 169416,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 504250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 81000,
+      "physicalCommitNs" : 229334,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 570125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 90292,
+      "physicalCommitNs" : 228458,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 560709
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 59833,
+      "physicalCommitNs" : 224375,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 759958
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 97250,
+      "physicalCommitNs" : 310500,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 832292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 65041,
+      "physicalCommitNs" : 221209,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 675084
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 80333,
+      "physicalCommitNs" : 156417,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 547083
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 51042,
+      "physicalCommitNs" : 143166,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 224125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 37125,
+      "physicalCommitNs" : 234583,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 636333
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 40042,
+      "physicalCommitNs" : 110792,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 614209
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 26542,
+      "physicalCommitNs" : 184083,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 575250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 31500,
+      "physicalCommitNs" : 324708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 580375
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 76125,
+      "physicalCommitNs" : 202250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 621125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 87500,
+      "physicalCommitNs" : 288042,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 720000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 76042,
+      "physicalCommitNs" : 192125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 551334
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 66417,
+      "physicalCommitNs" : 179833,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 772000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 71833,
+      "physicalCommitNs" : 260875,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 671500
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 65208,
+      "physicalCommitNs" : 252708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 587625
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 62542,
+      "physicalCommitNs" : 161125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 566708
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 49834,
+      "physicalCommitNs" : 177708,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 382458
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 77375,
+      "physicalCommitNs" : 177167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 611541
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 68084,
+      "physicalCommitNs" : 151459,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 480291
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 67292,
+      "physicalCommitNs" : 148875,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 549000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 70375,
+      "physicalCommitNs" : 275542,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 699792
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 64708,
+      "physicalCommitNs" : 171333,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 518583
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 90833,
+      "physicalCommitNs" : 151125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 545250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 96583,
+      "physicalCommitNs" : 144917,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 686417
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 71708,
+      "physicalCommitNs" : 165292,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 558250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 41250,
+      "physicalCommitNs" : 338333,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 803792
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 28541,
+      "physicalCommitNs" : 236416,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 284625
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 33250,
+      "physicalCommitNs" : 212334,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 542583
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 27333,
+      "physicalCommitNs" : 142833,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 191833
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 78375,
+      "physicalCommitNs" : 236250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 992000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 80750,
+      "physicalCommitNs" : 151250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 622000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 79625,
+      "physicalCommitNs" : 191167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 673083
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 86583,
+      "physicalCommitNs" : 172334,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 760708
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 107083,
+      "physicalCommitNs" : 210667,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 680583
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 47042,
+      "physicalCommitNs" : 97291,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 493375
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 59541,
+      "physicalCommitNs" : 220416,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 676333
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 80875,
+      "physicalCommitNs" : 188875,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 529000
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 67709,
+      "physicalCommitNs" : 153208,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 722542
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 49917,
+      "physicalCommitNs" : 169125,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 496458
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 44709,
+      "physicalCommitNs" : 120083,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 501459
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 128333,
+      "physicalCommitNs" : 320166,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 741084
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 191000,
+      "physicalCommitNs" : 209209,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 717166
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 100333,
+      "physicalCommitNs" : 299416,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 683334
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 65958,
+      "physicalCommitNs" : 210042,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 548541
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 66166,
+      "physicalCommitNs" : 186291,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 515417
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 84750,
+      "physicalCommitNs" : 229833,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 369291
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 31250,
+      "physicalCommitNs" : 370666,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 733917
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 42791,
+      "physicalCommitNs" : 124917,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 338208
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 24500,
+      "physicalCommitNs" : 248917,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 767834
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 35916,
+      "physicalCommitNs" : 295084,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 351333
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 72666,
+      "physicalCommitNs" : 268750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 680125
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 51625,
+      "physicalCommitNs" : 296292,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 652333
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 171250,
+      "physicalCommitNs" : 293416,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 771750
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 50417,
+      "physicalCommitNs" : 260292,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 614584
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 89333,
+      "physicalCommitNs" : 227250,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 655917
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 59958,
+      "physicalCommitNs" : 288917,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 549375
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 58209,
+      "physicalCommitNs" : 157750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 526166
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 184042,
+      "physicalCommitNs" : 290792,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 795875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 64959,
+      "physicalCommitNs" : 165792,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 493292
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 69084,
+      "physicalCommitNs" : 231917,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 551875
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 59083,
+      "physicalCommitNs" : 201167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 452333
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 76208,
+      "physicalCommitNs" : 178167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 622834
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 62208,
+      "physicalCommitNs" : 213750,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 540250
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 113333,
+      "physicalCommitNs" : 251167,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 808791
+    }, {
+      "sqlUpdateIncludingLockWaitNs" : 78625,
+      "physicalCommitNs" : 198333,
+      "outcome" : "CONFIRMED_COMMITTED",
+      "wallNs" : 593625
+    } ]
+  },
+  "controlledSlowDatabase" : {
+    "failedPersistentDelta" : 0,
+    "elapsedNs" : 262460458,
+    "error" : "DATABASE_UNAVAILABLE",
+    "sameSearchPermitReusable" : true,
+    "fault" : "isolated JDBC row lock, H2 LOCK_TIMEOUT=200ms",
+    "recoveryPersistentDelta" : 1,
+    "readiness" : "READY"
+  },
+  "finalTaskInFlight" : 0,
+  "finalReadiness" : "READY",
+  "finishedAt" : "2026-10-22T20:54:01.005284Z"
+}
