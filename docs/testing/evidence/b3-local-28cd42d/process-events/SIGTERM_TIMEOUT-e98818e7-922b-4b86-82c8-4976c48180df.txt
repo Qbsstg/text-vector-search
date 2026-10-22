@@ -1,0 +1,12 @@
+命令=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe SIGTERM_TIMEOUT /var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-5552427254425467345;pid=39256;SHA=28cd42d7603c862830b51c38bb98e1de10e6427d
+QA_EVENT|39256|APP_READY|port=60761;state=READY
+QA_EVENT|39256|PRODUCTION_URL|jdbc:h2:file:/var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-5552427254425467345/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|39256|CPU_READY|真实B1已计算;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1
+发送SIGTERM，CPU仅在真实数据源关闭后释放
+QA_EVENT|39256|STOPPING|生产生命周期已拒接
+2026-10-23T01:09:23.182+08:00  WARN 39256 --- [vector-search] [utdown-evidence] d.t.vector.task.TaskDispatcher           : CPU任务停止等待超时，即将关闭回写许可并保留RUNNING
+QA_EVENT|39256|DATASOURCE_CLOSED|closed=true
+QA_EVENT|39256|HANDLER_RETURNED|生产处理器已返回
+QA_EVENT|39256|LATE_SQL_COUNT|count=0
+QA_EVENT|39256|SHUTDOWN_SNAPSHOT|status=RUNNING;token=a0c973ec-34c6-4cfa-93ce-7303164d557c;attempt=1;finished=null;sha=null;vectorTime=null;task=2b845445-1fb3-4c61-b28c-98618085308b;hitCount=0;invalidated=false
+实际退出：pid=39256;exit=143

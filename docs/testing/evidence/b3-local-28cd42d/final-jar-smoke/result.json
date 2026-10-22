@@ -1,0 +1,65 @@
+{
+  "testedCodeSha": "28cd42d7603c862830b51c38bb98e1de10e6427d",
+  "jarSha256": "4b2bcbd7fe223c52a02c7a7a9a11c2d08570a1b98326e3a726fc8b7b2221b60e",
+  "pid": 39390,
+  "evidence": "/private/tmp/12times-b3-final-jar-7eonstgf",
+  "health": [
+    200,
+    {
+      "businessReady": false,
+      "taskState": "READY",
+      "stage": "B3",
+      "taskReady": true,
+      "status": "UP"
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "3e546486-6b38-4606-b3f3-c4950c596d8e",
+      "documentId": "final-normal",
+      "status": "SUCCEEDED",
+      "submittedAt": "2026-10-22T17:10:30.496698Z",
+      "startedAt": "2026-10-22T17:10:30.905805Z",
+      "finishedAt": "2026-10-22T17:10:30.915463Z",
+      "errorCode": null,
+      "errorMessage": null,
+      "document": {
+        "documentId": "final-normal",
+        "channel": "default",
+        "taskId": "3e546486-6b38-4606-b3f3-c4950c596d8e",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T17:10:30.496698Z",
+        "vectorCompletedAt": "2026-10-22T17:10:30.915463Z",
+        "invalidatedAt": null,
+        "hitCount": "0",
+        "text": "B3 正式产物冒烟"
+      }
+    },
+    {
+      "taskId": "089fdf63-586c-42dc-95f6-29836881de37",
+      "documentId": "final-empty",
+      "status": "SUCCEEDED",
+      "submittedAt": "2026-10-22T17:10:30.923959Z",
+      "startedAt": "2026-10-22T17:10:31.411924Z",
+      "finishedAt": "2026-10-22T17:10:31.417796Z",
+      "errorCode": null,
+      "errorMessage": null,
+      "document": {
+        "documentId": "final-empty",
+        "channel": "default",
+        "taskId": "089fdf63-586c-42dc-95f6-29836881de37",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T17:10:30.923959Z",
+        "vectorCompletedAt": "2026-10-22T17:10:31.417796Z",
+        "invalidatedAt": null,
+        "hitCount": "0",
+        "text": ""
+      }
+    }
+  ],
+  "sigtermExitCode": 143
+}

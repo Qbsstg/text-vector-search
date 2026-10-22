@@ -1,0 +1,84 @@
+{
+  "root": "/private/tmp/12times-root-b3-smoke-np2hkgyz",
+  "processes": [
+    {
+      "pid": 35214,
+      "log": "/private/tmp/12times-root-b3-smoke-np2hkgyz/run-1.log",
+      "sigterm_exit_code": 143
+    },
+    {
+      "pid": 35215,
+      "log": "/private/tmp/12times-root-b3-smoke-np2hkgyz/run-2.log",
+      "sigterm_exit_code": 143
+    }
+  ],
+  "health_before": [
+    200,
+    {
+      "taskReady": true,
+      "status": "UP",
+      "businessReady": false,
+      "taskState": "READY",
+      "stage": "B3"
+    }
+  ],
+  "health_after": [
+    200,
+    {
+      "status": "UP",
+      "taskReady": true,
+      "stage": "B3",
+      "taskState": "READY",
+      "businessReady": false
+    }
+  ],
+  "tasks": {
+    "normal": {
+      "taskId": "229cbb0c-fd2e-4f0b-8503-a613d0eeeb5b",
+      "documentId": "root-b3-normal",
+      "status": "SUCCEEDED",
+      "submittedAt": "2026-10-22T16:56:22.416816Z",
+      "startedAt": "2026-10-22T16:56:22.862673Z",
+      "finishedAt": "2026-10-22T16:56:22.866816Z",
+      "errorCode": null,
+      "errorMessage": null,
+      "document": {
+        "documentId": "root-b3-normal",
+        "channel": "default",
+        "taskId": "229cbb0c-fd2e-4f0b-8503-a613d0eeeb5b",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T16:56:22.416816Z",
+        "vectorCompletedAt": "2026-10-22T16:56:22.866816Z",
+        "invalidatedAt": null,
+        "hitCount": "0",
+        "text": "真实 B3 向量化验收"
+      }
+    },
+    "empty": {
+      "taskId": "e16ae44c-2c0c-4c04-8ed3-6e08ae27b253",
+      "documentId": "root-b3-empty",
+      "status": "SUCCEEDED",
+      "submittedAt": "2026-10-22T16:56:22.873679Z",
+      "startedAt": "2026-10-22T16:56:23.369783Z",
+      "finishedAt": "2026-10-22T16:56:23.374545Z",
+      "errorCode": null,
+      "errorMessage": null,
+      "document": {
+        "documentId": "root-b3-empty",
+        "channel": "default",
+        "taskId": "e16ae44c-2c0c-4c04-8ed3-6e08ae27b253",
+        "taskStatus": "SUCCEEDED",
+        "vectorReady": true,
+        "invalidated": false,
+        "submittedAt": "2026-10-22T16:56:22.873679Z",
+        "vectorCompletedAt": "2026-10-22T16:56:23.374545Z",
+        "invalidatedAt": null,
+        "hitCount": "0",
+        "text": ""
+      }
+    }
+  },
+  "restart_preserved_terminal": true
+}

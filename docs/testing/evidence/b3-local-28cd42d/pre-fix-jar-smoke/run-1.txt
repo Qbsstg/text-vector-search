@@ -1,0 +1,19 @@
+2026-10-23T00:56:21.553+08:00  INFO 35214 --- [vector-search] [           main] d.t.vector.VectorSearchApplication       : Starting VectorSearchApplication v0.1.0-SNAPSHOT using Java 17.0.15 with PID 35214 (/Users/qbss/code/12times/target/vector-search.jar started by qbss in /Users/qbss/code/12times)
+2026-10-23T00:56:21.555+08:00  INFO 35214 --- [vector-search] [           main] d.t.vector.VectorSearchApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-10-23T00:56:21.932+08:00  INFO 35214 --- [vector-search] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-10-23T00:56:21.938+08:00  INFO 35214 --- [vector-search] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-23T00:56:21.938+08:00  INFO 35214 --- [vector-search] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-10-23T00:56:21.948+08:00  INFO 35214 --- [vector-search] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 372 ms
+2026-10-23T00:56:22.010+08:00  INFO 35214 --- [vector-search] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-23T00:56:22.097+08:00  INFO 35214 --- [vector-search] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:/private/tmp/12times-root-b3-smoke-np2hkgyz/db/knowledge user=SA
+2026-10-23T00:56:22.098+08:00  INFO 35214 --- [vector-search] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-23T00:56:22.232+08:00  INFO 35214 --- [vector-search] [           main] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page: class path resource [static/index.html]
+2026-10-23T00:56:22.354+08:00  INFO 35214 --- [vector-search] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 57892 (http) with context path '/'
+2026-10-23T00:56:22.360+08:00  INFO 35214 --- [vector-search] [           main] d.t.vector.VectorSearchApplication       : Started VectorSearchApplication in 0.977 seconds (process running for 1.171)
+2026-10-23T00:56:22.384+08:00  INFO 35214 --- [vector-search] [1-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-23T00:56:22.384+08:00  INFO 35214 --- [vector-search] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-23T00:56:22.384+08:00  INFO 35214 --- [vector-search] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-23T00:56:23.401+08:00  INFO 35214 --- [vector-search] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-23T00:56:23.403+08:00  INFO 35214 --- [vector-search] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-23T00:56:23.408+08:00  INFO 35214 --- [vector-search] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-23T00:56:23.412+08:00  INFO 35214 --- [vector-search] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

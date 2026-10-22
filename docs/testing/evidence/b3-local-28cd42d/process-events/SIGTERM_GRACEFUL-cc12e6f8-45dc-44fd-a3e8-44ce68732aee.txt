@@ -1,0 +1,10 @@
+命令=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe SIGTERM_GRACEFUL /var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-1182115436544584398;pid=39295;SHA=28cd42d7603c862830b51c38bb98e1de10e6427d
+QA_EVENT|39295|APP_READY|port=60813;state=READY
+QA_EVENT|39295|PRODUCTION_URL|jdbc:h2:file:/var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-1182115436544584398/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|39295|CPU_READY|真实B1已计算;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1
+发送SIGTERM
+QA_EVENT|39295|STOPPING|生产生命周期已拒接
+QA_EVENT|39295|HANDLER_RETURNED|生产处理器已返回
+QA_EVENT|39295|DATASOURCE_CLOSED|closed=true
+QA_EVENT|39295|SHUTDOWN_SNAPSHOT|status=SUCCEEDED;token=56255dd7-d11f-4681-b128-6e5672379534;attempt=1;finished=2026-10-23 01:09:37.623647+08;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1;vectorTime=2026-10-23 01:09:37.623647+08;task=5cbbb91d-2796-4442-9907-cbec7c48c4ef;hitCount=0;invalidated=false
+实际退出：pid=39295;exit=143

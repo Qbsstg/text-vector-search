@@ -1,0 +1,7 @@
+命令=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe TERMINAL_COMMITTED /var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-10071846858168399931;pid=39284;SHA=28cd42d7603c862830b51c38bb98e1de10e6427d
+QA_EVENT|39284|APP_READY|port=60794;state=READY
+QA_EVENT|39284|PRODUCTION_URL|jdbc:h2:file:/var/folders/9g/2c5qx4b17bzg_m4_92nlcnxm0000gn/T/junit-10071846858168399931/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|39284|TERMINAL_COMMITTED|status=SUCCEEDED;token=6795bdd3-fb25-4466-be2e-06329bc19528;attempt=1;finished=2026-10-23 01:09:34.901753+08;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1;vectorTime=2026-10-23 01:09:34.901753+08;task=e836a52f-46be-4cc0-a23d-a7ad9afb7fd8;hitCount=0;invalidated=false
+发送SIGKILL/destroyForcibly，pid=39284
+实际退出：pid=39284;exit=137
+强杀后快照=Snapshot[taskId=e836a52f-46be-4cc0-a23d-a7ad9afb7fd8, status=SUCCEEDED, token=6795bdd3-fb25-4466-be2e-06329bc19528, attempt=1, finished=2026-10-23 01:09:34.901753+08, vectorTime=2026-10-23 01:09:34.901753+08, sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1, hitCount=0, invalidated=false]
