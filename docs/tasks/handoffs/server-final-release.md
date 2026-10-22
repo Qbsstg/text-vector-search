@@ -83,3 +83,5 @@
 仅在本地systemd示例新增 `SuccessExitStatus=143`，解释Java在Spring/Hikari优雅关闭后可能以143退出；其他错误仍按失败处理，不改变JAR、线程/容量/等待参数，也不把143单独当作数据库已干净关闭的证明。正式D4必须安装后执行systemd-analyze verify并真实stop核实unit非failed、Hikari完成及进程退出。本地无systemd，当前不把静态文本修改标为Linux验证通过。
 
 已向主控提出第二轮的具体方案：新建仅本实验的/run/systemd/system下SuccessExitStatus143 drop-in，verify后daemon-reload，运行JVM不restart、PID不变、DB不动。此时方案尚未执行；第一轮failed原始状态/证据保持，不重置或覆盖历史。该问题首先属于实验unit的退出状态策略，不据此宣称业务生命周期缺陷。
+
+后续主控明确批准该精确方案，**05:08:18北京时间**已执行：新建 `/run/systemd/system/vector-search-perf-search-d016-20261023.service.d/exit-status.conf`，仅Service的SuccessExitStatus143。`systemd-analyze verify /run/systemd/transient/vector-search-perf-search-d016-20261023.service`退出0（仍提示既有cloudmonitor KillMode/旧PID路径警告，未改该服务）；`systemctl daemon-reload`后show确认SuccessExitStatus143、MainPID7877不变、active、NRestarts0、DropInPaths为上述单文件。没有restart/stop或数据库操作；第一轮仍failed/Result exit-code/ExecMainStatus143，未reset-failed。该实测验证配置加载且进程持续运行，真正停止后的inactive/Hikari结果仍待第二轮结束，不提前记PASS。
