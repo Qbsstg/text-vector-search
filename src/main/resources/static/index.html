@@ -4,25 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>文本检索演示台 · C0 初始化</title>
+  <title>文本检索演示台 · FE1</title>
   <link rel="stylesheet" href="/styles.css">
-  <script src="/app.js" defer></script>
+  <script src="/app.js" type="module"></script>
 </head>
 <body>
   <main>
     <header>
-      <p class="eyebrow">文本向量化与检索 · C0</p>
+      <p class="eyebrow">文本向量化与检索 · FE1 管理入口</p>
       <h1>文本检索演示台</h1>
-      <p class="intro">确定性的模拟向量算法体现字面特征相似，不保证语义理解。</p>
+      <p class="intro">本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。</p>
     </header>
-
     <section class="notice" aria-labelledby="stage-title">
-      <h2 id="stage-title">项目初始化阶段</h2>
-      <p>当前只有静态入口与基础健康接口。文档提交、列表、详情、失效、任务查询和检索六个业务 API 尚未实现；下方功能区为规划说明，业务按钮暂不可用。</p>
-      <p>页面没有示例结果、任务或完成进度。完整业务将在后续接入真实接口后开放。</p>
+      <h2 id="stage-title">当前阶段：管理接口联调</h2>
+      <p>文档与任务操作只请求真实同源接口；接口未合入当前后端时会如实显示错误。B3 执行处理器尚未启用时，已接收任务保持排队中，不会假报完成。同步检索待 B4，暂不可用。</p>
+      <p>基础健康中的 businessReady=false 不代表完整业务就绪。页面不生成模拟结果、任务或完成进度。</p>
     </section>
 
-    <section class="workspace" aria-label="功能规划">
+    <section class="workspace" aria-label="演示台">
       <div class="tabs" role="tablist" aria-label="演示台功能区">
         <button type="button" id="tab-search" role="tab" aria-selected="true" aria-controls="panel-search" tabindex="0">检索体验</button>
         <button type="button" id="tab-documents" role="tab" aria-selected="false" aria-controls="panel-documents" tabindex="-1">文档管理</button>
@@ -30,61 +29,112 @@
       </div>
 
       <section id="panel-search" class="panel" role="tabpanel" aria-labelledby="tab-search" tabindex="0">
-        <p class="eyebrow">待接入真实 API</p>
         <h2>检索字面相似的文档</h2>
-        <p>后续支持查询文本、Top-K 和可选渠道，并展示后端返回的分数与文档来源。目前尚未执行任何查询。</p>
-        <ul>
-          <li>空查询合法；不填渠道表示全部渠道。</li>
-          <li>分数是余弦相似度，可为负数，并非概率或置信度。</li>
-          <li>每次检索可能增加命中次数，网络失败不会自动重试。</li>
-        </ul>
-        <button type="button" disabled aria-describedby="search-unavailable">检索</button>
-        <p id="search-unavailable" class="hint">检索 API 尚未实现，暂不能提交查询。</p>
+        <form method="post" id="search-form">
+          <label for="search-text">查询文本（允许空字符串）</label>
+          <textarea id="search-text" name="text" rows="4" aria-describedby="empty-search"></textarea>
+          <p id="empty-search" class="hint">空查询将返回零分排序结果，不能区分相关性；本阶段尚不执行查询。</p>
+          <div class="form-row">
+            <div><label for="search-top-k">Top-K</label><input id="search-top-k" name="topK" type="number" min="1" max="100" step="1" value="5" required></div>
+            <div><label for="search-channel">渠道（不填表示全部渠道）</label><input id="search-channel" name="channel" type="text"></div>
+          </div>
+          <button type="submit" disabled aria-describedby="search-unavailable">检索</button>
+          <p id="search-unavailable" class="hint">B4 搜索接口尚未启用，按钮禁用，不会发送检索请求。后续每次检索可能增加命中次数，网络失败不会自动重试。</p>
+        </form>
+        <p class="empty">尚未执行检索。余弦分数允许负数，不代表概率或置信度。</p>
       </section>
 
       <section id="panel-documents" class="panel" role="tabpanel" aria-labelledby="tab-documents" tabindex="0" hidden>
-        <p class="eyebrow">待接入真实 API</p>
-        <h2>提交与管理文档</h2>
-        <p>后续支持提交原文、分页列表、纯文本详情和确认失效。目前尚未加载文档数据。</p>
-        <ul>
-          <li>允许提交空字符串；保留原文，不在浏览器中改写。</li>
-          <li>不填渠道时，提交使用 default；显式空白渠道由接口拒绝。</li>
-          <li>接收成功与向量化完成分别展示；失效后不会自动重新检索。</li>
-        </ul>
-        <button type="button" disabled aria-describedby="documents-unavailable">提交文档</button>
-        <p id="documents-unavailable" class="hint">文档 API 尚未实现，暂不能提交、读取或失效文档。</p>
+        <h2>提交文档</h2>
+        <form method="post" id="submit-form" novalidate>
+          <label for="submit-id">文档 ID</label>
+          <input id="submit-id" name="documentId" type="text" autocomplete="off" spellcheck="false" aria-describedby="submit-id-hint submit-id-error">
+          <p id="submit-id-hint" class="hint">1—128 位字母、数字、点、下划线或连字符，首位为字母或数字。不会自动去除空白。</p>
+          <p id="submit-id-error" class="field-error" data-error-for="documentId"></p>
+          <label for="submit-text">原文（允许空字符串，不裁剪或改写）</label>
+          <textarea id="submit-text" name="text" rows="5" aria-describedby="submit-text-error"></textarea>
+          <p id="submit-text-error" class="field-error" data-error-for="text"></p>
+          <label for="submit-channel">渠道（不填时提交为 default）</label>
+          <input id="submit-channel" name="channel" type="text" aria-describedby="submit-channel-error">
+          <p id="submit-channel-error" class="field-error" data-error-for="channel"></p>
+          <button id="submit-button" class="primary" type="submit">提交文档</button>
+          <p id="submit-message" class="feedback" role="status" aria-live="polite">提交成功只代表接收，不代表向量化完成。空原文合法；服务器仍会校验原始及规范化后的长度。</p>
+          <div id="submit-actions" class="actions" hidden>
+            <button id="submitted-detail" type="button">按提交 ID 查询详情</button>
+            <button id="submitted-task" type="button" hidden>查看真实任务</button>
+          </div>
+        </form>
+
+        <section class="subsection" aria-labelledby="documents-title">
+          <h2 id="documents-title">文档列表</h2>
+          <form method="post" id="filter-form" class="filter-form" novalidate>
+            <div><label for="filter-channel">渠道（不填为全部）</label><input id="filter-channel" name="channel" type="text" aria-describedby="filter-channel-error"><p id="filter-channel-error" class="field-error" data-error-for="channel"></p></div>
+            <div><label for="filter-invalidated">有效状态</label><select id="filter-invalidated" name="invalidated"><option value="">全部状态</option><option value="false">有效</option><option value="true">已失效</option></select></div>
+            <div><label for="filter-size">每页数量</label><select id="filter-size" name="size"><option>20</option><option>50</option><option>100</option></select></div>
+            <button id="list-refresh" type="submit">应用筛选 / 刷新</button>
+          </form>
+          <p id="list-message" class="feedback" role="status" aria-live="polite">尚未加载列表。点击刷新读取真实数据。</p>
+          <div id="list-results" hidden>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="文档列表，可横向滚动">
+              <table>
+                <caption>服务器返回的文档快照；所有时间为北京时间（UTC+8），命中次数为读取时快照。</caption>
+                <thead><tr><th scope="col">文档 ID</th><th scope="col">渠道</th><th scope="col">任务状态</th><th scope="col">向量就绪</th><th scope="col">有效状态</th><th scope="col">提交时间</th><th scope="col">完成时间</th><th scope="col">命中次数</th><th scope="col">操作</th></tr></thead>
+                <tbody id="document-rows"></tbody>
+              </table>
+            </div>
+            <div class="pagination"><button id="previous-page" type="button">上一页</button><span id="page-message"></span><button id="next-page" type="button">下一页</button></div>
+          </div>
+        </section>
+        <form method="post" id="detail-form" class="subsection" novalidate>
+          <label for="detail-id">按文档 ID 查询详情（提交结果未知时可用）</label>
+          <div class="inline-form"><input id="detail-id" name="documentId" type="text" autocomplete="off" spellcheck="false" aria-describedby="detail-id-error"><button type="submit">查询详情</button></div>
+          <p id="detail-id-error" class="field-error" data-error-for="documentId"></p>
+        </form>
       </section>
 
       <section id="panel-tasks" class="panel" role="tabpanel" aria-labelledby="tab-tasks" tabindex="0" hidden>
-        <p class="eyebrow">待接入真实 API</p>
-        <h2>查看后台向量化任务</h2>
-        <p>后续可按真实 taskId 查询排队、运行、成功或失败状态。目前没有接入任务查询。</p>
-        <ul>
-          <li>不生成完成百分比；任务状态以服务器返回为准。</li>
-          <li>自动刷新有时间及并发上限，终态停止，页面隐藏时暂停。</li>
-          <li>网络失败只表示状态暂不可获取，不能判定任务失败。</li>
-        </ul>
-        <button type="button" disabled aria-describedby="tasks-unavailable">查询任务</button>
-        <p id="tasks-unavailable" class="hint">任务 API 尚未实现，暂不能查询或轮询。</p>
+        <h2>任务追踪</h2>
+        <p>B3 未启用时，真实提交记录保持 QUEUED。自动刷新最多 3 个任务，每次响应后间隔至少 2 秒，单任务从首次启用起总计 60 秒；隐藏页面暂停，终态停止。没有完成百分比。</p>
+        <form method="post" id="task-form" novalidate>
+          <label for="task-id">taskId（UUID）</label>
+          <div class="inline-form"><input id="task-id" name="taskId" type="text" autocomplete="off" spellcheck="false" aria-describedby="task-id-error"><button id="task-query" type="submit">查询并有限刷新</button></div>
+          <p id="task-id-error" class="field-error" data-error-for="taskId"></p>
+        </form>
+        <p id="task-message" class="feedback" role="status" aria-live="polite">尚未查询任务。</p>
+        <section id="task-result" aria-label="当前任务" hidden>
+          <dl id="task-fields"></dl>
+          <p id="polling-message" class="hint"></p>
+          <div class="actions"><button id="task-refresh" type="button">手动刷新一次</button><button id="task-stop" type="button">停止自动刷新</button><button id="task-detail" type="button">关联文档详情</button></div>
+        </section>
+        <section class="subsection" aria-labelledby="session-title">
+          <h2 id="session-title">本页会话任务</h2>
+          <p class="hint">最多保留 20 个查询过或提交返回的真实任务 ID，不是全系统任务列表。刷新页面后清空，不保存原文或凭据。</p>
+          <ul id="session-tasks" class="session-list"><li>尚无本页会话任务。</li></ul>
+        </section>
       </section>
     </section>
 
     <section class="health" aria-labelledby="health-title">
-      <div class="section-heading">
-        <h2 id="health-title">基础连接检查</h2>
-        <button id="check-health" type="button">检查 /health</button>
-      </div>
-      <p>此检查只读取同源的 GET /health。C0 契约中的 businessReady=false 表示业务尚未就绪，基础连接可用不能证明业务可用。</p>
-      <p id="health-message" class="hint" role="status" aria-live="polite">尚未检查。可点击按钮获取真实响应。</p>
-      <dl id="health-result" hidden>
-        <div><dt>status</dt><dd id="health-status"></dd></div>
-        <div><dt>stage</dt><dd id="health-stage"></dd></div>
-        <div><dt>businessReady</dt><dd id="health-ready"></dd></div>
-      </dl>
+      <div class="section-heading"><h2 id="health-title">基础连接检查</h2><button id="check-health" type="button">检查 /health</button></div>
+      <p>基础连接可用不能证明完整业务、恢复或调度就绪。此检查不会启用尚未实现的检索。</p>
+      <p id="health-message" class="hint" role="status" aria-live="polite">尚未检查。点击按钮获取真实响应。</p>
+      <dl id="health-result" hidden></dl>
     </section>
-
-    <noscript><p class="notice">JavaScript 未启用，功能区切换和健康检查不可用。当前仍处于 C0 初始化阶段。</p></noscript>
-    <footer>原生 HTML / CSS / JavaScript，由同一个 Java 应用托管。业务实现与最终验收尚未完成。</footer>
+    <noscript><p class="notice">JavaScript 未启用，管理操作、Tab 切换和健康检查不可用。</p></noscript>
+    <footer>真实同源 API · 北京时间（UTC+8）· 本阶段不代表完整业务与部署验收完成。</footer>
   </main>
+
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="section-heading"><h2 id="detail-title">文档详情</h2><button id="close-detail" type="button" aria-label="关闭文档详情">关闭</button></div>
+    <p id="detail-message" class="feedback" role="status" aria-live="polite"></p>
+    <div id="detail-content" hidden>
+      <dl id="detail-fields"></dl>
+      <h3>原文（纯文本）</h3>
+      <pre id="detail-text" tabindex="0" aria-label="文档原文，可滚动"></pre>
+      <p class="hint">详情读取不增加命中次数；原文中的 HTML 和链接仅按文本显示。</p>
+    </div>
+    <div class="actions"><button id="detail-refresh" type="button">刷新详情</button><button id="detail-task" type="button" disabled>查看任务</button><button id="invalidate-document" class="danger" type="button" disabled>失效文档</button></div>
+    <p class="hint">失效成功后不自动检索；与任务状态独立，不提供恢复有效。</p>
+  </dialog>
 </body>
 </html>
