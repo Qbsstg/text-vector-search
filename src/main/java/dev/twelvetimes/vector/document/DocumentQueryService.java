@@ -7,6 +7,7 @@ import dev.twelvetimes.vector.api.error.BusinessException;
 import dev.twelvetimes.vector.api.validation.RequestValidator;
 import dev.twelvetimes.vector.persistence.DocumentRow;
 import dev.twelvetimes.vector.persistence.KnowledgeMapper;
+import dev.twelvetimes.vector.task.TaskReadiness;
 import java.time.Instant;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -19,10 +20,12 @@ public final class DocumentQueryService {
     private final KnowledgeMapper mapper;
     private final RequestValidator validator;
     private final TransactionTemplate transaction;
+    private final TaskReadiness readiness;
 
-    public DocumentQueryService(KnowledgeMapper mapper, RequestValidator validator, PlatformTransactionManager manager) {
+    public DocumentQueryService(KnowledgeMapper mapper, RequestValidator validator, PlatformTransactionManager manager, TaskReadiness readiness) {
         this.mapper = mapper;
         this.validator = validator;
+        this.readiness = readiness;
         transaction = new TransactionTemplate(manager);
         transaction.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
     }
@@ -40,12 +43,14 @@ public final class DocumentQueryService {
 
     public Invalidation invalidate(String id) {
         validator.documentId(id);
-        return transaction.execute(status -> {
-            required(id);
-            mapper.invalidate(id, Instant.now());
-            DocumentRow current = required(id);
-            return new Invalidation(id, current.invalidated(), current.invalidatedAt());
-        });
+        try (var lease = readiness.enterWrite()) {
+            return transaction.execute(status -> {
+                required(id);
+                mapper.invalidate(id, Instant.now());
+                DocumentRow current = required(id);
+                return new Invalidation(id, current.invalidated(), current.invalidatedAt());
+            });
+        }
     }
 
     private DocumentRow required(String id) {

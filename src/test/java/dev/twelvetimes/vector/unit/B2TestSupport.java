@@ -1,6 +1,6 @@
 package dev.twelvetimes.vector.unit;
 
-import dev.twelvetimes.vector.VectorSearchApplication;
+import dev.twelvetimes.b2.B2CompositionTestApplication;
 import dev.twelvetimes.vector.config.VectorProperties;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ final class B2TestSupport {
                 "--spring.datasource.url=jdbc:h2:file:" + directory.toAbsolutePath() + "/knowledge;WRITE_DELAY=0",
                 "--logging.level.root=ERROR", "--spring.main.banner-mode=off"));
         args.addAll(List.of(overrides));
-        return new SpringApplication(VectorSearchApplication.class).run(args.toArray(String[]::new));
+        return new SpringApplication(B2CompositionTestApplication.class).run(args.toArray(String[]::new));
     }
 
     static VectorProperties properties(int maximumText) {
