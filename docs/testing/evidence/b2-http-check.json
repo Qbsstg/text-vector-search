@@ -1,0 +1,18 @@
+{
+  "stage": "B2/FE1 HTTP联调",
+  "documentId": "B2-HTTP-87ec85f0",
+  "taskId": "af701f9b-2ee4-4fc5-a05e-b1c5bad2f2dc",
+  "passed": [
+    "真实接收202",
+    "原文与default渠道",
+    "真实QUEUED状态",
+    "列表筛选",
+    "重复409",
+    "失效幂等首次时间",
+    "任务与失效独立",
+    "管理读取不增加计数",
+    "mjs媒体类型"
+  ],
+  "browser": "本地浏览器使用被Work设置关闭，真实UI未执行",
+  "dataScope": "仅/private/tmp/12times-b2-browser专用库"
+}
