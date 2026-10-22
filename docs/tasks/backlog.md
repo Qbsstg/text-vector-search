@@ -8,17 +8,17 @@
 | B1 / QA1-B1 / PM-B1 | 后端/QA/PM/主控 | DONE | 用户原则通过；主控27b850c完整29 unit+22 IT；算法版本及历史证据冻结 |
 | DEP2基础准备 | 服务器 | DONE | 3f0ef5c及主控独立SSH复核；专用账号/目录/unit，后端仍disabled/inactive |
 | GH1创建/首推、GH2 B1推送、GH3 CI | 主控 | DONE | 私有仓库保留；本轮启动前本地/远程main一致1f2d817，run39797284687完整success；不是最新B2交付结论 |
-| B2-01/02 校验与两表接收 | 后端 | REVIEW | 1bfa33f提交前11个对应unit通过，已合入；QA物理commit/容量/回滚等9 IT通过 |
-| B2-03 管理API与HTTP边界 | 后端 | REVIEW | f834fa4五个管理API、有界正文/同源等，提交前15个对应unit通过，已合入；独立HTTP验收待后段 |
-| B2-04 扫描/队列/条件领取 | 后端 | REVIEW | 4523942已合入a03e3be，24个对应B2 unit（含前段）通过；角色完整回归/独立后段待核，生产无B3 handler保持QUEUED |
-| QA-B2 接收前段 | 测试 | REVIEW | 9242a38已合入；6345bd9代码基线目标9 IT、完整40 unit+31 IT通过；不覆盖随后管理/调度后段 |
-| QA-B2 HTTP/调度后段 | 测试 | READY | 待新实现和槽位；chunked/Origin、四态映射、补派/唯一领取/饱和/事务外handler |
-| B2-05 集成门禁 | 主控 | TODO | 后端/QA交接后完整Java17 verify，审查B3边界并记录最终SHA/CI；本轮尚未做 |
-| FE1 | 前端 | IN_PROGRESS | 三功能区实现中、25项Node测试通过待提交；B3/B4缺口诚实展示，浏览器联调待后续 |
+| B2-01/02 校验与两表接收 | 后端 | DONE | 三段源码已集成；物理commit锁、回滚、容量、重复及未知提交由独立QA验证；主控完整回归通过 |
+| B2-03 管理API与HTTP边界 | 后端 | DONE | 五管理API及正文/Origin等独立HTTP验收通过，字段契约不变 |
+| B2-04 扫描/队列/条件领取 | 后端 | DONE | 队列饱和补派、唯一token领取、事务外handler、确认未知不盲试均通过；无生产handler不领取 |
+| QA-B2 接收前段 | 测试 | DONE | 9242a38新增9 IT已合入；最终完整回归包含全部前段 |
+| QA-B2 HTTP/调度后段 | 测试 | DONE | 450e4c2新增13 IT已合入，角色与主控完整Java回归均53 unit+44 IT通过 |
+| B2-05 集成门禁 | 主控 | DONE | 实测代码53769c6，53 unit+44 IT和25 Node共122通过；等待用户阶段审阅，不自动启动B3 |
+| FE1 | 前端 | REVIEW_UI | 304e5ed已合入；25 Node及真实HTTP闭环通过，mjs媒体类型正常；Work本地浏览器禁用，视觉/键盘/DOM交互未执行 |
 | NGINX-PREP | 服务器 | DONE | b9e79bc及主控SSH/公网复核：固定检查端点200，其余拒绝；不是HTTPS/业务发布 |
 | CN-存量注释 | 主控/QA/服务器 | DONE | 9f0c3c6、545c29d、6d935a8独立整改，各51项回归；20文件66块/行扫描与词元核对见专项 |
 | GIT-CN 历史对照 | 主控 | DONE | 28条英文完整提交正文扫描和中文映射；PM复核28个旧SHA均为祖先，新提交中文，未改历史 |
-| PM-B2 | 项目管理 | REVIEW | 本轮任务文档及阶段报告；仅文档检查，最终集成结论由主控补录 |
+| PM-B2 | 项目管理 | DONE | febbc6b九项报告/任务/角色已审查合入；主控已补最终测试与阶段状态 |
 | B3 | 后端 | TODO | B2后另行派发：终态两表写回、失败回写、旧RUNNING恢复、在线降级和完整关闭 |
 | B4 | 后端 | TODO | B3后：搜索/过滤/Top-K、最终结果原子计数及未知提交语义 |
 | FE2/FE3、QA2/QA3 | 前端/测试 | TODO | 真API全闭环、浏览器/网络竞态、强杀与交付复演，按对应实现派发 |
@@ -31,3 +31,7 @@ B2细分Owner、依赖和验收见[实施契约](../design/b2-implementation-con
 当前依赖：调度角色完整回归→QA独立HTTP/调度后段→主控最终门禁；FE1可并行。域名已提供为`text.vector.search.lemoncharger.com`，证书/入口认证及正式发布方案仍待落实。用户人工核对云安全组80/443；主机UFW inactive、iptables默认ACCEPT未改，80监听、443/8080无监听。证书前只公开非敏感`/deployment-check`，不代理真实API/H2/管理端点。
 
 用户未跟踪`docs/测试工作/`原样保留，其中70条用例不是本轮已执行结果；不与真实JUnit数量相加。B1语义相关性/性能、B3恢复、B4计数、完整UI及正式部署均未验证，不能用测试替身或HTTP检查端点替代。
+
+## 主控最终核证
+
+代码验证SHA `53769c69477cf43351280338a0938117ca6f0252`：Java17共53 unit+44 IT通过，Node25通过，全部失败/跳过0；见`docs/testing/B2-verification.md`。真实UI因Work设置禁用未执行，不影响B2核心测试，不能标完整UI通过。最终远程SHA/CI由交付时单独核对；用户新增测试资料保持未跟踪原样。

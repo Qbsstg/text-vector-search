@@ -1,8 +1,14 @@
 # 文本向量化与检索
 
-Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。已完成C0初始化与B1算法基础；六业务API、持久任务调度和完整演示页面将在后续阶段实现。现有页面及`/health`仍明确表示业务未就绪。
+Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。已完成C0、B1及B2接收/管理/调度基础，FE1提供真实管理入口；B3终态与恢复、B4搜索仍未实现。生产未注册B3处理器，因此任务保持QUEUED，页面搜索禁用，`/health`继续明确businessReady=false。
 
 私有源码仓库：[Qbsstg/text-vector-search](https://github.com/Qbsstg/text-vector-search)。GitHub Actions使用固定完整SHA的官方Actions，在Temurin17.0.15下运行单测及验收，不自动部署。
+
+## B2与FE1
+
+已实现文档提交、列表、详情、任务查询、幂等失效五接口。接收锁覆盖两表物理提交，持久任务为事实来源；有界队列、周期扫描、token条件领取通过受控处理器验收，不以空处理器伪造任务完成。B3前生产不领取，旧RUNNING拒绝新接收且不重置。
+
+前端真实同源请求、详情纯文本、确认失效、有限任务轮询已实现。前端测试命令：`node --test tests/frontend/*.test.mjs`（Node22.16.0）；服务器无需Node。浏览器验证目前因Work本地浏览器禁用未执行，不能把Node/HTTP测试当作完整UI验收。
 
 ## B1已实现
 
@@ -38,7 +44,9 @@ H2数据默认在启动工作目录的`data/knowledge.mv.db`，推荐显式`APP_
 - [任务空间](docs/tasks/README.md)：五角色、任务板和交接。
 - [C0集成验收](docs/testing/C0-verification.md)：3项单测、6项验收及真实JAR/浏览器证据。
 - [B1集成验收](docs/testing/B1-verification.md)：29项单测、22项验收及提交前测试记录。
+- [B2集成验收](docs/testing/B2-verification.md)：53项单测、44项验收、25项前端测试及明确未验证范围。
+- [九项阶段报告](docs/tasks/B2-阶段进展报告.md)：职责、依赖、工时、网络与用户人工项。
 - [评审资料入口](docs/项目评审和实施资料/00_阅读说明.md)：保留原始材料，不把历史计划当运行结果。
 
-原题PDF保留本地并忽略，不推送运行数据库、日志或密钥。用户已授权创建私有仓库并推送，后续公开仍需明确指令。指定服务器已完成基础账号/目录/待启用unit准备，应用尚未发布启动；实机事实与边界见[DEP2交接](docs/tasks/handoffs/server-dep2.md)。
+原题PDF保留本地并忽略，不推送运行数据库、运行日志或密钥。用户已授权创建私有仓库并推送，后续公开仍需明确指令。指定服务器已完成基础准备及证书前Nginx检查站点，应用尚未发布启动。仅[部署检查端点](http://text.vector.search.lemoncharger.com/deployment-check)提供非敏感固定文本，API/管理路径拒绝；HTTPS尚未就绪。见[Nginx交接](docs/tasks/handoffs/server-nginx.md)。
 
