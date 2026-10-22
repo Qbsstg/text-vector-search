@@ -105,6 +105,12 @@ public final class TaskDispatcher implements SmartLifecycle, AutoCloseable {
     public int queuedCount() { return workers.getQueue().size(); }
     public int inFlightCount() { return inFlight.size(); }
 
+    /** 只观察执行设施是否具备运行条件；队列饱和沿用429语义，不被误判为设施关闭。 */
+    public boolean executionAvailable() {
+        return running && !closed && handler != null && !workers.isShutdown() && !workers.isTerminating()
+                && !workers.isTerminated() && !scanner.isShutdown() && !scanner.isTerminated();
+    }
+
     @Override public boolean isRunning() { return running; }
     @Override public void stop() { close(); }
     @Override public int getPhase() { return Integer.MAX_VALUE; }
