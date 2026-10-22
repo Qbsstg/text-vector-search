@@ -18,7 +18,7 @@ C0/B1参数基线保持不变；B2已实现队列、提交容量和HTTP字节限
 | spring.lifecycle.timeout-per-shutdown-phase | 45s | 框架停止阶段等待；systemd另留余量 |
 | datasource hikari maximum-pool-size / connection-timeout | 4 / 5000ms | 连接数与获取超时 |
 
-环境变量按Spring relaxed binding，如`VECTOR_WORKER_COUNT`。`APP_DATA_DIR`由application.yml显式插值，H2 URL为`jdbc:h2:file:${APP_DATA_DIR:./data}/knowledge;WRITE_DELAY=0`。`PORT`默认8080，监听127.0.0.1；`DB_PASSWORD`通过环境设置，默认仅适合本地开发。服务端不得使用默认空密码作为公网部署已验收证据。
+环境变量按Spring relaxed binding，如`VECTOR_WORKER_COUNT`。`APP_DATA_DIR`由application.yml显式插值，H2 URL为`jdbc:h2:file:${APP_DATA_DIR:./data}/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE`。`PORT`默认8080，监听127.0.0.1；`DB_PASSWORD`通过环境设置，默认仅适合本地开发。服务端不得使用默认空密码作为公网部署已验收证据。
 
 本地主控8080、后端8081、前端8083、部署骨架8084；每个worktree的`data/`互相独立。集成测试随机端口、绝对临时H2目录。部署数据目录固定绝对路径，例如`/var/lib/vector-search/db`，release切换不改变该目录；单实例，不使用AUTO_SERVER。
 
@@ -31,4 +31,6 @@ B1算法已实现：NFKC→Locale.ROOT小写→Unicode空白折叠/首尾去除�
 B3终态仅对明确回滚的暂时DB错误最多3次，退避50/100ms；提交未知先独立事务查询，最多3次仍无法确认则DEGRADED、拒接/停派，保留RUNNING现场。成功确认匹配token、版本、状态、时间和完整向量字节，不能只比长度。搜索计数提交未知不可重试自增，具体实现待B4。没有在线超时抢占、无限重试或手工重试旁路。
 
 启动恢复在单例初始化后、调度生命周期前执行：旧RUNNING恢复QUEUED并清理旧token/执行时间/错误，保留尝试次数和文档元数据；确认物理提交后才READY。只允许旧进程退出且H2文件锁释放后重启，不启用AUTO_SERVER。关闭先STOPPING拒接、停止派发，有界等待Worker，再关闭新写许可并排空已进入的短事务，最后STOPPED并销毁数据源。CPU不持写许可，超时计算不能迟到回写；30秒是Worker等待预算，永久卡住的数据库事务排空不承诺固定时限。
+
+2026-10-23的真实SIGTERM验收发现H2默认JVM退出钩子可早于Spring任务排空关库，取连接报90121-240（Database is already closed），使预算内完成的任务仍留RUNNING。因此B3仅新增DB_CLOSE_ON_EXIT=FALSE，把正常关闭责任交给Spring生命周期与Hikari；原WRITE_DELAY、单实例文件锁、B1规则及全部容量/并发/等待预算不变。显式覆盖数据库URL时必须保留该设置。真实SIGKILL仍由文件数据库恢复负责，此设置不承诺断电安全。
 

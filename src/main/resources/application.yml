@@ -2,7 +2,8 @@ spring:
   application:
     name: vector-search
   datasource:
-    url: jdbc:h2:file:${APP_DATA_DIR:./data}/knowledge;WRITE_DELAY=0
+    # 由Spring在任务写入屏障排空后关闭连接池，避免H2的JVM退出钩子抢先关库。
+    url: jdbc:h2:file:${APP_DATA_DIR:./data}/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: ${DB_PASSWORD:}
     hikari:

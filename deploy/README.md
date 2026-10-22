@@ -26,7 +26,7 @@
 
 - Java17，构建产物 `target/vector-search.jar`；发布时可复制为 `/opt/vector-search/releases/<full-sha>/app.jar`，`current` 指向唯一版本。记录源码 SHA、原始 JAR 名及 SHA-256，禁止两个 JVM 同时打开同一 H2。
 - 应用默认监听 `127.0.0.1:8080`。本角色本地骨架端口8084，H2目录独立；测试应使用临时绝对目录和随机端口。
-- `APP_DATA_DIR` 由基础 application 配置实际插值，建议服务器固定为 `/var/lib/vector-search/db`；最终 URL 为 `jdbc:h2:file:/var/lib/vector-search/db/knowledge;WRITE_DELAY=0`。目录不随 release 切换，URL基名不附加 `.mv.db`，不启用 AUTO_SERVER。
+- `APP_DATA_DIR` 由基础 application 配置实际插值，建议服务器固定为 `/var/lib/vector-search/db`；最终 URL 为 `jdbc:h2:file:/var/lib/vector-search/db/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE`。目录不随 release 切换，URL基名不附加 `.mv.db`，不启用 AUTO_SERVER。B3真实SIGTERM发现H2默认退出钩子会抢先关闭数据库（90121-240），因此正常关闭必须交给Spring排空任务后关闭Hikari；若显式覆盖URL，须保留DB_CLOSE_ON_EXIT=FALSE。
 - `GET /health` C0成功为 `{status:"UP",stage:"C0",businessReady:false}`，仅证明基础连接。HTTP200不能证明任务恢复、调度、业务就绪或上线通过；最终部署等待后端实现就绪门禁。
 - 目标关闭顺序：停业务接收与后台派发→等待在途任务有界结束→关闭H2→退出。业务等待30s、Spring每阶段45s；C0尚不含完整任务生命周期实现。unit暂留120s外层预算，须按实际阶段数量与关闭演练校准，不能简单认为45s是总时长。超时强杀不得视作干净关闭或直接进入普通文件备份。
 

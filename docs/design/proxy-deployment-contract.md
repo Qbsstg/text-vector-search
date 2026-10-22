@@ -6,7 +6,7 @@
 
 以原B2可执行JAR、独立本地H2和端口18081实际请求：同源HTTP直连202；Host为新域名、Origin为同域HTTPS，并携带X-Forwarded-Proto=https/Port=443/Host头时，默认未启用转发头识别的应用返回403 ORIGIN_NOT_ALLOWED。此结果证明默认应用配置与拟HTTPS代理组合存在不匹配；不是B1算法缺陷，也不能在未启用该发布组合前声称公网业务已发生故障。
 
-加载真实`application-proxy.yml`于另一独立本地B2实例18082后，相同HTTPS同源请求202，跨源Origin仍403。有效scheme/host/port的独立观测及不信任来源反例由QA继续验收，不能把响应码单独描述为所有信任边界均通过。
+加载真实`application-proxy.yml`于另一独立本地B2实例18082后，相同HTTPS同源请求202，跨源Origin仍403。随后QA的ProxyOriginIT真实观测默认http/域名/80、proxy配置https/域名/443，并验证跨源403、外来Forwarded不覆盖native三元组，3项IT通过。Mac未配置127.0.0.2别名，实际非信任源socket未完成；采用真实Tomcat RemoteIpValve组件验证不可信来源不能改变三元组，不能称公网信任边界全部已实测。见`docs/testing/proxy-origin-results.md`。
 
 ## 配置与信任边界
 
