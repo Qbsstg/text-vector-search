@@ -74,6 +74,11 @@ caption { text-align: left; color: #53647a; margin-bottom: 12px; }
 th, td { text-align: left; padding: 12px; border-bottom: 1px solid #d4dce7; white-space: nowrap; vertical-align: top; }
 th { background: #f1f4f8; }
 td .id-button { display: block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; }
+.snippet { white-space: pre-wrap; overflow-wrap: anywhere; min-width: 220px; max-width: 420px; }
+td > .hint { display: block; white-space: normal; }
+#search-rows td:nth-child(2) { max-width: 200px; white-space: normal; overflow-wrap: anywhere; }
+summary { cursor: pointer; color: #213e62; }
+summary:focus-visible { outline: 3px solid #235ed1; outline-offset: 3px; }
 .pagination { justify-content: space-between; margin-top: 16px; font-size: .875rem; }
 .session-list { list-style: none; padding: 0; }
 .session-list li { border-bottom: 1px solid #d4dce7; padding: 10px 0; overflow-wrap: anywhere; }

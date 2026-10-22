@@ -53,6 +53,7 @@ function text(value) {
 
 /** 表单中的空渠道表示未填写，必须省略字段；绝不向接口发送显式空白渠道。 */
 export function optionalChannel(value = "") {
+    if (value === null) return undefined;
     if (typeof value !== "string") throw new InputError("channel", "渠道必须是文本。");
     if (blankChannel.test(value)) return undefined;
     const channel = value.replace(trimChannel, "");
@@ -62,6 +63,18 @@ export function optionalChannel(value = "") {
 
 export function submission(values) {
     const body = { documentId: documentId(values.documentId), text: text(values.text) };
+    const channel = optionalChannel(values.channel);
+    if (channel !== undefined) body.channel = channel;
+    return body;
+}
+
+/** 页面默认值不替代协议校验；发送的 topK 必须是 JSON 整数，空查询仍保留空字符串。 */
+export function searchInput(values) {
+    const body = { text: text(values.text) };
+    if (!Number.isInteger(values.topK) || values.topK < 1 || values.topK > 100) {
+        throw new InputError("topK", "Top-K 必须是 1—100 的整数。");
+    }
+    body.topK = values.topK;
     const channel = optionalChannel(values.channel);
     if (channel !== undefined) body.channel = channel;
     return body;
@@ -96,6 +109,10 @@ const validTask = (value) => object(value) && string(value.taskId) && string(val
 const validPage = (value) => object(value) && Array.isArray(value.items) && value.items.every((item) => validDocument(item)) &&
     Number.isSafeInteger(value.page) && value.page >= 0 && Number.isSafeInteger(value.size) && value.size >= 1 && value.size <= 100 &&
     Number.isSafeInteger(value.totalElements) && value.totalElements >= 0 && value.items.length <= value.size;
+const validHits = (value, topK) => object(value) && Array.isArray(value.hits) && value.hits.length <= topK &&
+    value.hits.every((hit) => object(hit) && string(hit.documentId) && /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(hit.documentId) &&
+        string(hit.channel) && typeof hit.score === "number" && Number.isFinite(hit.score) && hit.score >= -1 && hit.score <= 1 &&
+        string(hit.snippet) && Array.from(hit.snippet).length <= 200);
 
 /** 不自动重试任何请求。超时/取消只停止浏览器等待，不能证明服务器没有接收或回滚。 */
 export function createApi(fetchImpl = globalThis.fetch, { timeoutMs = 10000 } = {}) {
@@ -141,6 +158,10 @@ export function createApi(fetchImpl = globalThis.fetch, { timeoutMs = 10000 } = 
                 validate: (value) => object(value) && value.documentId === body.documentId && value.status === "QUEUED" &&
                     string(value.taskId) && (() => { try { taskId(value.taskId); return true; } catch { return false; } })() });
         },
+        search: (values) => {
+            const body = searchInput(values);
+            return request("/api/search", { method: "POST", body, validate: (value) => validHits(value, body.topK) });
+        },
         list: (values, signal) => request(`/api/documents?${listQuery(values)}`, { signal, validate: validPage }),
         detail: (id, signal) => request(`/api/documents/${encodeURIComponent(documentId(id))}`, {
             signal, validate: (value) => validDocument(value, true) && value.documentId === id,
@@ -160,18 +181,24 @@ export function errorText(error, operation = "read") {
     if (error.kind !== "http") {
         const prefix = error.kind === "timeout" ? "请求超时。" : error.kind === "invalid" ? "响应格式与契约不符。" : "网络或响应读取失败。";
         return operation === "submit" ? `${prefix}无法确认文档是否已被接收；请按刚才的文档 ID 查询详情，不要盲目重新提交。`
+            : operation === "search" ? `${prefix}无法确认本次检索是否已完成，可能已计数；不会自动重试，再次检索将视为新请求并可能再次计数。取消浏览器等待不表示后台回滚。`
             : operation === "invalidate" ? `${prefix}无法确认是否已失效；保留上次状态，请手动刷新详情确认。`
             : `${prefix}状态暂不可获取；保留上次已知状态。可手动刷新。`;
     }
     const prefix = `HTTP ${error.status}${error.code ? ` · ${error.code}` : ""}：`;
+    if (error.code === "RESULT_UNKNOWN" && operation === "search") return prefix + "本次检索结果未知，可能已计数；不会自动重试。不能从累计命中次数确认本次是否提交，再次检索是新请求。";
     if (error.code === "RESULT_UNKNOWN") return prefix + (operation === "submit"
         ? "接收结果未知；请按文档 ID 查询，不要自动重提。" : "操作结果未知，请手动查询确认；不会自动重试写入。");
     if (error.status === 409) return prefix + "文档 ID 已存在，不覆盖已有文档；请查询详情或使用新 ID。";
-    if (error.status === 429) return prefix + "服务接收容量已满或请求繁忙，请稍后手动操作；未将文档加入成功记录。";
+    if (error.status === 429) return prefix + (operation === "search"
+        ? "搜索正忙，本次没有返回搜索结果。请稍后手动操作，不会自动重试。"
+        : "服务接收容量已满或请求繁忙，请稍后手动操作；未将文档加入成功记录。");
     if (error.status === 401 || error.status === 403) return prefix + "访问受限，请检查入口授权或同源访问方式。";
     if (error.status === 404) return prefix + "未找到该资源；若是业务接口，可能尚未合入当前后端版本。";
     if (error.status === 413) return prefix + "请求体过大，请缩短原文。";
-    if (error.status >= 500) return prefix + "服务暂不可用或尚未就绪，请稍后手动查询；不会自动重试写入。";
+    if (error.status >= 500) return prefix + (operation === "search"
+        ? "搜索暂不可用或尚未就绪；无法据此确认计数是否提交，可能已计数，不会自动重试。再次检索将作为新请求。"
+        : "服务暂不可用或尚未就绪，请稍后手动查询；不会自动重试写入。");
     return prefix + error.message;
 }
 

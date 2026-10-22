@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>文本检索演示台 · FE1</title>
+  <title>文本检索演示台</title>
   <link rel="stylesheet" href="/styles.css">
   <script src="/app.js" type="module"></script>
 </head>
 <body>
   <main>
     <header>
-      <p class="eyebrow">文本向量化与检索 · FE1 管理入口</p>
+      <p class="eyebrow">文本向量化与检索 · 真实接口演示</p>
       <h1>文本检索演示台</h1>
       <p class="intro">本项目使用确定性的模拟向量算法，体现字面特征相似，不保证语义理解。</p>
     </header>
     <section class="notice" aria-labelledby="stage-title">
-      <h2 id="stage-title">当前阶段：管理接口联调</h2>
-      <p>文档与任务操作只请求真实同源接口；接口未合入当前后端时会如实显示错误。B3 执行处理器尚未启用时，已接收任务保持排队中，不会假报完成。同步检索待 B4，暂不可用。</p>
-      <p>基础健康中的 businessReady=false 不代表完整业务就绪。页面不生成模拟结果、任务或完成进度。</p>
+      <h2 id="stage-title">提交、任务追踪与相似检索</h2>
+      <p>所有操作只请求真实同源接口。文档接收后由后台计算，只有完成、向量就绪且有效的文档才参与检索。接口未合入当前后端或服务尚未就绪时，会如实显示错误。</p>
+      <p>每次检索可能增加命中次数；网络失败不会自动重试。基础健康中的 businessReady=false 不代表完整业务就绪，页面不生成模拟结果、任务或进度。</p>
     </section>
 
     <section class="workspace" aria-label="演示台">
@@ -30,18 +30,31 @@
 
       <section id="panel-search" class="panel" role="tabpanel" aria-labelledby="tab-search" tabindex="0">
         <h2>检索字面相似的文档</h2>
-        <form method="post" id="search-form">
+        <form method="post" id="search-form" novalidate>
           <label for="search-text">查询文本（允许空字符串）</label>
-          <textarea id="search-text" name="text" rows="4" aria-describedby="empty-search"></textarea>
-          <p id="empty-search" class="hint">空查询将返回零分排序结果，不能区分相关性；本阶段尚不执行查询。</p>
+          <textarea id="search-text" name="text" rows="4" aria-describedby="empty-search search-text-error"></textarea>
+          <p id="search-text-error" class="field-error" data-error-for="text"></p>
+          <p id="empty-search" class="hint">空查询将返回零分排序结果，不能区分相关性，仍会正常计数。</p>
           <div class="form-row">
-            <div><label for="search-top-k">Top-K</label><input id="search-top-k" name="topK" type="number" min="1" max="100" step="1" value="5" required></div>
-            <div><label for="search-channel">渠道（不填表示全部渠道）</label><input id="search-channel" name="channel" type="text"></div>
+            <div><label for="search-top-k">Top-K（1—100 整数）</label><input id="search-top-k" name="topK" type="number" min="1" max="100" step="1" value="5" required aria-describedby="search-top-k-error"><p id="search-top-k-error" class="field-error" data-error-for="topK"></p></div>
+            <div><label for="search-channel">渠道（不填表示全部渠道）</label><input id="search-channel" name="channel" type="text" aria-describedby="search-channel-error"><p id="search-channel-error" class="field-error" data-error-for="channel"></p></div>
           </div>
-          <button type="submit" disabled aria-describedby="search-unavailable">检索</button>
-          <p id="search-unavailable" class="hint">B4 搜索接口尚未启用，按钮禁用，不会发送检索请求。后续每次检索可能增加命中次数，网络失败不会自动重试。</p>
+          <button id="search-button" class="primary" type="submit" disabled aria-describedby="search-hint">检索</button>
+          <p id="search-hint" class="hint">仅点击检索或明确提交表单才发出请求。详情、列表刷新、任务完成和失效不会自动检索。</p>
         </form>
-        <p class="empty">尚未执行检索。余弦分数允许负数，不代表概率或置信度。</p>
+        <p id="search-message" class="feedback" role="status" aria-live="polite">尚未执行检索。余弦分数允许负数，不代表概率或置信度。</p>
+        <section id="search-results" aria-label="检索结果" hidden>
+          <p id="search-history" class="hint"></p>
+          <dl id="search-summary"></dl>
+          <details><summary>查看本次结果对应的查询条件</summary><p id="search-query-options" class="hint"></p><pre id="search-query-text" tabindex="0" aria-label="本次查询文本"></pre></details>
+          <div class="table-scroll" tabindex="0" role="region" aria-label="检索结果，可横向滚动">
+            <table>
+              <caption>排序保持后端完整分数顺序；四位小数仅用于显示。没有命中率或置信度换算。</caption>
+              <thead><tr><th scope="col">排名</th><th scope="col">文档 ID</th><th scope="col">余弦分数</th><th scope="col">渠道</th><th scope="col">摘要（纯文本）</th><th scope="col">操作</th></tr></thead>
+              <tbody id="search-rows"></tbody>
+            </table>
+          </div>
+        </section>
       </section>
 
       <section id="panel-documents" class="panel" role="tabpanel" aria-labelledby="tab-documents" tabindex="0" hidden>
@@ -94,7 +107,7 @@
 
       <section id="panel-tasks" class="panel" role="tabpanel" aria-labelledby="tab-tasks" tabindex="0" hidden>
         <h2>任务追踪</h2>
-        <p>B3 未启用时，真实提交记录保持 QUEUED。自动刷新最多 3 个任务，每次响应后间隔至少 2 秒，单任务从首次启用起总计 60 秒；隐藏页面暂停，终态停止。没有完成百分比。</p>
+        <p>任务状态来自真实后台：排队中、处理中、完成或失败。自动刷新最多 3 个任务，每次响应后间隔至少 2 秒，单任务从首次启用起总计 60 秒；隐藏页面暂停，终态停止。没有完成百分比。</p>
         <form method="post" id="task-form" novalidate>
           <label for="task-id">taskId（UUID）</label>
           <div class="inline-form"><input id="task-id" name="taskId" type="text" autocomplete="off" spellcheck="false" aria-describedby="task-id-error"><button id="task-query" type="submit">查询并有限刷新</button></div>
@@ -104,7 +117,7 @@
         <section id="task-result" aria-label="当前任务" hidden>
           <dl id="task-fields"></dl>
           <p id="polling-message" class="hint"></p>
-          <div class="actions"><button id="task-refresh" type="button">手动刷新一次</button><button id="task-stop" type="button">停止自动刷新</button><button id="task-detail" type="button">关联文档详情</button></div>
+          <div class="actions"><button id="task-refresh" type="button">手动刷新一次</button><button id="task-stop" type="button">停止自动刷新</button><button id="task-detail" type="button">关联文档详情</button><button id="task-search" type="button">前往检索（手动查询）</button></div>
         </section>
         <section class="subsection" aria-labelledby="session-title">
           <h2 id="session-title">本页会话任务</h2>
@@ -116,7 +129,7 @@
 
     <section class="health" aria-labelledby="health-title">
       <div class="section-heading"><h2 id="health-title">基础连接检查</h2><button id="check-health" type="button">检查 /health</button></div>
-      <p>基础连接可用不能证明完整业务、恢复或调度就绪。此检查不会启用尚未实现的检索。</p>
+      <p>基础连接与任务就绪字段以真实响应为准，不能代替完整业务和浏览器验收。检查不会自动发起检索。</p>
       <p id="health-message" class="hint" role="status" aria-live="polite">尚未检查。点击按钮获取真实响应。</p>
       <dl id="health-result" hidden></dl>
     </section>
