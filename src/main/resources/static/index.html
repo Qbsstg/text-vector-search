@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>文本检索演示台 · C0 初始化</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">文本向量化与检索 · C0</p>
+      <h1>文本检索演示台</h1>
+      <p class="intro">确定性的模拟向量算法体现字面特征相似，不保证语义理解。</p>
+    </header>
+
+    <section class="notice" aria-labelledby="stage-title">
+      <h2 id="stage-title">项目初始化阶段</h2>
+      <p>当前只有静态入口与基础健康接口。文档提交、列表、详情、失效、任务查询和检索六个业务 API 尚未实现；下方功能区为规划说明，业务按钮暂不可用。</p>
+      <p>页面没有示例结果、任务或完成进度。完整业务将在后续接入真实接口后开放。</p>
+    </section>
+
+    <section class="workspace" aria-label="功能规划">
+      <div class="tabs" role="tablist" aria-label="演示台功能区">
+        <button type="button" id="tab-search" role="tab" aria-selected="true" aria-controls="panel-search" tabindex="0">检索体验</button>
+        <button type="button" id="tab-documents" role="tab" aria-selected="false" aria-controls="panel-documents" tabindex="-1">文档管理</button>
+        <button type="button" id="tab-tasks" role="tab" aria-selected="false" aria-controls="panel-tasks" tabindex="-1">任务追踪</button>
+      </div>
+
+      <section id="panel-search" class="panel" role="tabpanel" aria-labelledby="tab-search" tabindex="0">
+        <p class="eyebrow">待接入真实 API</p>
+        <h2>检索字面相似的文档</h2>
+        <p>后续支持查询文本、Top-K 和可选渠道，并展示后端返回的分数与文档来源。目前尚未执行任何查询。</p>
+        <ul>
+          <li>空查询合法；不填渠道表示全部渠道。</li>
+          <li>分数是余弦相似度，可为负数，并非概率或置信度。</li>
+          <li>每次检索可能增加命中次数，网络失败不会自动重试。</li>
+        </ul>
+        <button type="button" disabled aria-describedby="search-unavailable">检索</button>
+        <p id="search-unavailable" class="hint">检索 API 尚未实现，暂不能提交查询。</p>
+      </section>
+
+      <section id="panel-documents" class="panel" role="tabpanel" aria-labelledby="tab-documents" tabindex="0" hidden>
+        <p class="eyebrow">待接入真实 API</p>
+        <h2>提交与管理文档</h2>
+        <p>后续支持提交原文、分页列表、纯文本详情和确认失效。目前尚未加载文档数据。</p>
+        <ul>
+          <li>允许提交空字符串；保留原文，不在浏览器中改写。</li>
+          <li>不填渠道时，提交使用 default；显式空白渠道由接口拒绝。</li>
+          <li>接收成功与向量化完成分别展示；失效后不会自动重新检索。</li>
+        </ul>
+        <button type="button" disabled aria-describedby="documents-unavailable">提交文档</button>
+        <p id="documents-unavailable" class="hint">文档 API 尚未实现，暂不能提交、读取或失效文档。</p>
+      </section>
+
+      <section id="panel-tasks" class="panel" role="tabpanel" aria-labelledby="tab-tasks" tabindex="0" hidden>
+        <p class="eyebrow">待接入真实 API</p>
+        <h2>查看后台向量化任务</h2>
+        <p>后续可按真实 taskId 查询排队、运行、成功或失败状态。目前没有接入任务查询。</p>
+        <ul>
+          <li>不生成完成百分比；任务状态以服务器返回为准。</li>
+          <li>自动刷新有时间及并发上限，终态停止，页面隐藏时暂停。</li>
+          <li>网络失败只表示状态暂不可获取，不能判定任务失败。</li>
+        </ul>
+        <button type="button" disabled aria-describedby="tasks-unavailable">查询任务</button>
+        <p id="tasks-unavailable" class="hint">任务 API 尚未实现，暂不能查询或轮询。</p>
+      </section>
+    </section>
+
+    <section class="health" aria-labelledby="health-title">
+      <div class="section-heading">
+        <h2 id="health-title">基础连接检查</h2>
+        <button id="check-health" type="button">检查 /health</button>
+      </div>
+      <p>此检查只读取同源的 GET /health。C0 契约中的 businessReady=false 表示业务尚未就绪，基础连接可用不能证明业务可用。</p>
+      <p id="health-message" class="hint" role="status" aria-live="polite">尚未检查。可点击按钮获取真实响应。</p>
+      <dl id="health-result" hidden>
+        <div><dt>status</dt><dd id="health-status"></dd></div>
+        <div><dt>stage</dt><dd id="health-stage"></dd></div>
+        <div><dt>businessReady</dt><dd id="health-ready"></dd></div>
+      </dl>
+    </section>
+
+    <noscript><p class="notice">JavaScript 未启用，功能区切换和健康检查不可用。当前仍处于 C0 初始化阶段。</p></noscript>
+    <footer>原生 HTML / CSS / JavaScript，由同一个 Java 应用托管。业务实现与最终验收尚未完成。</footer>
+  </main>
+</body>
+</html>
