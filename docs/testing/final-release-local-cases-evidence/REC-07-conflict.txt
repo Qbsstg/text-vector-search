@@ -1,0 +1,1 @@
+原预期FAIL/契约冲突：旧版本SUCCEEDED且ready，32→33新版本health200/ready，搜索200空hits；没有迁移/重算。观察测试通过不等于原REC-07通过。旧=char12-sha256-r32-nfkc-root-ws-v1；新=char12-sha256-r33-nfkc-root-ws-v1

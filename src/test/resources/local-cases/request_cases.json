@@ -1,0 +1,150 @@
+{
+  "cases": [
+    {
+      "id": "REQ-01",
+      "method": "POST",
+      "path": "/api/documents",
+      "body": {
+        "documentId": "REQ-EMPTY",
+        "text": ""
+      },
+      "expectedStatus": 202,
+      "note": "空文本合法；保存真实taskId"
+    },
+    {
+      "id": "REQ-02",
+      "method": "POST",
+      "path": "/api/documents",
+      "body": {
+        "documentId": "REQ-NULL",
+        "text": null
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-03",
+      "method": "POST",
+      "path": "/api/documents",
+      "body": {
+        "documentId": "REQ-MISSING"
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-04",
+      "method": "POST",
+      "path": "/api/documents",
+      "body": {
+        "documentId": " ",
+        "text": "测试"
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-05",
+      "method": "POST",
+      "path": "/api/documents",
+      "body": {
+        "documentId": "REQ-CH",
+        "text": "测试",
+        "channel": ""
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-06",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "",
+        "topK": 2
+      },
+      "expectedStatus": 200,
+      "note": "有库时返回稳定零分结果并计数；空库hits为空"
+    },
+    {
+      "id": "REQ-07",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": 0
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-08",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": -1
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-09",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": 1.5
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-10",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": 101
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-11",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": 1,
+        "channel": " "
+      },
+      "expectedStatus": 400
+    },
+    {
+      "id": "REQ-12",
+      "method": "GET",
+      "path": "/api/tasks/00000000-0000-4000-8000-000000000001",
+      "expectedStatus": 404,
+      "note": "固定合法UUID样例；前置确认测试库不存在该ID。若最终taskId不是UUID，改为契约允许且不存在的ID。"
+    },
+    {
+      "id": "REQ-13",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": 1,
+        "channel": null
+      },
+      "expectedStatus": null,
+      "contractStatus": "BLOCKED_CONTRACT",
+      "note": "null渠道不同于缺省；既有整合方案未给出精确定义"
+    },
+    {
+      "id": "REQ-14",
+      "method": "POST",
+      "path": "/api/search",
+      "body": {
+        "text": "测试",
+        "topK": "1"
+      },
+      "expectedStatus": null,
+      "contractStatus": "BLOCKED_CONTRACT",
+      "note": "JSON类型强制转换规则待冻结，不由框架默认决定"
+    }
+  ],
+  "sourceSha256": "f7ef24185a987484a22aed55d084b96064fbf17858e6fe40a48b0f0c2f297f90"
+}
