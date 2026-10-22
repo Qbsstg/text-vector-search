@@ -1,16 +1,15 @@
 package dev.twelvetimes.vector.embedding;
 
 /**
- * Narrow, framework-independent boundary shared by document and query vectorization.
- * Implementations return independent arrays and expose the exact algorithm version;
- * callers must never compare persisted vectors from a different version.
+ * 文档和查询共用的窄向量化接口，不依赖框架。
+ * 实现应返回独立数组并提供精确算法版本；调用者不能比较不同版本的持久化向量。
  */
 public interface TextEmbedder {
     int DIMENSIONS = 256;
 
-    /** Returns a fresh finite vector; null, malformed UTF-16 or oversized input is rejected. */
+    /** 返回新分配的有限值向量；拒绝 null、非法 UTF-16 和超限文本。 */
     float[] embed(String text);
 
-    /** Includes every configurable parameter that can change vector bits. */
+    /** 版本标识包含所有可能改变向量位模式的可配置参数。 */
     String version();
 }

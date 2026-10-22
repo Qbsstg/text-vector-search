@@ -2,14 +2,13 @@ package dev.twelvetimes.vector.search;
 
 import java.util.regex.Pattern;
 
-/** Immutable score for an already eligible document; neither persistence nor HTTP is involved. */
+/** 保存已通过资格过滤的文档及分数，不涉及持久化或 HTTP；实例不可变。 */
 public record ScoredDocument(String documentId, double score) {
     private static final Pattern DOCUMENT_ID = Pattern.compile("[A-Za-z0-9][A-Za-z0-9._-]{0,127}");
 
     /**
-     * Enforces the frozen ASCII ID and cosine range at the score boundary. Canonical
-     * positive zero is necessary because Double.compare distinguishes signed zeros,
-     * whereas the ranking contract deliberately treats them as the same score.
+     * 在分数边界执行冻结的 ASCII ID 和余弦范围约束。
+     * Double.compare 会区分正负零，而排序契约要求它们同分，因此统一为正零。
      */
     public ScoredDocument {
         if (documentId == null || !DOCUMENT_ID.matcher(documentId).matches()) {

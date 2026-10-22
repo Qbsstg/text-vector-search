@@ -7,9 +7,9 @@ import java.text.Normalizer;
 import java.util.Locale;
 
 /**
- * Deterministic character unigram/bigram hashing under the Java 17 B1 contract.
- * This preserves local literal overlap, not semantic understanding. All mutable
- * calculation state belongs to one invocation, so the same instance is thread safe.
+ * 按 Java 17 的 B1 契约生成确定性的字符 unigram/bigram 哈希向量。
+ * 算法保留局部字面重合，不具备语义理解能力。所有可变计算状态均属于单次调用，
+ * 因此同一实例可以安全地供多个线程复用。
  */
 public final class CharNgramTextEmbedder implements TextEmbedder {
     private final int cpuRounds;
@@ -17,8 +17,8 @@ public final class CharNgramTextEmbedder implements TextEmbedder {
     private final String version;
 
     /**
-     * @param cpuRounds total SHA-256 rounds per feature, including the first UTF-8 digest
-     * @param maxTextCodePoints independent upper bound for raw and fully normalized text
+     * @param cpuRounds 每个特征的 SHA-256 总轮数，包含首次 UTF-8 字节摘要
+     * @param maxTextCodePoints 分别约束原文和完整规范化文本的 code point 上限
      */
     public CharNgramTextEmbedder(int cpuRounds, int maxTextCodePoints) {
         if (cpuRounds < 1 || cpuRounds > 10000) {
@@ -52,7 +52,7 @@ public final class CharNgramTextEmbedder implements TextEmbedder {
             int current = normalized.codePointAt(offset);
             offset += Character.charCount(current);
             if (current == ' ') {
-                previous = -1; // A collapsed whitespace boundary must never produce a bigram.
+                previous = -1; // 折叠后的空白是特征边界，不能跨越它生成 bigram。
                 continue;
             }
             String character = new String(Character.toChars(current));
@@ -63,15 +63,15 @@ public final class CharNgramTextEmbedder implements TextEmbedder {
             previous = current;
         }
 
-        // Cast before multiplying: integer overflow must not change a future larger input's norm.
-        // Fixed index order and StrictMath avoid parallel reduction/platform sqrt differences.
+        // 先转为 double 再相乘，防止整数溢出改变范数。
+        // 固定下标顺序并使用 StrictMath，避免并行归约或平台平方根实现影响确定性。
         double squaredNorm = 0.0;
         for (long bucket : buckets) {
             squaredNorm += (double) bucket * bucket;
         }
         float[] result = new float[DIMENSIONS];
         if (squaredNorm == 0.0) {
-            return result; // Empty input and complete signed collisions are both valid zero vectors.
+            return result; // 空输入和带符号碰撞完全抵消均得到合法零向量。
         }
         double norm = StrictMath.sqrt(squaredNorm);
         for (int index = 0; index < DIMENSIONS; index++) {
@@ -108,7 +108,7 @@ public final class CharNgramTextEmbedder implements TextEmbedder {
         for (int offset = 0; offset < folded.length();) {
             int codePoint = folded.codePointAt(offset);
             offset += Character.charCount(codePoint);
-            // isWhitespace alone excludes NBSP; isSpaceChar completes the frozen predicate.
+            // isWhitespace 不包含 NBSP，需结合 isSpaceChar 才满足冻结的空白判定。
             if (Character.isWhitespace(codePoint) || Character.isSpaceChar(codePoint)) {
                 pendingSpace = !result.isEmpty();
             } else {
@@ -119,13 +119,13 @@ public final class CharNgramTextEmbedder implements TextEmbedder {
                 pendingSpace = false;
             }
         }
-        return result.toString(); // Never flush a final pending space: trimming is part of the contract.
+        return result.toString(); // 不追加末尾待定空格，保证契约要求的首尾去空白。
     }
 
     private void accumulate(String feature, long[] buckets, MessageDigest digest) {
         byte[] bytes = feature.getBytes(StandardCharsets.UTF_8);
         for (int round = 0; round < cpuRounds; round++) {
-            // digest(byte[]) resets the invocation-local MessageDigest after every round.
+            // digest(byte[]) 每轮结束会重置本次调用独有的 MessageDigest。
             bytes = digest.digest(bytes);
         }
         int bucket = Byte.toUnsignedInt(bytes[0]);
@@ -137,7 +137,7 @@ public final class CharNgramTextEmbedder implements TextEmbedder {
         try {
             return MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException exception) {
-            // SHA-256 is mandatory in Java 17; this is a runtime installation failure, not bad input.
+            // Java 17 必须支持 SHA-256；缺失表示运行环境故障，不能归为用户输入错误。
             throw new IllegalStateException("SHA-256 is unavailable", exception);
         }
     }

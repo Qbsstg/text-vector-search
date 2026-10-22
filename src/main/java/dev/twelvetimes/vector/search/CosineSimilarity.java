@@ -2,16 +2,16 @@ package dev.twelvetimes.vector.search;
 
 import dev.twelvetimes.vector.embedding.TextEmbedder;
 
-/** Exact cosine scoring for finite 256-dimensional vectors, including non-unit input. */
+/** 计算有限值 256 维向量的精确余弦相似度，输入无需事先单位化。 */
 public final class CosineSimilarity {
     private CosineSimilarity() {
     }
 
     /**
-     * Accumulates dot product and both squared norms in fixed index order using double.
-     * Casting before multiplication also keeps Float.MAX_VALUE products finite. A zero
-     * norm has defined score +0.0, but both complete inputs are still validated first.
-     * The final clamp only corrects floating-point roundoff beyond the cosine range.
+     * 按固定下标顺序用 double 累加点积及两个范数平方。
+     * 先转换再相乘，保证 Float.MAX_VALUE 的乘积仍为有限值。
+     * 零范数得分定义为 +0.0，但仍先校验双方完整输入，不能跳过非法元素。
+     * 最后仅对浮点舍入导致的范围越界进行钳制。
      */
     public static double score(float[] left, float[] right) {
         if (left == null || right == null
@@ -36,6 +36,6 @@ public final class CosineSimilarity {
         }
         double result = dot / (StrictMath.sqrt(leftSquaredNorm) * StrictMath.sqrt(rightSquaredNorm));
         result = StrictMath.max(-1.0, StrictMath.min(1.0, result));
-        return result == 0.0 ? 0.0 : result; // Normalize -0.0 so it cannot break Top-K tie semantics.
+        return result == 0.0 ? 0.0 : result; // 统一负零，避免破坏 Top-K 的同分语义。
     }
 }

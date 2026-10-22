@@ -94,8 +94,8 @@ class CharNgramTextEmbedderTest {
 
     @Test
     void fixedGoldenByteDigestsMatchIndependentReference() throws Exception {
-        // Values were derived using a separate Python hashlib/struct reference for these fixed inputs.
-        // They detect bit mapping, round count, feature prefix, normalization and byte-order changes.
+        // 固定期望由独立 Python hashlib/struct 参考实现生成，
+        // 用于发现位映射、轮数、特征前缀、规范化及字节序的意外变化。
         assertEquals("5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef", hash(embedder.embed("")));
         assertEquals("d2987869c01cdc5afa71fd78034ccee55022ab11b288d7c3da9eccadcc0aa207",
                 hash(new CharNgramTextEmbedder(1, 20000).embed("a")));

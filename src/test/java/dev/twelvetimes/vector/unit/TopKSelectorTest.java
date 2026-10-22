@@ -38,7 +38,7 @@ class TopKSelectorTest {
             candidates.add(new ScoredDocument("doc-" + index, (random.nextInt(21) - 10) / 10.0));
         }
         List<ScoredDocument> expected = new ArrayList<>(candidates);
-        // Reference intentionally spells out ordering rather than sharing a production comparator.
+        // 参考实现独立写出完整排序规则，避免复用生产比较器掩盖同一错误。
         expected.sort((left, right) -> left.score() == right.score()
                 ? left.documentId().compareTo(right.documentId())
                 : left.score() > right.score() ? -1 : 1);

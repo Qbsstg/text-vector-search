@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS documents (
     document_id VARCHAR(128) PRIMARY KEY,
     raw_text CLOB NOT NULL,
-    -- Up to 64 code points may require 128 UTF-16 code units; API enforces the code-point limit.
+    -- 64 个 code point 最多需要 128 个 UTF-16 单元；API 层负责字符数量上限。
     channel VARCHAR(128) NOT NULL,
     submitted_at TIMESTAMP WITH TIME ZONE NOT NULL,
     invalidated BOOLEAN NOT NULL DEFAULT FALSE,

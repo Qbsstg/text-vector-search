@@ -4,9 +4,9 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * Stable 256-float binary representation, independent of native byte order and Java serialization.
- * BIG_ENDIAN is explicitly selected at both boundaries. Finite raw bits, including negative zero,
- * survive a round trip; NaN and infinity are rejected instead of poisoning later scores.
+ * 将 256 个 float 稳定编码为二进制，不依赖本机字节序或 Java 对象序列化。
+ * 编解码均显式采用 BIG_ENDIAN；有限值的原始位（含负零）往返不变。
+ * 拒绝 NaN 和无穷大，避免非有限数污染后续相似度计算。
  */
 public final class VectorCodec {
     public static final int ENCODED_LENGTH = TextEmbedder.DIMENSIONS * Float.BYTES;
@@ -14,7 +14,7 @@ public final class VectorCodec {
     private VectorCodec() {
     }
 
-    /** Validates the complete input and returns newly allocated 1024-byte storage. */
+    /** 校验完整输入，返回新分配的 1024 字节存储。 */
     public static byte[] encode(float[] vector) {
         if (vector == null || vector.length != TextEmbedder.DIMENSIONS) {
             throw new IllegalArgumentException("Vector must have exactly 256 dimensions");
@@ -27,7 +27,7 @@ public final class VectorCodec {
         return buffer.array();
     }
 
-    /** Validates size and every decoded element; no reference to the source bytes is retained. */
+    /** 校验字节长度及每个解码元素，不保留对输入字节数组的引用。 */
     public static float[] decode(byte[] bytes) {
         if (bytes == null || bytes.length != ENCODED_LENGTH) {
             throw new IllegalArgumentException("Encoded vector must have exactly 1024 bytes");

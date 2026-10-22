@@ -3,7 +3,7 @@ package dev.twelvetimes.vector.api.contract;
 import java.time.Instant;
 import java.util.List;
 
-/** Contract v1.0. These DTOs declare the agreed wire format; business endpoints follow C0. */
+/** 契约 v1.0：声明已约定的传输格式，业务端点在 C0 后续阶段实现。 */
 public final class ApiModels {
     private ApiModels() { }
 

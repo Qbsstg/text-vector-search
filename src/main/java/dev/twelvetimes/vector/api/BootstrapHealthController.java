@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** Infrastructure health only. Business readiness/recovery gating is a later backend task. */
+/** 仅检查基础连接；业务就绪和恢复门禁属于后续后端阶段。 */
 @RestController
 public class BootstrapHealthController {
     private final DataSource dataSource;
@@ -25,7 +25,7 @@ public class BootstrapHealthController {
                 return ResponseEntity.ok(Map.of("status", "UP", "stage", "C0", "businessReady", false));
             }
         } catch (SQLException ignored) {
-            // Keep database details out of the unauthenticated local health response.
+            // 本地健康响应也不泄露数据库异常细节。
         }
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                 .body(Map.of("status", "DOWN", "stage", "C0", "businessReady", false));

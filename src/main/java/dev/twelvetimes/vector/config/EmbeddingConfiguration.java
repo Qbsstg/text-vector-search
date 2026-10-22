@@ -5,7 +5,7 @@ import dev.twelvetimes.vector.embedding.TextEmbedder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/** Binds one immutable algorithm instance so document and query paths cannot silently diverge. */
+/** 统一绑定不可变算法实例，防止文档与查询路径悄悄采用不同配置。 */
 @Configuration(proxyBeanMethods = false)
 public class EmbeddingConfiguration {
     @Bean
