@@ -64,3 +64,13 @@ Linux隔离环境先用项目同路径专用夹具，测试持久锁跨stop/star
 复核结论：仍属**首发**，无旧release/生产数据可回切；SSL现有有效材料无需用户重给。当前仅TLS检查入口PASS，不是正式业务入口PASS。执行前仍需批准固定source SHA、独立JAR SHA-256与对应成功CI候选，以及具体上传/新release/current、持久锁和unit/proxy修改、必要apache2-utils安装及安全认证创建、启动策略、受保护业务站点切换和重启验收操作。首发失败回TLS检查并保留现场；任何生产恢复/删除另批。
 
 正式systemd业务启动/单实例/停止/重启持久化，以及真实入口401/认证/同源写/跨源403/六接口闭环仍 **NOT_RUN**。云安全组仍用户人工。此次没有远端写入、安装、认证生成、上传/启动/reload/restart，没有读env内容或私钥、打开H2、备份/恢复/删除。本次仅追加文档，`git diff --check`通过，未重跑Maven或Node。
+
+## 首轮Linux CI失败与lsof语义修正
+
+保留CI run39833314291首次失败：主控报告Java/Node通过，但真实活动H2场景被脚本按“lsof退出状态与输出矛盾”拒绝，QA预期活动占用分类，候选未封装。不是备份错误放行，也不能把这一失败改记通过。QA后续补同sudo/PATH/目录条件下原始lsof版本、rc/stdout/stderr诊断，Linux复验由下一轮CI给出。
+
+只读查阅本机 `/usr/share/man/man8/lsof.8`（lsof4.91）DIAGNOSTICS：退出1包括任一搜索项未匹配，退出0要求全部搜索参数均有信息；+D遍历目录建立文件列表。因此退出1同时存在有效匹配不能认定输出矛盾。该本机文档是语义依据，不冒充CI所用Linux版本和实际输出证据。
+
+经主控授权，Owner仅修改cold-copy.sh：改用 `lsof -nP -Fpfn +D` 机器格式，对rc0/1无stderr的结果统一严格解析PID、FD、路径。任何其他PID立即按占用拒绝；自身仅允许当前实际持有的永久锁FD和完整路径，不能放过自身数据库。未知字段、缺字段、重复路径、空记录、其他退出码或任何stderr均保守拒绝；rc0空输出拒绝，rc1无记录仅表示未匹配。没有放宽任意stdout，没有降低QA断言或修改CI。
+
+本地直接从Shell内嵌Python AST提取生产解析函数，执行15项夹具：rc0/1自身锁及rc1空匹配通过；rc1真实形态其他PID、混合PID、自身数据库/错误FD、stderr、未知退出码、rc0空记录、缺路径、表格格式、未知字段、只有进程、重复路径均拒绝。`bash -n deploy/scripts/cold-copy.sh`、`git diff --check`通过。夹具验证分类与边界，不代表Linux实际lsof/H2复验通过；真实服务器未连接/操作。未运行Maven/Node，未产生发布候选。

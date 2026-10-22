@@ -66,18 +66,58 @@ except BlockingIOError:
 state = subprocess.run(['systemctl', 'show', 'vector-search.service', '--property=ActiveState', '--value'], capture_output=True, text=True)
 if state.returncode or state.stdout.strip() != 'inactive':
     reject('服务未明确inactive；failed/超时必须先诊断，不能当作干净停止')
-# restore-check也要求生产当前停止；保守避免把活动现场误认为冷恢复演练。
-for directory in {source, Path('/var/lib/vector-search/db')}:
-    inspection = subprocess.run(['lsof', '-nP', '+D', str(directory)], capture_output=True, text=True)
+def check_open_files(inspection, own_pid, lock_fd, lock_path):
+    # lsof退出1可以同时有有效匹配，不能据此忽略占用或误认输出矛盾。
+    # 仅接受所请求的p/f/n机器字段，每个文件必须同时有PID、FD和完整路径。
     if inspection.stderr or inspection.returncode not in (0, 1):
         reject('lsof检查不可靠')
-    # 本脚本只持有永久锁，不打开数据库；允许自己的锁FD，其他进程一律拒绝。
-    if inspection.returncode == 0:
-        rows = inspection.stdout.splitlines()[1:]
-        if not rows or any(len(row.split()) < 2 or row.split()[1] != str(os.getpid()) for row in rows):
-            reject('存在其他进程文件占用')
-    elif inspection.stdout:
-        reject('lsof退出状态与输出矛盾')
+    if not inspection.stdout:
+        if inspection.returncode == 0:
+            reject('lsof格式异常：成功状态却没有记录')
+        return
+    pid, file_fd, name = None, None, None
+    process_has_file = False
+    def finish_file():
+        if file_fd is None or name is None:
+            reject('lsof格式异常：文件字段不完整')
+        # 自身也仅允许实际持有的永久锁FD，不能放过自身打开的数据库。
+        if pid != own_pid or file_fd != str(lock_fd) or name != lock_path:
+            reject('存在其他进程文件占用或自身非锁文件占用')
+    for line in inspection.stdout.splitlines():
+        if not line:
+            reject('lsof格式异常：空字段')
+        field, value = line[0], line[1:]
+        if field == 'p':
+            if pid is not None:
+                if not process_has_file:
+                    reject('lsof格式异常：进程缺少文件')
+                finish_file()
+            if not value.isascii() or not value.isdecimal() or int(value) <= 0:
+                reject('lsof格式异常：PID非法')
+            pid = int(value)
+            if pid != own_pid:
+                reject('存在其他进程文件占用')
+            file_fd, name, process_has_file = None, None, False
+        elif field == 'f':
+            if pid is None or not value:
+                reject('lsof格式异常：FD缺少进程')
+            if file_fd is not None:
+                finish_file()
+            file_fd, name, process_has_file = value, None, True
+        elif field == 'n':
+            if file_fd is None or name is not None or not value:
+                reject('lsof格式异常：路径重复或缺少FD')
+            name = value
+        else:
+            reject('lsof格式异常：未知字段')
+    if pid is None or not process_has_file:
+        reject('lsof格式异常：缺少文件记录')
+    finish_file()
+
+# restore-check也要求生产当前停止；保守避免把活动现场误认为冷恢复演练。
+for directory in {source, Path('/var/lib/vector-search/db')}:
+    inspection = subprocess.run(['lsof', '-nP', '-Fpfn', '+D', str(directory)], capture_output=True, text=True)
+    check_open_files(inspection, os.getpid(), descriptor, str(lock))
 database = source / 'knowledge.mv.db'
 if database.is_symlink() or not database.is_file():
     reject('源必须包含普通knowledge.mv.db文件')
