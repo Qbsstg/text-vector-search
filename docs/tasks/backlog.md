@@ -1,33 +1,29 @@
 # 任务板
 
-2026-10-23最终阶段；PM从干净ab990bc快进`16356e03aca5046523a16f740c16fb4c7608b288`。用户已原则批准B4后端核心，仅做最终健康/UI验收与DEP3发布准备，冻结六接口、B1—B4规则/DDL/参数和历史证据。详见[最终交付准备与审批清单](最终交付准备与审批清单.md)。
+2026-10-23候选实核更新；本次PM仍在c5aebad3f7b916f05a0ac6ea26f9e87242effc56基础上独立提交，**未快进**。固定候选源码为68d80cb967c6d321047672811dea45b555ba5cbc，后续纯文档HEAD或新CI包不替换它。用户已原则批准B4核心；正式DEP3和真人UI仍分层待办，详见[交付与审批清单](最终交付准备与审批清单.md)。
 
-| ID | Owner | 状态 | 已有证据与剩余门禁 |
+| ID | Owner | 状态 | 已核证事实与剩余门禁 |
 | --- | --- | --- | --- |
-| C0 | 主控及五角色 | DONE | 原3 unit+6 IT、JAR/浏览器证据保留 |
-| B1 / QA1-B1 / PM-B1 | 后端/QA/PM/主控 | DONE | 原算法/黄金/29 unit+22 IT及CI原件冻结 |
-| B2核心/独立QA/PM-B2 | 后端/QA/PM/主控 | DONE | 53769c6的53 unit+44 IT+25 Node及远程原件保留 |
-| B3终态/恢复/生命周期/独立QA/PM | 后端/QA/PM/主控 | DONE | 28cd42d及Linux173项、四强杀/SIGTERM/11进程与两处真实修复原件保留 |
-| B4-01/02后端核心 | 后端 | DONE | c106e18/59f3c76及最终命中/快照/并发/未知提交/RST/关闭已独立验收，用户原则通过 |
-| QA-B4设计/执行 | QA | DONE | 12矩阵计划与22个实际新IT分开；4ba76e5/9703c7f已合入，未将编号算通过数 |
-| B4-03集成/CI | 主控 | DONE | b55473e本地95 unit+96 IT+38 Node=229；Linux main5f2f058/run39826245521同为229，最新阶段ab990bc/run39827330708 success；不是最终健康候选 |
-| FE1—FE3代码/真实HTTP | 前端/主控 | REVIEW_UI | 8a1ea67/2b93ec4与38 Node/真实JAR闭环通过；真人UI仍未验 |
-| DEP2 / HTTP准备 / TLS-CHECK | 服务器/主控 | DONE | 原专用账号/目录和独立TLS检查通过；SSL有效，不重复索取；业务仍未发布 |
-| CN注释 / GIT-CN历史 | 主控/QA/服务器 | DONE | 原独立中文化/回归、28条提交对照与历史SHA保留 |
-| PUB-REVIEW公开授权复核 | 主控 | DONE | 用户确认此前公开为本人操作并明确授权；本轮PUBLIC、API private=false；824历史blob未命中指定凭据格式/禁扩展名，不宣称完备秘密检测 |
-| HEALTH-FINAL实现/目标unit | 后端/主控 | REVIEW | 5377542聚合只读事实+3cea5eb Controller已合入，目标12 unit通过；非READY/关闭/六映射等独立回归及最终全量待核 |
-| QA-FINAL健康/冷备恢复 | QA/主控 | READY | 迁移健康状态不降旧业务断言；Linux独立锁/活动H2拒绝/新目录恢复/源库不变仍需实际证据 |
-| CANDIDATE最终固定包 | 主控 | TODO | 最终全量/CI成功后下载app.jar、manifest、SUM，复核源码SHA/JAR与schema hash；字段待主控生成，不填当前文档HEAD冒充 |
-| UI-MANUAL-PREP | 前端 | DONE | frontend-final-ui手工脚本/模板已交；18个U项+11个F项，共29项全部NOT_RUN，模板不是PASS |
-| UI-FINAL真人验收 | 用户/前端/QA | REVIEW_UI | Work仍disabled，使用固定候选按Chrome脚本实操并留截图/HAR/Console；Node/HTTP不能替代 |
-| DEP3-PREP只读预检/本地方案 | 服务器 | REVIEW | 无current/release/DB；htpasswd缺失；本地计划/验证器/拒绝路径已交，真实Linux冷备与恢复校验待QA |
-| DEP3正式业务发布 | 服务器/主控/用户 | TODO | 必须批准固定源码/独立JAR hash和具体操作；本轮未上传/启动/创建认证/改实际env/替换数据 |
-| PM-FINAL | 项目管理 | REVIEW | 本次四份任务文档，八项交付/门禁/审批/剩余估计分组；不跑测试、服务器或代主控关闭最终门禁 |
+| C0 / B1 / B2 / B3 | 后端/QA/主控 | DONE | 原始算法/事务/四强杀/生命周期及各阶段CI证据全部保留，不改历史SHA |
+| B4后端核心/独立QA/集成 | 后端/QA/主控 | DONE | 用户原则通过；原229项及计数/并发/未知提交/真实RST证据保留 |
+| CN注释 / GIT-CN历史 | 主控/QA/服务器 | DONE | 原独立中文化、回归和28条历史对照保持 |
+| PUB-REVIEW | 主控 | DONE | 用户确认本人公开并明确授权；PUBLIC/private=false；824blob指定格式/禁文件审计为当时快照，不作完备秘密检测保证 |
+| HEALTH-FINAL | 后端/QA/主控 | DONE | B4健康由只读运行事实合取、非硬true；最终全量含104 unit+110 IT+38 Node=252，失败/错误/跳过0；UI/发布许可仍独立 |
+| QA-FINAL Linux锁/冷备恢复 | QA/主控 | DONE | 实际活动H2/锁拒绝、hash/权限、拒覆盖/错SHA、新目录真实JAR恢复状态/计数/失效保持通过；systemctl inactive为shim，不算实机systemd验收 |
+| CANDIDATE固定包 | 主控 | DONE | 68d80cb、CI39834086512 completed/success、artifact12450815373，JAR独立CI日志hash与实包/6参验证匹配；大小27308443。候选值固定见清单 |
+| FINAL-CI原件归档 | 主控 | DONE | 成功final-ci-68d80cb的194份原件与首次失败96原件均保留；88d1565已提交FINAL-verification及固定Chrome入口，失败不抹除 |
+| FE1—FE3代码/HTTP | 前端/主控 | REVIEW_UI | 38 Node及既有真实HTTP通过；不能替代真人DOM/视觉/键盘/XSS |
+| UI-MANUAL-PREP | 前端 | DONE | 手工脚本/证据模板已交，18U+11F共29项全部NOT_RUN；主控另给固定候选Chrome入口 |
+| UI-FINAL真人验收 | 用户/前端/QA | REVIEW_UI | 最新browsers=[]/Work disabled、Mac locked；需要用户Chrome实际操作固定68候选，未生成假截图或PASS |
+| DEP2 / TLS-CHECK | 服务器/主控 | DONE | SSL沿用，02:41刷新TLS检查200/API404、80/443监听、8080无；业务inactive/disabled/NRestarts0 |
+| DEP3-PREP | 服务器/主控 | DONE | 只读预检/候选/本地及Linux方案验证完成；当前无release/current/DB，htpasswd缺失、35G可用；实机运行仍未验 |
+| DEP3正式业务发布 | 用户/服务器/主控 | TODO | 固定68版本+必要apache2-utils/交互认证/上传/proxy-env/unit持久锁/启动/业务Nginx切换/重启及分别开机策略需独立批准；本轮无正式部署、生产写入或删除 |
+| PM-FINAL | 项目管理 | REVIEW | 四份Owner文档更新，仅文档/Git/候选只读字节校验；不快进、不改公共/其他角色文件 |
 
-健康businessReady由运行事实推导，不能作为UI/CI/认证/发布许可。最终候选变更须重审CI/hash，纯文档HEAD不替代已测源码。已有229项仅证明B4核心，新增12目标unit不推算成最终全量通过数。
+首次CI失败为lsof rc1有输出被过严判为矛盾；52cda701修解析、caa6d020留原始诊断后，68d80cb真实Linux复验成功。普通夹具/默认inactive shim不冒称实机systemd；原失败96文件路径docs/testing/evidence/final-ci-8fd97e1-failed保留。
 
-仓库按最新授权保持公开，[公开授权与安全复核](../git/公开授权与安全复核-20261023.md)覆盖旧私有要求；旧可见性检查保留当时事实，不自动回退。格式扫描不是任意敏感内容的完备证明，用户PDF/ZIP/key/env/运行库继续不入库。
+固定下载JAR另完成本机25个HTTP请求，覆盖六接口/计数/幂等失效/代理同源允许跨源403；pid54327已SIGTERM退出143，临时库和final-candidate-local-smoke原件保留。这不是浏览器、真实TLS或实机认证；25请求不加到252项测试数量。后续代码/配置与固定68 diff为空，文档HEAD/最后文档CI不替换该候选。
 
-当前server只有TLS检查。DEP3要单独批准apache2-utils必要安装/安全交互建入口账号、固定候选上传、proxy/env/unit持久flock/单实例启动、全入口认证切换及启动策略。首发无旧release/DB，失败回TLS检查并保留现场；冷备恢复只到新独立目录，生产替换/清理/丢弃写入的恢复不在本轮授权。
+独立审批JAR SHA-256固定为`61bbb02df6742ee66e25e0d93dd13a18a8fb6caca69008761a80961707a9d42f`，schema为`54758965a66d42092da6049ed67a3043d57b1542705f38198975c424fed3d69d`，算法char12-sha256-r32-nfkc-root-ws-v1。PM本次只读本地JAR/SUM和源码/JAR内schema再次匹配，未重跑代码测试或CI。
 
-关键路径：健康/独立QA→最终全量CI与不可变候选→Chrome29项→固定版本和操作批准→受保护服务器/重启持久化验收→交付。具体估计见清单，均非完成保证。云安全组用户人工，SSL无需重给；未跟踪测试资料及70条原用例保留，不计作执行数。
+剩余关键路径：用户Chrome约1—2小时→固定版本与具体操作独立批准→DEP3约1—2小时→交接约0.25—0.5小时；人工等待不作承诺。先前健康/候选/CI估计已完成，不继续算剩余。首发无旧版，失败回TLS检查并保留数据；恢复生产或清理另批，恢复验证仅新独立目录。SSL无需重索，云安全组仍用户人工。
