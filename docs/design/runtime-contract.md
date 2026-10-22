@@ -1,6 +1,6 @@
 # 运行与资源契约 v1.0
 
-C0基线；参数是待测起点。配置已绑定并启动校验，业务资源限制需后续Owner实现，不能把配置存在当成限制已生效。
+C0/B1基线；参数是待测起点。配置已绑定并启动校验，B1已落实算法轮数、原文及规范化后code point限制；队列/容量/HTTP资源限制由后续Owner实现，不能把配置存在当成限制已生效。
 
 | 配置 | 初值 | 责任/含义 |
 | --- | --- | --- |
@@ -24,7 +24,9 @@ C0基线；参数是待测起点。配置已绑定并启动校验，业务资源
 
 JAR产物`target/vector-search.jar`；服务器发布目录可重命名为`releases/<full-sha>/app.jar`。C0健康`/health`明确businessReady=false；后续恢复门禁完成后才升级为业务就绪。公开入口仅经HTTPS/保护代理，不能直接开放8080或H2服务/Console。
 
-算法待B1实现并冻结精确版本：NFKC→Locale.ROOT小写→Unicode空白折叠/首尾去除；按code point生成U:/B:特征，bigram不跨空白，标点作为普通非空白code point；同权重带符号SHA-256映射，固定逐特征摘要轮数，整数桶、double范数、固定下标归一化输出float。字节序BIG_ENDIAN。黄金样例与版本说明通过后再允许业务入库。
+B1算法已实现：NFKC→Locale.ROOT小写→Unicode空白折叠/首尾去除；按code point生成U:/B:特征，bigram不跨空白，标点作为普通非空白code point；同权重带符号SHA-256映射，固定逐特征摘要轮数，整数桶、double范数、固定下标归一化输出float。字节序BIG_ENDIAN。默认版本`char12-sha256-r32-nfkc-root-ws-v1`，精确规则与黄金验证见`b1-algorithm-contract.md`和B1验收记录。
+
+用户指定服务器`8.155.137.169:22`已完成DEP2基础准备。实测Ubuntu24.04.5LTS、4CPU、7526MiB内存、40G根盘，已有Temurin17.0.15+6；不沿用此前Ubuntu20.04估计。项目数据目录/受限env/独立unit已创建，unit disabled/inactive且无应用release。无需包安装，未因4核8G自动提高并发；域名、TLS、入口认证与真实发布仍待后续落实。
 
 失败处理初案：仅对明确回滚且确认可重试的DB错误最多3次，退避50/100ms；提交未知先独立连接查询，最多3次仍无法确认则降级并返回诚实错误。搜索计数提交未知不可重试自增。没有在线超时抢占、无限重试或手工重试旁路。此初案需B2/B3实际错误分类测试后确认，主控保留变更权。
 

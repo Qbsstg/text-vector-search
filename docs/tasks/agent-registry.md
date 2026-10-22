@@ -6,11 +6,11 @@
 
 | 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（均在/Users/qbss/code/12times下） | 当前交付状态 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1 REVIEW；源码fafcbd5/847210d、交接6dae03b已合入，29 unit+6 IT为后端证据 |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B1 DONE；源码fafcbd5/847210d、交接6dae03b已合入，29 unit+6 IT为后端证据 |
 | 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | C0 DONE；业务FE1-3等待明确派发 |
 | 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2基础准备DONE；3f0ef5c已合入并经主控独立SSH复核，DEP3未执行 |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | QA-B1 REVIEW；a82b425完整29 unit+22 IT，已观察主控合入27b850c，最终集成门禁待主控 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B1 REVIEW；仅指定六份任务文档，实际SHA在交付消息回报 |
+| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | QA-B1 DONE；a82b425完整29 unit+22 IT，已观察主控合入27b850c，主控集成51项已通过 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B1 DONE；仅指定六份任务文档，实际SHA在交付消息回报 |
 
 ## 所有权与依赖
 
@@ -29,3 +29,5 @@
 本地主控8080、后端8081、前端8083、部署骨架8084；QA随机端口与绝对临时H2目录，PM不启动服务。worktree不隔离CPU/环境/端口，各自H2不可共用主库。
 
 用户已授权主控用个人GitHub账号创建私有仓库并推送，目标为`Qbsstg/text-vector-search`，私有性已双重复核；公开另需指令。运维已获`8.155.137.169:22`基础配置授权，DEP2专用资源准备与独立复核已完成，unit disabled/inactive。正式发布/入口认证TLS待后续方案；不改SSH/防火墙、开公网端口、重启机器或恢复/清理数据，密钥/env不进入Git或对话。
+
+主控B1最终核证：27b850c代码集成完整29 unit+22 IT通过，见`docs/testing/B1-verification.md`。B1角色任务已结束，等待后续派发；服务器当前仅基础配置，未运行应用。
