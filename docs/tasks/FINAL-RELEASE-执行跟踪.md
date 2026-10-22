@@ -1,5 +1,63 @@
 # FINAL-RELEASE 执行跟踪
 
+## 最新核证快照：271工程PASS与70原用例64/1/5
+
+2026-10-23，本次PM仍在`codex/final-release-pm`，起点8325a023cb22bd6a285defd9e12df1f7056862cb，不快进。只读核对主树最新QA提交`ac02e5cc67a2db4550cf38c9f9a203c46d919c3d`及其来源；**本节为当前状态，下方首次执行前快照仅保留当时事实，不覆盖最新结论。** 最终整体状态BLOCKED/执行中，不宣布全部交付PASS。
+
+### 当前结果、来源与边界
+
+| 层次 | 已核证事实 | 当前判定/限制 |
+| --- | --- | --- |
+| 工程回归 | 原253本轮重跑＋新增14 IT＋4 Node＝Java104 unit/124 IT/43 Node，271唯一自动化项，失败/错误/跳过0 | PASS；14含此前12/2，43含新4，不累加成285/542；性能main/浏览器步骤/70需求编号不加到271 |
+| 最新Linux | [CI39859349901](https://github.com/Qbsstg/text-vector-search/actions/runs/39859349901)，测试源码230c3471b789e994c46346c06d3dd83989273f95；QA独立19份Surefire/15份Failsafe与Node日志合计271 | PASS；观察器javac17有6警告，构建成功不写零警告；证据见[最新独立核证](../testing/final-release-evidence-review.md) |
+| 批准生产原JAR | source d016d6e8bb431ff17ba81f8977d31a1b96f51f7f、JAR SHA256 64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50仍固定；最新CI从原39838054946取原包并独立校验，真实启动/冷备/新目录恢复的向量/任务/首次时间/计数/失效保持 | 候选一致性PASS；测试提交230c347与生产候选不同，测试构建JAR/文档HEAD不替换原包。systemctl inactive仅shim，不能推为实机DEP3 |
+| 70原用例 | PM只读解析[QA矩阵](../testing/final-release-local-cases-matrix.md)确为70行：64 PASS、1 FAIL、5 NOT_RUN | 矩阵产物DONE，绝非70全PASS；前版55/14、63/6保留为历史，当前以ac02e5c为准 |
+| REC-07 | 隔离真实R32成功库/R33启动，health200/businessReady=true、搜索200空hits；冻结B4版本过滤成立，原“版本不兼容阻止就绪/不以空hits成功”断言实际FAIL，wire与原断言错误保留 | FAIL / BLOCKED，用户异步裁决仍待；诊断JUnit通过只是观察成立，不是原预期PASS；无新例外，不擅改契约/原断言或生产 |
+| 本地Chrome | 原28 PASS复用；F03/U12已核证；FR-B01—03、真实键盘恢复/路径/时间、渠道/错误文本纯文本和单次受控429已独立核证，UI-02/06/07关闭 | 已验范围PASS；REAL与FAULT_INJECTION分层，不拿受控429当该库容量真的满，不累加工程测试；[差异核证](../testing/final-release-browser-additions.md) |
+| F05 | 用户正式接受有限FAILED Chrome缺口 | 测试仍NOT_RUN，批准标记APPROVED_EXCEPTION；不扩散到REC-07或公网UI-08 |
+| 隔离PERF | 三轮实际实验/队列观测、分机HTTP、池4组件探针、资源/GC与8组无标签Java观察已齐；QA按原预期关闭PERF01—04 | PASS仅有限范围，无新增例外。主1300请求/独立100文档队列/组件/HTTP/全生命周期不能混称同轮；采样峰32/33不是连续最大/队列容量64，不报未定义SLA/语义准确率 |
+| D1 | 04:44:19真实预检、项目配置新受限备份完成 | DONE；不是业务库冷备。原基础TLS沿用，生产D2—D9暂无GO/执行证据 |
+| D8工具 | 服务器Owner在开发冷副本只读观测/校验工具，隔离本地夹具证据限其组成 | 工具准备IN_PROGRESS，不是正式D8生产冷备或恢复PASS |
+| 预部署归档 | 主控已生成`docs/testing/evidence/final-release-predeploy-d016d6e/`约20MB可读清单及`final-release-browser-local-d016d6e/`；PM确认source-manifest绑定d016/64bc、测试源230c347、CI39859349901 | 生成已完成，主控扫描/提交进行中，不把目录存在当成已公开提交或正式交付；原始/清单不由PM改写 |
+
+当前5个NOT_RUN严格为**UI-08、OPS-02、OPS-03、OPS-04、OPS-06**：正式公网Chrome、服务器单实例/目录/正常重启持久化、真实非覆盖冷备恢复、正式HTTPS认证/Origin保护、实际发布/回退记录。它们未删除、未改成可选，也不能用隔离Linux或本机Chrome代替。OPS-01已有实际报告/原JAR一致性PASS；OPS-05由主控更新README后QA复核其现状/真实历史/限定格式扫描，已PASS，不再悬挂旧文案缺口。模式扫描不是任意秘密的完备证明，后续新归档仍需扫描。
+
+### 当前授权、GO与实际部署分层
+
+用户FINAL-RELEASE已正式授权D1—D9、reviewer密码安全生成/交互、应用与Nginx分别enable；PUBLIC和既有SSL/80/443继续有效。**不是等待普通用户部署授权，而是REC-07原实际FAIL未裁决，主控GO门禁尚未解除。** 不能默认豁免或为了满足旧预期修改冻结B4。等待中可继续其他不依赖裁决的证据/工具工作。
+
+| 阶段 | 实际状态 | 不能混同的事 |
+| --- | --- | --- |
+| D1/受限配置副本 | DONE | 不代表D2上传或业务H2冷备 |
+| 原基础TLS/隔离PERF | 已有实证 | 不是已启用正式业务Nginx/Auth/systemd；隔离Java/临时实验unit不是正式vector-search.service |
+| D2—D8及两项enable | WAIT_GO / NOT_RUN | 尚未正式上传/启动/切业务Nginx；普通范围已授权，无需重问用户，但未GO不填执行 |
+| D9 | 预案已有授权，尚未触发NOT_RUN | 无旧版不能虚构回滚；如首发失败正常停应用回TLS检查并保留JAR/数据/日志，生产覆盖/清理禁止 |
+
+### 十二完成标准的当前核证
+
+| 标准 | 当前状态与下一门禁 |
+| --- | --- |
+| C01 | DONE：QA已识别/去重/映射70主用例及本地入口，原10文件受保护；后续新发现仍须纳入 |
+| C02 | 未通过：64 PASS、REC-07 FAIL1、5 NOT_RUN；不能宣布安全可执行强制用例全部通过 |
+| C03 | PASS：本轮完整工程271项，分层去重；新旧套件复验不是重复新增数量 |
+| C04 | PASS（工程候选门禁）：最新Linux实际取/验/运行原批准d016/64bc，生产树diff无变更；最终实机上传后仍须验实际字节 |
+| C05 | 本地28 PASS，F05 NOT_RUN/APPROVED_EXCEPTION；新增本地差异已验，UI-08公网仍NOT_RUN |
+| C06 | NOT_RUN：正式业务尚未运行，D2—D9未GO |
+| C07 | NOT_RUN：正式业务HTTPS/Auth/六接口未实测，基础TLS与隔离HTTP不替代 |
+| C08 | NOT_RUN：正式systemd单实例、启动/停止/重启持久化/enable未验 |
+| C09 | NOT_RUN：原JAR隔离Linux冷备恢复已PASS，但正式部署后合成业务数据的实机D8尚未发生 |
+| C10 | NOT_RUN：正式公网ChromeUI-08，必须实操或明列人工门禁，不能curl冒充 |
+| C11 | 当前最终PASS门禁BLOCKED：REC-07实际契约FAIL待用户裁决；不擅给P0/P1级别或编造已无阻塞 |
+| C12 | IN_PROGRESS：A—F已有部分产物，正式C/D/E及最终F结论未齐，见[交付索引](FINAL-RELEASE-交付索引.md) |
+
+主控需先取得REC-07明确裁决并如实保留原FAIL，再按候选一致性与新增结果下达GO；若要生产源码/JAR改变须新完整SHA/hash/CI给用户确认，算法/API/DDL/核心事务/资源参数变化须停报。阶段工程PASS不能替代该门禁。其后实际完成D2—D9、5个正式未验项并形成A—F，才由主控判断最终结论；本轮不将A—F索引当正式交付完成。
+
+本次PM仅核对主树文档/矩阵/文件元信息，不重跑271项、PERF、Chrome或服务器；未修改根README、测试证据、业务或其他Owner文件。原agent/pm历史与用户原材料保持；本次只改backlog/本跟踪、另新增交付索引，中文独立提交后回报实际SHA。
+
+## 首次需求与执行前快照（完整历史保留）
+
+以下为8325a02提交时的原始需求/进度快照，其中“矩阵均NOT_RUN/REC-07待复现/新增未回归”等文字只表示当时状态；当前结论以上方最新核证为准，不得倒退。
+
 2026-10-23，PM只读需求/证据快照；**不是最终验收报告，也不宣称已经完成DEP3。** 用户最新FINAL-RELEASE指令优先于基线AGENTS、旧审批单和F05申请中的“仅准备/尚未批准”历史时态。D1—D9、reviewer安全生成或安全交互认证、应用与Nginx分别enable已明确授权；新增测试及候选门禁后由主控下达GO，不对已授权普通操作反复请示。
 
 ## 追踪基线与判定规则
