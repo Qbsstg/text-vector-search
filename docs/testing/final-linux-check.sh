@@ -40,8 +40,9 @@ version = subprocess.run(['java', '-version'], capture_output=True, text=True, c
 if not re.search(r'version "17\.', version.stderr + version.stdout):
     raise SystemExit('仅使用Java17')
 subprocess.run(['sudo', '-n', 'true'], check=True, timeout=5)
-sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
-if not re.fullmatch('[0-9a-f]{40}', sha):
+test_source_sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+sha = os.environ.get('FINAL_JAR_SOURCE_SHA', test_source_sha)
+if not re.fullmatch('[0-9a-f]{40}', sha) or not re.fullmatch('[0-9a-f]{40}', test_source_sha):
     raise SystemExit('无法记录完整源码SHA')
 run_id = uuid.uuid4().hex
 created = []
@@ -57,6 +58,7 @@ def note(message):
     print(message, flush=True)
 
 note('sourceSHA=' + sha + ';jarSHA256=' + hashlib.sha256(jar.read_bytes()).hexdigest() + ';runId=' + run_id)
+note('testSourceSHA=' + test_source_sha + ';sourceSHA单独标识实际受测JAR，不把测试提交冒充发布版本')
 note('systemctl为仅此进程PATH内的inactive测试shim；不证明真实systemd停止/启动或服务器部署')
 
 def sudo(*args):

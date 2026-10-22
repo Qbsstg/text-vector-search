@@ -3,11 +3,20 @@ name: Java verification
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/testing/evidence/**'
+      - 'docs/testing/final-release-local-cases-evidence/**'
   pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/testing/evidence/**'
+      - 'docs/testing/final-release-local-cases-evidence/**'
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   verify:
@@ -32,12 +41,40 @@ jobs:
           node-version: '22.16.0'
       - name: 验证真实请求边界与有限轮询逻辑
         run: node --test tests/frontend/*.test.mjs
+      - name: 显式执行隔离组件性能与锁超时恢复探针
+        run: |
+          python3 -m py_compile docs/testing/final-release-perf-client.py
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import xml.etree.ElementTree as ET
+          report = next(Path('target/surefire-reports').glob('TEST-*.xml'))
+          root = ET.parse(report).getroot()
+          classpath = root.find('properties/property[@name="java.class.path"]').get('value')
+          output = Path('target/final-release-evidence/component-performance-ci.json').resolve()
+          subprocess.run(['java', '-cp', classpath,
+                          'dev.twelvetimes.vector.acceptance.LocalPerformanceProbe', str(output)], check=True)
+          PY
+      - name: 核对批准候选的生产源码与原始JAR字节
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          approved_sha=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
+          approved_jar_sha=64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50
+          git fetch --no-tags --depth=1 origin "$approved_sha"
+          git diff --exit-code "$approved_sha" HEAD -- src/main pom.xml mvnw mvnw.cmd .mvn
+          gh run download 39838054946 --repo "$GITHUB_REPOSITORY" \
+            --name "release-candidate-$approved_sha" --dir target/approved-candidate
+          schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
+          bash deploy/scripts/verify-release.sh "$approved_sha" "$approved_jar_sha" "$schema_sha" \
+            target/approved-candidate/release-manifest.json target/approved-candidate/app.jar target/approved-candidate/SHA256SUMS
       - name: 验证 Linux 隔离冷备恢复与单实例保护
         env:
           RUNNER_ENVIRONMENT: ${{ runner.environment }}
+          FINAL_JAR_SOURCE_SHA: d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
         run: |
           for script in deploy/scripts/*.sh; do bash -n "$script"; done
-          bash docs/testing/final-linux-check.sh --github-hosted-test-only target/vector-search.jar
+          bash docs/testing/final-linux-check.sh --github-hosted-test-only target/approved-candidate/app.jar
       - name: 封装固定源码与校验和的候选JAR
         if: github.ref == 'refs/heads/main'
         run: |
@@ -67,6 +104,10 @@ jobs:
             target/b4-evidence/
             target/final-evidence/
             target/final-linux-evidence/
+            target/final-release-evidence/
+            target/local-cases-evidence/
+            target/approved-candidate/release-manifest.json
+            target/approved-candidate/SHA256SUMS
           if-no-files-found: error
           retention-days: 7
 
