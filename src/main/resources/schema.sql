@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS documents (
     document_id VARCHAR(128) PRIMARY KEY,
     raw_text CLOB NOT NULL,
-    channel VARCHAR(64) NOT NULL,
+    -- Up to 64 code points may require 128 UTF-16 code units; API enforces the code-point limit.
+    channel VARCHAR(128) NOT NULL,
     submitted_at TIMESTAMP WITH TIME ZONE NOT NULL,
     invalidated BOOLEAN NOT NULL DEFAULT FALSE,
     invalidated_at TIMESTAMP WITH TIME ZONE,

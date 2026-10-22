@@ -56,5 +56,18 @@ class SchemaPersistenceTest {
             }
         }
     }
+
+    @Test
+    void channelStorageFitsTheContractLimitOf64SupplementaryCodePoints() throws Exception {
+        try (var connection = DriverManager.getConnection("jdbc:h2:mem:unicode-channel", "sa", "")) {
+            ScriptUtils.executeSqlScript(connection, new ClassPathResource("schema.sql"));
+            String channel = "\uD83D\uDE00".repeat(64);
+            try (var statement = connection.prepareStatement("INSERT INTO documents "
+                    + "(document_id,raw_text,channel,submitted_at) VALUES ('unicode','',?,CURRENT_TIMESTAMP)")) {
+                statement.setString(1, channel);
+                assertEquals(1, statement.executeUpdate());
+            }
+        }
+    }
 }
 
