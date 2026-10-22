@@ -19,7 +19,7 @@
 | CN-存量注释 | 主控/QA/服务器 | DONE | 9f0c3c6、545c29d、6d935a8独立整改，各51项回归；20文件66块/行扫描与词元核对见专项 |
 | GIT-CN 历史对照 | 主控 | DONE | 28条英文完整提交正文扫描和中文映射；PM复核28个旧SHA均为祖先，新提交中文，未改历史 |
 | PM-B2 | 项目管理 | DONE | febbc6b九项报告/任务/角色已审查合入；主控已补最终测试与阶段状态 |
-| B3 | 后端 | TODO | B2后另行派发：终态两表写回、失败回写、旧RUNNING恢复、在线降级和完整关闭 |
+| B3 | 后端 | IN_PROGRESS | 用户已原则通过B2并批准立即实施；生产handler、原子终态、恢复/就绪顺序与关闭/强杀由Owner统一实现，QA独立验收 |
 | B4 | 后端 | TODO | B3后：搜索/过滤/Top-K、最终结果原子计数及未知提交语义 |
 | FE2/FE3、QA2/QA3 | 前端/测试 | TODO | 真API全闭环、浏览器/网络竞态、强杀与交付复演，按对应实现派发 |
 | DEP3 | 服务器 | TODO | 有效证书/认证和业务门禁后按具体方案发布、单实例更新、备份恢复；未执行 |
@@ -37,3 +37,7 @@ B2细分Owner、依赖和验收见[实施契约](../design/b2-implementation-con
 代码验证SHA `53769c69477cf43351280338a0938117ca6f0252`：Java17共53 unit+44 IT通过，Node25通过，全部失败/跳过0；见`docs/testing/B2-verification.md`。真实UI因Work设置禁用未执行，不影响B2核心测试，不能标完整UI通过。最终远程SHA/CI由交付时单独核对；用户新增测试资料保持未跟踪原样。
 
 远程核证已完成：38eeb26156db997f590066e51f72bb30c8ef88f6与当时本地HEAD一致，私有性保留；run39808131629完整success，下载XML及日志确认相同122项全部通过。随后仅新增本段核证文档，不改运行代码。
+
+## B3启动（2026-10-23）
+
+本地/远程main bd18c4939fec576cd47d9a8a24592d15fdcffb70一致，CI run39808883527完整success，用户原则通过B2核心。B1/B2证据和历史不重写。后端B3、QA竞态/真实强杀、服务器新域名text-vector-search.lemoncharger.com及证书/认证准备分波执行；FE1真实浏览器未验收，B4/DEP3仍TODO。见docs/design/b3-implementation-contract.md。
