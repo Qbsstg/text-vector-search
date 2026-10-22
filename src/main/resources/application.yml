@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: vector-search
+  datasource:
+    url: jdbc:h2:file:${APP_DATA_DIR:./data}/knowledge;WRITE_DELAY=0
+    username: sa
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 4
+      connection-timeout: 5000
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      continue-on-error: false
+  h2:
+    console:
+      enabled: false
+  lifecycle:
+    timeout-per-shutdown-phase: 45s
+server:
+  address: 127.0.0.1
+  port: ${PORT:8080}
+  shutdown: graceful
+vector:
+  worker-count: 1
+  queue-capacity: 64
+  max-pending-tasks: 1000
+  max-documents: 5000
+  search-permits: 1
+  max-text-code-points: 20000
+  max-request-bytes: 262144
+  max-top-k: 100
+  max-page-size: 100
+  cpu-rounds: 32
+  scan-interval-ms: 500
+  scan-batch-size: 32
+  shutdown-wait-seconds: 30
+

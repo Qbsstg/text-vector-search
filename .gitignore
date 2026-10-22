@@ -1,0 +1,17 @@
+/target/
+/data/
+/logs/
+/.cache/
+/.worktrees/
+*.mv.db
+*.trace.db
+*.lock.db
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.idea/
+.DS_Store
+/*.pdf
+
