@@ -33,6 +33,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import org.springframework.transaction.support.TransactionTemplate;
 
 import static dev.twelvetimes.vector.acceptance.B2QaEnvironment.await;
+import static dev.twelvetimes.vector.acceptance.B2QaEnvironment.until;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -261,6 +262,71 @@ class B4CountAndResourceIT {
                         () -> env.bean(SearchHitCounter.class).increment(List.of("a"))).code());
             });
             assertEquals(0, env.hits("a"));
+        }
+    }
+
+    @Test
+    void 真实关闭等待B4计数物理提交后才销毁数据源() throws Exception {
+        var env = new B4QaEnvironment(directory, false, false, null);
+        CountDownLatch beforeCommit = new CountDownLatch(1);
+        CountDownLatch allowCommit = new CountDownLatch(1);
+        var executor = Executors.newFixedThreadPool(2);
+        try {
+            env.fixture("a", "计数排空夹具", "default", new float[256], "SUCCEEDED");
+            HikariDataSource dataSource = env.bean(HikariDataSource.class);
+            String url = dataSource.getJdbcUrl();
+            TaskReadiness readiness = env.bean(TaskReadiness.class);
+            List<String> events = new CopyOnWriteArrayList<>();
+            var manager = new B2QaEnvironment.Manager(env.bean(PlatformTransactionManager.class)) {
+                @Override
+                public void commit(TransactionStatus status) {
+                    events.add("COUNT_BEFORE_COMMIT");
+                    beforeCommit.countDown();
+                    try { await(allowCommit); }
+                    catch (InterruptedException exception) { Thread.currentThread().interrupt(); throw new AssertionError(exception); }
+                    super.commit(status);
+                    events.add("COUNT_COMMITTED");
+                }
+            };
+            var service = env.service(env.bean(TextEmbedder.class), env.bean(SearchCandidateSource.class),
+                    counter(env, env.bean(SearchMapper.class), manager), 1);
+            var searching = executor.submit(() -> service.search(new SearchRequest("", 1, null)));
+            await(beforeCommit);
+            var closing = executor.submit(() -> {
+                env.close();
+                events.add("CONTEXT_CLOSE_RETURNED");
+            });
+            // 关闭新许可后，关闭方正在等待已进入的计数事务，不得提前销毁H2连接池。
+            until(() -> !readiness.writeBarrier().isOpen());
+            assertEquals(TaskReadiness.State.STOPPING, readiness.state());
+            assertFalse(closing.isDone());
+            assertFalse(dataSource.isClosed());
+            assertEquals(List.of("COUNT_BEFORE_COMMIT"), List.copyOf(events));
+            // 上下文已开始close，不再从其取Bean；用独立连接验证未提交增量不可见。
+            assertEquals(0, independentlyReadHitCount(url));
+            allowCommit.countDown();
+            assertEquals(List.of("a"), B4SearchIT.ids(searching.get(8, TimeUnit.SECONDS)));
+            closing.get(8, TimeUnit.SECONDS);
+            assertEquals(List.of("COUNT_BEFORE_COMMIT", "COUNT_COMMITTED", "CONTEXT_CLOSE_RETURNED"), List.copyOf(events));
+            assertTrue(dataSource.isClosed());
+            assertEquals(TaskReadiness.State.STOPPED, readiness.state());
+            assertEquals(1, independentlyReadHitCount(url));
+            B4Evidence.record("COUNT_DRAIN", "events=" + events + ";beforeCommitVisible=0;afterClosePersistent=1;DSclosed="
+                    + dataSource.isClosed() + ";state=" + readiness.state());
+        } finally {
+            allowCommit.countDown();
+            executor.shutdown();
+            assertTrue(executor.awaitTermination(12, TimeUnit.SECONDS));
+            env.close();
+        }
+    }
+
+    private static long independentlyReadHitCount(String url) throws Exception {
+        try (var connection = java.sql.DriverManager.getConnection(url, "sa", "");
+             var statement = connection.createStatement();
+             var row = statement.executeQuery("SELECT hit_count FROM documents WHERE document_id='a'")) {
+            assertTrue(row.next());
+            return row.getLong(1);
         }
     }
 

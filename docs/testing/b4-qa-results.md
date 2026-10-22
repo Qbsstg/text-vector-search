@@ -48,3 +48,10 @@
 最终target/b4-evidence记录运行标识、实际源码SHA、线程与合成场景：BUSY/RST、4种ROLLBACK、2种UNKNOWN、ATOMIC64、STOPPED与BOUNDED。RST顺序是SQL→真实COMMIT返回→客户端RST→HTTP链返回→独立持久对账，不以一个普通异常冒充网络断连。未知提交的实际提交事实由测试装饰器知晓，只用于验收对账，生产代码未据累计hitCount进行确认。
 
 当前树提交前全部测试完成，无Maven/测试应用后台工作。本交付供主控合入后对最终SHA复跑，不能把本机工作树结果直接冒充最终发布/CI版本。真实浏览器、性能/语义准确率与DEP3正式业务发布仍NOT_RUN。
+
+## Q11追加独立排空证据（后续小提交）
+
+主控复核指出，前述21IT尚未直接覆盖“B4计数已进物理commit时真实context.close等待该事务”。新增`B4CountAndResourceIT.真实关闭等待B4计数物理提交后才销毁数据源`，保留原默认许可释放测试和B3文件不变。
+实测基线`4ba76e5878b2fb9e585f526d2b412f98ec93e291`加该项当时未提交测试：计数commit前latch→另一线程真实context.close→共享barrier关闭/STOPPING但close尚未返回、Hikari未关、独立连接计数0→放行真实commit→搜索返回1命中→close完成/STOPPED/Hikari已关→新独立连接持久计数1。
+目标`verify -Dit.test=B4CountAndResourceIT`于2026-10-23 01:46:20 +08:00通过95 unit+11 IT，失败/错误/跳过0；新增目标首次通过，日志`/private/tmp/12times-qa-b4-count-drain-target.log`。真实事件`target/b4-evidence/COUNT_DRAIN-*.txt`记录COUNT_BEFORE_COMMIT→COUNT_COMMITTED→CONTEXT_CLOSE_RETURNED及前后持久值。
+当前B4新增用例为22项；上述228是前一次完整回归的历史结果，不回写成已执行的新全量数量。此小提交只做对应目标验证，主控负责合入后的完整main回归；本次未重新运行Node或浏览器。
