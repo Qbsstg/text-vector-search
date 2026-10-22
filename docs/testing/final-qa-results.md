@@ -44,3 +44,9 @@ bash docs/testing/final-linux-check.sh --github-hosted-test-only target/vector-s
 本机已执行`bash -n`及Python AST语法检查，均通过；**Linux脚本行为当前NOT_RUN，不能计为PASS或混入252项**。待主控在一次性Linux CI实际执行并保留target/final-linux-evidence，结果另补证。真实systemd服务启动/服务器备份恢复、认证/TLS业务入口、正式发布仍NOT_RUN。
 
 本轮无测试失败；所有Maven/临时应用及既有B3子进程已结束。主控合入后需按最终SHA全回归/CI核证；本地脚本模板、HTTP和Node结果均不能替代真实浏览器验收。
+
+## 首轮Linux CI失败与只读诊断补丁
+
+主控报告run39833314291/main8fd97e17：Java104 unit+110 IT及Node38通过，Linux真实JAR已ready，活动库冷复制被安全拒绝，但原因是“lsof退出状态与输出矛盾”，不符合本用例要求的“存在其他进程文件占用”，故Linux阶段仍FAIL，不能把任意拒绝改算通过。主控已核对实际H2路径为固定测试目录，finally正常SIGTERM/Hikari完成；原件在主工作区target/delivery/failed-39833314291/reports。
+QA诊断小补丁只在每次cold调用前，于同sudo/PATH/cwd及受管锁FD上下文运行真实lsof -nP +D；记录euid/pid/cwd/可执行路径/锁占用情况、真实返回码、未合并未strip的原始stdout/stderr，并记录同上下文lsof -v。诊断释放自己临时持有的锁后再跑原cold命令，不模拟lsof，不更改部署脚本或既有拒绝/恢复断言。
+原始诊断及cold命令输出写target/final-linux-evidence/cold-*，有界超时；当前仅bash与两层Python语法检查通过，未在Mac执行Linux行为。等待主控下一轮CI拿原始输出，再交服务器Owner据实修复，不预先认定lsof或H2缺陷。本补丁无Java修改，不重报旧252为本次新的全量结果。

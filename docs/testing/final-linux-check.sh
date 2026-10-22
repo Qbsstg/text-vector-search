@@ -7,6 +7,7 @@ set -euo pipefail
     echo 'NOT_RUN：只允许一次性GitHub-hosted Linux runner，不把非Linux拒绝算通过' >&2; exit 2;
 }
 python3 - "$2" <<'PY'
+import base64
 import fcntl
 import hashlib
 import json
@@ -128,10 +129,78 @@ try:
         shim.write_text('#!/bin/sh\n[ "$1" = show ] && [ "$2" = vector-search.service ] || exit 2\nprintf "inactive\\n"\n')
         shim.chmod(0o700)
         env_path = str(shims) + ':' + os.environ['PATH']
+        cold_sequence = 0
+        def diagnose_lsof(source, prefix):
+            # 在相同sudo/PATH/cwd和既有锁FD上下文执行真实lsof；只读诊断先释放自身锁，再运行正式脚本。
+            diagnostic_code = r"""
+import base64, fcntl, json, os, shutil, subprocess, sys
+from pathlib import Path
+lock = Path('/var/lib/vector-search/db/.instance.lock')
+fd = os.open(lock, os.O_RDONLY | os.O_NOFOLLOW)
+owned = False
+try:
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        owned = True
+    except BlockingIOError:
+        pass
+    output = {'pid': os.getpid(), 'euid': os.geteuid(), 'cwd': os.getcwd(),
+              'path': os.environ.get('PATH'), 'lsof_executable': shutil.which('lsof'),
+              'lock_acquired': owned, 'inspections': []}
+    version = subprocess.run(['lsof', '-v'], capture_output=True, timeout=5)
+    output['lsof_version'] = {'returncode': version.returncode,
+                              'stdout_base64': base64.b64encode(version.stdout).decode(),
+                              'stderr_base64': base64.b64encode(version.stderr).decode()}
+    for directory in sorted({sys.argv[1], '/var/lib/vector-search/db'}):
+        command = ['lsof', '-nP', '+D', directory]
+        try:
+            result = subprocess.run(command, capture_output=True, timeout=5)
+            item = {'command': command, 'returncode': result.returncode, 'timeout': False,
+                    'stdout_base64': base64.b64encode(result.stdout).decode(),
+                    'stderr_base64': base64.b64encode(result.stderr).decode()}
+        except subprocess.TimeoutExpired as failure:
+            item = {'command': command, 'returncode': None, 'timeout': True,
+                    'stdout_base64': base64.b64encode(failure.stdout or b'').decode(),
+                    'stderr_base64': base64.b64encode(failure.stderr or b'').decode()}
+        output['inspections'].append(item)
+    print(json.dumps(output, ensure_ascii=False))
+finally:
+    os.close(fd)
+"""
+            diagnostic = subprocess.run(['sudo', '-n', 'env', 'PATH=' + env_path, 'python3', '-c', diagnostic_code, str(source)],
+                                        capture_output=True, timeout=20)
+            # 保留原始字节，不用strip/合并流掩盖退出码与输出矛盾。
+            (evidence / (prefix + '-diagnostic.stdout.txt')).write_bytes(diagnostic.stdout)
+            (evidence / (prefix + '-diagnostic.stderr.txt')).write_bytes(diagnostic.stderr)
+            (evidence / (prefix + '-diagnostic-exit.txt')).write_text(str(diagnostic.returncode) + '\n')
+            if diagnostic.returncode != 0:
+                raise AssertionError('lsof诊断程序失败，查看' + prefix + '原始stdout/stderr')
+            details = json.loads(diagnostic.stdout)
+            version = details['lsof_version']
+            (evidence / (prefix + '-lsof-version.stdout.txt')).write_bytes(base64.b64decode(version['stdout_base64']))
+            (evidence / (prefix + '-lsof-version.stderr.txt')).write_bytes(base64.b64decode(version['stderr_base64']))
+            (evidence / (prefix + '-lsof-version-exit.txt')).write_text(str(version['returncode']) + '\n')
+            for index, inspection in enumerate(details['inspections']):
+                name = prefix + '-lsof-' + str(index)
+                (evidence / (name + '.stdout.txt')).write_bytes(base64.b64decode(inspection['stdout_base64']))
+                (evidence / (name + '.stderr.txt')).write_bytes(base64.b64decode(inspection['stderr_base64']))
+                (evidence / (name + '.metadata.json')).write_text(json.dumps({
+                    key: value for key, value in inspection.items() if not key.endswith('_base64')}, ensure_ascii=False, indent=2))
+                note('DIAGNOSTIC ' + name + ': returncode=' + str(inspection['returncode'])
+                     + ';timeout=' + str(inspection['timeout']) + ';euid=' + str(details['euid'])
+                     + ';lock_acquired=' + str(details['lock_acquired']) + ';directory=' + inspection['command'][-1])
+
         def cold(mode, source, destination, version=sha, reject=None):
+            global cold_sequence
+            cold_sequence += 1
+            prefix = 'cold-' + str(cold_sequence).zfill(2) + '-' + destination.name
+            diagnose_lsof(source, prefix)
             result = subprocess.run(['sudo', '-n', 'env', 'PATH=' + env_path, 'bash', str(script),
                                      '--authorized-cold-copy', mode, str(source), str(destination), version],
                                     capture_output=True, text=True, timeout=20)
+            (evidence / (prefix + '-cold.stdout.txt')).write_text(result.stdout)
+            (evidence / (prefix + '-cold.stderr.txt')).write_text(result.stderr)
+            (evidence / (prefix + '-cold-exit.txt')).write_text(str(result.returncode) + '\n')
             if reject:
                 if result.returncode == 0 or reject not in result.stdout + result.stderr:
                     raise AssertionError('拒绝原因不符合：' + result.stdout + result.stderr)
