@@ -1,5 +1,13 @@
 # FINAL-RELEASE最终独立实证核证（部署前门禁）
 
+## 最新CI39862014960追加核证
+
+测试源码`5897cfd4764b4a5b32d973f6722249d26a04b800`，QA再次独立读取19份Surefire、15份Failsafe和Node原日志：104 unit＋124 IT＋43 Node＝271，零失败/错误/跳过。Java17实际同时编译ColdSnapshot与QueueReadOnlyAgent，六条警告均来自后者Unsafe/shouldBeInitialized；没有将诊断编译计为新增JUnit项。
+
+CI实际核对生产树无变更、从原39838054946下载d016/64bc原JAR并执行六参验证。原JAR在回环43433启动、SIGTERM143后冷复制，独立34557恢复启动、再次143；API任务/向量就绪/首次时间/计数/失效及备份原件一致。systemctl仍为runner内部inactive shim；ColdSnapshot在本CI仅编译，不把这些结果冒充正式systemd或D8完整向量字节验收。原始报告/日志保留本地，公开仅含[核证元数据](evidence/final-release-predeploy-d016d6e/CI39862014960核证.json)及摘要SHA，不披露被自动审批拦截的原始载荷。
+
+70主编号仍64 PASS、REC-07契约冲突1 FAIL、UI-08及OPS-02/03/04/06共5 NOT_RUN。正式GO等待用户裁决，F05继续NOT_RUN / APPROVED_EXCEPTION。以下各次历史核证原样保留，不把新CI或公开摘要当作正式部署完成。
+
 QA只读核证，未操作原件、Chrome、应用或服务器，未重跑已有测试。原用例来自主树用户材料`docs/测试工作/02_测试用例与验收方案.md`与同编号04 JSON，原件保留。测试源码版本与部署包分别记录：Linux CI测试源码`fb47197eec15993c7e864c931c262b716edbcd2c`；用户批准生产包仍为`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`，JAR SHA256为`64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`。
 
 ## 判断口径

@@ -2,7 +2,7 @@
 
 2026-10-23正在执行FINAL-RELEASE：用户已批准F05有限例外及固定d016候选D1—D9实际部署、reviewer认证和应用/Nginx开机启动。全部本地新增测试正在逐项实测，正式业务发布仍先满足测试及版本门禁；当前进度见任务空间，不将准备或测试计划冒充交付完成。
 
-Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。用户已原则批准B1—B4后端核心，六业务接口及FE1—FE3已实现。当前执行FINAL-RELEASE新增测试及DEP3，B4历史229项与固定候选253项原证据保留。本轮完整回归为104 unit＋124 IT＋43 Node＝271，最新Linux CI为[39859349901](https://github.com/Qbsstg/text-vector-search/actions/runs/39859349901)，测试源码`230c3471b789e994c46346c06d3dd83989273f95`；生产源码与批准d016候选无差异，CI实际复验原批准JAR字节。70条本地新增主用例与271个自动化项分层统计，不相加。当前REC-07原预期与冻结B4版本过滤规则冲突，保留原失败、等待用户裁决后才能正式GO；生产业务尚未启动。
+Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。用户已原则批准B1—B4后端核心，六业务接口及FE1—FE3已实现。当前执行FINAL-RELEASE新增测试及DEP3，B4历史229项与固定候选253项原证据保留。本轮完整回归为104 unit＋124 IT＋43 Node＝271，最新Linux CI为[39862014960](https://github.com/Qbsstg/text-vector-search/actions/runs/39862014960)，测试源码`5897cfd4764b4a5b32d973f6722249d26a04b800`；生产源码与批准d016候选无差异，CI实际复验原批准JAR字节。70条本地新增主用例与271个自动化项分层统计，不相加。当前REC-07原预期与冻结B4版本过滤规则冲突，保留原失败、等待用户裁决后才能正式GO；生产业务尚未启动。
 
 公开源码仓库：[Qbsstg/text-vector-search](https://github.com/Qbsstg/text-vector-search)。用户已确认并授权公开，见[公开复核](docs/git/公开授权与安全复核-20261023.md)。GitHub Actions使用固定完整SHA的官方Actions，在Temurin17.0.15下运行单测及验收，成功后保存固定源码、JAR校验和与manifest的待批准候选，不自动部署。
 

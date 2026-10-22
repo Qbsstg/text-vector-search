@@ -2,8 +2,8 @@
   "capturedAtUtc": "2026-10-22T21:59:36.764985+00:00",
   "approvedSourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
   "approvedJarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
-  "testSourceSha": "230c3471b789e994c46346c06d3dd83989273f95",
-  "linuxCI": 39859349901,
+  "testSourceSha": "5897cfd4764b4a5b32d973f6722249d26a04b800",
+  "linuxCI": 39862014960,
   "regression": {
     "unit": 104,
     "integration": 124,
@@ -115,5 +115,22 @@
     "browserImagesReviewedLocally": 12,
     "publicRawImageFiles": 0,
     "otherRuntimeMetadata": "个人主机名、绝对路径和自由日志未逐项裁定披露适宜性；原件继续本地保留"
+  },
+  "successfulCIHistory": [
+    39856764435,
+    39859349901,
+    39862014960
+  ],
+  "latestCIIndependentReview": {
+    "unit": 104,
+    "integration": 124,
+    "node": 43,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "coldSnapshotJava17Compilation": true,
+    "observerWarnings": 6,
+    "approvedJarActuallyExecuted": true,
+    "systemctlShimNotProduction": true
   }
 }

@@ -11,7 +11,7 @@
 | 原253项本轮重跑 | 104 unit＋110 IT＋39 Node，零失败/错误/跳过 | baseline日志、XML、Node原件 |
 | 新增自动化 | 14 IT＋4 Node；原12项中间轮另留，不能重复累计 | LocalCasesIT、前端新增测试及中间/最终报告 |
 | 最终本地完整回归 | 104 unit＋124 IT＋43 Node＝271，零失败/错误/跳过 | final-reports-14new、Node43日志 |
-| 最新Linux CI | [39859349901](https://github.com/Qbsstg/text-vector-search/actions/runs/39859349901)，测试源码230c3471b789e994c46346c06d3dd83989273f95；104/124/43＝271全通过 | 已下载XML、完整CI日志、controller-review.json |
+| 最新Linux CI | [39862014960](https://github.com/Qbsstg/text-vector-search/actions/runs/39862014960)，测试源码5897cfd4764b4a5b32d973f6722249d26a04b800；104/124/43＝271全通过 | 已下载XML、完整CI日志、controller-review.json |
 | 固定包一致性 | 生产树与d016的src/main、pom、Wrapper无差异；CI下载原批准JAR，六参校验后实际启动、冷备与新目录恢复 | CI原manifest、final-linux-evidence；未使用新构建包替代批准JAR |
 
 命令为Java17 `./mvnw -B -ntp clean verify`、`node --test tests/frontend/*.test.mjs`。总数由Surefire/Failsafe XML及Node TAP独立解析，不从BUILD SUCCESS推算。Linux隔离恢复的systemctl为inactive shim，不能证明正式systemd已部署。手动性能main、夹具子样本、70主用例和重复运行均不加入271。
@@ -47,4 +47,4 @@ PERF04按原允许的无标签模式记录8组真实分数；未做人工相关�
 
 完整原始证据及逐成员SHA保留在本地隔离分支`codex/final-release-local-evidence`，原归档提交为`3a142e78b32d73811e50e1177fee60cf5627276d`；不公开原始请求载荷、截图或资源明细。公开仅提供[部署前核证摘要与原件摘要](evidence/final-release-predeploy-d016d6e/来源说明.md)，不把摘要冒充原件。公开推送原件曾被自动审批拒绝，原因是具体材料潜在敏感性未由有限格式扫描充分排除；已选择更小公开范围。压缩前后字节核对、QA逐成员核证及原失败均保留本地，不force push。有限模式无命中不代表任意秘密已完备排除。
 
-正式服务器D1配置受限备份已完成，SSL及80/443沿用，8080未开放；正式业务unit/current/认证/Nginx切换尚未执行。服务器Owner正准备只读冷副本完整字段/向量SHA工具，不连接活动原库。待REC-07明确裁决并完成门禁后执行已获批D2—D9，真实核证认证/六接口/计数/失效、生命周期、冷备恢复和公网Chrome，届时追加C/D/E/F实测结论；本快照不代表正式上线PASS。
+正式服务器D1配置受限备份已完成，SSL及80/443沿用，8080未开放；正式业务unit/current/认证/Nginx切换尚未执行。ColdSnapshot已完成本地真实H2封存副本及占用拒绝验证，主控与最新Linux CI实际按Java17编译；正式D8尚未运行。三轮实验均已停止，自建18085隧道已关闭且监听不存在。待REC-07明确裁决并完成门禁后执行已获批D2—D9，真实核证认证/六接口/计数/失效、生命周期、冷备恢复和公网Chrome，届时追加C/D/E/F实测结论；本快照不代表正式上线PASS。

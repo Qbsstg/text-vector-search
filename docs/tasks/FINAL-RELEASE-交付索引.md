@@ -5,7 +5,7 @@
 ## 两个版本维度与计数
 
 - 批准部署包固定source `d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`、JAR SHA256 `64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`、原CI39838054946；旧68有真实ChromeFAIL，不能发布。
-- 最新测试源码 `230c3471b789e994c46346c06d3dd83989273f95`、[Linux CI39859349901](https://github.com/Qbsstg/text-vector-search/actions/runs/39859349901) success，104 unit+124 IT+43 Node=271。旧253＋新增14 IT＋4 Node去重，性能main/Chrome/70需求编号不累加。
+- 最新测试源码 `5897cfd4764b4a5b32d973f6722249d26a04b800`、[Linux CI39862014960](https://github.com/Qbsstg/text-vector-search/actions/runs/39862014960) success，104 unit+124 IT+43 Node=271。旧253＋新增14 IT＋4 Node去重，性能main/Chrome/70需求编号不累加。
 - 最新70主用例：64 PASS、REC-07 FAIL1、NOT_RUN5（UI-08、OPS-02/03/04/06）。F05另保留NOT_RUN/APPROVED_EXCEPTION；只有F05已有有限例外，不外推到REC-07。
 - 最新CI实际下载/校验/启动/冷备恢复原d016/64bc JAR，生产树与批准版本一致；测试构建包或后续文档HEAD不替换生产候选。systemctl inactive为隔离shim，不是实机运行证据。
 

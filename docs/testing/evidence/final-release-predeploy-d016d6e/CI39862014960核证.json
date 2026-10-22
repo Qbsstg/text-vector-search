@@ -1,0 +1,40 @@
+{
+  "ciRun": 39862014960,
+  "testSourceSha": "5897cfd4764b4a5b32d973f6722249d26a04b800",
+  "status": "success",
+  "java": {
+    "surefire-reports": {
+      "reportFiles": 19,
+      "tests": 104,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "failsafe-reports": {
+      "reportFiles": 15,
+      "tests": 124,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "node": {
+    "tests": 43,
+    "pass": 43,
+    "fail": 0,
+    "skipped": 0
+  },
+  "total": 271,
+  "approvedSourceSha": "d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+  "approvedJarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+  "coldSnapshotCompiledWithJava17": true,
+  "queueObserverWarnings": 6,
+  "linuxApprovedJarExecuted": true,
+  "linuxColdRestoreSucceeded": true,
+  "systemctlShimNotProduction": true,
+  "rawLogSha256": "806499c52c3bd260be5fff5258cf2b9f8c91529dfa9d6c74a6b6b982a1dd3190",
+  "linuxSummarySha256": "090b05e2e45035e524bf66b10ea7531232c380f08099411368eb18cd80a28cf2",
+  "publicRawLogIncluded": false,
+  "independentlyReviewedByQA": true,
+  "limits": "CI仅真实隔离JAR/冷复制/新目录恢复及API状态验证；ColdSnapshot只编译，尚未执行正式D8完整字节核证。"
+}

@@ -9,7 +9,7 @@
 | 层次 | 已核证事实 | 当前判定/限制 |
 | --- | --- | --- |
 | 工程回归 | 原253本轮重跑＋新增14 IT＋4 Node＝Java104 unit/124 IT/43 Node，271唯一自动化项，失败/错误/跳过0 | PASS；14含此前12/2，43含新4，不累加成285/542；性能main/浏览器步骤/70需求编号不加到271 |
-| 最新Linux | [CI39859349901](https://github.com/Qbsstg/text-vector-search/actions/runs/39859349901)，测试源码230c3471b789e994c46346c06d3dd83989273f95；QA独立19份Surefire/15份Failsafe与Node日志合计271 | PASS；观察器javac17有6警告，构建成功不写零警告；证据见[最新独立核证](../testing/final-release-evidence-review.md) |
+| 最新Linux | [CI39862014960](https://github.com/Qbsstg/text-vector-search/actions/runs/39862014960)，测试源码5897cfd4764b4a5b32d973f6722249d26a04b800；QA独立19份Surefire/15份Failsafe与Node日志合计271 | PASS；观察器javac17有6警告，构建成功不写零警告；证据见[最新独立核证](../testing/final-release-evidence-review.md) |
 | 批准生产原JAR | source d016d6e8bb431ff17ba81f8977d31a1b96f51f7f、JAR SHA256 64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50仍固定；最新CI从原39838054946取原包并独立校验，真实启动/冷备/新目录恢复的向量/任务/首次时间/计数/失效保持 | 候选一致性PASS；测试提交230c347与生产候选不同，测试构建JAR/文档HEAD不替换原包。systemctl inactive仅shim，不能推为实机DEP3 |
 | 70原用例 | PM只读解析[QA矩阵](../testing/final-release-local-cases-matrix.md)确为70行：64 PASS、1 FAIL、5 NOT_RUN | 矩阵产物DONE，绝非70全PASS；前版55/14、63/6保留为历史，当前以ac02e5c为准 |
 | REC-07 | 隔离真实R32成功库/R33启动，health200/businessReady=true、搜索200空hits；冻结B4版本过滤成立，原“版本不兼容阻止就绪/不以空hits成功”断言实际FAIL，wire与原断言错误保留 | FAIL / BLOCKED，用户异步裁决仍待；诊断JUnit通过只是观察成立，不是原预期PASS；无新例外，不擅改契约/原断言或生产 |
@@ -17,7 +17,7 @@
 | F05 | 用户正式接受有限FAILED Chrome缺口 | 测试仍NOT_RUN，批准标记APPROVED_EXCEPTION；不扩散到REC-07或公网UI-08 |
 | 隔离PERF | 三轮实际实验/队列观测、分机HTTP、池4组件探针、资源/GC与8组无标签Java观察已齐；QA按原预期关闭PERF01—04 | PASS仅有限范围，无新增例外。主1300请求/独立100文档队列/组件/HTTP/全生命周期不能混称同轮；采样峰32/33不是连续最大/队列容量64，不报未定义SLA/语义准确率 |
 | D1 | 04:44:19真实预检、项目配置新受限备份完成 | DONE；不是业务库冷备。原基础TLS沿用，生产D2—D9暂无GO/执行证据 |
-| D8工具 | ColdSnapshot已由服务器Owner在本地真实H2封存副本、完整字段/向量SHA及活动JVM占用拒绝验证；主控另行javac17通过 | 本地准备DONE，下一轮CI增加编译；不是正式D8生产冷备或恢复PASS |
+| D8工具 | ColdSnapshot已由服务器Owner在本地真实H2封存副本、完整字段/向量SHA及活动JVM占用拒绝验证；主控另行javac17通过 | 本地准备DONE，最新CI已实际编译；不是正式D8生产冷备或恢复PASS |
 | 预部署归档 | 约20MB原件和本地Chrome资料已在本地归档提交3a142e7保留，QA核36来源、784tar成员与全部gzip/普通原件SHA | 本地DONE；自动审批拒绝88文件原始载荷公开推送后，公开改为聚合结果与原件SHA，不公开原始请求、截图或资源明细，未删除或改写本地原件 |
 
 当前5个NOT_RUN严格为**UI-08、OPS-02、OPS-03、OPS-04、OPS-06**：正式公网Chrome、服务器单实例/目录/正常重启持久化、真实非覆盖冷备恢复、正式HTTPS认证/Origin保护、实际发布/回退记录。它们未删除、未改成可选，也不能用隔离Linux或本机Chrome代替。OPS-01已有实际报告/原JAR一致性PASS；OPS-05由主控更新README后QA复核其现状/真实历史/限定格式扫描，已PASS，不再悬挂旧文案缺口。模式扫描不是任意秘密的完备证明，后续新归档仍需扫描。
