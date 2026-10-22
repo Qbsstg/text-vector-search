@@ -1,6 +1,6 @@
 package dev.twelvetimes.vector.unit;
 
-import dev.twelvetimes.vector.VectorSearchApplication;
+import dev.twelvetimes.b2.B2CompositionTestApplication;
 import dev.twelvetimes.vector.api.contract.ApiModels.SubmitDocumentRequest;
 import dev.twelvetimes.vector.api.contract.TaskStatus;
 import dev.twelvetimes.vector.document.DocumentAdmissionService;
@@ -146,7 +146,7 @@ class DocumentManagementApiTest {
     }
 
     private ConfigurableApplicationContext web(String name) {
-        return new SpringApplication(VectorSearchApplication.class).run("--server.port=0", "--server.address=127.0.0.1",
+        return new SpringApplication(B2CompositionTestApplication.class).run("--server.port=0", "--server.address=127.0.0.1",
                 "--spring.datasource.url=jdbc:h2:file:" + directory.resolve(name).toAbsolutePath() + "/knowledge;WRITE_DELAY=0",
                 "--vector.max-request-bytes=512", "--logging.level.root=ERROR", "--spring.main.banner-mode=off");
     }

@@ -50,47 +50,48 @@ public final class DocumentAdmissionService {
             throw new BusinessException(503, "SERVICE_NOT_READY", "接收操作不能在外层事务中执行");
         }
         synchronized (admissionLock) {
-            readiness.requireAccepting();
-            String taskId = UUID.randomUUID().toString();
-            Instant submitted = Instant.now();
-            AtomicBoolean commitAttempted = new AtomicBoolean();
-            try {
-                transaction.executeWithoutResult(status -> {
-                    if (mapper.findDocument(request.documentId()) != null) {
-                        throw new BusinessException(409, "DOCUMENT_EXISTS", "文档ID已存在，不覆盖原文");
-                    }
-                    if (mapper.countDocuments() >= properties.maxDocuments()
-                            || mapper.countPending() >= properties.maxPendingTasks()) {
-                        throw new BusinessException(429, "CAPACITY_EXCEEDED", "文档或待处理任务容量已满");
-                    }
-                    if (mapper.insertDocument(request.documentId(), request.text(), request.channel(), submitted) != 1
-                            || mapper.insertTask(taskId, request.documentId(), embedder.version(), submitted) != 1) {
-                        throw new IllegalStateException("两表接收写入行数异常");
-                    }
-                    commitAttempted.set(true);
-                });
-            } catch (BusinessException exception) {
-                throw exception;
-            } catch (RuntimeException exception) {
-                if (commitAttempted.get() || exception instanceof TransactionException) {
-                    // 提交后抛错仍可能已接收。用新事务按本次UUID核对，不能盲目重插或返回确定失败。
-                    try {
-                        DocumentRow confirmed = transaction.execute(status -> mapper.findTask(taskId));
-                        if (confirmed != null && confirmed.documentId().equals(request.documentId())) {
-                            return new Submission(taskId, request.documentId(), TaskStatus.QUEUED);
+            try (var lease = readiness.enterWrite()) {
+                String taskId = UUID.randomUUID().toString();
+                Instant submitted = Instant.now();
+                AtomicBoolean commitAttempted = new AtomicBoolean();
+                try {
+                    transaction.executeWithoutResult(status -> {
+                        if (mapper.findDocument(request.documentId()) != null) {
+                            throw new BusinessException(409, "DOCUMENT_EXISTS", "文档ID已存在，不覆盖原文");
                         }
-                    } catch (RuntimeException ignored) {
-                        // 无法确认时保留任务与文档，阻止后续接收，交B3恢复诊断。
+                        if (mapper.countDocuments() >= properties.maxDocuments()
+                                || mapper.countPending() >= properties.maxPendingTasks()) {
+                            throw new BusinessException(429, "CAPACITY_EXCEEDED", "文档或待处理任务容量已满");
+                        }
+                        if (mapper.insertDocument(request.documentId(), request.text(), request.channel(), submitted) != 1
+                                || mapper.insertTask(taskId, request.documentId(), embedder.version(), submitted) != 1) {
+                            throw new IllegalStateException("两表接收写入行数异常");
+                        }
+                        commitAttempted.set(true);
+                    });
+                } catch (BusinessException exception) {
+                    throw exception;
+                } catch (RuntimeException exception) {
+                    if (commitAttempted.get() || exception instanceof TransactionException) {
+                        // 提交后抛错仍可能已接收。用新事务按本次UUID核对，不能盲目重插或返回确定失败。
+                        try {
+                            DocumentRow confirmed = transaction.execute(status -> mapper.findTask(taskId));
+                            if (confirmed != null && confirmed.documentId().equals(request.documentId())) {
+                                return new Submission(taskId, request.documentId(), TaskStatus.QUEUED);
+                            }
+                        } catch (RuntimeException ignored) {
+                            // 无法确认时保留任务与文档，阻止后续接收，交B3恢复诊断。
+                        }
+                        readiness.block("接收事务提交结果无法确认");
+                        throw new BusinessException(503, "RESULT_UNKNOWN", "无法确认是否已接收，请按文档ID查询");
                     }
-                    readiness.block("接收事务提交结果无法确认");
-                    throw new BusinessException(503, "RESULT_UNKNOWN", "无法确认是否已接收，请按文档ID查询");
+                    if (exception instanceof DataAccessException) {
+                        throw new BusinessException(503, "DATABASE_UNAVAILABLE", "暂时无法保存文档");
+                    }
+                    throw exception;
                 }
-                if (exception instanceof DataAccessException) {
-                    throw new BusinessException(503, "DATABASE_UNAVAILABLE", "暂时无法保存文档");
-                }
-                throw exception;
+                return new Submission(taskId, request.documentId(), TaskStatus.QUEUED);
             }
-            return new Submission(taskId, request.documentId(), TaskStatus.QUEUED);
         }
     }
 }
