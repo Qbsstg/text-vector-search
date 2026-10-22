@@ -42,7 +42,13 @@ bash deploy/scripts/preflight.sh \
 
 可选 `--previous-pid PID` 检查指定旧进程是否已退出。端口检查依赖本机 `lsof` 或 `ss`，不会自行安装。脚本访问检查不写探针文件，不能证明配额/挂载空间充足。lsof受账号可见性影响；无监听也不能证明没有尚未监听的JVM占用H2。发布操作者仍需核对服务状态、完整进程身份、解析后的数据路径、磁盘和文件锁；不要通过删除锁文件“修复”。预检通过不能触发自动发布。
 
-## Nginx入口设计（本轮不生成可执行配置）
+## Nginx网络准备（证书前阶段）
+
+已安装Nginx 1.24.0，为 `text.vector.search.lemoncharger.com` 配置独立HTTP站点；仓库配置为 `nginx/vector-search-http-preparation.conf`，服务器位于 `/etc/nginx/sites-available/vector-search-http-preparation`，同名链接置于 `sites-enabled`。仅精确 `/deployment-check` 的GET/HEAD返回 `stage=network-preparation`；其余方法、路径或Host拒绝，不含任何后端代理。当前Nginx active但未enable开机启动，后端unit继续disabled/inactive。
+
+公网指定域名定向服务器的非敏感检查已返回200，直接IP检查404。主机UFW仍inactive，未修改防火墙规则；服务器DNS及1.1.1.1查询A为8.155.137.169，未取得AAAA记录。本机DNS存在代理解析差异，不能据此修改真实DNS；云安全组控制台未查验，仍需用户确认。443未监听，没有生成或启用替代证书。完整记录和回滚见 `docs/tasks/handoffs/server-nginx.md`。
+
+以下为证书、业务和认证到位后的设计目标，当前证书前站点不执行这些代理规则：
 
 - 全部页面与 `/api/` 同源反代到回环地址；HTTPS配合入口认证，不能只保护首页。域名、证书、认证文件均待提供，凭据单独安全交付。
 - 443作为HTTPS入口；80仅按证书/重定向需要；SSH限制来源。8080及H2 TCP/Console、非必要管理端点不对外公开；禁止开放任意CORS。
@@ -59,4 +65,4 @@ bash deploy/scripts/preflight.sh \
 5. 至少一次备份恢复到独立路径/端口验证可读，不能仅验证文件存在。恢复/删除持久数据须另获明确授权，禁止静默覆盖。
 6. 回滚前核对旧程序与新schema、H2、算法版本兼容性；兼容才回切程序。不兼容时不能只切current。恢复旧备份会丢弃备份后写入，必须列明影响并由主控确认具体恢复操作。
 
-DEP2已完成基础主机检查和unit静态校验；应用启动、Nginx/TLS/认证、业务冒烟、正常关闭/崩溃恢复、备份恢复均未执行。外部入口与正式发布仍待后续方案和相应授权，不以基础环境准备代替上线验收。
+DEP2已完成基础主机检查和unit静态校验，Nginx已完成证书前固定HTTP检查与拒绝规则验证；应用启动、TLS/认证、业务冒烟、正常关闭/崩溃恢复、备份恢复均未执行。正式业务入口与发布仍待后续方案和相应授权，不以基础环境准备代替上线验收。
