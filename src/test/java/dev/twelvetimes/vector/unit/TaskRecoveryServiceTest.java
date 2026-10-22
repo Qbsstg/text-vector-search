@@ -20,12 +20,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BooleanSupplier;
 import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
@@ -177,6 +181,47 @@ class TaskRecoveryServiceTest {
             assertEquals(1, new TaskRecoveryService(context.getBean(TaskRecoveryMapper.class), context.getBean(KnowledgeMapper.class), readiness, manager).recover());
             assertTrue(readiness.accepting());
             assertEquals(1, context.getBean(KnowledgeMapper.class).findTask(task).attemptCount());
+        }
+    }
+
+    @Test
+    void 两表提交时间不同时恢复未知结果须核对任务自身时间() {
+        try (var context = B2TestSupport.start(directory)) {
+            String task = context.getBean(DocumentAdmissionService.class).submit(new SubmitDocumentRequest("different-times", "原文", null)).taskId();
+            context.getBean(TaskClaimService.class).claim(task);
+            Instant documentTime = Instant.parse("2026-10-20T00:00:00Z");
+            Instant taskTime = Instant.parse("2026-10-21T00:00:00Z");
+            var jdbc = new JdbcTemplate(context.getBean(DataSource.class));
+            jdbc.update("UPDATE documents SET submitted_at=? WHERE document_id='different-times'", OffsetDateTime.ofInstant(documentTime, ZoneOffset.UTC));
+            jdbc.update("UPDATE embedding_tasks SET submitted_at=?,attempt_count=7 WHERE task_id=?", OffsetDateTime.ofInstant(taskTime, ZoneOffset.UTC), task);
+            AtomicBoolean committed = new AtomicBoolean();
+            AtomicInteger resets = new AtomicInteger();
+            var manager = new Manager(context.getBean(PlatformTransactionManager.class)) {
+                @Override public void commit(TransactionStatus status) {
+                    super.commit(status);
+                    if (committed.compareAndSet(false, true)) { throw new TransactionSystemException("真实提交后注入未知结果"); }
+                }
+            };
+            TaskRecoveryMapper actual = context.getBean(TaskRecoveryMapper.class);
+            var decorated = (TaskRecoveryMapper) Proxy.newProxyInstance(TaskRecoveryMapper.class.getClassLoader(),
+                    new Class<?>[] {TaskRecoveryMapper.class}, (proxy, method, arguments) -> {
+                        if (method.getName().equals("requeueRunning")) { resets.incrementAndGet(); }
+                        try { return method.invoke(actual, arguments); }
+                        catch (InvocationTargetException exception) { throw exception.getCause(); }
+                    });
+            var readiness = new TaskReadiness(context.getBean(KnowledgeMapper.class));
+            int recovered = new TaskRecoveryService(decorated, context.getBean(KnowledgeMapper.class), readiness, manager).recover();
+            assertTrue(committed.get());
+            var row = context.getBean(KnowledgeMapper.class).findTask(task);
+            assertEquals("QUEUED", row.status(), "确认前恢复事务已真实提交");
+            assertEquals(1, recovered, "不能把文档时间误当成任务时间而拒绝已提交的恢复");
+            assertEquals(TaskReadiness.State.READY, readiness.state());
+            assertEquals(7, row.attemptCount());
+            assertEquals(documentTime, row.submittedAt());
+            assertEquals(taskTime, jdbc.queryForObject("SELECT submitted_at FROM embedding_tasks WHERE task_id=?", OffsetDateTime.class, task).toInstant());
+            assertNull(row.runToken());
+            assertNull(row.startedAt());
+            assertEquals(1, resets.get(), "未知结果只独立确认，不重复恢复写入");
         }
     }
 

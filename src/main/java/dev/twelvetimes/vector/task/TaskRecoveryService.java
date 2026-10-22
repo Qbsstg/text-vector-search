@@ -75,7 +75,7 @@ public final class TaskRecoveryService implements SmartInitializingSingleton {
                         if (row == null || !"QUEUED".equals(row.status()) || row.runToken() != null
                                 || row.startedAt() != null || row.finishedAt() != null || row.errorCode() != null || row.errorMessage() != null
                                 || row.attemptCount() != old.attemptCount() || !row.embeddingVersion().equals(old.embeddingVersion())
-                                || !row.submittedAt().equals(old.submittedAt())) { return false; }
+                                || !old.submittedAt().equals(recovery.taskSubmittedAt(old.taskId()))) { return false; }
                     }
                     return true;
                 }));
