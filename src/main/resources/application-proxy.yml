@@ -1,0 +1,11 @@
+# 仅在受控反向代理部署时显式启用proxy配置；直连开发不默认信任转发头。
+server:
+  forward-headers-strategy: native
+  tomcat:
+    remoteip:
+      # 后端仍绑定回环；只接受回环Nginx覆盖后的头，不能扩为任意私网/公网。
+      internal-proxies: '127\.0\.0\.1|::1|0:0:0:0:0:0:0:1'
+      protocol-header: X-Forwarded-Proto
+      host-header: X-Forwarded-Host
+      port-header: X-Forwarded-Port
+      remote-ip-header: X-Forwarded-For
