@@ -4,7 +4,7 @@
 
 DEP2/原HTTP准备DONE。最新服务域名text-vector-search.lemoncharger.com，旧多级域名仅历史。f9cf401已合入：用户ZIP证书有效、SAN匹配新域名、系统信任链和公私钥匹配；证书不是待提供项。私钥仅服务器root受限目录，目录0700/文件0600，本次本地临时副本已清理，原ZIP未改/未进项目，不输出密钥或密码。
 
-角色TLS检查用正常DNS和--resolve系统信任验证，不用-k；检查GET/HEAD200、POST405，其余API/H2/管理404、未知SNI拒握手。80/443监听，8080无监听、应用unit仍inactive/disabled；主控独立TLS复核待补。
+角色TLS检查用正常DNS和--resolve系统信任验证，不用-k；检查GET/HEAD200、POST405，其余API/H2/管理404、未知SNI拒握手。80/443监听，8080无监听、应用unit仍inactive/disabled；主控系统信任curl及SSH独立复核已通过；仅TLS检查DONE，业务服务未发布。
 
 业务proxy/BasicAuth只是未启用模板，无真实入口密码。覆盖转发头/清空Forwarded、保护页面/API，不自动启用业务代理。可信回环proxy配置与Origin验收归主控/QA协调，不把配置组合403直接定性过滤器缺陷。
 
