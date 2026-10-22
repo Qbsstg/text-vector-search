@@ -15,7 +15,7 @@
 | --- | --- | --- | --- |
 | A 最终测试总报告 | [本轮总报告](../testing/FINAL-RELEASE-测试总报告.md)、[新增执行记录](../testing/final-release-local-cases-results.md)、[独立核证](../testing/final-release-evidence-review.md)、[本地Chrome差异](../testing/final-release-browser-additions.md) | IN_PROGRESS：工程/本地分层结果已交，原失败/修复/复验保留 | REC-07原FAIL仍待决；正式服务器/公网5项未验，不能只用工程271绿色给全部PASS |
 | B 本地新增测试矩阵 | [70条原编号/来源/方法/结果矩阵](../testing/final-release-local-cases-matrix.md) | DONE（矩阵产物），不是70全PASS | 64/1/5为真实结果；原资料10文件只读保护，02/04不算140，后续现场结果由QA更新 |
-| C DEP3正式部署报告 | [服务器执行记录](handoffs/server-final-release.md)；D1预检/受限备份、D2批准包预置已实做，隔离PERF及工具范围分别记录 | IN_PROGRESS：D1/D2预置完成，D3—D9 WAIT_GO/NOT_RUN | 包已于06:17:35无覆盖落位，但current/启动/Nginx/Auth/enable仍无变更，不能把上传当业务已上线 |
+| C DEP3正式部署报告 | [服务器执行记录](handoffs/server-final-release.md)；D1/D2、认证材料/停用态unit与pending静态检查已实做，隔离PERF及工具分别记录 | IN_PROGRESS：未激活准备完成，D5—D9 WAIT_GO/NOT_RUN | current/启动/业务代理加载/enable与真实HTTP认证仍未执行，静态准备不等于业务已上线 |
 | D 完整业务验收记录 | QA矩阵/核证、本地真实HTTP/Chrome及预部署清单已有工程范围；正式范围按跟踪文件第六节 | IN_PROGRESS，正式业务未交付 | 公网HTTPS六接口/计数失效、服务器重启持久化、真实D8冷备独立恢复、UI-08尚未现场执行 |
 | E 发布与回退说明 | [原操作范围清单](DEP3-最终发布审批单.md)、[发布操作计划](../../deploy/DEP3发布操作计划.md)、D1受限配置备份记录 | IN_PROGRESS：方案和授权已具备，实际运行配置/版本/状态未收尾 | 旧审批单“待批准”为历史，本轮D1—D9/reviewer/两项enable已批准；GO后需真实unit/proxy/env/日志/重启/回退记录。无旧版失败回TLS检查，源库/备份不覆盖 |
 | F 最终项目交付总结 | 本索引/执行跟踪为当前进度入口，最终结论由主控出具 | BLOCKED，不能标完整交付PASS | 保留DONE/PASS/FAIL/NOT_RUN/APPROVED_EXCEPTION/BLOCKED；REC-07裁决及五个正式未验项尚缺，P0/P1分级不得编造 |
@@ -31,6 +31,6 @@
 
 ## 当前关键路径
 
-REC-07明确裁决→主控核候选/新增结论并正式启用GO→已授权D3—D9/两项enable→正式UI-08、OPS02/03/04/06现场核证→A—F完整收尾。D2不可变包已独立预置，不因预置而解除其他门禁。不得自行豁免REC-07或改核心迎合旧预期；若必须换生产包，仍需新SHA/hash/CI精确版本确认。
+REC-07明确裁决→主控核候选/新增结论并正式启用GO→已授权D5—D9/两项enable→正式UI-08、OPS02/03/04/06现场核证→A—F完整收尾。D2包及D3/D4未激活准备均已完成，不能解除真实入口/运行态验收。不得自行豁免REC-07或改核心迎合旧预期；若必须换生产包，仍需新SHA/hash/CI精确版本确认。
 
 本次索引未操作Chrome/服务器/代码或重跑测试，未宣称C/D/E正式报告已经交付；实际新证据仅由对应Owner和主控核证回填。

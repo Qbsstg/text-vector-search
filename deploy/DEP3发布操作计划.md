@@ -6,7 +6,7 @@
 
 用户已明确批准D1—D9、reviewer认证密码安全生成或安全终端交互，以及vector-search.service和Nginx两项enable。普通已批准范围内操作无需重复请示；密码、env及私钥仍不得输出或入库，生产覆盖/删除、SSH修改、整机重启、其他站点变更等禁止边界保持。
 
-D1已完成真实预检及受限配置备份。主控后续单独下达不激活业务的D2预置GO，已于06:17:35完成批准三文件无覆盖原子落位并验证摘要，current仍不存在、应用inactive/disabled、8080无监听，未改认证/env/unit/Nginx。**D3—D9仍等待REC07原FAIL的用户裁决和主控正式启用GO**，并非缺少普通部署授权。生产源码/JAR若改变，仍须给用户新的完整SHA/hash/CI确认，不沿用d016批准值。
+D1已完成真实预检及受限配置备份，D2批准三文件已于06:17:35无覆盖原子落位。主控随后下达独立未激活准备GO，06:29:48完成认证材料离线校验、原unit备份/新unit静态校验与安装、永久锁、pending Nginx独立语法检查；原env与现有入口配置不变。current仍无、应用inactive/disabled/PID0、8080无监听、生产H2不存在。**D5—D9、两项enable及真实入口/运行验收仍等待REC07裁决和正式启用GO**，并非缺少普通部署操作授权。生产源码/JAR若改变，仍须给用户新的完整SHA/hash/CI确认，不沿用d016批准值。
 
 当前公开集成main位于 `.worktrees/final-public`，主控通报5897cfd已正常FF推送，仅含13个安全源码/摘要文件，不含自动审批阻止公开的原始载荷；新CI39862014960在该通报时运行中。本注记只记录主控状态，不把新CI提前标为成功或更换批准业务JAR。真实D1/独立实验及工具记录见 `docs/tasks/handoffs/server-final-release.md`。
 

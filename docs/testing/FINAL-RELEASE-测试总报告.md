@@ -49,4 +49,6 @@ PERF04按原允许的无标签模式记录8组真实分数；未做人工相关�
 
 正式服务器D1配置受限备份已完成，D2固定包已于06:17:35无覆盖预置至批准SHA目录，JAR/manifest/SUM本地和远端一致，目录0550/文件0440、服务账号只读；首次tar AppleDouble拒绝与三文件直传修正均保留。SSL及80/443沿用，8080未开放且无监听；current仍无，service inactive/disabled/PID0/NRestarts0，认证/env/unit/Nginx未变。此处上传不是正式业务发布。
 
-ColdSnapshot已完成本地真实H2封存副本及占用拒绝验证，主控与最新Linux CI实际按Java17编译；正式D8尚未运行。三轮实验均已停止，自建18085隧道已关闭且监听不存在。待REC-07明确裁决并完成门禁后执行已获批D3—D9，真实核证认证/六接口/计数/失效、生命周期、冷备恢复和公网Chrome，届时追加C/D/E/F实测结论；本快照不代表正式上线PASS。
+随后06:27:02—06:29:48完成D3/D4未激活准备：reviewer随机密码仅服务器root受限文件保存，stdin bcrypt离线校验成功，未输出密码或hash。原unit受限备份后按审阅模板安装，verify/daemon-reload成功；永久锁O_EXCL新建并固定inode261932，原env与D1完全一致。Nginx pending仅独立语法检查通过，无enabled链接或reload，现有HTTP/TLS配置未变。此时current仍无、service inactive/disabled/PID0、8080无监听、生产H2不存在；真实HTTP认证、运行态锁/健康/生命周期仍未执行。
+
+ColdSnapshot已完成本地真实H2封存副本及占用拒绝验证，主控与最新Linux CI实际按Java17编译；正式D8尚未运行。三轮实验均已停止，自建18085隧道已关闭且监听不存在。全部可独立未激活准备已完成；待REC-07明确裁决并完成门禁后执行已获批D5—D9与两项enable，真实核证认证/六接口/计数/失效、生命周期、冷备恢复和公网Chrome，届时追加C/D/E/F实测结论。本快照不代表正式上线PASS。

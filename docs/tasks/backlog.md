@@ -20,11 +20,14 @@
 | DEP2 / TLS基础 | 服务器/主控 | DONE | SSL、80/443沿用，不重做DEP2、不重索证书；TLS检查可达不等于认证业务上线 |
 | D1预检/配置受限备份 | 服务器 | DONE | 04:44:19主机/Java/证书/端口/应用与目录核对、配置新备份完成；是配置副本，不是业务H2冷备 |
 | D2固定包预置 | 服务器/主控 | DONE（未激活） | 06:17:35批准d016/64bc三文件六参/远端SUM通过，RENAME_NOREPLACE无覆盖落位；root:vector-search目录0550/文件0440。首次tar AppleDouble拒绝现场保留，三文件直传后成功；current不存在、应用inactive/disabled、8080无监听 |
+| D3认证材料 | 服务器 | DONE（未引用） | reviewer强随机密码仅服务器root受限文件保存，stdin bcrypt离线验证成功；hash仅Nginx受限文件，未输出秘密，未被当前站点引用。真实HTTP401/认证未验 |
+| D4停用态unit/永久锁 | 服务器 | DONE（静态准备） | 原unit受限备份后安装审阅模板，verify/daemon-reload成功；永久锁O_EXCL新建inode261932并保留，原env与D1完全一致。service仍inactive/disabled/PID0，未切current/启动或enable，无生产H2 |
+| Nginx pending | 服务器 | DONE（未加载） | 独立nginx -t成功，整站认证/可信头/内部路径拒绝/禁重放配置已准备；无enabled链接或reload，当前HTTP/TLS配置不变，不能当真实入口验收 |
 | D8冷副本观测工具 | 服务器 | DONE（本地准备） | ColdSnapshot通过本地真实H2封存副本/占用与安全拒绝分支；主控及CI39862014960已实际javac17编译通过，不代表正式D8备份恢复PASS |
-| DEP3正式启用GO | 主控 | BLOCKED / WAIT_GO | D1—D9、reviewer安全生成/交互、应用/Nginx分别enable已正式授权；普通操作不重复请示。D2预置有独立范围GO，但REC-07未裁决，业务启用GO未解除 |
-| 正式D3—D9与两项enable | 服务器/主控 | NOT_RUN | 包已预置，未创建认证/切current/安装启用unit/启动业务/切Nginx；D9尚未触发，不虚构回滚。预置或隔离PERF均不是业务上线 |
+| DEP3正式启用GO | 主控 | BLOCKED / WAIT_GO | D1—D9及两项enable已正式授权；D2预置、D3/D4未激活准备已分别下达独立范围GO并完成。REC-07未裁决，业务启用GO未解除，不重复普通部署审批 |
+| 正式D5—D9与两项enable | 服务器/主控 | NOT_RUN | 包/认证材料/停用态unit/pending已准备，未切current/启动业务/加载Nginx或enable；真实认证、运行态单实例、业务与重启恢复均未验。D9未触发，不虚构回滚 |
 | UI-08、OPS-02/03/04/06 | QA/服务器/主控 | NOT_RUN（5项） | 正式公网Chrome、服务器单实例/重启持久化、非覆盖冷备新目录恢复、真实认证保护、实际发布回退记录均待实机；不能以本机/隔离Linux关闭 |
-| A—F最终交付 | 各Owner/主控/PM | IN_PROGRESS / BLOCKED | B矩阵及工程/本地证据已交，C已有D1/D2预置，正式C/D/E仍缺D3—D9实证，F最终PASS被REC-07与5未验项阻止；索引不是“正式已交付”声明 |
+| A—F最终交付 | 各Owner/主控/PM | IN_PROGRESS / BLOCKED | B矩阵及工程/本地证据已交，C已有D1/D2及D3/D4静态准备，正式C/D/E仍缺D5—D9和真实入口/运行实证；F被REC-07与5未验项阻止 |
 
 最新结果来源为`final-release-evidence-review.md`及矩阵ac02e5c；保留先前55/14、63/6等真实快照，当前不得倒退为70全NOT_RUN、F05待批准或D1仅计划。271项JUnit/Node绿色只证明该工程断言；REC-07诊断JUnit绿不能覆盖其原预期FAIL。
 

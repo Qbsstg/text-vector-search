@@ -100,7 +100,7 @@
     ]
   },
   "publicScope": "仅聚合结果和SHA，不含请求/响应原始载荷、截图、凭据、数据库、JAR、JFR或资源明细。",
-  "formalDEP3": "NOT_RUN；D2仅预置，不激活；D3—D9待REC-07裁决及正式启用GO",
+  "formalDEP3": "NOT_RUN；D2及D3/D4未激活准备完成，D5—D9和真实入口/运行验收待REC-07裁决及正式启用GO",
   "independentContentProvenanceReview": {
     "requestResponseRecords": 12546,
     "reconstructedDocumentRequestDigests": 6301,
@@ -153,5 +153,31 @@
     "authenticationEnvUnitNginxChanged": false,
     "firstTarAppleDoubleRejectedAndRetained": true,
     "plainTransferVerified": true
+  },
+  "D3D4InactivePreparation": {
+    "completedAtBeijing": "2026-10-23 06:29:48 +0800",
+    "reviewerMaterialGenerated": true,
+    "verification": "offline-bcrypt-stdin",
+    "secretOrHashOutput": false,
+    "hashReferencedByActiveNginx": false,
+    "httpAuthenticationVerified": false,
+    "originalEnvUnchangedFromD1": true,
+    "unitInstalled": true,
+    "unitStaticVerifyPassed": true,
+    "unitSha256": "64f762fdba9f94476e6384287af1fc679defc5799e1770c219096e4224d2a769",
+    "daemonReloaded": true,
+    "permanentLockInode": 261932,
+    "nginxPendingSyntaxCheckPassed": true,
+    "nginxPendingSha256": "08b4500b0815381598064d4f88c96aaff5942cfae52e2f4f70e8236472edd1fb",
+    "nginxPendingEnabled": false,
+    "nginxReloaded": false,
+    "currentExists": false,
+    "applicationService": "inactive/dead/disabled",
+    "mainPID": 0,
+    "restarts": 0,
+    "port8080Listening": false,
+    "knowledgeDbExists": false,
+    "D5ThroughD9": "NOT_RUN",
+    "twoBootEnables": "NOT_RUN"
   }
 }
