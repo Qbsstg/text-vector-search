@@ -1,8 +1,8 @@
 package dev.twelvetimes.vector.api.error;
 
 import dev.twelvetimes.vector.api.contract.ApiModels.ErrorResponse;
-import java.util.List;
 import dev.twelvetimes.vector.task.TaskReadiness;
+import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
