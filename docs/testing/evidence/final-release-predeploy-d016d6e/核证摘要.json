@@ -100,7 +100,7 @@
     ]
   },
   "publicScope": "仅聚合结果和SHA，不含请求/响应原始载荷、截图、凭据、数据库、JAR、JFR或资源明细。",
-  "formalDEP3": "NOT_RUN；REC-07裁决前未GO",
+  "formalDEP3": "NOT_RUN；D2仅预置，不激活；D3—D9待REC-07裁决及正式启用GO",
   "independentContentProvenanceReview": {
     "requestResponseRecords": 12546,
     "reconstructedDocumentRequestDigests": 6301,
@@ -132,5 +132,26 @@
     "observerWarnings": 6,
     "approvedJarActuallyExecuted": true,
     "systemctlShimNotProduction": true
+  },
+  "D2Preplacement": {
+    "completedAtBeijing": "2026-10-23 06:17:35 +0800",
+    "directory": "/opt/vector-search/releases/d016d6e8bb431ff17ba81f8977d31a1b96f51f7f",
+    "jarSha256": "64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50",
+    "jarBytes": 27309072,
+    "manifestSha256": "5e7b06bae4a2829f788590889c1e519a2bb6118dd006e05e17381596184071ea",
+    "sumsFileSha256": "1727577ca90a0bb877060c818f172bc4794747ee9d451c07a90e2cb03120c1c8",
+    "owner": "root:vector-search",
+    "directoryMode": "0550",
+    "fileMode": "0440",
+    "atomicNoReplace": true,
+    "activated": false,
+    "currentExists": false,
+    "service": "inactive/dead/disabled",
+    "mainPID": 0,
+    "restarts": 0,
+    "port8080Listening": false,
+    "authenticationEnvUnitNginxChanged": false,
+    "firstTarAppleDoubleRejectedAndRetained": true,
+    "plainTransferVerified": true
   }
 }

@@ -19,11 +19,12 @@
 | 预部署/本地浏览器归档 | 主控/QA | DONE（本地） | 原件归档3a142e7及全部SHA保留本地隔离分支；自动审批拦截88文件公开推送后，公开仅提供聚合结果/原件摘要，不包含原始请求、截图或资源明细 |
 | DEP2 / TLS基础 | 服务器/主控 | DONE | SSL、80/443沿用，不重做DEP2、不重索证书；TLS检查可达不等于认证业务上线 |
 | D1预检/配置受限备份 | 服务器 | DONE | 04:44:19主机/Java/证书/端口/应用与目录核对、配置新备份完成；是配置副本，不是业务H2冷备 |
+| D2固定包预置 | 服务器/主控 | DONE（未激活） | 06:17:35批准d016/64bc三文件六参/远端SUM通过，RENAME_NOREPLACE无覆盖落位；root:vector-search目录0550/文件0440。首次tar AppleDouble拒绝现场保留，三文件直传后成功；current不存在、应用inactive/disabled、8080无监听 |
 | D8冷副本观测工具 | 服务器 | DONE（本地准备） | ColdSnapshot通过本地真实H2封存副本/占用与安全拒绝分支；主控及CI39862014960已实际javac17编译通过，不代表正式D8备份恢复PASS |
-| DEP3主控GO | 主控 | BLOCKED / WAIT_GO | D1—D9、reviewer安全生成/交互、应用/Nginx分别enable已正式授权；普通操作不重复请示。但REC-07未裁决，暂无GO证据 |
-| 正式D2—D9与两项enable | 服务器/主控 | NOT_RUN | 尚未上传正式包/启动正式业务unit/切业务Nginx；D9尚未触发，不虚构回滚。隔离PERF进程不是正式业务部署 |
+| DEP3正式启用GO | 主控 | BLOCKED / WAIT_GO | D1—D9、reviewer安全生成/交互、应用/Nginx分别enable已正式授权；普通操作不重复请示。D2预置有独立范围GO，但REC-07未裁决，业务启用GO未解除 |
+| 正式D3—D9与两项enable | 服务器/主控 | NOT_RUN | 包已预置，未创建认证/切current/安装启用unit/启动业务/切Nginx；D9尚未触发，不虚构回滚。预置或隔离PERF均不是业务上线 |
 | UI-08、OPS-02/03/04/06 | QA/服务器/主控 | NOT_RUN（5项） | 正式公网Chrome、服务器单实例/重启持久化、非覆盖冷备新目录恢复、真实认证保护、实际发布回退记录均待实机；不能以本机/隔离Linux关闭 |
-| A—F最终交付 | 各Owner/主控/PM | IN_PROGRESS / BLOCKED | B矩阵及工程/本地证据已交，正式C/D/E缺D2—D9实证，F最终PASS被REC-07与5未验项阻止；索引不是“正式已交付”声明 |
+| A—F最终交付 | 各Owner/主控/PM | IN_PROGRESS / BLOCKED | B矩阵及工程/本地证据已交，C已有D1/D2预置，正式C/D/E仍缺D3—D9实证，F最终PASS被REC-07与5未验项阻止；索引不是“正式已交付”声明 |
 
 最新结果来源为`final-release-evidence-review.md`及矩阵ac02e5c；保留先前55/14、63/6等真实快照，当前不得倒退为70全NOT_RUN、F05待批准或D1仅计划。271项JUnit/Node绿色只证明该工程断言；REC-07诊断JUnit绿不能覆盖其原预期FAIL。
 
