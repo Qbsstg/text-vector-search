@@ -1,6 +1,6 @@
 # B3 集成验收记录
 
-日期：2026-10-23，北京时间。用户原则通过B2核心后授权本阶段；B1算法和历史提交保持不变。主控最终本地集成门禁已通过，GitHub最终状态另行登记；先前阶段结果不倒填为B3验收。
+日期：2026-10-23，北京时间。用户原则通过B2核心后授权本阶段；B1算法和历史提交保持不变。主控最终本地和Linux GitHub CI工程门禁均通过，B3交付待用户审阅；先前阶段结果不倒填为B3验收。
 
 ## 代码与历史
 
@@ -52,11 +52,11 @@ node --test tests/frontend/*.test.mjs
 | 证据层 | 真实代码基线、命令与结果 |
 | --- | --- |
 | 后端阶段回归 | `9fd56d4`：73 unit+47 IT+25 Node全部通过；尚不含QA终态IT，见backend-b3交接 |
-| 主控首次集成 | `9a8d74db44e0082837026b1b1593ad2e3be539d4`：Java17 clean verify 73 unit+63 IT，25 Node，合计161，失败/错误/跳过0；00:54:45完成。日志`/private/tmp/12times-root-b3-pre-lifecycle.log`及`-node.log` |
+| 主控首次集成 | `9a8d74db44e0082837026b1b1593ad2e3be539d4`：Java17 clean verify 73 unit+63 IT，25 Node，合计161，失败/错误/跳过0；00:54:45完成。日志`/private/tmp/12times-root-b3-pre-lifecycle.log`及`/private/tmp/12times-root-b3-node.log` |
 | QA终态 | 16项IT覆盖真实B1黄金、第二表写前/写后/零行回滚、旧token、失效竞态、三类失败、真实commit后异常完整确认、有限重试和许可关闭后零SQL，详见`b3-terminal-results.md` |
 | QA后半 | `fe32b5b`加当时待提交测试：74 unit+74 IT+25 Node全部通过，01:05:45完成。新增6项进程、5项生命周期IT，详见`b3-process-lifecycle-results.md`；原失败/A-B在`evidence/b3-sigterm-ab/` |
 | 主控最终集成SHA/回归 | **`28cd42d7603c862830b51c38bb98e1de10e6427d`**：Java17 clean verify，**74 unit+74 IT+25 Node=173通过**，失败/错误/跳过0，01:09:43完成；XML及完整进程/构建/Node原件见`evidence/b3-local-28cd42d/` |
-| B3 GitHub CI | 待私有main推送后核对headSha、真实报告及Node日志，不使用B2绿色状态替代 |
+| B3 GitHub CI | **5cf634e3265ca8d260706a3abc595bfa81d1d157**，[run39820606756](https://github.com/Qbsstg/text-vector-search/actions/runs/39820606756) completed/success；ubuntu-24.04、Temurin17.0.15下原XML确认74 unit+74 IT零失败/错误/跳过，日志确认25 Node；11个真实子JVM证据齐全，原件与校验和见`evidence/b3-ci-5cf634e/` |
 
 真实JAR额外冒烟使用上述首次集成产物：普通文本与空文均由生产handler进入SUCCEEDED/vectorReady；失效后正常重启保持失效、向量就绪、原完成时间及hitCount=0，成功任务不重做。两个进程35214/35215均SIGTERM退出143；健康200、stage=B3、taskState=READY、taskReady=true、businessReady=false。证据`/private/tmp/12times-root-b3-smoke-np2hkgyz/result.json`及两个日志。该冒烟不替代QA强杀验收，也早于H2配置修复。
 
@@ -77,9 +77,11 @@ ApiRequestFilter未放宽Origin。默认应用不识别HTTPS转发头时实际40
 ## 未验证项与后续门禁
 
 - FE1仍REVIEW_UI：25项Node及管理HTTP不替代真实浏览器的视觉、键盘、DOM/XSS验收，Work本地浏览器禁用。
-- B4搜索、候选快照、最终Top-K原子计数尚未实现；语义相关性、业务吞吐/性能、断电/磁盘损坏和跨机器备份恢复未验证，不从B1/B2通过推断完成。
+- B4搜索、候选快照、最终Top-K原子计数尚未实现；语义相关性、完整业务并发负载/吞吐/性能、断电/磁盘损坏和跨机器备份恢复未验证，不从B1/B2通过推断完成。
 - B4前置：B3生产原子终态、失败、恢复顺序、四点强杀与正常/超时关闭通过；同版本持久向量可用；保留单JVM/H2、失效正交和候选快照契约。满足后另行派发B4，不自动扩大本轮范围。
 - DEP3前置：B4及完整业务测试、真实浏览器、受保护入口/凭据、明确发布SHA和回滚、用户具体发布确认。TLS检查不等于业务HTTPS验收。
 - 用户人工项：云控制台核对80/443实际安全组与来源、保持8080/H2不公开；需要UI验收时启用Work本地浏览器；后续安全创建入口认证凭据、确认发布和Nginx启动策略、证书到期前续期。不再要求重提供现有有效证书，不在对话传密码或私钥。
 
 个人交付目标仍为2026-10-23 18:00（北京时间），不以时间目标替代真实故障与事务门禁。
+
+主控结论：B3限定范围内的真实终态、原子提交、失败分类、令牌隔离、恢复就绪和正常/超时生命周期工程门禁通过。GitHub main保持私有，原B1/B2证据和SHA保留，最终文档提交只登记CI原件与状态，不改变受测源码。B4具备启动前置，仍需按下一阶段任务派发；businessReady继续false，正式发布未执行。

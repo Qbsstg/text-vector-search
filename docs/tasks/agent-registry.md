@@ -4,11 +4,11 @@
 
 | 角色 | 实际子agent | 模型 / 推理 | 分支 / 工作树（/Users/qbss/code/12times下） | 当前交付 |
 | --- | --- | --- | --- | --- |
-| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B3三段已合入，终态16独立IT/主控阶段回归通过；13953cf恢复确认及fe32b5b H2关闭URL已修复合入，74 unit过，最终门禁待验 |
-| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | FE1代码/管理HTTP已验，当前主控25 Node通过；真实浏览器REVIEW_UI，B4搜索仍禁用 |
-| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2/HTTP/TLS检查DONE；主控curl/SSH独立复核，业务模板未启用、应用inactive/disabled |
-| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | 2734b7e测试组成、a2ddb6a终态16 IT已合入；代理独立3 IT通过；后半6项真实进程按修复后真实默认URL重跑，结果待交 |
-| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B3二次快照：快进1c8676b、九份任务文档/原证据校验，不跑Maven/部署，完成释放槽位 |
+| 后端工程师 | /root/backend_engineer | gpt-6.1-sol / high | agent/backend / .worktrees/backend | B3状态机/事务/恢复交付通过；待命，B4未派发 |
+| 前端工程师 | /root/frontend_engineer | gpt-6.1-sol / high | agent/frontend / .worktrees/frontend | FE1代码/25 Node/管理HTTP保留；真实浏览器REVIEW_UI，等待浏览器可用及联调安排 |
+| 服务器工程师 | /root/server_engineer | gpt-6.1-sol / medium | agent/server / .worktrees/server | DEP2/TLS检查DONE；受保护代理仅未启用模板，等待正式业务发布门禁 |
+| 测试工程师 | /root/test_engineer | gpt-6.1-sol / medium | agent/qa / .worktrees/qa | B3独立终态/四强杀/生命周期及Linux CI173项通过；待命，不替代浏览器或负载验收 |
+| 项目管理 | /root/project_manager | gpt-6.1-sol / xhigh | agent/pm / .worktrees/pm | PM-B3快照已交，最终源码/CI由主控登记完成；追踪B4/浏览器/DEP3剩余门禁 |
 
 后端分配task/persistence/相关配置与unit，统一持有事务/状态机；QA独立acceptance及测试文档，不替业务修错或降断言；前端只static/分配测试；服务器deploy、CI提案；PM只docs/tasks。公共DTO/契约、DDL、基础配置、依赖、根README/AGENTS、CI及合并归主控，变更先提议。
 
@@ -24,4 +24,4 @@ B2历史测试明确隔离并保留原断言，B3真实生产handler另验。新
 
 ## 主控最终本地核验（2026-10-23 01:09）
 
-后端与QA交付已合入，源码`28cd42d7603c862830b51c38bb98e1de10e6427d`执行Java17全量**74 unit+74 IT+25 Node=173通过**，失败/错误/跳过0。恢复门禁、四检查点真实SIGKILL、正常SIGTERM及CPU超时后零SQL均通过，11子进程实际退出；两处发现均有复现/修复证据。角色本轮完成待命；最终CI由主控核验，详见[集成验收](../testing/B3-verification.md)。上文为此前阶段快照，不能覆盖本条已验证结果。B4、真实浏览器与正式业务发布仍未执行。
+后端与QA交付已合入，源码`28cd42d7603c862830b51c38bb98e1de10e6427d`执行Java17全量**74 unit+74 IT+25 Node=173通过**，失败/错误/跳过0。恢复门禁、四检查点真实SIGKILL、正常SIGTERM及CPU超时后零SQL均通过，11子进程实际退出；两处发现均有复现/修复证据。Linux CI run39820606756在main 5cf634e同为173通过且原件已归档；角色本轮完成待命，详见[集成验收](../testing/B3-verification.md)。上文为此前阶段快照，不能覆盖本条已验证结果。B4、真实浏览器与正式业务发布仍未执行。

@@ -1,6 +1,6 @@
 # 文本向量化与检索
 
-Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。已完成C0、B1及B2接收/管理/调度基础，FE1提供真实管理入口；B3已接入真实向量化、原子终态、启动恢复与关闭屏障，本地独立故障验收与173项完整回归已通过。B4搜索尚未实现，页面搜索禁用，`/health`继续明确businessReady=false。
+Java17 + Spring Boot 4.0.3 + MyBatis Starter 4.0.1 + H2 2.4.240文件数据库的单服务项目。已完成C0、B1及B2接收/管理/调度基础，FE1提供真实管理入口；B3已接入真实向量化、原子终态、启动恢复与关闭屏障，本地和Linux GitHub CI的173项完整回归均已通过。B4搜索尚未实现，页面搜索禁用，`/health`继续明确businessReady=false。
 
 私有源码仓库：[Qbsstg/text-vector-search](https://github.com/Qbsstg/text-vector-search)。GitHub Actions使用固定完整SHA的官方Actions，在Temurin17.0.15下运行单测及验收，不自动部署。
 

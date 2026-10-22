@@ -1,0 +1,12 @@
+命令=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.15-6/x64/bin/java -cp <当前测试classpath> dev.twelvetimes.vector.acceptance.B3ProcessProbe SIGTERM_TIMEOUT /tmp/junit-7628090786866765933;pid=3129;SHA=5cf634e3265ca8d260706a3abc595bfa81d1d157
+QA_EVENT|3129|APP_READY|port=38339;state=READY
+QA_EVENT|3129|PRODUCTION_URL|jdbc:h2:file:/tmp/junit-7628090786866765933/knowledge;WRITE_DELAY=0;DB_CLOSE_ON_EXIT=FALSE
+QA_EVENT|3129|CPU_READY|真实B1已计算;sha=ad82c864c2dec3476778eeaf5f6e83a64d5827b9f029f22737e7e33523125ad1
+发送SIGTERM，CPU仅在真实数据源关闭后释放
+QA_EVENT|3129|STOPPING|生产生命周期已拒接
+2026-10-22T17:13:38.375Z  WARN 3129 --- [vector-search] [ionShutdownHook] d.t.vector.task.TaskDispatcher           : CPU任务停止等待超时，即将关闭回写许可并保留RUNNING
+QA_EVENT|3129|DATASOURCE_CLOSED|closed=true
+QA_EVENT|3129|HANDLER_RETURNED|生产处理器已返回
+QA_EVENT|3129|LATE_SQL_COUNT|count=0
+QA_EVENT|3129|SHUTDOWN_SNAPSHOT|status=RUNNING;token=8f437aaa-2445-4984-826b-ef1ab60aacbd;attempt=1;finished=null;sha=null;vectorTime=null;task=d895fad2-1c60-44e9-b884-cec81d3ce042;hitCount=0;invalidated=false
+实际退出：pid=3129;exit=143
