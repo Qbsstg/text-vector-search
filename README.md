@@ -38,6 +38,13 @@
 
 生产默认 Worker=1、Queue=64、SearchPermits=1、Hikari 最大连接数=4。H2 任务表负责可靠持久化，内存队列只保存待执行任务 ID；两条 CPU 计算路径都不长期持有数据库事务。
 
+![系统架构静态总览](docs/design/system-architecture.svg)
+
+静态总览随仓库保存，可直接打开大图；下方保留 GitHub 原生 Mermaid，便于查看主要依赖和维护源文本。
+
+<details>
+<summary>展开原生 Mermaid 架构图</summary>
+
 ```mermaid
 flowchart TB
     CLIENT["浏览器 / API 客户端"] --> EDGE["Nginx：HTTPS + Basic Auth"]
@@ -89,6 +96,8 @@ flowchart TB
     STOP -.-> API
     STOP -.-> POOL
 ```
+
+</details>
 
 图中数据库箭头表示读取或写入依赖；GET 不增加命中计数，文档失效与任务终态独立。正式实例的 Worker 与搜索许可不会因本轮测试而修改。
 
