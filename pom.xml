@@ -17,6 +17,8 @@
         <java.version>17</java.version>
         <maven.compiler.release>17</maven.compiler.release>
         <mybatis-spring-boot.version>4.0.1</mybatis-spring-boot.version>
+        <!-- 规避2.4.240的CHECK IN约束缓存持有已关闭建表会话；DDL与业务契约保持原样。 -->
+        <h2.version>2.5.252</h2.version>
     </properties>
     <dependencies>
         <dependency>
