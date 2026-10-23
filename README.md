@@ -8,6 +8,8 @@
 
 > **首发历史结论：按当时已批准范围 PASS。** 273 项自动化测试通过，70 条主验收用例按最新批准判据通过，正式 HTTPS 和 Chrome 业务验收已完成。F05 保持 `NOT_RUN / APPROVED_EXCEPTION`。完整结论与历史边界见[最终交付聚合结果](docs/testing/最终交付聚合结果.md)。
 
+**交付评审入口：[交付与验收索引](docs/DELIVERY.md)**。集中查阅原题能力、设计/API、测试部署证据和关键AI对话；区分当前282项回归与首发273项/70主用例的历史口径，保留未解决稳定性失败和有限例外。
+
 ## 技术栈
 
 | 层次 | 技术 |
@@ -189,6 +191,7 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 | 阅读目的 | 公开文档 |
 | --- | --- |
+| 原题能力、版本与完整交付导航 | [交付与验收索引](docs/DELIVERY.md) |
 | 最终结论、版本与未执行边界 | [最终交付聚合结果](docs/testing/最终交付聚合结果.md) |
 | 六接口、校验与错误码 | [API 契约](docs/api/api-contract.md) |
 | 算法、codec、余弦与堆排序 | [B1 算法设计](docs/design/b1-algorithm-contract.md) |
