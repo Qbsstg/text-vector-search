@@ -57,14 +57,16 @@ jobs:
           subprocess.run(['java', '-cp', classpath,
                           'dev.twelvetimes.vector.acceptance.LocalPerformanceProbe', str(output)], check=True)
           PY
-      - name: 核对批准候选的生产源码与原始JAR字节
+      - name: 冻结后端契约并核对首次批准JAR字节
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           approved_sha=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
           approved_jar_sha=64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50
           git fetch --no-tags --depth=1 origin "$approved_sha"
-          git diff --exit-code "$approved_sha" HEAD -- src/main pom.xml mvnw mvnw.cmd .mvn
+          # 本次仅批准静态前端改版；Java、DDL、配置、依赖与Wrapper继续逐字冻结。
+          git diff --exit-code "$approved_sha" HEAD -- src/main pom.xml mvnw mvnw.cmd .mvn \
+            ':(exclude)src/main/resources/static/**'
           gh run download 39838054946 --repo "$GITHUB_REPOSITORY" \
             --name "release-candidate-$approved_sha" --dir target/approved-candidate
           schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
@@ -73,10 +75,10 @@ jobs:
       - name: 验证 Linux 隔离冷备恢复与单实例保护
         env:
           RUNNER_ENVIRONMENT: ${{ runner.environment }}
-          FINAL_JAR_SOURCE_SHA: d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
+          FINAL_JAR_SOURCE_SHA: ${{ github.sha }}
         run: |
           for script in deploy/scripts/*.sh; do bash -n "$script"; done
-          bash docs/testing/final-linux-check.sh --github-hosted-test-only target/approved-candidate/app.jar
+          bash docs/testing/final-linux-check.sh --github-hosted-test-only target/vector-search.jar
       - name: 封装固定源码与校验和的候选JAR
         if: github.ref == 'refs/heads/main'
         run: |

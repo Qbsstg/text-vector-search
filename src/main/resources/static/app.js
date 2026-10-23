@@ -1,6 +1,7 @@
 import { createApi, documentId, taskId, listQuery, TASK_LABELS, InputError, errorText, formatTime, LatestRead } from "./api.mjs";
 import { TaskTracker, pollingText } from "./tasks.mjs";
 import { SearchSession, formatScore } from "./search.mjs";
+import { dialogLifecycle, taskBadgeClass, taskErrorFields } from "./presentation.mjs";
 
 const api = createApi();
 const byId = (id) => document.getElementById(id);
@@ -61,12 +62,41 @@ function fields(target, values) {
         target.append(group);
     }
 }
-function documentFields(doc) {
-    return [["文档 ID", doc.documentId], ["渠道", doc.channel], ["taskId", doc.taskId],
-        ["任务状态", `${TASK_LABELS[doc.taskStatus]} · ${doc.taskStatus}`], ["向量就绪", doc.vectorReady ? "是" : "否"],
-        ["有效状态", doc.invalidated ? "已失效" : "有效"], ["命中次数（快照）", doc.hitCount],
-        ["提交时间（UTC+8）", formatTime(doc.submittedAt)], ["向量完成时间（UTC+8）", formatTime(doc.vectorCompletedAt)],
-        ["失效时间（UTC+8）", formatTime(doc.invalidatedAt)]];
+/** ID 的缩略只发生在 CSS 中；查询、复制和 title 始终使用原始字符串。 */
+function idView(id, { onOpen = () => void openDetail(id), copyFeedback = "copy-message" } = {}) {
+    const group = element("div", undefined, "id-value");
+    const view = element("button", id, "id-button");
+    view.type = "button";
+    view.title = id;
+    view.setAttribute("aria-label", `查看文档 ${id}`);
+    view.addEventListener("click", onOpen);
+    const copy = element("button", "复制", "copy-button");
+    copy.type = "button";
+    copy.setAttribute("aria-label", `复制完整文档 ID ${id}`);
+    copy.addEventListener("click", async () => {
+        try {
+            if (!navigator.clipboard?.writeText) throw new Error("clipboard unavailable");
+            await navigator.clipboard.writeText(id);
+            feedback(copyFeedback, "已复制完整文档 ID。");
+        } catch {
+            feedback(copyFeedback, `未能自动复制，可在详情中选择完整文档 ID：${id}`, true);
+        }
+    });
+    group.append(view, copy);
+    return group;
+}
+function badge(text, className = "badge") { return element("span", text, className); }
+function taskLabel(status) { return `${TASK_LABELS[status]} · ${status}`; }
+/** 每个状态字段分别决定颜色，不能由任务完成推断文档有效或向量就绪。 */
+function statusFields(target, values) {
+    target.replaceChildren();
+    for (const [label, text, className] of values) {
+        const group = element("div");
+        const value = element("dd");
+        value.append(badge(text, className));
+        group.append(element("dt", label), value);
+        target.append(group);
+    }
 }
 
 const search = new SearchSession({ load: (query) => api.search(query), onChange: renderSearch });
@@ -74,8 +104,11 @@ function searchValues() {
     return { ...formValues(byId("search-form")), topK: byId("search-top-k").valueAsNumber };
 }
 function renderSearch(state) {
+    // 正常成功只保留读屏完成通知，视觉摘要统一显示在结果区；异常及历史提示仍占据可见位置。
+    const ordinarySuccess = state.result?.hits.some((hit) => hit.score !== 0) && !state.busy && !state.error;
+    byId("search-message").classList.toggle("visually-hidden", Boolean(ordinarySuccess));
     byId("search-button").disabled = state.busy;
-    byId("search-button").textContent = state.busy ? "检索中…" : "检索";
+    byId("search-button").textContent = state.busy ? "检索中…" : "开始检索";
     if (state.error) {
         feedback("search-message", errorText(state.error, "search"), true);
         fieldErrors(byId("search-form"), state.error);
@@ -83,8 +116,10 @@ function renderSearch(state) {
         feedback("search-message", "正在执行一次真实检索。完成前不会发送第二次搜索请求；当前若有结果仍是上次快照。");
     } else if (state.result) {
         feedback("search-message", state.result.hits.length === 0
-            ? "检索成功，当前条件没有命中。没有可展示的文档，不会补造结果。"
-            : "已收到真实检索结果。详情和列表可手动刷新计数快照，不会因读取额外计数。");
+            ? "本次未返回文档，可检查渠道或文档是否已完成且有效。"
+            : state.result.hits.every((hit) => hit.score === 0)
+                ? "本次分数均为 0，无法体现字面相关性；仍保留全部返回项并正常计数。"
+                : "已取得检索结果；查看详情不会额外计数。");
     } else {
         feedback("search-message", "尚未执行成功检索。输入不会自动提交；余弦分数并非概率或置信度。");
     }
@@ -96,18 +131,23 @@ function renderSearch(state) {
     if (state.error) reasons.push("最近一次操作未取得有效结果，以下为上次成功查询的快照");
     if (state.draftChanged) reasons.push("表单条件已修改，以下结果仍对应此前条件，请手动检索");
     if (state.changedIds.length > 0) reasons.push("文档有效状态已变化，以下为历史查询结果；未自动重搜或本地重排");
-    byId("search-history").textContent = reasons.length ? reasons.join("。") + "。" : "本次查询快照；详情有效状态可能随之后的操作变化。";
-    fields(byId("search-summary"), [["实际结果数量", String(hits.length)], ["请求往返耗时", `${duration.toFixed(1)} ms`]]);
+    byId("search-history").textContent = reasons.length ? "历史结果 · " + reasons.join("。") + "。" : "";
+    fields(byId("search-summary"), [["结果", `${hits.length} 条`], ["Top-K", String(query.topK)],
+        ["渠道", query.channel ?? "全部渠道"], ["请求往返", `${duration.toFixed(1)} ms`]]);
     byId("search-query-options").textContent = `Top-K：${query.topK}；渠道：${query.channel ?? "全部渠道（未指定）"}；查询文本如下（空白原样保留）。`;
     byId("search-query-text").textContent = query.text;
     const rows = byId("search-rows");
     rows.replaceChildren();
     hits.forEach((hit, index) => {
         const row = element("tr");
-        row.append(element("td", index + 1), element("td", hit.documentId), element("td", formatScore(hit.score)), element("td", hit.channel));
-        row.append(element("td", hit.snippet, "snippet"));
-        const actions = element("td");
-        const detail = element("button", "详情 / 计数快照");
+        row.append(element("td", index + 1, "rank-cell"));
+        const idCell = element("td", undefined, "id-cell");
+        idCell.append(idView(hit.documentId));
+        const channel = element("td", undefined, "channel-cell");
+        channel.append(badge(hit.channel, "badge badge-blue"));
+        row.append(idCell, channel, element("td", hit.snippet, "snippet"), element("td", formatScore(hit.score), "score-cell"));
+        const actions = element("td", undefined, "actions-cell");
+        const detail = element("button", "查看详情");
         detail.type = "button";
         detail.addEventListener("click", () => void openDetail(hit.documentId));
         actions.append(detail);
@@ -117,7 +157,7 @@ function renderSearch(state) {
     });
     if (hits.length === 0) {
         const row = element("tr");
-        const cell = element("td", "没有符合本次条件的文档。");
+        const cell = element("td", "没有符合本次条件的文档。", "empty-cell");
         cell.colSpan = 6;
         row.append(cell);
         rows.append(row);
@@ -149,9 +189,11 @@ window.addEventListener("pagehide", () => {
 });
 
 function showTask(id, { initialTask = null, auto = true } = {}) {
+    submitModal.close();
     selectedTask = id.toLowerCase();
     byId("task-id").value = selectedTask;
     selectTab(byId("tab-tasks"));
+    byId("task-id").focus();
     void tracker.query(selectedTask, { auto, initialTask });
 }
 function renderTasks(records) {
@@ -159,26 +201,35 @@ function renderTasks(records) {
     list.replaceChildren();
     if (records.length === 0) list.append(element("li", "尚无本页会话任务。"));
     for (const record of records) {
-        const item = element("li");
-        const button = element("button", record.id);
+        const item = element("li", undefined, record.id === selectedTask ? "selected" : "");
+        const button = element("button", record.task?.documentId ?? record.id);
         button.type = "button";
+        button.title = record.id;
         button.addEventListener("click", () => {
             selectedTask = record.id;
             byId("task-id").value = record.id;
             renderTasks(tracker.snapshots());
         });
-        const label = record.task ? `${TASK_LABELS[record.task.status]} · ${record.task.status}` : "尚未取得任务状态";
-        item.append(button, element("span", `${label}；${record.error ? "最近读取失败；" : ""}${pollingText(record)}`));
+        const state = element("div", undefined, "session-state");
+        state.append(record.task ? badge(taskLabel(record.task.status), taskBadgeClass(record.task.status))
+            : badge("尚未取得状态"));
+        state.append(element("span", formatTime(record.task?.submittedAt), "session-note"));
+        item.append(button, state, element("span", `${record.error ? "最近读取失败；" : ""}${pollingText(record)}`, "session-note"));
         list.append(item);
     }
     const record = tracker.get(selectedTask);
     byId("task-result").hidden = !record;
     if (!record) return;
     const task = record.task;
-    fields(byId("task-fields"), [["taskId", record.id], ["关联文档", task?.documentId],
-        ["上次已知状态", task ? `${TASK_LABELS[task.status]} · ${task.status}` : "尚未取得"],
-        ["提交时间（UTC+8）", formatTime(task?.submittedAt)], ["开始时间（UTC+8）", formatTime(task?.startedAt)],
-        ["结束时间（UTC+8）", formatTime(task?.finishedAt)], ["业务错误码", task?.errorCode], ["业务错误信息", task?.errorMessage]]);
+    byId("task-document-name").textContent = task?.documentId ?? "等待读取任务";
+    byId("task-status").textContent = task ? taskLabel(task.status) : "尚未取得状态";
+    byId("task-status").className = taskBadgeClass(task?.status);
+    fields(byId("task-times"), [["提交时间（UTC+8）", formatTime(task?.submittedAt)],
+        ["开始时间（UTC+8）", formatTime(task?.startedAt)], ["完成时间（UTC+8）", formatTime(task?.finishedAt)]]);
+    fields(byId("task-fields"), [["任务 ID", record.id], ["关联文档", task?.documentId],
+        ["渠道", task?.document?.channel], ["向量就绪", task?.document ? (task.document.vectorReady ? "是" : "否") : "尚未取得文档快照"],
+        ["文档有效状态", task?.document ? (task.document.invalidated ? "已失效" : "有效") : "尚未取得文档快照"],
+        ...taskErrorFields(task)]);
     feedback("task-message", record.error ? `状态暂不可获取。${errorText(record.error)}${task ? ` 上次已知状态：${task.status}。` : ""}`
         : record.busy ? "正在读取真实任务状态；不会改写上次已知业务状态。"
         : task ? "已展示服务器返回的状态。排队中不表示任务失败或已经完成。" : "尚未取得任务状态。", Boolean(record.error));
@@ -208,12 +259,18 @@ byId("task-detail").addEventListener("click", () => {
 let submittedId = null;
 let submittedTask = null;
 let submitting = false;
+const submitDialog = byId("submit-dialog");
+const submitModal = dialogLifecycle(submitDialog, { fallbackFocus: () => byId("open-submit") });
+byId("open-submit").addEventListener("click", () => submitModal.open());
+byId("close-submit").addEventListener("click", () => submitModal.close());
+byId("cancel-submit").addEventListener("click", () => submitModal.close());
 byId("submit-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     if (submitting) return;
     const form = event.currentTarget;
     clearErrors(form);
     const values = formValues(form);
+    const submitVisible = submitModal.capture();
     submittedId = null;
     submittedTask = null;
     byId("submit-actions").hidden = true;
@@ -223,6 +280,7 @@ byId("submit-form").addEventListener("submit", async (event) => {
         submittedId = documentId(values.documentId);
         submitting = true;
         byId("submit-button").disabled = true;
+        byId("submit-button").textContent = "提交中…";
         feedback("submit-message", "正在提交文档。此请求不会自动重试。");
         const accepted = await api.submit(values);
         submittedTask = accepted.taskId.toLowerCase();
@@ -233,14 +291,16 @@ byId("submit-form").addEventListener("submit", async (event) => {
         void tracker.query(submittedTask, { initialTask: accepted });
     } catch (error) {
         feedback("submit-message", errorText(error, "submit"), true);
-        fieldErrors(form, error);
+        // 已关闭的弹窗仍保留真实结果，但字段错误不得抢走当前页面焦点。
+        if (submitVisible()) fieldErrors(form, error);
         byId("submit-actions").hidden = !submittedId || error instanceof InputError;
     } finally {
         submitting = false;
         byId("submit-button").disabled = false;
+        byId("submit-button").textContent = "提交文档";
     }
 });
-byId("submitted-detail").addEventListener("click", () => { if (submittedId) void openDetail(submittedId); });
+byId("submitted-detail").addEventListener("click", () => { if (submittedId) { submitModal.close(); void openDetail(submittedId); } });
 byId("submitted-task").addEventListener("click", () => { if (submittedTask) showTask(submittedTask); });
 
 const listRead = new LatestRead();
@@ -269,16 +329,20 @@ function renderList() {
     for (const doc of listData.items) {
         const row = element("tr");
         const idCell = element("td");
-        const idButton = element("button", doc.documentId, "id-button");
-        idButton.type = "button";
-        idButton.title = doc.documentId;
-        idButton.addEventListener("click", () => void openDetail(doc.documentId));
-        idCell.append(idButton);
+        idCell.className = "id-cell";
+        idCell.append(idView(doc.documentId));
         row.append(idCell);
-        for (const value of [doc.channel, `${TASK_LABELS[doc.taskStatus]} · ${doc.taskStatus}`, doc.vectorReady ? "是" : "否",
-            doc.invalidated ? "已失效" : "有效", formatTime(doc.submittedAt), formatTime(doc.vectorCompletedAt), doc.hitCount]) row.append(element("td", value));
-        const actions = element("td");
-        const detail = element("button", "详情 / 失效");
+        const channel = element("td");
+        channel.append(badge(doc.channel, "badge badge-blue"));
+        const status = element("td");
+        status.append(badge(TASK_LABELS[doc.taskStatus], taskBadgeClass(doc.taskStatus)));
+        status.title = doc.taskStatus;
+        const validity = element("td");
+        validity.append(badge(doc.invalidated ? "已失效" : "有效", doc.invalidated ? "badge" : "badge badge-success"));
+        row.append(channel, status, element("td", doc.vectorReady ? "是" : "否"), validity,
+            element("td", doc.hitCount, "mono"), element("td", formatTime(doc.submittedAt)));
+        const actions = element("td", undefined, "actions-cell");
+        const detail = element("button", "详情");
         detail.type = "button";
         detail.addEventListener("click", () => void openDetail(doc.documentId));
         actions.append(detail);
@@ -287,7 +351,7 @@ function renderList() {
     }
     if (listData.items.length === 0) {
         const cell = element("td", "当前页没有文档。可以更改筛选或返回上一页。");
-        cell.colSpan = 9;
+        cell.colSpan = 8;
         const row = element("tr");
         row.append(cell);
         body.append(row);
@@ -332,6 +396,16 @@ let detailId = null;
 let detailData = null;
 let invalidating = false;
 let detailLoading = false;
+const invalidationDialog = byId("invalidation-dialog");
+let confirmationId = null;
+const invalidationModal = dialogLifecycle(invalidationDialog, { onDismiss: () => { confirmationId = null; } });
+const detailModal = dialogLifecycle(dialog, { fallbackFocus: () => tabs.find((tab) => tab.getAttribute("aria-selected") === "true"), onDismiss: () => {
+    invalidationModal.close();
+    detailRead.cancel();
+    detailId = null;
+    detailData = null;
+    detailLoading = false;
+} });
 function detailButtons() {
     byId("detail-refresh").disabled = !detailId || detailLoading || invalidating;
     byId("detail-task").disabled = !detailData || invalidating;
@@ -340,9 +414,19 @@ function detailButtons() {
 function renderDetail() {
     byId("detail-content").hidden = !detailData;
     if (detailData) {
-        fields(byId("detail-fields"), documentFields(detailData));
+        byId("detail-document-id").replaceChildren(element("span", "文档 ID："),
+            idView(detailData.documentId, { onOpen: () => byId("detail-text").focus(), copyFeedback: "detail-message" }));
+        statusFields(byId("detail-status"), [["任务", taskLabel(detailData.taskStatus), taskBadgeClass(detailData.taskStatus)],
+            ["向量", detailData.vectorReady ? "已就绪" : "未就绪", detailData.vectorReady ? "badge badge-success" : "badge"],
+            ["文档", detailData.invalidated ? "已失效" : "有效", detailData.invalidated ? "badge" : "badge badge-success"],
+            ["渠道", detailData.channel, "badge badge-blue"]]);
+        fields(byId("detail-stats"), [["命中次数（读取快照）", detailData.hitCount],
+            ["提交时间（UTC+8）", formatTime(detailData.submittedAt)], ["完成时间（UTC+8）", formatTime(detailData.vectorCompletedAt)],
+            ["失效时间（UTC+8）", formatTime(detailData.invalidatedAt)]]);
+        fields(byId("detail-fields"), [["任务 ID", detailData.taskId], ["向量就绪", detailData.vectorReady ? "是" : "否"],
+            ["有效状态", detailData.invalidated ? "已失效" : "有效"]]);
         byId("detail-text").textContent = detailData.text;
-        byId("invalidate-document").textContent = detailData.invalidated ? "已失效" : "失效文档";
+        byId("invalidate-document").textContent = detailData.invalidated ? "已失效" : "标记失效";
     }
     detailButtons();
 }
@@ -354,7 +438,7 @@ async function openDetail(id) {
     detailData = null;
     detailLoading = true;
     renderDetail();
-    if (!dialog.open) dialog.showModal();
+    detailModal.open();
     feedback("detail-message", `正在读取文档 ${id} 的真实详情。`);
     try {
         const doc = await api.detail(id, read.signal);
@@ -374,23 +458,25 @@ byId("detail-form").addEventListener("submit", (event) => {
     clearErrors(event.currentTarget);
     void openDetail(formValues(event.currentTarget).documentId);
 });
-byId("close-detail").addEventListener("click", () => dialog.close());
-dialog.addEventListener("close", () => {
-    detailRead.cancel();
-    detailLoading = false;
-    // 正在进行的失效 PUT 不随抽屉关闭取消；关闭浏览器等待也无法证明后台写入回滚。
-});
+byId("close-detail").addEventListener("click", () => detailModal.close());
 byId("detail-refresh").addEventListener("click", () => { if (detailId) void openDetail(detailId); });
 byId("detail-task").addEventListener("click", () => {
     if (!detailData) return;
     const id = detailData.taskId;
-    dialog.close();
+    detailModal.close();
     showTask(id);
 });
-byId("invalidate-document").addEventListener("click", async () => {
+byId("invalidate-document").addEventListener("click", () => {
     if (!detailData || detailData.invalidated || invalidating) return;
-    if (!window.confirm("失效后该文档不会参与新的检索，本演示不提供恢复有效操作。是否继续？")) return;
-    const id = detailData.documentId;
+    confirmationId = detailData.documentId;
+    byId("invalidation-id").textContent = confirmationId;
+    invalidationModal.open();
+});
+byId("cancel-invalidation").addEventListener("click", () => invalidationModal.close());
+byId("confirm-invalidation").addEventListener("click", async () => {
+    const id = confirmationId;
+    if (!id || !dialog.open || detailData?.documentId !== id || detailData.invalidated || invalidating) return;
+    invalidationModal.close();
     detailRead.cancel();
     invalidating = true;
     detailButtons();
@@ -399,7 +485,7 @@ byId("invalidate-document").addEventListener("click", async () => {
         const result = await api.invalidate(id);
         // 即使检索仍在途，也记录真实失效：迟到的候选快照不得冒充最新有效状态。
         search.markInvalidated(id);
-        if (detailData?.documentId === id) {
+        if (dialog.open && detailData?.documentId === id) {
             detailData = { ...detailData, ...result };
             renderDetail();
             feedback("detail-message", "服务器已确认失效。任务状态独立保留；没有自动发起检索。其他字段仍是原读取快照，可手动刷新。");
@@ -407,29 +493,9 @@ byId("invalidate-document").addEventListener("click", async () => {
         // 旧列表保持原快照，避免失效筛选中的条目被本地删改伪装成新查询。
         if (listData) feedback("list-message", "文档状态已变化。以下为失效前的历史列表快照，请手动刷新确认筛选结果。");
     } catch (error) {
-        feedback("detail-message", `尚未确认失效，保留上次已知状态。${errorText(error, "invalidate")}`, true);
+        if (dialog.open && detailData?.documentId === id) feedback("detail-message", `尚未确认失效，保留上次已知状态。${errorText(error, "invalidate")}`, true);
     } finally {
         invalidating = false;
         detailButtons();
     }
-});
-
-byId("check-health").addEventListener("click", async () => {
-    const button = byId("check-health");
-    if (button.disabled) return;
-    button.disabled = true;
-    byId("health-result").hidden = true;
-    feedback("health-message", "正在读取基础健康接口…");
-    try {
-        const health = await api.health();
-        const values = [["status", health.status], ["stage", health.stage], ["businessReady", String(health.businessReady)]];
-        if (typeof health.taskState === "string") values.push(["taskState", health.taskState]);
-        if (typeof health.taskReady === "boolean") values.push(["taskReady", String(health.taskReady)]);
-        fields(byId("health-result"), values);
-        byId("health-result").hidden = false;
-        feedback("health-message", health.businessReady === false
-            ? "已收到真实基础健康响应；businessReady=false，完整业务尚未就绪。"
-            : "已展示真实健康响应；这不替代完整业务、浏览器与部署验收，也不会自动发起检索。");
-    } catch (error) { feedback("health-message", errorText(error), true); }
-    finally { button.disabled = false; }
 });
