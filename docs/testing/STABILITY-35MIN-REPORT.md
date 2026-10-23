@@ -106,7 +106,11 @@ Java 17 执行 `./mvnw -B -ntp -Dtest=SchemaConnectionLifecycleTest test`：旧 
 
 服务器 Owner 对原 `2764 / b8b` 固定包的独立自然序列于第 30 分钟真实失败：`16:57:04.974` 建表 `conn0` 因寿命关闭，随后业务 JFR 为 `90098 → ConditionInConstantSet → ConstraintCheck → 23514 → DataIntegrityViolationException`，返回 503；27 篇、269 次请求、重启 0，健康仍为 200。该原始证据仅在服务器受限目录保留，Owner 聚合摘要 v2 SHA 为 `f73f1cd421ccf93c495281b8cc5e903c4de766895a750a4412f6c4da9e5340c5`。这与 Mac 自然失败和本地确定性复现交叉核证，不改写为新候选失败。
 
-新 `988 / becb` 的 Linux 最终结果由服务器 Owner／主控追加，本后端报告没有代其提前记 PASS。
+新 `988 / becb` 的 Linux 最终结果由服务器 Owner 实际执行、主控读取安全原件后追加：**PASS**。业务计时 `2026-10-23T09:02:59.782433Z` 开始，2123.218秒覆盖完整35分钟后正常停机、同库正常重启、提交两篇与完整元信息/计数/失效核对，再正常停机。最终35篇，482业务请求（提交35、搜索8、GET438、PUT1），写重试0；另357启动readiness请求，合计839，分开记录不混作业务量。
+
+`17:27:04.299`建表conn0自然maxLifetime回收、随后补新连接；之后第25/30分钟搜索与完整账本核对、余下持续写入均正常。两个隔离JVM最终均退出，Hikari两次干净关闭，回环端口释放，独立库无进程持有。JFR的8个SQL类事件仅启动期探测，原业务23514/90098根因事件为0。该Linux对照沿用原有限序列，额外unit限制MemoryMax1536MiB、CPUQuota一核，区别于服务器硬件4核，不伪称与macOS操作系统/硬件完全相同；两环境都独立新H2且实际覆盖自然连接回收。
+
+安全聚合SHA-256 `759c08571749fdf1d7aa41115742f426cc7562e2574bc5aaf97fddbbe9b52bd3`，服务器原件封存manifest SHA-256 `813c4171d20ce1c26662603ae5ef1e0cafacfb2403a6a7ccf855d039c0014921`。原件不公开。该PASS仅对应新候选隔离环境，不能改写旧Linux自然FAIL，也不表示生产已经升级。
 
 ## 未执行与后续边界
 
