@@ -43,6 +43,66 @@ def digest(value):
     return hashlib.sha256(raw).hexdigest()
 
 
+def known_gateway_413(case_id, status, content_type, server):
+    """只识别明确的Nginx HTML 413；不把网关拒绝冒充应用错误码。"""
+    mime = content_type.split(';', 1)[0].strip().lower()
+    return (case_id == 'V-bytes' and status == 413 and mime == 'text/html'
+            and re.fullmatch(r'nginx(?:/[0-9.]+)?', server.strip().lower()) is not None)
+
+
+def validate_known_gateway_resume(result, budget, statuses, events, baseline):
+    """唯一续跑入口：首次零成功写入、已知413拒绝；不接受未知结果。"""
+    require(result.get('status') == 'STOPPED' and result.get('reason') == 'ERROR_NOT_JSON', 'RESUME_RESULT_NOT_KNOWN_GATEWAY')
+    require(result.get('cases') == {'PASS': 9, 'FAIL': 1, 'NOT_RUN': 29}, 'RESUME_CASE_COUNTS')
+    require(budget.get('stopped') is True and budget.get('successful_new_documents') == 0, 'RESUME_ACCEPTED_OR_NOT_STOPPED')
+    require(budget.get('used') == {'total': 14, 'GET': 4, 'submit': 10, 'search': 0, 'PUT': 0}, 'RESUME_BUDGET_NOT_EXACT')
+    require(len(events) == 14, 'RESUME_EVENT_COUNT')
+    ordered = sorted(events, key=lambda event: event.get('request_ordinal', -1))
+    require([event.get('request_ordinal') for event in ordered] == list(range(1, 15)), 'RESUME_ORDINALS')
+    for event in ordered:
+        status = event.get('http_status')
+        require(type(status) is int and status in (200, 400, 413), 'RESUME_UNKNOWN_OR_SERVER_STATUS')
+        require(event.get('actual_code') != 'RESULT_UNKNOWN', 'RESUME_UNKNOWN_CODE')
+    last = ordered[-1]
+    require(last.get('case_id') == 'V-bytes' and last.get('http_status') == 413
+            and last.get('outcome') == 'ERROR_NOT_JSON' and last.get('actual_code') is None, 'RESUME_LAST_NOT_GATEWAY_413')
+    expected_pass = {'V-submit-missing_text', 'V-submit-null_text', 'V-submit-bad_id',
+                     'V-submit-blank_channel', 'V-submit-long_text', 'V-submit-expansion',
+                     'V-submit-channel_length', 'V-json', 'V-media'}
+    require(len(statuses) == 39 and {key for key, value in statuses.items() if value.get('status') == 'PASS'} == expected_pass,
+            'RESUME_PASS_SET')
+    require({key for key, value in statuses.items() if value.get('status') == 'FAIL'} == {'V-bytes'}
+            and statuses['V-bytes'].get('reason') == 'ERROR_NOT_JSON', 'RESUME_FAIL_SET')
+    require(all(value.get('status') == 'NOT_RUN' for key, value in statuses.items()
+                if key not in expected_pass and key != 'V-bytes'), 'RESUME_OTHER_CASE_STATE')
+    for event in ordered[:-1]:
+        require(event.get('expected_match') is True and event.get('outcome') in ('SUCCESS', 'REJECTED'), 'RESUME_PRIOR_FAILURE')
+    require(all(sum(event.get('case_id') == case_id for event in ordered) == 1 for case_id in expected_pass), 'RESUME_PRIOR_CASE_EVENTS')
+    require(sum(event.get('method') == 'GET' for event in ordered) == 4
+            and sum(event.get('method') == 'POST' for event in ordered) == 10, 'RESUME_METHOD_COUNTS')
+    require(type(baseline.get('existing_documents')) is int and baseline['existing_documents'] == 9
+            and isinstance(baseline.get('metadata_sha256'), str)
+            and re.fullmatch(r'[0-9a-f]{64}', baseline['metadata_sha256']), 'RESUME_BASELINE')
+    return expected_pass
+
+
+def load_known_gateway_resume(directory):
+    """只读原件，保留文件散列；新轮始终写独立输出目录。"""
+    names = ('result.json', 'budget.json', 'case-status.json', 'events.jsonl', 'baseline.json', 'run.json')
+    values, hashes = {}, {}
+    root = Path(directory)
+    require(root.is_dir() and not root.is_symlink(), 'RESUME_DIRECTORY_INVALID')
+    for name in names:
+        path = root / name
+        require(path.is_file() and not path.is_symlink(), 'RESUME_FILE_INVALID')
+        raw = path.read_bytes()
+        hashes[name] = hashlib.sha256(raw).hexdigest()
+        values[name] = [json.loads(line) for line in raw.decode('utf-8').splitlines()] if name.endswith('jsonl') else json.loads(raw)
+    passed = validate_known_gateway_resume(values['result.json'], values['budget.json'], values['case-status.json'],
+                                           values['events.jsonl'], values['baseline.json'])
+    return {'values': values, 'sha256': hashes, 'passed': passed}
+
+
 class Budget:
     """请求在发出前扣账；未知结果也消耗额度，不能因失败退还。"""
     LIMITS = {'total': 240, 'GET': 180, 'submit': 32, 'search': 16, 'PUT': 4}
@@ -126,11 +186,14 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class Runner:
-    def __init__(self, args, manifest, authorization):
+    def __init__(self, args, manifest, authorization, resume=None):
         self.args = args
         self.manifest = manifest
         self.authorization = authorization
         self.budget = Budget()
+        self.resume = resume
+        if resume:
+            self.budget.used = dict(resume['values']['budget.json']['used'])
         self.io_lock = threading.Lock()
         self.state_lock = threading.Lock()
         self.output = Path(args.output_dir)
@@ -138,6 +201,16 @@ class Runner:
         os.chmod(self.output, 0o700)
         self.events = self.output / 'events.jsonl'
         self.status = {case['id']: {'status': 'NOT_RUN', 'reason': 'NOT_STARTED'} for case in manifest['cases']}
+        if resume:
+            for case_id in resume['passed']:
+                self.status[case_id] = {'status': 'PASS', 'reason': 'PREVIOUS_ATTEMPT_REAL_PASS',
+                                        'source_case_status_sha256': resume['sha256']['case-status.json'],
+                                        'source_events_sha256': resume['sha256']['events.jsonl']}
+            self.write_json('resume-source.json', {'sha256': resume['sha256'], 'inherited_requests': 14,
+                                                    'inherited_real_pass_cases': sorted(resume['passed']),
+                                                    'old_failure_preserved': True})
+            require(resume['values']['run.json'].get('run_prefix_sha256') == digest(args.run_prefix)
+                    and resume['values']['run.json'].get('channel_sha256') == digest(args.channel), 'RESUME_RUN_ID_MISMATCH')
         self.cases = {case['id']: self.expand(case) for case in manifest['cases']}
         self.fixtures = {}
         for source in manifest['fixtures']:
@@ -149,6 +222,7 @@ class Runner:
         self.ledger = HitLedger(self.aliases)
         self.tasks = {}
         self.task_observations = {}
+        self.layer_coverage = {}
         self.initial_counts = {}
         self.baseline = {}
         self.final_metadata = {}
@@ -181,7 +255,7 @@ class Runner:
         allowed = {'run_id', 'case_id', 'request_ordinal', 'method', 'route_template', 'start_utc',
                    'duration_ms', 'http_status', 'actual_code', 'outcome', 'budget_remaining',
                    'response_body_sha256', 'request_body_sha256', 'safe_document_alias',
-                   'task_state', 'task_times', 'hit_aliases', 'hit_scores', 'expected_match'}
+                   'task_state', 'task_times', 'hit_aliases', 'hit_scores', 'expected_match', 'layer', 'contentType'}
         require(set(value) <= allowed, 'EVENT_FIELD_NOT_ALLOWED')
         with self.io_lock:
             with self.events.open('a', encoding='utf-8') as stream:
@@ -223,8 +297,14 @@ class Runner:
             with response:
                 status = response.code
                 response_raw = response.read(2_000_001)
+                content_type = response.headers.get('Content-Type', '')
+                server = response.headers.get('Server', '')
             event['http_status'] = status
             event['response_body_sha256'] = hashlib.sha256(response_raw).hexdigest()
+            mime = content_type.split(';', 1)[0].strip().lower()
+            event['contentType'] = mime if mime in ('application/json', 'text/html', 'text/plain') else 'OTHER'
+            gateway = known_gateway_413(case_id, status, content_type, server)
+            event['layer'] = 'GATEWAY_413' if gateway else 'APPLICATION_JSON' if mime == 'application/json' else 'UNCLASSIFIED'
             require(len(response_raw) <= 2_000_000, 'RESPONSE_TOO_LARGE')
             try:
                 data = json.loads(response_raw)
@@ -240,7 +320,7 @@ class Runner:
             require(status not in range(300, 400), 'REDIRECT_REFUSED')
             wanted = expected if isinstance(expected, list) else [expected]
             require(status in wanted, 'HTTP_STATUS_MISMATCH')
-            if status >= 400 and status != 401:
+            if status >= 400 and status != 401 and not gateway:
                 require(isinstance(data, dict), 'ERROR_NOT_JSON')
                 require(isinstance(data.get('code'), str) and isinstance(data.get('message'), str)
                         and isinstance(data.get('fieldErrors'), list), 'ERROR_SHAPE')
@@ -276,6 +356,11 @@ class Runner:
                         self.task_observations[alias] = dict(task_times, status=task_state)
                 event['task_state'] = task_state
                 event['task_times'] = task_times
+            if gateway:
+                require(data is None and event['actual_code'] is None, 'GATEWAY_413_CODE_MUST_BE_NULL')
+                with self.state_lock:
+                    self.layer_coverage[case_id] = {'layer': 'GATEWAY_413', 'gateway_rejection': 'PASS',
+                                                     'application_json_branch': 'NOT_RUN'}
             event['expected_match'] = True
             event['outcome'] = 'REJECTED' if status >= 400 else 'SUCCESS'
             return status, data
@@ -293,6 +378,8 @@ class Runner:
             result = action()
             with self.state_lock:
                 self.status[case_id] = {'status': 'PASS', 'reason': 'ACTUAL_ASSERTIONS_COMPLETED'}
+                if case_id in self.layer_coverage:
+                    self.status[case_id].update(self.layer_coverage[case_id])
             return result
         except Exception as error:
             self.budget.stop()
@@ -349,7 +436,10 @@ class Runner:
             require(not self.list_all('PREFLIGHT', self.args.channel + suffix), 'CHANNEL_EXISTS')
         # 预留全部既有行首尾分页、12篇三次详情、任务轮询和验证；不足时先拒绝写入。
         pages = (len(rows) + 99) // 100 or 1
+        # 首轮最坏120轮询；续跑只继承POST校验PASS，没有节省必要GET。
         require(self.budget.snapshot()['remaining']['GET'] >= 171 + pages, 'GET_BUDGET_PREFLIGHT_INSUFFICIENT')
+        if self.resume:
+            require(digest(rows) == self.resume['values']['baseline.json']['metadata_sha256'], 'RESUME_BASELINE_CHANGED')
         self.write_json('baseline.json', {'existing_documents': len(rows), 'metadata_sha256': digest(rows),
                                          'test_aliases': sorted(self.fixtures)})
 
@@ -436,6 +526,8 @@ class Runner:
         self.preflight()
         # 拒绝性提交在12篇成功前执行，意外202立即停写，避免第13篇永久占位。
         for case_id in self.cases:
+            if self.resume and case_id in self.resume['passed']:
+                continue
             if case_id.startswith('V-') or case_id in ('A01', 'A02', 'R03', 'R04', 'R05', 'R06'):
                 if case_id == 'R03':
                     def invalid_pages():
@@ -651,6 +743,51 @@ def self_test():
         raise AssertionError('全局预算未生效')
     except SafetyStop:
         pass
+    assert known_gateway_413('V-bytes', 413, 'text/html; charset=utf-8', 'nginx/1.24.0')
+    assert known_gateway_413('V-bytes', 413, 'text/html', 'nginx')
+    for values in [('other', 413, 'text/html', 'nginx'), ('V-bytes', 400, 'text/html', 'nginx'),
+                   ('V-bytes', 413, 'application/json', 'nginx'), ('V-bytes', 413, 'text/html', 'apache'),
+                   ('V-bytes', 413, 'text/html', ''), ('V-bytes', 413, 'text/html-other', 'nginx')]:
+        assert not known_gateway_413(*values)
+    passed = ['V-submit-missing_text', 'V-submit-null_text', 'V-submit-bad_id', 'V-submit-blank_channel',
+              'V-submit-long_text', 'V-submit-expansion', 'V-submit-channel_length', 'V-json', 'V-media']
+    old_result = {'status': 'STOPPED', 'reason': 'ERROR_NOT_JSON', 'cases': {'PASS': 9, 'FAIL': 1, 'NOT_RUN': 29}}
+    old_budget = {'used': {'total': 14, 'GET': 4, 'submit': 10, 'search': 0, 'PUT': 0},
+                  'stopped': True, 'successful_new_documents': 0}
+    old_status = {case_id: {'status': 'PASS'} for case_id in passed}
+    old_status['V-bytes'] = {'status': 'FAIL', 'reason': 'ERROR_NOT_JSON'}
+    old_status.update({'unstarted-' + str(i): {'status': 'NOT_RUN'} for i in range(29)})
+    old_events = [{'request_ordinal': i + 1, 'case_id': 'PREFLIGHT', 'method': 'GET', 'http_status': 200,
+                   'expected_match': True, 'outcome': 'SUCCESS', 'actual_code': None} for i in range(4)]
+    old_events.extend({'request_ordinal': i + 5, 'case_id': case_id, 'method': 'POST', 'http_status': 400,
+                       'expected_match': True, 'outcome': 'REJECTED', 'actual_code': 'VALIDATION_ERROR'}
+                      for i, case_id in enumerate(passed))
+    old_events.append({'request_ordinal': 14, 'case_id': 'V-bytes', 'method': 'POST', 'http_status': 413,
+                       'expected_match': False, 'outcome': 'ERROR_NOT_JSON', 'actual_code': None})
+    old_baseline = {'existing_documents': 9, 'metadata_sha256': 'a' * 64}
+    assert len(validate_known_gateway_resume(old_result, old_budget, old_status, old_events, old_baseline)) == 9
+    import copy
+    for mutate in ('accepted', 'unknown', 'status_zero', 'status_null', 'server_5xx', 'wrong_failure', 'budget_reset'):
+        b, events, result = copy.deepcopy(old_budget), copy.deepcopy(old_events), copy.deepcopy(old_result)
+        if mutate == 'accepted':
+            b['successful_new_documents'] = 1
+        elif mutate == 'unknown':
+            events[0]['actual_code'] = 'RESULT_UNKNOWN'
+        elif mutate == 'status_zero':
+            events[0]['http_status'] = 0
+        elif mutate == 'status_null':
+            events[0]['http_status'] = None
+        elif mutate == 'server_5xx':
+            events[0]['http_status'] = 503
+        elif mutate == 'wrong_failure':
+            result['reason'] = 'TRANSPORT_OR_INTERNAL_FAILURE'
+        else:
+            b['used']['total'] = 0
+        try:
+            validate_known_gateway_resume(result, b, old_status, events, old_baseline)
+            raise AssertionError('不安全续跑未拒绝')
+        except SafetyStop:
+            pass
     print('离线自测通过：预算边界、停止屏障、并发账本、排序、重复及越界命中；网络请求0。')
 
 
@@ -662,6 +799,7 @@ def main():
     parser.add_argument('--channel', default=os.environ.get('QUALITY_CHANNEL'))
     parser.add_argument('--output-dir')
     parser.add_argument('--authorized-live', action='store_true', help='主控已完成运行版本/就绪/资源/全轮预算门禁并授权执行')
+    parser.add_argument('--resume-known-gateway-dir', help='仅续跑首次已知Nginx 413且零成功写入的停止记录')
     parser.add_argument('--self-test', action='store_true', help='只执行离线helper测试')
     args = parser.parse_args()
     if args.self_test:
@@ -691,7 +829,11 @@ def main():
         manifest_path = Path(__file__).with_name('functional-cases.json')
         manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
         require(len(manifest['cases']) == 39 and len(manifest['fixtures']) == 12, 'MANIFEST_COUNT')
-        runner = Runner(args, manifest, 'Basic ' + token)
+        resume = load_known_gateway_resume(args.resume_known_gateway_dir) if args.resume_known_gateway_dir else None
+        if resume:
+            require(Path(args.output_dir).resolve() != Path(args.resume_known_gateway_dir).resolve()
+                    and Path(args.output_dir).name == 'functional-results-attempt2', 'RESUME_OUTPUT_MUST_BE_ATTEMPT2')
+        runner = Runner(args, manifest, 'Basic ' + token, resume=resume)
         runner.execute()
         runner.finish(True, 'ALL_DECLARED_CASES_COMPLETED')
         print('功能执行结束；请核对受限输出目录中的白名单事件、case-status、预算与一致性结果。')

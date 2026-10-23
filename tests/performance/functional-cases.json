@@ -71,7 +71,9 @@
       "hit_aliases",
       "hit_scores",
       "expected_match",
-      "response_body_sha256"
+      "response_body_sha256",
+      "layer",
+      "contentType"
     ],
     "redaction": "不记请求/响应原文、完整URL查询、认证头、Cookie、内部路径。错误message只保留摘要散列。真实code不可改成预期code。"
   },
@@ -446,7 +448,17 @@
       "operation": "generated_oversize_body",
       "body_bytes": 262145,
       "expect_code": "REQUEST_TOO_LARGE",
-      "max_requests": 1
+      "max_requests": 1,
+      "gateway_exception": {
+        "case_id": "V-bytes",
+        "http_status": 413,
+        "content_type": "text/html",
+        "server": "nginx",
+        "actual_code": null,
+        "layer": "GATEWAY_413",
+        "application_json_branch": "NOT_RUN_IF_GATEWAY",
+        "note": "只按本次真实头部识别；历史ERROR_NOT_JSON失败及其原件永久保留，不从日志推断头部。"
+      }
     },
     {
       "id": "V-topK-zero",
