@@ -34,11 +34,92 @@
 4. **竞态与生命周期**：终态更新必须匹配 `RUNNING + run_token`，防止迟到结果覆盖；文档失效与任务状态独立。启动先完成旧任务恢复再接受业务；关闭先拒接、停派、等待并排空短事务，超时 CPU 任务不得在数据源销毁后回写。
 5. **计数与资源边界**：所有候选评分和 Top-K 完成后，才按固定 ID 顺序对最终命中执行短事务原子自增。默认 Worker 1、队列 64、搜索许可 1、连接池 4、最多 5,000 篇文档。单实例约束与非覆盖冷备、独立恢复已验收；这些参数不是 QPS 或 SLA 承诺。[运行与资源契约](docs/design/runtime-contract.md)
 
+## 系统架构
+
+生产默认 Worker=1、Queue=64、SearchPermits=1、Hikari 最大连接数=4。H2 任务表负责可靠持久化，内存队列只保存待执行任务 ID；两条 CPU 计算路径都不长期持有数据库事务。
+
+```mermaid
+flowchart TB
+    CLIENT["浏览器 / API 客户端"] --> EDGE["Nginx：HTTPS + Basic Auth"]
+    EDGE --> API["Spring Boot REST API"]
+
+    subgraph ASYNC["文档接收与异步处理"]
+        SUBMIT["校验 / 容量检查 / 提交锁"] --> ACCEPT["短事务：文档 + 任务同事务提交"]
+        SCAN["定时扫描 QUEUED"] --> POOL["ThreadPoolExecutor：Worker=1<br/>ArrayBlockingQueue：64"]
+        POOL --> CLAIM["数据库条件领取<br/>QUEUED → RUNNING + run_token"]
+        CLAIM --> DOC_CPU["冻结 B1 文档向量化<br/>事务外 CPU 计算"]
+        DOC_CPU --> TERMINAL["终态短事务：RUNNING + run_token 条件更新<br/>SUCCEEDED + 向量 + 完成时间原子提交<br/>或持久化 FAILED 分类"]
+    end
+
+    subgraph SEARCH["文本检索与命中计数"]
+        PERMIT["Semaphore：SearchPermits=1"] --> QUERY_CPU["同一 B1 实现：查询向量化"]
+        QUERY_CPU --> FILTER["短读取：候选快照<br/>成功 / 就绪 / 有效 / 双版本匹配 / 可选渠道"]
+        FILTER --> SCORE["事务外：Cosine + Top-K"]
+        SCORE --> COUNT["仅最终命中：固定 ID 顺序<br/>短事务原子更新 hitCount"]
+        COUNT --> RESULT["计数提交后释放搜索许可<br/>返回 Controller 处理响应"]
+    end
+
+    subgraph DB["H2 嵌入式文件数据库：Hikari 最大 4 连接"]
+        DOCUMENTS[(documents)]
+        TASKS[(embedding_tasks)]
+    end
+
+    API --> SUBMIT
+    API --> PERMIT
+    API --> READ["任务 / 列表 / 详情 GET；幂等失效 PUT"]
+    ACCEPT --> DOCUMENTS
+    ACCEPT --> TASKS
+    TASKS --> SCAN
+    CLAIM --> TASKS
+    TERMINAL --> DOCUMENTS
+    TERMINAL --> TASKS
+    DOCUMENTS --> FILTER
+    TASKS --> FILTER
+    COUNT --> DOCUMENTS
+    READ --> DOCUMENTS
+    READ --> TASKS
+
+    subgraph LIFE["单实例与生命周期"]
+        SYSTEMD["systemd / 非 root / 永久 flock<br/>单 JVM、单 H2 文件"] --> RECOVER["启动：旧 RUNNING 恢复提交后才 READY"]
+        SYSTEMD --> STOP["优雅关闭：拒接 / 停派<br/>等待 Worker / 排空短事务 / 禁止迟到回写"]
+    end
+    RECOVER --> TASKS
+    RECOVER -. "READY 后接收与调度" .-> API
+    RECOVER -.-> SCAN
+    STOP -.-> API
+    STOP -.-> POOL
+```
+
+图中数据库箭头表示读取或写入依赖；GET 不增加命中计数，文档失效与任务终态独立。正式实例的 Worker 与搜索许可不会因本轮测试而修改。
+
+## 并发设计与线程安全
+
+提交锁覆盖文档和任务的物理事务提交；后台仅在条件领取成功后计算，终态由 `RUNNING + run_token` 约束。搜索许可覆盖计算至命中计数提交，CPU 阶段不占数据库连接；计数使用原子更新，文档失效字段独立维护。HTTP 客户端并发与后台 Worker 并发分别观测。
+
+本轮正式环境核证了重复 ID 竞争、搜索与失效竞态、149 次成功搜索对应的精确计数增量，以及单 Worker 的真实 CPU 活动。Worker=2/4、队列饱和和故障注入没有在本轮执行，详见[Java 多线程并发报告](docs/testing/CONCURRENCY-REPORT.md)。
+
+## 性能测试与基线
+
+2026-10-23 在固定生产 JAR、真实 HTTPS 与认证下完成一次有界 1/2/4/8 客户端阶梯：每阶测量 27 秒、最多 3 秒收尾，总请求跨度 117.818 秒。搜索固定 N=9、Top-K=1、查询 12,000 code points；详情、列表和搜索混合请求，另稀疏提交 4 篇。
+
+| 客户端并发 | 混合成功 QPS | 成功响应 p95 / p99（ms） | 429（含尾部） |
+| --- | --- | --- | --- |
+| 1 | 2.889 | 495.10 / 509.82 | 0 |
+| 2 | 3.741 | 777.90 / 909.38 | 1 |
+| 4 | 6.296 | 1269.00 / 1281.56 | 17 |
+| 8 | 7.852 | 1589.20 / 2828.66 | 39 |
+
+631 次请求中，570 次 HTTP 200、4 次接收成功 202、57 次搜索保护 429；未知结果和 5xx 均为 0。QPS 只计测量窗内完成的业务成功，延迟与上表 429 保留窗口内发起、宽限期完成的尾请求；202 不等于向量化完成。该成绩是短窗、小候选集、长查询的混合负载基线，**不是最大容量或 SLA**。
+
+本轮新增 17/20 篇，原有 9 篇的元信息和计数保持不变；Chrome 已完成提交、真实任务终态、列表、搜索计数和失效闭环。Worker=2/4、N=100/1000/5000 及隔离环境最大吞吐仍未执行，连接池精确占用与 GC 单次暂停未测量。
+
+公开报告：[线上功能与 70 条分层映射](docs/testing/ONLINE-FUNCTIONAL-REPORT.md) · [并发与一致性](docs/testing/CONCURRENCY-REPORT.md) · [QPS、资源图表及复核方法](docs/testing/PERFORMANCE-BASELINE.md)。本轮 39 个线上功能声明场景与历史 273 项自动化、70 条主验收采用不同统计维度，不相加，也不将历史 70 条全部标为本轮线上通过。
+
 ## 在线演示
 
 **[https://text-vector-search.lemoncharger.com](https://text-vector-search.lemoncharger.com)**
 
-演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。演示服务使用固定发布版本；下列版本信息来自已有交付记录，本轮文档整理没有重新部署或检查服务器运行状态。
+演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。演示服务使用固定发布版本；FINAL-QUALITY 开测前和收尾均核对原 JAR，未替换产物或重新部署。
 
 <details>
 <summary>固定发布版本与验收 CI</summary>
@@ -78,7 +159,7 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 ## 测试与验收
 
-以下是既有交付结果，本轮仅核读原件并整理文档，没有新增测试执行或服务器操作。
+以下是既有 FINAL-RELEASE 交付结果；本轮新增线上实测单独列在上述性能摘要和三份报告中，不改写历史结果。
 
 | 统计维度 | 已核证结果 |
 | --- | --- |
