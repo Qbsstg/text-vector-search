@@ -39,9 +39,9 @@
         </form>
         <p id="search-message" class="feedback" role="status" aria-live="polite">尚未执行检索。</p>
         <section id="search-results" class="result-section" aria-label="检索结果" hidden>
-          <div class="section-heading"><h2>检索结果</h2><dl id="search-summary" class="compact-fields"></dl></div>
+          <h2>检索结果</h2>
           <p id="search-history" class="hint"></p>
-          <details class="query-snapshot"><summary>本次查询条件</summary><p id="search-query-options" class="hint"></p><pre id="search-query-text" tabindex="0" aria-label="本次查询文本"></pre></details>
+          <div class="result-meta"><dl id="search-summary" class="compact-fields"></dl><details class="query-snapshot"><summary>查看查询原文</summary><p id="search-query-options" class="hint"></p><pre id="search-query-text" tabindex="0" aria-label="本次查询文本"></pre></details></div>
           <div class="table-scroll search-table" tabindex="0" role="region" aria-label="检索结果">
             <table>
               <caption class="visually-hidden">结果保持后端完整分数顺序，零分和负分均保留。</caption>

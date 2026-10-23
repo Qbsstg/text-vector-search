@@ -93,6 +93,9 @@ function searchValues() {
     return { ...formValues(byId("search-form")), topK: byId("search-top-k").valueAsNumber };
 }
 function renderSearch(state) {
+    // 正常成功只保留读屏完成通知，视觉摘要统一显示在结果区；异常及历史提示仍占据可见位置。
+    const ordinarySuccess = state.result?.hits.some((hit) => hit.score !== 0) && !state.busy && !state.error;
+    byId("search-message").classList.toggle("visually-hidden", Boolean(ordinarySuccess));
     byId("search-button").disabled = state.busy;
     byId("search-button").textContent = state.busy ? "检索中…" : "开始检索";
     if (state.error) {
@@ -117,8 +120,9 @@ function renderSearch(state) {
     if (state.error) reasons.push("最近一次操作未取得有效结果，以下为上次成功查询的快照");
     if (state.draftChanged) reasons.push("表单条件已修改，以下结果仍对应此前条件，请手动检索");
     if (state.changedIds.length > 0) reasons.push("文档有效状态已变化，以下为历史查询结果；未自动重搜或本地重排");
-    byId("search-history").textContent = reasons.length ? "历史结果 · " + reasons.join("。") + "。" : "本次查询快照；详情有效状态可能随之后的操作变化。";
-    fields(byId("search-summary"), [["实际结果数量", String(hits.length)], ["请求往返耗时", `${duration.toFixed(1)} ms`]]);
+    byId("search-history").textContent = reasons.length ? "历史结果 · " + reasons.join("。") + "。" : "";
+    fields(byId("search-summary"), [["结果", `${hits.length} 条`], ["Top-K", String(query.topK)],
+        ["渠道", query.channel ?? "全部渠道"], ["请求往返", `${duration.toFixed(1)} ms`]]);
     byId("search-query-options").textContent = `Top-K：${query.topK}；渠道：${query.channel ?? "全部渠道（未指定）"}；查询文本如下（空白原样保留）。`;
     byId("search-query-text").textContent = query.text;
     const rows = byId("search-rows");
