@@ -34,7 +34,7 @@
             <div><label for="search-channel">渠道 <span class="label-note">（可选）</span></label><input id="search-channel" name="channel" type="text" placeholder="全部渠道" aria-describedby="search-channel-error"><p id="search-channel-error" class="field-error" data-error-for="channel"></p></div>
             <button id="search-button" class="primary" type="submit" disabled aria-describedby="search-hint">开始检索</button>
           </div>
-          <p id="search-hint" class="hint">查询按字面特征匹配；每次检索会对最终命中文档计数。</p>
+          <p id="search-hint" class="hint">每次检索会对最终命中文档计数。</p>
           <details class="rules"><summary>检索规则</summary><p>确定性的字面特征算法不保证语义理解。余弦分数不是概率或置信度，零分和负分均保留；四位小数只用于显示，排序始终保持后端原始顺序。</p><p id="empty-search">空查询合法，将返回零分结果并正常计数；原始及规范化文本分别最多 20000 Unicode 码点。</p><p>仅明确提交表单才检索。查看详情、切换页面和失效均不自动检索；网络失败可能已计数，不自动重试。</p></details>
         </form>
         <p id="search-message" class="feedback" role="status" aria-live="polite">尚未执行检索。</p>
