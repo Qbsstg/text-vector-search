@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { dialogLifecycle, taskBadgeClass } from "../../src/main/resources/static/presentation.mjs";
+import { dialogLifecycle, taskBadgeClass, taskErrorFields } from "../../src/main/resources/static/presentation.mjs";
 import { LatestRead } from "../../src/main/resources/static/api.mjs";
 
 // 模拟原生 close 事件排队，专门覆盖关闭后立即重开这一竞态，不使用定时等待证明正确性。
@@ -122,4 +122,14 @@ test("UI-R08：徽章只映射真实四态，不从空值或文档属性伪造�
     assert.equal(taskBadgeClass("SUCCEEDED"), "badge badge-success");
     assert.equal(taskBadgeClass("FAILED"), "badge badge-failed");
     for (const unknown of [null, undefined, "", "invalidated", "vectorReady"]) assert.equal(taskBadgeClass(unknown), "badge");
+});
+
+test("UI-R09：只展示真实存在的业务错误，正常任务不占空行且不按状态隐去错误", () => {
+    for (const task of [null, undefined, {}, { status: "SUCCEEDED", errorCode: null, errorMessage: null },
+        { status: "RUNNING", errorCode: "", errorMessage: "" }]) assert.deepEqual(taskErrorFields(task), []);
+    assert.deepEqual(taskErrorFields({ status: "FAILED", errorCode: "ALGORITHM_ERROR", errorMessage: "合成错误" }),
+        [["业务错误码", "ALGORITHM_ERROR"], ["业务错误信息", "合成错误"]]);
+    assert.deepEqual(taskErrorFields({ errorCode: "ALGORITHM_ERROR" }), [["业务错误码", "ALGORITHM_ERROR"]]);
+    assert.deepEqual(taskErrorFields({ status: "SUCCEEDED", errorMessage: "异常快照仍保留原消息" }),
+        [["业务错误信息", "异常快照仍保留原消息"]]);
 });

@@ -50,3 +50,9 @@ export function taskBadgeClass(status) {
     if (status === "QUEUED" || status === "RUNNING") return "badge badge-pending";
     return "badge";
 }
+
+/** 业务错误只在服务端确实返回内容时展示；任务四态始终由独立状态区保留。 */
+export function taskErrorFields(task) {
+    return [["业务错误码", task?.errorCode], ["业务错误信息", task?.errorMessage]]
+        .filter(([, value]) => typeof value === "string" && value.length > 0);
+}

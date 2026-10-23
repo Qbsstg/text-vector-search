@@ -1,7 +1,7 @@
 import { createApi, documentId, taskId, listQuery, TASK_LABELS, InputError, errorText, formatTime, LatestRead } from "./api.mjs";
 import { TaskTracker, pollingText } from "./tasks.mjs";
 import { SearchSession, formatScore } from "./search.mjs";
-import { dialogLifecycle, taskBadgeClass } from "./presentation.mjs";
+import { dialogLifecycle, taskBadgeClass, taskErrorFields } from "./presentation.mjs";
 
 const api = createApi();
 const byId = (id) => document.getElementById(id);
@@ -87,6 +87,17 @@ function idView(id, { onOpen = () => void openDetail(id), copyFeedback = "copy-m
 }
 function badge(text, className = "badge") { return element("span", text, className); }
 function taskLabel(status) { return `${TASK_LABELS[status]} · ${status}`; }
+/** 每个状态字段分别决定颜色，不能由任务完成推断文档有效或向量就绪。 */
+function statusFields(target, values) {
+    target.replaceChildren();
+    for (const [label, text, className] of values) {
+        const group = element("div");
+        const value = element("dd");
+        value.append(badge(text, className));
+        group.append(element("dt", label), value);
+        target.append(group);
+    }
+}
 
 const search = new SearchSession({ load: (query) => api.search(query), onChange: renderSearch });
 function searchValues() {
@@ -218,7 +229,7 @@ function renderTasks(records) {
     fields(byId("task-fields"), [["任务 ID", record.id], ["关联文档", task?.documentId],
         ["渠道", task?.document?.channel], ["向量就绪", task?.document ? (task.document.vectorReady ? "是" : "否") : "尚未取得文档快照"],
         ["文档有效状态", task?.document ? (task.document.invalidated ? "已失效" : "有效") : "尚未取得文档快照"],
-        ["业务错误码", task?.errorCode], ["业务错误信息", task?.errorMessage]]);
+        ...taskErrorFields(task)]);
     feedback("task-message", record.error ? `状态暂不可获取。${errorText(record.error)}${task ? ` 上次已知状态：${task.status}。` : ""}`
         : record.busy ? "正在读取真实任务状态；不会改写上次已知业务状态。"
         : task ? "已展示服务器返回的状态。排队中不表示任务失败或已经完成。" : "尚未取得任务状态。", Boolean(record.error));
@@ -405,8 +416,10 @@ function renderDetail() {
     if (detailData) {
         byId("detail-document-id").replaceChildren(element("span", "文档 ID："),
             idView(detailData.documentId, { onOpen: () => byId("detail-text").focus(), copyFeedback: "detail-message" }));
-        fields(byId("detail-status"), [["任务", taskLabel(detailData.taskStatus)],
-            ["向量", detailData.vectorReady ? "已就绪" : "未就绪"], ["文档", detailData.invalidated ? "已失效" : "有效"], ["渠道", detailData.channel]]);
+        statusFields(byId("detail-status"), [["任务", taskLabel(detailData.taskStatus), taskBadgeClass(detailData.taskStatus)],
+            ["向量", detailData.vectorReady ? "已就绪" : "未就绪", detailData.vectorReady ? "badge badge-success" : "badge"],
+            ["文档", detailData.invalidated ? "已失效" : "有效", detailData.invalidated ? "badge" : "badge badge-success"],
+            ["渠道", detailData.channel, "badge badge-blue"]]);
         fields(byId("detail-stats"), [["命中次数（读取快照）", detailData.hitCount],
             ["提交时间（UTC+8）", formatTime(detailData.submittedAt)], ["完成时间（UTC+8）", formatTime(detailData.vectorCompletedAt)],
             ["失效时间（UTC+8）", formatTime(detailData.invalidatedAt)]]);
