@@ -108,6 +108,7 @@ jobs:
             target/final-linux-evidence/
             target/final-release-evidence/
             target/local-cases-evidence/
+            target/rec07-revised-evidence/
             target/approved-candidate/release-manifest.json
             target/approved-candidate/SHA256SUMS
           if-no-files-found: error
