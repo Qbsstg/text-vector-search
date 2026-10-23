@@ -1,0 +1,841 @@
+{
+  "schema_version": 1,
+  "task": "FINAL-QUALITY",
+  "status": "NOT_RUN",
+  "description": "仅用例定义，不含网络执行器。未获主控GO不得执行。",
+  "contract": "api-v1.0/runtime-v1.0",
+  "configuration": {
+    "base_url_env": "QUALITY_BASE_URL",
+    "credentials_env": "QUALITY_CREDENTIALS_FILE",
+    "credentials_policy": "仅0600受限文件或安全进程环境；不输出值、Authorization、Cookie、私钥；URL禁止userinfo；TLS必须校验；禁止重定向携带认证",
+    "run_prefix_env": "QUALITY_RUN_PREFIX",
+    "channel_env": "QUALITY_CHANNEL",
+    "run_id_policy": "每轮唯一ASCII安全前缀和精确渠道；拒绝复用已存在渠道；fixture ID只在同轮复用",
+    "input_validation": "执行前强制校验HTTPS且无userinfo、非空唯一RUN_PREFIX、CHANNEL精确非空且<=55码点以容纳后缀、ID长度<=128；任何缺失或模板未展开立即拒绝。认证材料不得放URL或CLI参数。"
+  },
+  "budget": {
+    "successful_new_documents": 12,
+    "whole_round_successful_documents": 20,
+    "total_http_requests": 240,
+    "submit_attempts": 32,
+    "search_attempts": 16,
+    "invalidation_attempts": 4,
+    "get_attempts": 180,
+    "global_get_rps": 4,
+    "automatic_retries": 0,
+    "request_timeout_seconds": 10
+  },
+  "safety": {
+    "preflight_required": [
+      "主控书面GO",
+      "JAR摘要与批准值一致",
+      "businessReady=true",
+      "剩余容量>=本轮剩余预算",
+      "统一全轮预算账本和已有写入扣账",
+      "与k6/Chrome串行或统一调度",
+      "精确channel预检为空"
+    ],
+    "stop_on": [
+      "网络超时/断连",
+      "RESULT_UNKNOWN",
+      "非JSON业务写响应且结果未知",
+      "任务FAILED或轮询预算耗尽",
+      "版本不符",
+      "非READY",
+      "异常5xx",
+      "资源安全阈值触发",
+      "任何预算不足"
+    ],
+    "unknown_policy": "立即停止全部后续业务写入，包含搜索；仅主控批准诊断GET，不重发原请求，不用累计hitCount推断未知提交。",
+    "ledger_policy": "发出请求前先原子扣账，失败/429/超时也消耗预算；所有子请求包括轮询/重定向均计入，禁自动重定向。替代fixture操作不得重复执行。",
+    "scope": "仅本轮合成文档；禁止删除/覆盖/停机/故障注入/无channel搜索",
+    "performance_coordination": "用户已批准主控正式服务1/2/4/8并发，每阶30秒总窗口<=120秒；功能与压测分阶段计数，不共享16次功能搜索预算。主控统一总账，QA不自行执行。"
+  },
+  "event_schema": {
+    "required": [
+      "run_id",
+      "case_id",
+      "request_ordinal",
+      "method",
+      "route_template",
+      "start_utc",
+      "duration_ms",
+      "http_status",
+      "actual_code",
+      "outcome",
+      "budget_remaining"
+    ],
+    "optional": [
+      "task_state",
+      "safe_document_alias",
+      "hit_aliases",
+      "hit_scores",
+      "expected_match",
+      "response_body_sha256"
+    ],
+    "redaction": "不记请求/响应原文、完整URL查询、认证头、Cookie、内部路径。错误message只保留摘要散列。真实code不可改成预期code。"
+  },
+  "polling": {
+    "max_total": 120,
+    "max_per_task": 10,
+    "interval_seconds": 2,
+    "deadline_seconds": 30,
+    "terminal_states": [
+      "SUCCEEDED",
+      "FAILED"
+    ],
+    "note": "轮询间隔只控制负载；不能用sleep证明异步/竞态正确性。"
+  },
+  "fixtures": [
+    {
+      "alias": "empty",
+      "documentId": "${RUN_PREFIX}-empty",
+      "text": "",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "whitespace",
+      "documentId": "${RUN_PREFIX}-whitespace",
+      "text": "　\t\n",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "unicode",
+      "documentId": "${RUN_PREFIX}-unicode",
+      "text": "中文😀𠀀 café é",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "canonical",
+      "documentId": "${RUN_PREFIX}-canonical",
+      "text": "abc def",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "normalized",
+      "documentId": "${RUN_PREFIX}-normalized",
+      "text": "ＡＢＣ　ＤＥＦ",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "ordinary",
+      "documentId": "${RUN_PREFIX}-ordinary",
+      "text": "质量验收 普通文档 alpha beta",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "duplicate",
+      "documentId": "${RUN_PREFIX}-duplicate",
+      "text": "并发重复ID获胜原文",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "race",
+      "documentId": "${RUN_PREFIX}-race",
+      "text": "失效与检索快照合成文档",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "snippet",
+      "documentId": "${RUN_PREFIX}-snippet",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED",
+      "text_generator": {
+        "character": "😀",
+        "repeat": 201,
+        "suffix": "结尾"
+      }
+    },
+    {
+      "alias": "boundary",
+      "documentId": "${RUN_PREFIX}-boundary",
+      "channel": "${CHANNEL}",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED",
+      "text_generator": {
+        "character": "界",
+        "repeat": 20000
+      }
+    },
+    {
+      "alias": "neighbor",
+      "documentId": "${RUN_PREFIX}-neighbor",
+      "text": "质量验收 邻渠道禁止命中",
+      "channel": "${CHANNEL}-neighbor",
+      "channel_mode": "explicit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    },
+    {
+      "alias": "default",
+      "documentId": "${RUN_PREFIX}-default",
+      "text": "质量验收 默认渠道",
+      "channel": null,
+      "channel_mode": "omit",
+      "expect_http": 202,
+      "expect_status": "SUCCEEDED"
+    }
+  ],
+  "cases": [
+    {
+      "id": "F01",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 202,
+      "operation": "submit_fixtures",
+      "fixtures": [
+        "empty",
+        "whitespace",
+        "unicode",
+        "canonical",
+        "normalized",
+        "ordinary",
+        "duplicate",
+        "race",
+        "snippet",
+        "boundary",
+        "neighbor",
+        "default"
+      ],
+      "assertions": [
+        "所有taskId为不同UUID",
+        "提交响应202仅为接收",
+        "详情原文按码点完全一致",
+        "每篇真实终态SUCCEEDED且vectorReady=true",
+        "默认渠道为default"
+      ],
+      "max_requests": 12
+    },
+    {
+      "id": "F02",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/tasks/${taskId}",
+      "expect_http": 200,
+      "operation": "bounded_poll",
+      "assertions": [
+        "关联ID正确",
+        "成功document非null",
+        "状态真实保留",
+        "FAILED立即停止后续写入"
+      ],
+      "max_requests": 120,
+      "max_polls_per_task": 10,
+      "poll_interval_seconds": 2,
+      "poll_deadline_seconds": 30
+    },
+    {
+      "id": "F03",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 409,
+      "body": {
+        "fixture": "ordinary"
+      },
+      "assertions": [
+        "原文和taskId不变"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "F04",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": [
+        202,
+        409
+      ],
+      "operation": "duplicate_race",
+      "fixture": "duplicate",
+      "concurrency": 2,
+      "replaces_fixture_submission": true,
+      "assertions": [
+        "同ID仅一次202其余409",
+        "只有一个taskId",
+        "最终原文是获胜请求原文"
+      ],
+      "max_requests": 2
+    },
+    {
+      "id": "V-submit-missing_text",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "${RUN_PREFIX}-reject-1"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "V-submit-null_text",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "${RUN_PREFIX}-reject-2",
+        "text": null
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "V-submit-bad_id",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "/非法",
+        "text": "合成"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "V-submit-blank_channel",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "${RUN_PREFIX}-reject-3",
+        "text": "合成",
+        "channel": "　"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "V-submit-long_text",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "${RUN_PREFIX}-reject-4"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1,
+      "text_generator": {
+        "character": "界",
+        "repeat": 20001,
+        "target": "body.text"
+      }
+    },
+    {
+      "id": "V-submit-expansion",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "${RUN_PREFIX}-reject-5"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1,
+      "text_generator": {
+        "character": "㍿",
+        "repeat": 5001,
+        "target": "body.text"
+      }
+    },
+    {
+      "id": "V-submit-channel_length",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "body": {
+        "documentId": "${RUN_PREFIX}-reject-6",
+        "text": "合成",
+        "channel": "界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "assertions": [
+        "无成功新增文档",
+        "错误字段结构稳定"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "V-json",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "raw_body": "{",
+      "expect_code": "MALFORMED_JSON",
+      "max_requests": 1
+    },
+    {
+      "id": "V-media",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "headers": {
+        "Content-Type": "text/plain"
+      },
+      "raw_body": "合成",
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-bytes",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 413,
+      "operation": "generated_oversize_body",
+      "body_bytes": 262145,
+      "expect_code": "REQUEST_TOO_LARGE",
+      "max_requests": 1
+    },
+    {
+      "id": "V-topK-zero",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "topK": 0,
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-topK-large",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "topK": 101,
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-topK-fraction",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "topK": 1.5,
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-topK-string",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "topK": "1",
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-topK-null",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "topK": null,
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-search-channel",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "topK": 1,
+        "channel": "　"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "S01",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 200,
+      "body": {
+        "text": "",
+        "topK": 100,
+        "channel": "${CHANNEL}"
+      },
+      "assertions": [
+        "只返回主渠道10篇有效就绪文档",
+        "所有score=0且按documentId ASCII升序",
+        "仅最终hits每篇计数+1",
+        "snippet前200码点"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "S02",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 200,
+      "body": {
+        "text": "abc def",
+        "topK": 2,
+        "channel": "${CHANNEL}"
+      },
+      "assertions": [
+        "canonical和normalized分数约1",
+        "按原始分数再ID排序",
+        "原文仍分别保存",
+        "无邻渠道和default命中"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "S03",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 200,
+      "body": {
+        "text": "",
+        "topK": 1,
+        "channel": "${CHANNEL}-absent"
+      },
+      "assertions": [
+        "hits=[]",
+        "所有已知测试文档计数不变"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "S04",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": [
+        200,
+        429
+      ],
+      "body": {
+        "text": "质量验收",
+        "topK": 1,
+        "channel": "${CHANNEL}"
+      },
+      "concurrency": 2,
+      "assertions": [
+        "429必须SEARCH_BUSY且不计数",
+        "每个200的真实hits进入精确计数账本",
+        "不重试429",
+        "仅在两次结果均已知后对账"
+      ],
+      "max_requests": 2
+    },
+    {
+      "id": "C01",
+      "status": "NOT_RUN",
+      "method": "PUT",
+      "path": "/api/documents/${raceDocumentId}/invalidation",
+      "expect_http": 200,
+      "operation": "overlap_with_one_search",
+      "search_body": {
+        "text": "",
+        "topK": 100,
+        "channel": "${CHANNEL}"
+      },
+      "search_expect_http": [
+        200,
+        429
+      ],
+      "assertions": [
+        "重叠搜索允许返回先前快照",
+        "失效完成后另起搜索不得返回race",
+        "计数按成功响应hits对账",
+        "客户端屏障只证明同时发起不证明内部交错"
+      ],
+      "max_requests": 1,
+      "additional_search_requests": 1
+    },
+    {
+      "id": "C02",
+      "status": "NOT_RUN",
+      "method": "PUT",
+      "path": "/api/documents/${raceDocumentId}/invalidation",
+      "expect_http": 200,
+      "assertions": [
+        "重复失效首次invalidatedAt不变",
+        "SUCCEEDED与invalidated独立"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "S05",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 200,
+      "body": {
+        "text": "",
+        "topK": 100,
+        "channel": "${CHANNEL}"
+      },
+      "assertions": [
+        "排除race",
+        "其余主渠道有效文档仍返回",
+        "按实际hits计数"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "R01",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/documents",
+      "expect_http": 200,
+      "query": {
+        "channel": "${CHANNEL}",
+        "page": 0,
+        "size": 3
+      },
+      "operation": "paginate",
+      "assertions": [
+        "submittedAt DESC, documentId ASC",
+        "分页不重不漏",
+        "page超尾返回空",
+        "GET不增加hitCount"
+      ],
+      "max_requests": 5
+    },
+    {
+      "id": "R02",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/documents/${documentId}",
+      "expect_http": 200,
+      "operation": "detail_and_count_ledger",
+      "assertions": [
+        "12篇详情检查",
+        "hitCount十进制字符串",
+        "最终减初始等于已确认200响应包含该ID次数",
+        "没有其他runner或浏览器同时搜索测试channel"
+      ],
+      "max_requests": 36
+    },
+    {
+      "id": "R03",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/documents",
+      "expect_http": 400,
+      "query_variants": [
+        {
+          "page": -1
+        },
+        {
+          "size": 0
+        },
+        {
+          "size": 101
+        },
+        {
+          "page": "2147483648"
+        },
+        {
+          "invalidated": "nope"
+        },
+        {
+          "channel": "　"
+        }
+      ],
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 6
+    },
+    {
+      "id": "R04",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/documents/${RUN_PREFIX}-absent",
+      "expect_http": 404,
+      "expect_code": "DOCUMENT_NOT_FOUND",
+      "max_requests": 1
+    },
+    {
+      "id": "R05",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/tasks/00000000-0000-0000-0000-000000000001",
+      "expect_http": 404,
+      "expect_code": "TASK_NOT_FOUND",
+      "max_requests": 1
+    },
+    {
+      "id": "R06",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/tasks/not-a-uuid",
+      "expect_http": 400,
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "A01",
+      "status": "NOT_RUN",
+      "method": "GET",
+      "path": "/api/documents",
+      "expect_http": 401,
+      "auth": "none",
+      "max_requests": 1
+    },
+    {
+      "id": "A02",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 403,
+      "origin": "https://cross-origin.invalid",
+      "body": {
+        "documentId": "${RUN_PREFIX}-cross",
+        "text": "合成",
+        "channel": "${CHANNEL}"
+      },
+      "assertions": [
+        "不落库",
+        "保留真实错误code，Nginx非JSON也记录"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "A03",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/documents",
+      "expect_http": 202,
+      "origin": "same_origin",
+      "operation": "use_ordinary_fixture_submission",
+      "replaces_fixture_submission": true,
+      "assertions": [
+        "HTTPS同源真实允许"
+      ],
+      "max_requests": 1
+    },
+    {
+      "id": "V-search-missing_topK",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": "合成",
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-search-missing_text",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "topK": 1,
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    },
+    {
+      "id": "V-search-null_text",
+      "status": "NOT_RUN",
+      "method": "POST",
+      "path": "/api/search",
+      "expect_http": 400,
+      "body": {
+        "text": null,
+        "topK": 1,
+        "channel": "${CHANNEL}"
+      },
+      "expect_code": "VALIDATION_ERROR",
+      "max_requests": 1
+    }
+  ]
+}
