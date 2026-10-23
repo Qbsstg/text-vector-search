@@ -1,5 +1,8 @@
 # FINAL-RELEASE最终独立实证核证（部署前门禁）
 
+> **历史阶段说明**：本文件记录部署前独立核证，包含当时的 271 项测试和 REC-07 待裁决状态。正文、原始 FAIL、测试数量和时间线原样保留，不代表项目当前仍未交付。最终结论请查阅[《最终交付聚合结果》](最终交付聚合结果.md)。
+> 当前采用用户批准的 REC-07-R1 与首发验收范围，70 条主用例通过；原 REC-07 FAIL 不改写，F05 仍为 `NOT_RUN / APPROVED_EXCEPTION`。原材料及受限证据引用仅用于溯源，不是公开下载链接。
+
 ## 最新CI39862014960追加核证
 
 测试源码`5897cfd4764b4a5b32d973f6722249d26a04b800`，QA再次独立读取19份Surefire、15份Failsafe和Node原日志：104 unit＋124 IT＋43 Node＝271，零失败/错误/跳过。Java17实际同时编译ColdSnapshot与QueueReadOnlyAgent，六条警告均来自后者Unsafe/shouldBeInitialized；没有将诊断编译计为新增JUnit项。
