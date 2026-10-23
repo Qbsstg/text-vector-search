@@ -1,6 +1,6 @@
 # 任务板
 
-2026-10-23 FINAL-RELEASE部署前最新实证；PM在现有`codex/final-release-pm`独立更新，未快进。只读主树核证提交`ac02e5cc67a2db4550cf38c9f9a203c46d919c3d`，完整要求/历史见[执行跟踪](FINAL-RELEASE-执行跟踪.md)，A—F产物完整性见[交付索引](FINAL-RELEASE-交付索引.md)。**当前总体BLOCKED：REC-07原预期契约FAIL尚待用户裁决；不宣布最终全PASS。**
+2026-10-23 FINAL-RELEASE执行中。用户已正式选择保持冻结B4并批准修订REC-07，见[裁决记录](../design/REC-07-验收判据裁决-20261023.md)。**当前IN_PROGRESS：REC-07-R1正在独立实测，不再等待用户裁决；旧FAIL永久保留，未测不填新PASS。** 完整历史见[执行跟踪](FINAL-RELEASE-执行跟踪.md)，A—F完整性见[交付索引](FINAL-RELEASE-交付索引.md)。
 
 | ID | Owner | 状态 | 真实结果/证据与下一门禁 |
 | --- | --- | --- | --- |
@@ -10,8 +10,9 @@
 | 固定批准生产包 | 主控 | DONE | source d016d6e8bb431ff17ba81f8977d31a1b96f51f7f / JAR 64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50 / 原CI39838054946；旧68因真实Chrome失败禁止发布 |
 | 既有253重跑+新增自动化 | QA/主控/前端 | PASS | Java104 unit+124 IT+43 Node=271，253+新增14 IT+4 Node分层去重；14含此前12/2，43含新4，不能重复相加 |
 | 最新Linux/原包一致性 | QA/主控 | PASS | 测试源码5897cfd4764b4a5b32d973f6722249d26a04b800、CI39862014960 success；原批准d016/64bc JAR实际运行/冷备/独立恢复通过；systemctl inactive仍是shim，不算实机unit |
-| 本地新增70矩阵 | QA | DONE（矩阵产物） | 最新64 PASS、REC-07 FAIL1、5 NOT_RUN；70是需求映射维度，不和271工程项相加，原材料只读保护 |
-| REC-07契约冲突 | QA/主控/用户 | FAIL / BLOCKED | 隔离R32成功库用R33启动health200、search200空hits，符合冻结B4过滤但违反原阻止版本不兼容就绪预期；原断言与wire保留。异步裁决待回，不默认豁免/改PASS/改核心 |
+| 本地新增70矩阵 | QA/主控 | IN_PROGRESS（修订核证） | 原70历史维度64 PASS、REC-07历史FAIL1、5 NOT_RUN保留；有效修订口径暂64 PASS、R1及5正式项共6 NOT_RUN，待真实执行更新，不和工程数相加 |
+| REC-07原判据 | QA/主控/用户 | HISTORICAL_FAIL / 已裁决 | 原预期、原断言/wire、旧文件与SHA全部保留；用户批准以冻结双版本过滤修订验收，不把旧FAIL改写成PASS |
+| REC-07-R1 | QA/主控 | IN_PROGRESS / NOT_RUN | 独立新类实测旧行完整、双版本四组合、无迁移/重算、真实健康及R33新提交检索；通过后才新记PASS，不改生产算法/DDL/API/状态机 |
 | 隔离PERF及队列观测 | 主控/QA/服务器 | DONE / PASS（有限范围） | 三轮实际实验结束，PERF01—04按原预期分层核证PASS；主1300请求、独立100文档队列、组件/HTTP/生命周期资源分别保留，不拼成同一轮或宣传SLA/语义准确率 |
 | 原本地Chrome/F03/U12 | 主控/用户/QA | DONE | 28 PASS已核证并复用；原68 FAIL与补测过程保留，不无意义重跑 |
 | F05 | 用户/QA | NOT_RUN / APPROVED_EXCEPTION | 用户正式接受有限例外，不伪造FAILED，不扩大到REC-07或其他未验项 |
@@ -24,7 +25,7 @@
 | D4停用态unit/永久锁 | 服务器 | DONE（静态准备） | 原unit受限备份后安装审阅模板，verify/daemon-reload成功；永久锁O_EXCL新建inode261932并保留，原env与D1完全一致。service仍inactive/disabled/PID0，未切current/启动或enable，无生产H2 |
 | Nginx pending | 服务器 | DONE（未加载） | 独立nginx -t成功，整站认证/可信头/内部路径拒绝/禁重放配置已准备；无enabled链接或reload，当前HTTP/TLS配置不变，不能当真实入口验收 |
 | D8冷副本观测工具 | 服务器 | DONE（本地准备） | ColdSnapshot通过本地真实H2封存副本/占用与安全拒绝分支；主控及CI39862014960已实际javac17编译通过，不代表正式D8备份恢复PASS |
-| DEP3正式启用GO | 主控 | BLOCKED / WAIT_GO | D1—D9及两项enable已正式授权；D2预置、D3/D4未激活准备已分别下达独立范围GO并完成。REC-07未裁决，业务启用GO未解除，不重复普通部署审批 |
+| DEP3正式启用GO | 主控 | WAIT_REVISED_VERIFY | 用户裁决已到且D1—D9/两项enable授权有效；R1实测、完整回归/CI与其他门禁核证后立即继续D5—D9，不重复申请普通授权 |
 | 正式D5—D9与两项enable | 服务器/主控 | NOT_RUN | 包/认证材料/停用态unit/pending已准备，未切current/启动业务/加载Nginx或enable；真实认证、运行态单实例、业务与重启恢复均未验。D9未触发，不虚构回滚 |
 | UI-08、OPS-02/03/04/06 | QA/服务器/主控 | NOT_RUN（5项） | 正式公网Chrome、服务器单实例/重启持久化、非覆盖冷备新目录恢复、真实认证保护、实际发布回退记录均待实机；不能以本机/隔离Linux关闭 |
 | A—F最终交付 | 各Owner/主控/PM | IN_PROGRESS / BLOCKED | B矩阵及工程/本地证据已交，C已有D1/D2及D3/D4静态准备，正式C/D/E仍缺D5—D9和真实入口/运行实证；F被REC-07与5未验项阻止 |
