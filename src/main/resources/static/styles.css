@@ -59,11 +59,19 @@ summary { cursor: pointer; font-weight: 500; }
 .field-error { color: #b91c1c; font-size: 13px; margin: 5px 0 0; }
 .field-error:empty { display: none; }
 .subsection, .result-section { border-top: 1px solid var(--line); margin-top: 25px; padding-top: 24px; }
-.result-section > .section-heading { margin-bottom: 7px; }
+.result-section { margin-top: 9px; padding-top: 16px; }
+.result-section > h2 { margin-bottom: 7px; }
+#search-history:empty { display: none; }
+#search-history:not(:empty) { margin: 8px 0; }
+.result-meta { display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap; }
+.result-meta .query-snapshot { margin: 0; flex: 1; min-width: 135px; }
+.result-meta .query-snapshot[open] { flex-basis: 100%; }
+.result-section .search-table { margin-top: 12px; }
+.search-table td { padding-top: 12px; padding-bottom: 12px; }
 dl { margin: 0; }
 dt { color: var(--muted); font-size: 13px; }
 dd { margin: 3px 0 0; overflow-wrap: anywhere; }
-.compact-fields { display: flex; gap: 22px; color: var(--muted); }
+.compact-fields { display: flex; flex-wrap: wrap; gap: 22px; color: var(--muted); }
 .compact-fields > div { display: flex; gap: 7px; align-items: baseline; }
 .compact-fields dd { margin: 0; }
 .query-snapshot { color: var(--muted); font-size: 13px; margin-top: 9px; }
@@ -177,8 +185,8 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; max-height:
   .search-controls > button { grid-column: 1 / -1; width: 100%; }
   .search-controls label { min-height: 22px; }
   .search-controls .label-note { font-size: 12px; }
-  .result-section > .section-heading { display: block; }
-  .compact-fields { gap: 12px; flex-wrap: wrap; margin-top: 8px; font-size: 12px; }
+  .result-meta { gap: 7px 14px; }
+  .compact-fields { gap: 5px 12px; flex-wrap: wrap; font-size: 12px; }
   .compact-fields dt { font-size: 12px; }
   .search-table { overflow: visible; }
   .search-table table, .search-table tbody { display: block; }
