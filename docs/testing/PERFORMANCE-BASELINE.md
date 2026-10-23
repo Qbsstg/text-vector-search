@@ -147,7 +147,9 @@ python3 tests/performance/analyze_baseline.py \
 
 收尾本地Java17完整 `clean verify` 已重新执行：104 Unit + 126 IT通过；Node另43通过，失败/错误/跳过均0。首次沙箱禁止随机回环端口导致7个启动错误，原件保留，允许端口后全量重跑成功。它们是工程回归，不并入631次线上样本。日志SHA `25a4ef9e8d8104871fa5eeabaf16c76ef68e8c9c2372ab308e108abaf1e5acf2`。
 
-脚本/文档提交后的GitHub CI属于另一轮工程回归，实际状态以对应提交CI为准，不能预填PASS；CI新构建产物不会因此自动部署。
+提交 `30eaf54d663f1ee061f17fba6b6add12a40fa2ef` 对应 [CI39903497011](https://github.com/Qbsstg/text-vector-search/actions/runs/39903497011) 已于2026-10-23 13:03:46北京时间实际Success：104 Unit、126 IT、43 Node，以及批准原JAR核对、Linux隔离冷备恢复/单实例门禁通过。CI原始日志SHA `cd246aafd1e69b72592d1b488c57239706187af0977a48dae2090e15eeb7e39c`，受限本地保留。这是工程回归，不能给未执行的规模/Worker性能组填PASS；CI新构建产物未部署。
+
+推送后已在真实Chrome核读GitHub首页新摘要、三份报告导航和四张公开SVG图像加载。README原生Mermaid经本地11.12.1解析为flowchart-v2，但本轮自动化Chrome中的GitHub iframe加载后出现 `Unable to render rich display`；仅在未提交的编辑器临时预览最小 `graph TD; A-->B;` 也有同样结果，随后已取消草稿，未改公开内容。没有证据将其归因为项目图表语法错误；**GitHub原生Mermaid实际渲染验收仍未通过，保留待人工核证**，不以语法检查或SVG性能图替代。正常Chrome复核请求已发出，尚未取得结果。本轮其余受控生产结果已交付，完整FINAL-QUALITY仍包含上述规模、Worker和观测缺口，不标全项DONE。
 
 ## 受限原件索引
 
