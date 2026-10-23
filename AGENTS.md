@@ -2,6 +2,8 @@
 
 ## 当前阶段与权威来源
 
+用户最新启动UI-REDESIGN-LOCAL：按已选蓝白全页面设计，仅在独立分支/worktree进行前端开发和本地测试，待线上功能及压测结束后另行安排发布。本轮不登录服务器、不访问线上业务接口、不推送或合并main、不切换线上JAR/配置/数据库。所有浏览器/HTTP写入只使用本机回环与全新独立H2；公网健康接口仍保持现有保护。基线为公开origin/main的5f1740d2141473a7595eeb41eb6efb037a847815。详情见docs/design/frontend-redesign-contract.md；以下FINAL-RELEASE内容保留为历史授权，不得覆盖本轮本地边界。
+
 用户已在FINAL-RELEASE执行指令中正式授权全量新增本地测试、工程回归及DEP3实际部署，不再仅限准备。固定候选为`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`，JAR SHA-256为`64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`，CI39838054946。
 F03/U12已核证，UI为28 PASS；F05保持NOT_RUN并标记用户批准例外，不伪造FAILED。用户已批准D1—D9、reviewer认证安全生成或安全交互，以及应用与Nginx分别enable。先完成新增测试及候选门禁，再由主控向服务器Owner下达GO；普通已授权操作不重复请示。
 生产源码或JAR若因真实缺陷改变，须重新给用户完整SHA/hash/CI确认，不沿用旧批准值；算法、API、DDL、核心事务或资源参数变更必须停止报告。仓库保持PUBLIC，不改六接口范围或历史证据。
