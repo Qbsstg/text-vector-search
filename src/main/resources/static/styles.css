@@ -113,14 +113,15 @@ td > .hint { display: block; font-size: 11px; }
 .tasks-layout { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr); gap: 28px; }
 .current-task, .session { min-width: 0; }
 .session { border-left: 1px solid var(--line); padding-left: 26px; }
-.task-heading { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 20px; }
+.task-heading { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 16px; }
 .task-heading h3 { margin: 0; font-size: 20px; font-family: ui-monospace, monospace; overflow-wrap: anywhere; }
 .task-heading .badge { font-size: 13px; }
-.task-times { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; padding-bottom: 23px; border-bottom: 1px solid var(--line); }
+.task-times { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .task-times dd, .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
-.minor-heading { font-size: 15px; margin: 18px 0 6px; }
+.minor-heading { font-size: 15px; margin: 14px 0 6px; }
 .stacked-fields > div { padding: 9px 0; border-bottom: 1px solid var(--line); }
-#task-fields > div { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 14px; }
+#task-fields > div { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 14px; padding: 7px 0; }
+#task-result .actions { margin-top: 18px; }
 #task-fields dd { margin: 0; }
 .session-list { list-style: none; padding: 0; margin: 16px 0 0; }
 .session-list li { border-bottom: 1px solid var(--line); padding: 13px 8px; overflow-wrap: anywhere; }
