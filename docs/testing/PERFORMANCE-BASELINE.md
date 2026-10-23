@@ -149,7 +149,15 @@ python3 tests/performance/analyze_baseline.py \
 
 提交 `30eaf54d663f1ee061f17fba6b6add12a40fa2ef` 对应 [CI39903497011](https://github.com/Qbsstg/text-vector-search/actions/runs/39903497011) 已于2026-10-23 13:03:46北京时间实际Success：104 Unit、126 IT、43 Node，以及批准原JAR核对、Linux隔离冷备恢复/单实例门禁通过。CI原始日志SHA `cd246aafd1e69b72592d1b488c57239706187af0977a48dae2090e15eeb7e39c`，受限本地保留。这是工程回归，不能给未执行的规模/Worker性能组填PASS；CI新构建产物未部署。
 
-推送后已在真实Chrome核读GitHub首页新摘要、三份报告导航和四张公开SVG图像加载。README原生Mermaid经本地11.12.1解析为flowchart-v2，但本轮自动化Chrome中的GitHub iframe加载后出现 `Unable to render rich display`；仅在未提交的编辑器临时预览最小 `graph TD; A-->B;` 也有同样结果，随后已取消草稿，未改公开内容。没有证据将其归因为项目图表语法错误；**GitHub原生Mermaid实际渲染验收仍未通过，保留待人工核证**，不以语法检查或SVG性能图替代。正常Chrome复核请求已发出，尚未取得结果。本轮其余受控生产结果已交付，完整FINAL-QUALITY仍包含上述规模、Worker和观测缺口，不标全项DONE。
+推送后已在真实Chrome核读GitHub首页新摘要、三份报告导航和四张公开SVG图像加载。README原生Mermaid经本地11.12.1解析为flowchart-v2，但本轮自动化Chrome中的GitHub iframe加载后出现 `Unable to render rich display`；仅在未提交的编辑器临时预览最小 `graph TD; A-->B;` 也有同样结果，随后已取消草稿，未改公开内容。没有证据将其归因为项目图表语法错误；**GitHub原生Mermaid实际渲染验收仍未通过，保留待人工核证**，不以语法检查或SVG性能图替代。当时已发出正常Chrome复核请求，尚未取得结果。本轮其余受控生产结果已交付，完整FINAL-QUALITY仍包含上述规模、Worker和观测缺口，不标全项DONE。
+
+### 架构展示后续核证（2026-10-23）
+
+用户随后确认普通Chrome同样加载失败，原始失败结论保留。15时许在内置浏览器重新打开同一GitHub页面，原生Mermaid iframe实际出现Render文档与完整diagram节点，并经截图目检；这证明GitHub能解析该图，不能据此前失败认定图表语法缺陷，也不能把内置浏览器结果当成用户Chrome已恢复。具体加载失败根因仍未确定，未修改用户浏览器设置。
+
+README已增加仓库内的[静态架构总览](../design/system-architecture.svg)，默认直接展示，原生Mermaid移入可展开区域。Mermaid源文本SHA仍为 `ea0299e9ff11eb951fc9cae00de49651f3e9c62925c6341a4f53f1a702aaabc8`，与修复前逐字相同；静态图按同一源码与冻结资源约束绘制，不包含脚本、外链资源、认证或内部运维路径。
+
+本轮实际检查：SVG XML有效；19个节点的标题/正文在真实浏览器内均未溢出边框；GitHub首页静态图加载完整（1440×1370），默认折叠的原生图展开后在内置浏览器真实渲染，再恢复折叠。只记录静态展示可用与该浏览器下原生渲染通过，普通Chrome原生渲染仍未核证恢复。原始截图和AX保留受限本地，不上传公开仓库。该修复仅涉及文档，未操作生产服务、认证、数据库或压测；并行前端主线采用正常合并保留，未改写历史。
 
 ## 受限原件索引
 
