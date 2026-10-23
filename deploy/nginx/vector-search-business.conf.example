@@ -22,6 +22,9 @@ server {
         proxy_pass http://127.0.0.1:8080;
         proxy_http_version 1.1;
         proxy_set_header Connection "";
+        # 固定构建时间可能让旧脚本误收304；清除浏览器条件头以取得当前发布内容。
+        proxy_set_header If-Modified-Since "";
+        proxy_set_header If-None-Match "";
         # 覆盖客户端转发头；不追加伪造来源，也不透传客户端Forwarded。
         proxy_set_header Host text-vector-search.lemoncharger.com;
         proxy_set_header X-Forwarded-Host text-vector-search.lemoncharger.com;
