@@ -1,10 +1,10 @@
 # FINAL-ACCEPTANCE 本地稳定性诊断
 
-状态：原固定包稳定性门禁 **BLOCKED**，真实失败与根因保留。修复候选的 **Mac 完整 35 分钟＋正常重启、确定性回归、旧库副本升级兼容均 PASS**。Linux 旧包自然对照 FAIL，新包 Linux 结果由服务器 Owner 最终追加；生产新包尚待批准，本文不能据此宣称已发布。任务 ID：`FINAL-ACCEPTANCE-BE`。
+当前固定988/becb的 **Mac与Linux完整35分钟＋正常重启、确定性回归、旧库副本升级兼容均PASS**；17:53已按用户精确批准实际发布，详见[发布检查单](RELEASE-FINAL-CHECKLIST.md)。原2764固定包的Mac/Linux自然FAIL及最初BLOCKED结论永久保留，不改写为通过。下文诊断、批准前范围与Owner交接为真实历史；后续部署不会替换本报告已固定的受测JAR。任务ID：`FINAL-ACCEPTANCE-BE`。
 
 ## 固定候选与范围
 
-- 生产固定源码：`2764eddf34418fdcc8ed666e36937673c7feadb8`。
+- 原故障复现固定源码：`2764eddf34418fdcc8ed666e36937673c7feadb8`。
 - 固定 CI：`39915764822`。
 - 受测 JAR SHA-256：`b8b67460ee6af26ec5ea7854377b63919c18c37760b11e3fbf49f7672be7f45f`。
 - 后端工作分支：`codex/final-acceptance-backend`；基线 `46ebe7d`。
@@ -115,5 +115,5 @@ Java 17 执行 `./mvnw -B -ntp -Dtest=SchemaConnectionLifecycleTest test`：旧 
 ## 未执行与后续边界
 
 - 本后端 Owner 没有代替主控重复执行完整 Java＋Node；完整自动化采用主控与独立 QA／CI 的核证，本人的新增回归命令和实际数量已单独记录。
-- 新候选生产部署未执行，另行申请完整 SHA／JAR hash／CI 批准；当前生产包仍为原 `b8b`。
+- 本后端Owner隔离报告交接时没有执行生产部署；主控后续取得精确批准后已由服务器Owner实际发布988/becb。原“当时尚未批准”范围保留，不冒称后端Owner执行服务器部署。
 - 未证明 H2 降级回退兼容，未执行无限负载或 SLA 验证；未将未运行项标为 PASS。
