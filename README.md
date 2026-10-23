@@ -8,21 +8,15 @@
 
 ## 📚 项目文档与交付导航
 
-| 资料类别 | 文档名称 | 主要内容 | 对应笔试要求 |
-| --- | --- | --- | --- |
-| 交付总览 | [交付与验收索引](docs/DELIVERY.md) | 原题、实际交付与证据逐项对应 | 必交项总览 |
-| 设计思路 | [系统设计与技术选型](docs/DESIGN.md) | 需求、候选方案、算法、线程和事务 | 加分项：设计思路 |
-| 使用说明 | [项目使用操作手册](docs/USER-GUIDE.md) | 克隆启动、自动建表、页面与六接口示例 | 加分项：使用说明 |
-| AI协作 | [AI关键对话与人工决策](docs/AI-COLLABORATION.md) | 真实指令、Codex原文、人工判断与结果 | 必交项：AI关键对话 |
-| 测试报告 | [测试与质量验证](docs/testing/UI-RELEASE-verification.md) | 当前回归、HTTPS/浏览器、恢复与已知失败 | 加分项：测试 |
-| Git记录 | [真实提交历史](https://github.com/Qbsstg/text-vector-search/commits/main/) | 开发、修复与文档的实际时间线 | 必交项：Git记录 |
-| 在线演示 | [正式HTTPS演示站点](https://text-vector-search.lemoncharger.com) | 已部署应用，需要授权入口凭据 | 加分项：部署 |
+| 文档 | 内容简介 |
+| --- | --- |
+| [系统设计与技术选型](docs/DESIGN.md) | 架构、算法、任务调度、事务一致性及技术取舍 |
+| [项目使用说明](docs/USER-GUIDE.md) | 环境配置、服务启动、页面操作与API示例 |
+| [AI协作与关键对话](docs/AI-COLLABORATION.md) | 真实需求讨论、AI建议、人工决策和工程实践 |
+| [项目交付资料](docs/DELIVERY.md) | 测试、部署、版本和技术成果 |
+| [完整文档目录](docs/README.md) | 详细设计契约、测试报告和历史记录 |
 
-[直接进入项目文档导航](docs/README.md)：按用途查阅详细技术契约、历史验收与部署材料，无须依赖文件名排序。
-
-> **当前前端版本已上线。** 应用源码`2764edd`，发布CI成功；282项自动化、64次受保护HTTPS请求、真实Chrome闭环及服务器重启/独立恢复已核证。**本地约25分钟稳定性检查真实FAILED（提交503），原因未定位，不宣称整体稳定性通过。** 详见[测试与质量验证](docs/testing/UI-RELEASE-verification.md)。用户正在进行最后测试。
-
-> **首发历史结论：按当时已批准范围 PASS。** 273 项自动化测试通过，70 条主验收用例按最新批准判据通过，正式 HTTPS 和 Chrome 业务验收已完成。F05 保持 `NOT_RUN / APPROVED_EXCEPTION`。完整结论与历史边界见[最终交付聚合结果](docs/testing/最终交付聚合结果.md)。
+当前上线版本为`2764edd`，对应发布构建的282项自动化测试通过。版本、部署记录及详细验证范围见[测试与质量验证](docs/testing/UI-RELEASE-verification.md)。
 
 ## 技术栈
 
@@ -203,11 +197,11 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 ## 深入阅读与历史记录
 
-完整分类说明见[项目文档导航](docs/README.md)。下列文件用于深入追溯，不是首次阅读的必经路径。
+完整分类说明见[项目文档目录](docs/README.md)。下列文件用于深入追溯，不是首次阅读的必经路径。
 
-| 阅读目的 | 公开文档 |
+| 资料内容 | 公开文档 |
 | --- | --- |
-| 原题能力、版本与完整交付导航 | [交付与验收索引](docs/DELIVERY.md) |
+| 项目成果、版本与交付资料 | [项目交付资料](docs/DELIVERY.md) |
 | 最终结论、版本与未执行边界 | [最终交付聚合结果](docs/testing/最终交付聚合结果.md) |
 | 六接口、校验与错误码 | [API 契约](docs/api/api-contract.md) |
 | 算法、codec、余弦与堆排序 | [B1 算法设计](docs/design/b1-algorithm-contract.md) |
