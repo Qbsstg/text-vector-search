@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1370" viewBox="0 0 1440 1370" role="img" aria-labelledby="title description">
+<title id="title">文本向量化与检索生产架构</title>
+<desc id="description">浏览器经Nginx HTTPS和Basic Auth访问Spring Boot。文档和任务同事务入H2，单Worker有界队列、条件领取与run_token终态。搜索使用单许可，候选快照、余弦与Top-K完成后原子计数。systemd保证单实例，先恢复后就绪，优雅关闭禁止迟到回写。</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z" fill="#47718d"/></marker>
+  <style>
+    text { font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #19344a; }
+    .title { font-size: 28px; font-weight: 700; }
+    .section { font-size: 23px; font-weight: 700; }
+    .label { font-size: 20px; font-weight: 650; }
+    .body { font-size: 18px; }
+    .small { font-size: 17px; fill: #476277; }
+    .node { fill: #fff; stroke: #a7bac9; stroke-width: 1.6; rx: 10; }
+    .edge { fill: none; stroke: #47718d; stroke-width: 2; marker-end: url(#arrow); }
+    .dbedge { fill: none; stroke: #47718d; stroke-width: 1.8; stroke-dasharray: 6 4; marker-end: url(#arrow); }
+  </style>
+</defs>
+<rect width="1440" height="1370" fill="#fff"/>
+
+<text x="32" y="39" class="title">
+<tspan x="32" dy="0">确定性文本向量化与检索 · 生产架构</tspan>
+</text>
+<text x="32" y="72" class="small">
+<tspan x="32" dy="0">默认资源：Worker 1  ·  Queue 64  ·  SearchPermits 1  ·  Hikari 最大连接数 4</tspan>
+</text>
+<rect x="32" y="102" width="300" height="86" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="50" y="132" class="label">
+<tspan x="50" dy="0">浏览器 / API 客户端</tspan>
+</text>
+<text x="50" y="161" class="body">
+<tspan x="50" dy="0">同源页面与六个业务接口</tspan>
+</text>
+<rect x="402" y="102" width="344" height="86" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="420" y="132" class="label">
+<tspan x="420" dy="0">Nginx HTTPS + Basic Auth</tspan>
+</text>
+<text x="420" y="161" class="body">
+<tspan x="420" dy="0">整站认证，受信任代理入口</tspan>
+</text>
+<rect x="816" y="102" width="592" height="86" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="834" y="132" class="label">
+<tspan x="834" dy="0">Java 17 · Spring Boot REST API</tspan>
+</text>
+<text x="834" y="161" class="body">
+<tspan x="834" dy="0">MyBatis 持久层；应用仅监听回环地址</tspan>
+</text>
+<path d="M332 145 H402" class="edge"/>
+<path d="M746 145 H816" class="edge"/>
+<rect x="32" y="238" width="432" height="810" rx="12" fill="#f2f7fc" stroke="#bdcfe0" stroke-width="1.5"/>
+<text x="52" y="274" class="section">
+<tspan x="52" dy="0">文档接收与后台任务</tspan>
+</text>
+<rect x="976" y="238" width="432" height="810" rx="12" fill="#f2f7fc" stroke="#bdcfe0" stroke-width="1.5"/>
+<text x="996" y="274" class="section">
+<tspan x="996" dy="0">文本检索与命中计数</tspan>
+</text>
+<rect x="52" y="302" width="392" height="76" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="332" class="label">
+<tspan x="70" dy="0">提交校验 / 容量检查</tspan>
+</text>
+<text x="70" y="361" class="body">
+<tspan x="70" dy="0">提交锁覆盖实际物理事务提交</tspan>
+</text>
+<rect x="52" y="412" width="392" height="76" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="442" class="label">
+<tspan x="70" dy="0">接收短事务</tspan>
+</text>
+<text x="70" y="471" class="body">
+<tspan x="70" dy="0">documents + embedding_tasks 原子入库</tspan>
+</text>
+<rect x="52" y="522" width="392" height="100" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="552" class="label">
+<tspan x="70" dy="0">扫描 QUEUED → 有界执行器</tspan>
+</text>
+<text x="70" y="581" class="body">
+<tspan x="70" dy="0">ThreadPoolExecutor：Worker=1</tspan>
+<tspan x="70" dy="26">ArrayBlockingQueue：64，仅缓冲ID</tspan>
+</text>
+<rect x="52" y="644" width="392" height="76" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="674" class="label">
+<tspan x="70" dy="0">数据库条件领取</tspan>
+</text>
+<text x="70" y="703" class="body">
+<tspan x="70" dy="0">QUEUED → RUNNING + run_token</tspan>
+</text>
+<rect x="52" y="754" width="392" height="76" rx="12" fill="#fff8e9" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="784" class="label">
+<tspan x="70" dy="0">冻结 B1 文档向量化</tspan>
+</text>
+<text x="70" y="813" class="body">
+<tspan x="70" dy="0">256维确定性计算，计算在事务外</tspan>
+</text>
+<rect x="52" y="864" width="392" height="142" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="894" class="label">
+<tspan x="70" dy="0">终态短事务：状态 + token 校验</tspan>
+</text>
+<text x="70" y="923" class="body">
+<tspan x="70" dy="0">成功：向量 + 完成时间 + SUCCEEDED</tspan>
+<tspan x="70" dy="26">失败：持久化 FAILED 与错误分类</tspan>
+<tspan x="70" dy="26">文档失效字段独立，不被终态覆盖</tspan>
+</text>
+<path d="M248 378 V412" class="edge"/>
+<path d="M248 488 V522" class="edge"/>
+<path d="M248 622 V644" class="edge"/>
+<path d="M248 720 V754" class="edge"/>
+<path d="M248 830 V864" class="edge"/>
+<rect x="996" y="302" width="392" height="76" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="1014" y="332" class="label">
+<tspan x="1014" dy="0">Semaphore：SearchPermits=1</tspan>
+</text>
+<text x="1014" y="361" class="body">
+<tspan x="1014" dy="0">取得许可后执行；繁忙返回429</tspan>
+</text>
+<rect x="996" y="412" width="392" height="76" rx="12" fill="#fff8e9" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="1014" y="442" class="label">
+<tspan x="1014" dy="0">查询向量化</tspan>
+</text>
+<text x="1014" y="471" class="body">
+<tspan x="1014" dy="0">与文档使用同一冻结 B1 / 同一版本</tspan>
+</text>
+<rect x="996" y="522" width="392" height="100" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="1014" y="552" class="label">
+<tspan x="1014" dy="0">短读取：全部候选快照</tspan>
+</text>
+<text x="1014" y="581" class="body">
+<tspan x="1014" dy="0">任务成功 / 向量就绪 / 文档未失效</tspan>
+<tspan x="1014" dy="26">文档与任务双版本匹配 / 可选渠道</tspan>
+</text>
+<rect x="996" y="656" width="392" height="76" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="1014" y="686" class="label">
+<tspan x="1014" dy="0">事务外：Cosine + Top-K</tspan>
+</text>
+<text x="1014" y="715" class="body">
+<tspan x="1014" dy="0">全部候选评分后选最终命中</tspan>
+</text>
+<rect x="996" y="766" width="392" height="100" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="1014" y="796" class="label">
+<tspan x="1014" dy="0">命中计数短事务</tspan>
+</text>
+<text x="1014" y="825" class="body">
+<tspan x="1014" dy="0">仅最终 Top-K，固定ID顺序原子加一</tspan>
+<tspan x="1014" dy="26">提交未知或网络失败，不自动重试</tspan>
+</text>
+<rect x="996" y="900" width="392" height="76" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="1014" y="930" class="label">
+<tspan x="1014" dy="0">提交后释放搜索许可</tspan>
+</text>
+<text x="1014" y="959" class="body">
+<tspan x="1014" dy="0">返回 Controller 处理响应</tspan>
+</text>
+<path d="M1192 378 V412" class="edge"/>
+<path d="M1192 488 V522" class="edge"/>
+<path d="M1192 622 V656" class="edge"/>
+<path d="M1192 732 V766" class="edge"/>
+<path d="M1192 866 V900" class="edge"/>
+<rect x="520" y="302" width="400" height="100" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="538" y="332" class="label">
+<tspan x="538" dy="0">文档管理 / 任务查询</tspan>
+</text>
+<text x="538" y="361" class="body">
+<tspan x="538" dy="0">GET 任务、列表、详情</tspan>
+<tspan x="538" dy="26">PUT 文档幂等失效；GET不计数</tspan>
+</text>
+<path d="M1112 188 V214 H248 V302" class="edge"/>
+<path d="M1112 214 H1192 V302" class="edge"/>
+<path d="M1112 214 H720 V302" class="edge"/>
+<rect x="520" y="458" width="400" height="244" rx="12" fill="#edf8f2" stroke="#8ab69e" stroke-width="1.5"/>
+<text x="540" y="494" class="section">
+<tspan x="540" dy="0">H2 嵌入式文件数据库</tspan>
+</text>
+<text x="540" y="523" class="small">
+<tspan x="540" dy="0">单 JVM / 单文件 · Hikari 最大4连接</tspan>
+</text>
+<rect x="540" y="544" width="360" height="55" rx="12" fill="#fff" stroke="#8ab69e" stroke-width="1.5"/>
+<text x="560" y="580" class="body">
+<tspan x="560" dy="0">documents：原文 / 向量 / 命中计数</tspan>
+</text>
+<rect x="540" y="620" width="360" height="55" rx="12" fill="#fff" stroke="#8ab69e" stroke-width="1.5"/>
+<text x="560" y="656" class="body">
+<tspan x="560" dy="0">embedding_tasks：持久状态 / token</tspan>
+</text>
+<path d="M720 402 V458" class="dbedge"/>
+<path d="M444 450 H486 V565 H520" class="dbedge"/>
+<path d="M540 647 H478 V566 H444" class="dbedge"/>
+<path d="M444 936 H496 V690 H520" class="dbedge"/>
+<path d="M920 568 H996" class="dbedge"/>
+<path d="M996 816 H948 V650 H920" class="dbedge"/>
+<rect x="520" y="748" width="400" height="300" rx="12" fill="#f8fafc" stroke="#d1dbe4" stroke-width="1.5"/>
+<text x="540" y="784" class="section">
+<tspan x="540" dy="0">一致性与边界</tspan>
+</text>
+<text x="540" y="821" class="body">
+<tspan x="540" dy="0">H2任务记录是事实来源，队列是缓冲。</tspan>
+<tspan x="540" dy="33">队列满：已持久化任务保留供补派。</tspan>
+<tspan x="540" dy="33">条件领取成功一行，才执行该任务。</tspan>
+<tspan x="540" dy="33">CPU评分不长期占用事务或连接。</tspan>
+<tspan x="540" dy="33">失效、向量就绪、任务终态相互独立。</tspan>
+<tspan x="540" dy="33">零向量成功后仍就绪；负分不截断。</tspan>
+</text>
+<rect x="32" y="1090" width="1376" height="214" rx="12" fill="#f5f3fb" stroke="#c8c0dd" stroke-width="1.5"/>
+<text x="52" y="1126" class="section">
+<tspan x="52" dy="0">单实例与生命周期</tspan>
+</text>
+<rect x="52" y="1150" width="412" height="128" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="70" y="1180" class="label">
+<tspan x="70" dy="0">systemd / 非 root / 永久 flock</tspan>
+</text>
+<text x="70" y="1209" class="body">
+<tspan x="70" dy="0">单 JVM、单 H2 文件数据库</tspan>
+<tspan x="70" dy="26">后台服务不直接开放公网</tspan>
+</text>
+<rect x="514" y="1150" width="412" height="128" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="532" y="1180" class="label">
+<tspan x="532" dy="0">启动：先恢复，后就绪</tspan>
+</text>
+<text x="532" y="1209" class="body">
+<tspan x="532" dy="0">旧 RUNNING 恢复事务提交</tspan>
+<tspan x="532" dy="26">之后进入 READY，再接收与调度</tspan>
+</text>
+<rect x="976" y="1150" width="412" height="128" rx="12" fill="#fff" stroke="#a7bac9" stroke-width="1.5"/>
+<text x="994" y="1180" class="label">
+<tspan x="994" dy="0">优雅关闭</tspan>
+</text>
+<text x="994" y="1209" class="body">
+<tspan x="994" dy="0">拒接 / 停派 / 有界等待 / 排空短事务</tspan>
+<tspan x="994" dy="26">超时CPU任务禁止数据源关闭后回写</tspan>
+</text>
+<text x="32" y="1336" class="small">
+<tspan x="32" dy="0">实线：主要执行路径；虚线：短数据库读写依赖。图为架构总览，异常与拒绝分支未全部展开。</tspan>
+</text>
+</svg>
