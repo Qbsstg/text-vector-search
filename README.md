@@ -4,7 +4,9 @@
 
 项目使用**确定性的字面特征向量算法**，适合演示文本特征提取和检索工程设计；不调用外部模型，不使用大模型语义 Embedding，也不将相似度解释为语义准确率。
 
-> **交付状态：按已批准范围 PASS。** 273 项自动化测试通过，70 条主验收用例按最新批准判据通过，正式 HTTPS 和 Chrome 业务验收已完成。F05 保持 `NOT_RUN / APPROVED_EXCEPTION`。完整结论与历史边界见[最终交付聚合结果](docs/testing/最终交付聚合结果.md)。
+> **当前前端版本已上线。** 应用源码`2764edd`，发布CI成功；282项自动化、64次受保护HTTPS请求、真实Chrome闭环及服务器重启/独立恢复已核证。**本地约25分钟稳定性检查真实FAILED（提交503），原因未定位，不宣称整体稳定性通过。** 详见[本次发布核证](docs/testing/UI-RELEASE-verification.md)。用户正在进行最后测试。
+
+> **首发历史结论：按当时已批准范围 PASS。** 273 项自动化测试通过，70 条主验收用例按最新批准判据通过，正式 HTTPS 和 Chrome 业务验收已完成。F05 保持 `NOT_RUN / APPROVED_EXCEPTION`。完整结论与历史边界见[最终交付聚合结果](docs/testing/最终交付聚合结果.md)。
 
 ## 技术栈
 
@@ -128,15 +130,18 @@ flowchart TB
 
 **[https://text-vector-search.lemoncharger.com](https://text-vector-search.lemoncharger.com)**
 
-演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。演示服务使用固定发布版本；FINAL-QUALITY 开测前和收尾均核对原 JAR，未替换产物或重新部署。
+演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。演示服务使用下方固定发布版本。FINAL-QUALITY性能报告对应此前原JAR；本次已实际发布前端改版，不将旧版性能数据当作新版复测成绩。
 
 <details>
 <summary>固定发布版本与验收 CI</summary>
 
-- 生产源码：`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f`。
-- JAR SHA-256：`64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`。
+- 当前应用源码：`2764eddf34418fdcc8ed666e36937673c7feadb8`。
+- 当前JAR SHA-256：`b8b67460ee6af26ec5ea7854377b63919c18c37760b11e3fbf49f7672be7f45f`。
+- 当前发布：[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)，282项自动化及实际新JAR的Linux冷备/恢复/锁检查成功。
+- 后续缓存模板同步：[CI39921238979](https://github.com/Qbsstg/text-vector-search/actions/runs/39921238979)，受测`a4be0aa`；不替换当前固定JAR。
+- 首发/后端字节冻结及代码回退基线：`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f` / `64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`。
 - 原批准产物：[CI39838054946](https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946)。
-- 最终交付回归：[CI39891645582](https://github.com/Qbsstg/text-vector-search/actions/runs/39891645582)，受测提交 `661ed08c1f524358111881e9c4e1fe1936a7a4a5`，273 项通过，并核对原批准 JAR。文档提交不替换生产版本。
+- 首发最终交付回归：[CI39891645582](https://github.com/Qbsstg/text-vector-search/actions/runs/39891645582)，受测提交 `661ed08c1f524358111881e9c4e1fe1936a7a4a5`，273 项通过，并核对原批准 JAR。文档提交不替换生产版本。
 
 </details>
 
