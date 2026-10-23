@@ -13,7 +13,7 @@
 | 本轮工程结果 | QA独立282通过 | 本地及CI105 Unit+126 IT+52 Node=283通过，0失败/错误/跳过 |
 | 实际部署 | 是，原主进程保持 | 否，仅独立macOS/Linux诊断目录 |
 
-候选JAR27322432字节，schema SHA-256 `54758965a66d42092da6049ed67a3043d57b1542705f38198975c424fed3d69d`，算法 `char12-sha256-r32-nfkc-root-ws-v1`。未改算法、Java业务、DDL、API、前端资源和资源参数。公开main本轮实读为 `62fae5c2747a7b3f5656042b609c8dc012c950f9`，相对46ebe7d仅六份交付文档；不能把它当运行JAR。候选分支正常推送、不合并main、不重写历史。仓库GitHub API实读为PUBLIC/isPrivate=false。
+候选JAR27322432字节，schema SHA-256 `54758965a66d42092da6049ed67a3043d57b1542705f38198975c424fed3d69d`，算法 `char12-sha256-r32-nfkc-root-ws-v1`。未改算法、Java业务、DDL、API、前端资源和资源参数。公开main先前快照为 `62fae5c2747a7b3f5656042b609c8dc012c950f9`，最终远程复核已推进至 `14940cf35a72e51fb72402806197c70189175ee8`；两次推进仅同六份交付文档，已实际`git diff --exit-code`核最终main相对2764的src/main、pom及Wrapper完全相同。不能把文档main当运行JAR或修复候选。候选分支正常推送、不合并main、不重写历史。仓库GitHub API实读为PUBLIC/isPrivate=false。
 
 ## 本轮正式入口与数据检查
 

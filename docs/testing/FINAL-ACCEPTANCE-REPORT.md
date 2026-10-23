@@ -24,6 +24,8 @@
 
 命令与Surefire/Failsafe/Node原始统计见[API与工程核证](API-FINAL-VERIFICATION.md)。本机命令包含显式Java17、已授权Maven镜像/缓存参数，未伪称不带这些参数运行；CI使用标准verify和Node命令。70个需求ID有独立[分层映射](FINAL-ACCEPTANCE-70-MAPPING.md)，不能把方法数、样本数或多阶段重复执行计入唯一283项。
 
+最终远程main另有文档整理推进至`14940cf35a72e51fb72402806197c70189175ee8`，实际核对其生产源码/pom/Wrapper仍与2764相同。修复源码988、运行源码2764与文档main三者分开登记；本验收分支的后续报告提交不重新包装或替换已固定CI产物。
+
 ## 门禁逐项结论
 
 | 用户门禁 | 当前结论 |
