@@ -64,9 +64,24 @@ jobs:
           approved_sha=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
           approved_jar_sha=64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50
           git fetch --no-tags --depth=1 origin "$approved_sha"
-          # 本次仅批准静态前端改版；Java、DDL、配置、依赖与Wrapper继续逐字冻结。
-          git diff --exit-code "$approved_sha" HEAD -- src/main pom.xml mvnw mvnw.cmd .mvn \
+          # Java、DDL、运行配置与Wrapper继续冻结；pom只允许已实证修复的H2版本属性。
+          git diff --exit-code "$approved_sha" HEAD -- src/main mvnw mvnw.cmd .mvn \
             ':(exclude)src/main/resources/static/**'
+          python3 - <<'PYXML'
+          import subprocess
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          baseline = ET.fromstring(subprocess.check_output(['git', 'show', 'd016d6e8bb431ff17ba81f8977d31a1b96f51f7f:pom.xml']))
+          current = ET.fromstring(Path('pom.xml').read_bytes())
+          ns = {'m': 'http://maven.apache.org/POM/4.0.0'}
+          properties = current.find('m:properties', ns)
+          versions = properties.findall('m:h2.version', ns)
+          assert len(versions) == 1 and versions[0].text == '2.5.252', '只允许固定H2修复版本'
+          properties.remove(versions[0])
+          def signature(node):
+              return (node.tag, sorted(node.attrib.items()), (node.text or '').strip(), tuple(signature(child) for child in node))
+          assert signature(baseline) == signature(current), 'pom存在H2版本属性以外的变化'
+          PYXML
           gh run download 39838054946 --repo "$GITHUB_REPOSITORY" \
             --name "release-candidate-$approved_sha" --dir target/approved-candidate
           schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
