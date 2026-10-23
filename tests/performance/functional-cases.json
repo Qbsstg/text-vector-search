@@ -559,14 +559,14 @@
       "expect_http": 200,
       "body": {
         "text": "abc def",
-        "topK": 2,
+        "topK": 100,
         "channel": "${CHANNEL}"
       },
       "assertions": [
-        "canonical和normalized分数约1",
-        "按原始分数再ID排序",
-        "原文仍分别保存",
-        "无邻渠道和default命中"
+        "头两篇是canonical和normalized，分数约1，同分按ID排序",
+        "全结果按原始分数降序再ID排序",
+        "实际负分仅记录，不预设一定出现",
+        "原文分别保存；无邻渠道和default命中"
       ],
       "max_requests": 1
     },
