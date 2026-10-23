@@ -16,14 +16,14 @@
 | [项目交付资料](docs/DELIVERY.md) | 测试、部署、版本和技术成果 |
 | [完整文档目录](docs/README.md) | 详细设计契约、测试报告和历史记录 |
 
-当前上线版本为`2764edd`，对应发布构建的282项自动化测试通过。版本、部署记录及详细验证范围见[测试与质量验证](docs/testing/UI-RELEASE-verification.md)。
+当前上线版本为`9883400`，固定发布构建的283项自动化测试通过。版本、浏览器分层验收、数据核账及详细验证范围见[测试与质量验证](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。
 
 ## 技术栈
 
 | 层次 | 技术 |
 | --- | --- |
 | 后端 | Java 17、Spring Boot 4.0.3、MyBatis Spring Boot Starter 4.0.1 |
-| 存储 | H2 2.4.240，嵌入式文件模式、单 JVM 单实例 |
+| 存储 | H2 2.5.252，嵌入式文件模式、单 JVM 单实例 |
 | 前端 | 原生 HTML / CSS / JavaScript，与后端同源，无前端构建依赖 |
 | 构建与测试 | Maven Wrapper / Maven 3.9.9、JUnit、Surefire / Failsafe、Node.js 22.16.0 内置测试运行器 |
 | 部署 | Ubuntu、Nginx、systemd、HTTPS 与入口认证 |
@@ -145,10 +145,10 @@ flowchart TB
 <details>
 <summary>固定发布版本与验收 CI</summary>
 
-- 当前应用源码：`2764eddf34418fdcc8ed666e36937673c7feadb8`。
-- 当前JAR SHA-256：`b8b67460ee6af26ec5ea7854377b63919c18c37760b11e3fbf49f7672be7f45f`。
-- 当前发布：[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)，282项自动化及实际新JAR的Linux冷备/恢复/锁检查成功。
-- 后续缓存模板同步：[CI39921238979](https://github.com/Qbsstg/text-vector-search/actions/runs/39921238979)，受测`a4be0aa`；不替换当前固定JAR。
+- 当前应用源码：`9883400451c9b2a22d13134cbd698d7478851b3d`。
+- 当前JAR SHA-256：`becb3b46be10e25822fcfafc4636d7516d29c87b001b3d173d0943fbb0cb7ece`。
+- 当前发布：[CI39927516112](https://github.com/Qbsstg/text-vector-search/actions/runs/39927516112)，105 Unit + 126 IT + 52 Node = 283；两平台35分钟、正常重启、生产冷备与独立恢复均有分层实证，见[发布检查单](docs/testing/RELEASE-FINAL-CHECKLIST.md)。
+- 前端改版历史：[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)，固定2764/b8b，282项；缓存模板同步[CI39921238979](https://github.com/Qbsstg/text-vector-search/actions/runs/39921238979)当时未替换该固定包。原件和历史失败继续保留。
 - 首发/后端字节冻结及代码回退基线：`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f` / `64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`。
 - 原批准产物：[CI39838054946](https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946)。
 - 首发最终交付回归：[CI39891645582](https://github.com/Qbsstg/text-vector-search/actions/runs/39891645582)，受测提交 `661ed08c1f524358111881e9c4e1fe1936a7a4a5`，273 项通过，并核对原批准 JAR。文档提交不替换生产版本。
@@ -183,7 +183,7 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 ## 测试与验收
 
-以下是既有 FINAL-RELEASE 交付结果；本轮新增线上实测单独列在上述性能摘要和三份报告中，不改写历史结果。
+当前固定包为283项自动化，真实Chrome、HTTPS与70条分层映射见[最终验收报告](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。以下为既有FINAL-RELEASE历史结果，不与新一轮重复相加；本轮没有新增性能压测。
 
 | 统计维度 | 已核证结果 |
 | --- | --- |
@@ -202,6 +202,7 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 | 资料内容 | 公开文档 |
 | --- | --- |
 | 项目成果、版本与交付资料 | [项目交付资料](docs/DELIVERY.md) |
+| 当前固定版最终验收 | [最终全面验收](docs/testing/FINAL-ACCEPTANCE-REPORT.md) · [浏览器](docs/testing/UI-FINAL-VERIFICATION.md) · [稳定性](docs/testing/STABILITY-35MIN-REPORT.md) |
 | 最终结论、版本与未执行边界 | [最终交付聚合结果](docs/testing/最终交付聚合结果.md) |
 | 六接口、校验与错误码 | [API 契约](docs/api/api-contract.md) |
 | 算法、codec、余弦与堆排序 | [B1 算法设计](docs/design/b1-algorithm-contract.md) |

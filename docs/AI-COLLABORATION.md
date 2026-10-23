@@ -50,7 +50,7 @@
 
 **我的最终判断（人工决定整理）：** 用户实际指定后端、前端、服务器、测试、项目管理五个角色及推理等级。协作规范落实文件所有权、独立工作树和分阶段集成；不能从这条C0回复推导整个项目始终五个Agent同时运行，或将PM追踪等同于代码验收。
 
-**实现与验证：** [AGENTS.md](../AGENTS.md)保留职责和不变量；[C0分析](design/c0-analysis.md)、[C0验收](testing/C0-verification.md)及[初始化交付提交70d67c1](https://github.com/Qbsstg/text-vector-search/commit/70d67c16fe3c4c51f0df169cd7e2d54826d83d99)分别说明初始工作。当时的基础测试数量不混入当前282项。
+**实现与验证：** [AGENTS.md](../AGENTS.md)保留职责和不变量；[C0分析](design/c0-analysis.md)、[C0验收](testing/C0-verification.md)及[初始化交付提交70d67c1](https://github.com/Qbsstg/text-vector-search/commit/70d67c16fe3c4c51f0df169cd7e2d54826d83d99)分别说明初始工作。当时的基础测试数量不混入后续282或283项。
 
 **资料来源：** [S1对应C0答复](https://chatgpt.com/s/cx_6adb1a6aa0308191a73e2a8888dad715#message-4)、S2原文、[C0用户原始要求](ai-notes/001-c0-kickoff.md)。
 
@@ -124,7 +124,7 @@
 
 **我的最终判断（人工决定整理）：** 人工批准固定版本和具体发布范围，工程角色执行后用HTTPS、浏览器、重启和冷备恢复的实际记录核证。上述回复对应首发，不代表所有后续改版或稳定性通过；当前生产包、CI与完整验证范围由[测试与质量验证](testing/UI-RELEASE-verification.md)另行记录。
 
-**实现与验证：** 首发[CI39891645582](https://github.com/Qbsstg/text-vector-search/actions/runs/39891645582)及[聚合结果](testing/最终交付聚合结果.md)；当前前端发布[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)及对应新版核证。当前282项、首发273项、70主用例、HTTP次数和Chrome案例不相加。
+**实现与验证：** 首发[CI39891645582](https://github.com/Qbsstg/text-vector-search/actions/runs/39891645582)及[聚合结果](testing/最终交付聚合结果.md)；前端改版历史[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)及对应核证。该轮282项、首发273项、当前283项、70主用例、HTTP次数和Chrome案例不相加；当前固定包另见[最终验收](testing/FINAL-ACCEPTANCE-REPORT.md)。
 
 **资料来源：** [S1首发答复](https://chatgpt.com/s/cx_6adb1a6aa0308191a73e2a8888dad715#message-46)、S1用户REC-07答复中的执行指令、S2和S3报告。当前新版发布来自另一轮公开核证，不伪装成该首发答复的一部分。
 

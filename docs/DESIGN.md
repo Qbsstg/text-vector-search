@@ -45,7 +45,7 @@ Controller与校验层处理协议和参数；业务服务划分接收、查询�
 
 搜索路径：`取得许可 → 查询向量化 → 候选快照 → 事务外评分与Top-K → 命中计数短事务 → 返回`。
 
-Nginx承担HTTPS、整站入口认证和可信转发头处理；应用只监听回环。入口Basic Auth不是业务RBAC，H2 Console和管理入口不向公网开放。公开部署模板不是当前实机状态，发布事实看[测试与质量验证](testing/UI-RELEASE-verification.md)。
+Nginx承担HTTPS、整站入口认证和可信转发头处理；应用只监听回环。入口Basic Auth不是业务RBAC，H2 Console和管理入口不向公网开放。公开部署模板不是当前实机状态，发布事实看[测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md)。
 
 ## 4. 确定性算法的具体约定
 
@@ -105,8 +105,8 @@ H2 URL使用文件模式，`schema.sql`随JAR提供，Spring启动自动执行�
 
 ## 9. 证据、限制与后续工作
 
-当前发布的282项自动化、HTTPS/Chrome和恢复验证，以及完整执行范围、问题记录和后续事项，见[测试与质量验证](testing/UI-RELEASE-verification.md)。
+当前固定发布的283项自动化、HTTPS/Chrome和恢复验证，以及完整执行范围、问题记录与未验证项，见[测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md)。
 
-首发273项、70需求映射、当前282项、HTTP次数和浏览器案例分别统计。F05真实FAILED浏览器分支仍保留有限例外的NOT_RUN；旧REC-07 FAIL与修订判据PASS分别存证。Worker=2/4、较大候选规模、精确连接池/队列gauge、长期SLA和语义准确率未验证。
+首发273项、前端改版282项、当前283项、70需求映射、HTTP次数和浏览器案例分别统计。F05真实FAILED浏览器分支仍保留有限例外的NOT_RUN；旧REC-07 FAIL与修订判据PASS分别存证。Worker=2/4、较大候选规模、精确连接池/队列gauge、长期SLA和语义准确率未验证。
 
 继续深入：[六接口契约](api/api-contract.md)、[运行与资源契约](design/runtime-contract.md)、[B2接收](design/b2-implementation-contract.md)、[B3终态与恢复](design/b3-implementation-contract.md)、[B4检索与计数](design/b4-implementation-contract.md)。这些详细契约保留阶段背景；当前发布状态以最新版核证为准。

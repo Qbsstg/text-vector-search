@@ -9,7 +9,7 @@
 | 使用说明 | [项目使用说明](USER-GUIDE.md) | 本地启动、自动建表、页面和六接口示例 |
 | AI协作 | [AI协作与关键对话](AI-COLLABORATION.md) | 已核实的原文节选、AI建议、人工决策和实现结果 |
 | Git记录 | [真实提交历史](https://github.com/Qbsstg/text-vector-search/commits/main/) | 开发、修复与文档的实际迭代时间线 |
-| 测试验证 | [测试与质量验证](testing/UI-RELEASE-verification.md) | 当前282项自动化、现场验证范围与完整问题记录 |
+| 测试验证 | [测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md) | 当前283项自动化、真实浏览器与服务器分层验收、范围和历史记录 |
 | 在线演示 | [正式HTTPS演示站点](https://text-vector-search.lemoncharger.com) | 已部署应用，通过授权渠道获取入口凭据 |
 
 [返回项目首页](../README.md) · [项目文档目录](README.md)
@@ -44,26 +44,28 @@
 | 维度 | 可追溯事实与来源 |
 | --- | --- |
 | 交付资料源码快照 | [46ebe7d](https://github.com/Qbsstg/text-vector-search/commit/46ebe7d9b29a616721a66a10c9ce65d89fc2e33a)，包含前端改版和后续质量、文档整合；是源码快照，不是线上版本探针 |
-| 当前生产源码（据发布记录） | `2764eddf34418fdcc8ed666e36937673c7feadb8`，依据[测试与质量验证](testing/UI-RELEASE-verification.md) |
-| 当前生产 JAR SHA-256 | `b8b67460ee6af26ec5ea7854377b63919c18c37760b11e3fbf49f7672be7f45f`；来源[发布CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)，104 Unit + 126 IT + 52 Node = 282，Success |
+| 当前生产源码 | `9883400451c9b2a22d13134cbd698d7478851b3d`，依据[固定版本发布检查单](testing/RELEASE-FINAL-CHECKLIST.md) |
+| 当前生产 JAR SHA-256 | `becb3b46be10e25822fcfafc4636d7516d29c87b001b3d173d0943fbb0cb7ece`；来源[发布CI39927516112](https://github.com/Qbsstg/text-vector-search/actions/runs/39927516112)，105 Unit + 126 IT + 52 Node = 283，Success |
+| 前端改版历史 | 2764/b8b，[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)，104 Unit + 126 IT + 52 Node = 282；该轮原件与失败保留 |
 | 后续模板与主线核证 | [a4be0aa / CI39921238979](https://github.com/Qbsstg/text-vector-search/actions/runs/39921238979) Success；后续缓存代理模板更新未替换上述固定应用JAR；文档HEAD不冒充运行版本 |
 | 发布与验证记录 | 已部署，已记录HTTPS、Chrome、重启持久化及独立恢复验证。完整执行范围、问题记录及后续事项见[发布跟踪](tasks/UI-RELEASE-20261023.md)和[测试与质量验证](testing/UI-RELEASE-verification.md) |
 | 首发历史生产包 | `d016d6e8bb431ff17ba81f8977d31a1b96f51f7f` / `64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`；[原产物CI39838054946](https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946)，仍是后端字节冻结和代码回退基线 |
 | 首发完整工程回归 | [661ed08 / CI39891645582](https://github.com/Qbsstg/text-vector-search/actions/runs/39891645582)：104 Unit + 126 IT + 43 Node = 273；其[最终聚合结论](testing/最终交付聚合结果.md)只对应当时已批准范围 |
 
-首发记录中的 `661ed08`、273项和d016固定包描述的是首发FINAL-RELEASE，不能继续标为当前前端生产包。新版使用其自己的源码、JAR摘要与282项CI；[测试与质量验证](testing/UI-RELEASE-verification.md)记录新旧包差异仅在static，后端字节、算法/API/DDL与资源参数保持。各版本的测试结果与验证范围分别保存在对应报告中。
+首发273项、前端改版282项与当前修复283项分别保存，不重复累加。2764前端改版相对首发仅static变化；988在此基础上只固定H2 2.5.252并新增连接生命周期回归，算法/API/DDL/业务Java及资源参数未变。[当前核证](testing/FINAL-ACCEPTANCE-REPORT.md)区分固定生产包、文档HEAD、集成CI与历史原件。
 
 ## 测试证据与未完成边界
 
 | 统计维度 | 已有真实结论 | 边界与来源 |
 | --- | --- | --- |
+| 当前修复版 | 283项、两平台完整35分钟与正常重启、真实Chrome必需门禁、生产冷备/独立恢复及44篇账本已分层核证 | [最终验收](testing/FINAL-ACCEPTANCE-REPORT.md)、[浏览器](testing/UI-FINAL-VERIFICATION.md)、[稳定性](testing/STABILITY-35MIN-REPORT.md)、[API](testing/API-FINAL-VERIFICATION.md)；保留F05例外与未验证范围，不称70条全部本轮ONLINE |
 | 首发自动化 | 273 项通过 | 固定首发交付范围；[最终聚合结果](testing/最终交付聚合结果.md)与对应 CI；不把旧253、后续复跑继续累加 |
 | 原70条主验收 | 按批准的最新判据，70 PASS | 属于需求映射，不是另外70个独立自动化测试；[历史矩阵](testing/final-release-local-cases-matrix.md)保留原阶段结果，当前结论看最终聚合 |
 | REC-07 | 修订判据 REC-07-R1 独立实测通过；原预期 FAIL 保留 | [人工裁决](design/REC-07-验收判据裁决-20261023.md)、[修订实测](testing/REC-07-修订验收.md)；不把历史 FAIL 改成 PASS |
 | 首发真实入口 | 64/64 HTTPS 请求符合预期，正式 Chrome 闭环、重启持久化、冷备及独立恢复有记录 | [正式交付聚合](testing/最终交付聚合结果.md)；请求次数不等于测试数量，Chrome 网络中段不连续的限制保留 |
 | 原 UI 验收 | 28 PASS；F05 为 NOT_RUN / APPROVED_EXCEPTION | [原 Chrome 报告](testing/UI-browser-verification.md)、[有限例外](testing/F05-例外申请.md)；例外不是测试通过 |
 | 首发包的后续线上专项 | 39个功能声明场景通过；631次有界压力请求，含57次保护性429、无5xx和未知结果 | [线上功能](testing/ONLINE-FUNCTIONAL-REPORT.md)、[性能基线](testing/PERFORMANCE-BASELINE.md)对应d016包，不能作为当前2764新版复测；固定 N=9 / K=1 / 长查询短窗混合负载的最高观测成功QPS为7.852，不是系统最大容量 |
-| 当前前端改版 | 282项自动化通过；另有新版64次HTTPS请求和真实Chrome、重启/独立恢复实测 | [测试与质量验证](testing/UI-RELEASE-verification.md)、[本地改版历史验收](testing/UI-REDESIGN-LOCAL-verification.md)；新版与首发各自的64请求不得混算，HTTP/Chrome不计入282项自动化，完整验证范围见对应报告 |
+| 前端改版历史 | 282项自动化通过；另有新版64次HTTPS请求和真实Chrome、重启/独立恢复实测 | [改版核证](testing/UI-RELEASE-verification.md)、[本地改版历史验收](testing/UI-REDESIGN-LOCAL-verification.md)；新版与首发各自的64请求不得混算，HTTP/Chrome不计入282项自动化，完整验证范围见对应报告 |
 
 后续线上专项并未重新在线覆盖原70条全部联合断言；其报告单独记录7 ONLINE_PASS、1 LOCAL_PASS、29 PARTIAL、33 NOT_RUN。该分层不推翻首发70条已批准结果，也不把历史结果冒充本轮线上通过。
 
@@ -76,7 +78,7 @@
 - 正式环境破坏性故障、整机重启验证、无限长期负载/SLA、带人工标签的语义准确率未验证；既有隔离强杀/故障测试不能改写为生产故障注入。
 - 后续专项的 Worker=2/4、N=100/1000/5000、队列极限对照仍未执行；Hikari精确占用、精确队列长度与GC单次暂停未测量。
 
-各版本的完整测试结果、问题记录和未执行项见[测试与质量验证](testing/UI-RELEASE-verification.md)及对应历史报告。
+各版本的完整测试结果、问题记录和未执行项见[测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md)及对应历史报告。
 
 ## AI、Git和资料公开范围
 
@@ -84,7 +86,7 @@
 
 [历史提交中文说明](git/提交历史中文说明.md)解释原英文提交，不改原SHA。原始需求附件、完整私人聊天、受限原始请求/截图、证书、认证、数据库和完整实机操作材料不因导航需要而公开；引用摘要和原件SHA不表示全部原件可匿名下载。
 
-部署事实看[测试与质量验证](testing/UI-RELEASE-verification.md)，运行/恢复约束看[运行与资源契约](design/runtime-contract.md)，[公开部署模板目录](../deploy/)只提供模板和脚本，不把部署准备快照当当前实机状态。
+部署事实看[固定版本发布检查单](testing/RELEASE-FINAL-CHECKLIST.md)，运行/恢复约束看[运行与资源契约](design/runtime-contract.md)，[公开部署模板目录](../deploy/)只提供模板和脚本，不把部署准备快照当当前实机状态。
 
 ## 实际操作从哪里开始
 

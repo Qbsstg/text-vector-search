@@ -33,7 +33,7 @@
 
 | 文档 | 能看到什么 |
 | --- | --- |
-| [测试与质量验证](testing/UI-RELEASE-verification.md) | 当前版本的282项自动化、HTTPS/Chrome和恢复验证，包含完整执行范围、问题记录与未执行项。 |
+| [测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md) | 当前固定版本的283项自动化、两平台35分钟、HTTPS/Chrome和恢复验证，包含分层范围、原FAIL与未验证项。 |
 | [前端改版本地验收](testing/UI-REDESIGN-LOCAL-verification.md) | 新版页面在本地的操作、视口、竞态及自动化证据；不代替线上验收。 |
 | [原Chrome验收](testing/UI-browser-verification.md) | 首发候选的真实Illegal invocation失败、修复、新候选28 PASS及原始浏览器证据边界。 |
 | [并发与一致性报告](testing/CONCURRENCY-REPORT.md) | 默认Worker=1下的真实线程、计数、失效竞态与未执行对照；不把HTTP并发当Worker并行。 |
@@ -43,13 +43,13 @@
 | [F05有限例外](testing/F05-例外申请.md) | 真实FAILED浏览器分支为何仍是NOT_RUN / APPROVED_EXCEPTION，后端/前端替身能证明什么。 |
 | [REC-07修订实测](testing/REC-07-修订验收.md) | 新判据独立执行结果，与原预期FAIL分开追溯。 |
 
-各版本的验证范围与问题记录见[测试与质量验证](testing/UI-RELEASE-verification.md)；B1—B4报告、部署前271项和旧BLOCKED均保留其历史阶段定位。
+各版本的验证范围与问题记录见[测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md)；B1—B4报告、部署前271项、前端改版282项和旧BLOCKED均保留历史阶段定位。
 
 ## D. 部署与交付
 
 | 文档 | 能看到什么 |
 | --- | --- |
-| [测试与质量验证](testing/UI-RELEASE-verification.md) | 同一当前报告也记录固定生产源码/JAR/CI、实际发布、缓存修复、重启和独立恢复，以及回退未执行的事实。 |
+| [固定版本发布检查单](testing/RELEASE-FINAL-CHECKLIST.md) | 当前生产源码/JAR/CI、正常停机冷备、升级字段保持、独立恢复、末次账本及禁止自动降级的边界。 |
 | [运行与资源契约](design/runtime-contract.md) | 单JVM/H2、容量和并发初值、恢复关闭顺序；末尾主机准备段落是部署前历史。 |
 | [HTTPS代理契约](design/proxy-deployment-contract.md) | Origin与转发头识别的复现、可信回环边界和对应独立验证，不把历史准备态当当前入口状态。 |
 | [公开部署模板目录](../deploy/) | 可审查脚本和配置模板；完整实机操作原件不在此公开，模板存在不等于操作已执行。 |

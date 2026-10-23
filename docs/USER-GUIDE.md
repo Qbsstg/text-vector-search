@@ -2,7 +2,7 @@
 
 [返回项目交付资料](DELIVERY.md) · [系统设计与技术选型](DESIGN.md) · [AI协作与关键对话](AI-COLLABORATION.md) · [项目文档目录](README.md)
 
-本文介绍环境配置、服务启动、页面操作和API调用，按当前已发布前端与API契约编写。以下命令及响应示例用于说明操作流程，实际验证记录见[测试与质量验证](testing/UI-RELEASE-verification.md)。
+本文介绍环境配置、服务启动、页面操作和API调用，按当前已发布前端与API契约编写。以下命令及响应示例用于说明操作流程，实际验证记录见[测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md)。
 
 ## 1. 准备环境
 
@@ -174,7 +174,7 @@ PUT不发送请求体，不附加`{}`。预期文档invalidated=true、任务仍
 node --test tests/frontend/*.test.mjs
 ```
 
-`clean verify`执行Surefire的`*Test`和Failsafe的`*IT`，报告在`target/surefire-reports/`与`target/failsafe-reports/`。Node测试、浏览器案例、HTTP请求和历史70条需求映射分开统计；已有结果见[测试与质量验证](testing/UI-RELEASE-verification.md)。
+`clean verify`执行Surefire的`*Test`和Failsafe的`*IT`，报告在`target/surefire-reports/`与`target/failsafe-reports/`。Node测试、浏览器案例、HTTP请求和历史70条需求映射分开统计；已有结果见[测试与质量验证](testing/FINAL-ACCEPTANCE-REPORT.md)。
 
 ## 7. 在线演示访问
 
