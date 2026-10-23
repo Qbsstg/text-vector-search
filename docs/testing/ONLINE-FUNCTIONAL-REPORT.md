@@ -90,9 +90,9 @@ Unicode与含`<script>`的原文按纯文本显示；结果材料记录`#detail-
 
 来源：[原70条映射](final-release-local-cases-matrix.md)及[REC-07修订裁决](../design/REC-07-验收判据裁决-20261023.md)。原件、历史273自动化和REC-07原FAIL均保留；39个HTTP场景与70个需求编号是不同维度，不相加。
 
-70个原编号本轮分层结果为7 ONLINE_PASS、29 PARTIAL、34 NOT_RUN；这不是70条全部通过，也不能与39个HTTP场景数量相加。
+70个原编号本轮分层结果为7 ONLINE_PASS、1 LOCAL_PASS、29 PARTIAL、33 NOT_RUN；这不是70条全部通过，也不能与39个HTTP场景数量相加。
 
-本轮`ONLINE_PASS`表示该行可安全观察的接口不变量已有实际证据；`PARTIAL`只覆盖描述的子范围，不能当整条原联合断言通过；`NOT_RUN`没有本轮覆盖，历史证据复用也不转新PASS。执行分层保留原计划，实际列单独更新。Chrome仅按实际子范围更新为PARTIAL。
+本轮`ONLINE_PASS`表示该行可安全观察的接口不变量已有实际证据；`PARTIAL`只覆盖描述的子范围，不能当整条原联合断言通过；`LOCAL_PASS`为本轮重新执行的本地工程回归，不能算线上PASS；`NOT_RUN`没有本轮覆盖，历史证据复用也不转新PASS。执行分层保留原计划，实际列单独更新。Chrome仅按实际子范围更新为PARTIAL。
 
 | 原编号 | 目标摘要 | 执行分层 | 实际映射与限制 | 本轮状态 |
 | --- | --- | --- | --- | --- |
@@ -156,7 +156,7 @@ Unicode与含`<script>`的原文按纯文本显示；结果材料记录`#detail-
 | UI-06 | 原文与错误文本不执行HTML/脚本 | ONLINE_PARTIAL | Unicode与script样本文字显示，DOM script子节点0，warn/error0；QA目检最终截图；错误文本XSS范围未重演。 | PARTIAL |
 | UI-07 | 错误可操作、键盘、小屏和时间展示 | ONLINE_PARTIAL | 详情文字状态、UTC+8时间及按钮可见；未独立重演小屏和键盘可达性，因此仅部分覆盖。 | PARTIAL |
 | UI-08 | 服务器上的真实页面端到端闭环 | ONLINE_PARTIAL | 正式HTTPS同源提交/任务/列表/详情/检索/失效闭环已核；本轮未重启，网络捕获不完整，不能整体覆盖原联合项。 | PARTIAL |
-| OPS-01 | 干净构建与测试实际执行 | REUSE_ONLY | 历史273自动化与CI构建仅来源复用；本轮未clean verify则NOT_RUN，不与HTTP样本加总。 | NOT_RUN |
+| OPS-01 | 干净构建与测试实际执行 | LOCAL_REGRESSION | 文稿复核后本轮实际Java17 clean verify通过104 Unit+126 IT，Node另43通过；首轮沙箱bind权限错误7项原件保留，允许回环端口后全量重跑成功；这是本地工程回归，不是线上HTTP测试。 | LOCAL_PASS |
 | OPS-02 | 服务器数据目录、进程与正常重启 | REUSE_ONLY | 服务器Owner只读进程/文件占用/资源可新查；重启冷备恢复未本轮重演不算新PASS。 | PARTIAL |
 | OPS-03 | 备份恢复实际演练，不只生成文件 | REUSE_ONLY | 服务器Owner只读进程/文件占用/资源可新查；重启冷备恢复未本轮重演不算新PASS。 | NOT_RUN |
 | OPS-04 | 公网访问保护覆盖页面和API | ONLINE_SAFE | 主控TLS/端口只读预检，A01/A02/A03认证拒绝与HTTPS同源/跨源实测，Chrome页面认证另取证。 | PARTIAL |
@@ -198,3 +198,7 @@ QA只读JSON/JSONL原件，独立执行Python断言：合并116连续序号与�
 声明HTTP功能场景39 PASS，额外负分1次及有限混合阶梯有真实证据；首次413解析FAIL保持历史。Chrome单文档闭环已核，含网络不完整与未观察RUNNING的明确限制；全轮新增17篇。应用JSON 413、内部故障/旧token/提交未知/受控回滚、真实强杀和本轮重启冷备、完整Worker/候选规模对比均未在线重演，不把此前273/70结果冒充本轮新测。
 
 没有从本轮HTTP成功推断向量内部字节、锁覆盖、全部任务中间态或内部交错。生产默认1 Worker，保护性429正常返回后服务保持就绪，但不等于完成资源耗尽和故障恢复验收。F05历史批准例外不扩展；REC-07-R1仅保留历史判据与证据，原FAIL不改。
+
+## 收尾工程回归（与线上样本分开）
+
+主控于2026-10-23 12:59:56北京时间完成本轮Java17 `./mvnw -B -ntp clean verify`，104 Unit + 126 IT通过，失败/错误/跳过0；另实际执行Node43通过。两者合计273是本次重新运行同一套工程测试，不与历史273、39个HTTP场景或70需求映射相加。首次沙箱禁止Socket.bind导致7个启动错误，原Surefire报告完整保留；未削弱断言，允许临时回环端口后全量重跑成功。完整verify日志SHA `25a4ef9e8d8104871fa5eeabaf16c76ef68e8c9c2372ab308e108abaf1e5acf2`。新建本地测试产物未部署，不替换批准生产JAR。
