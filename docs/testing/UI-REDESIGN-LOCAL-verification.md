@@ -76,3 +76,7 @@ Node：`/opt/homebrew/opt/node@22/bin/node --test tests/frontend/*.test.mjs`。O
 - 真实数据库提交未知/故障恢复未在UI轮重做；Java完整回归包含已有测试，但不等于新线上故障演练。
 - 本轮不改生产后端以排查503。若后续确认需要Java/算法/API/DDL/核心参数改变，单独报告和版本决策。
 - 用户确认线上功能/压测结束后，先审阅本改版和503跟踪结果，再选择版本集成、push并取得新CI，固定实际SHA与JAR摘要、检查备份/回滚，依既有门禁发布。禁止沿用d016旧批准值或自动切线上。
+
+## 并行主线最终只读复核
+
+交付复核时共享origin/main为`b1b54f458dec7ddaa53539203d0e2d1aac76da26`，本地main引用仍为`661ed08c1f524358111881e9c4e1fe1936a7a4a5`。相对本工作树创建基线5f1740d，新增为线上测试执行器、性能统计/图表、报告及README；`git diff --exit-code 基线 origin/main -- src/main pom.xml .mvn mvnw mvnw.cmd`实际为0，生产树无差异。本轮未把它们合并或更改，不继承其线上结果作为新UI验收；后续集成需保留这些并行成果。受测代码SHA仍为0b0f18b，随后提交仅文档。
