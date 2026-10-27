@@ -45,7 +45,7 @@ jobs:
         run: |
           python3 -m py_compile docs/testing/final-release-perf-client.py
           mkdir -p target/queue-observer-classes
-          javac --release 17 -encoding UTF-8 -d target/queue-observer-classes deploy/scripts/QueueReadOnlyAgent.java deploy/scripts/ColdSnapshot.java
+          javac --release 17 -encoding UTF-8 -d target/queue-observer-classes deploy/scripts/QueueReadOnlyAgent.java deploy/scripts/ColdSnapshot.java deploy/scripts/VectorInfoColdSnapshot.java
           python3 - <<'PY'
           from pathlib import Path
           import subprocess
@@ -57,16 +57,21 @@ jobs:
           subprocess.run(['java', '-cp', classpath,
                           'dev.twelvetimes.vector.acceptance.LocalPerformanceProbe', str(output)], check=True)
           PY
-      - name: 冻结后端契约并核对首次批准JAR字节
+      - name: 核对冻结核心与已批准的向量详情扩展
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           approved_sha=d016d6e8bb431ff17ba81f8977d31a1b96f51f7f
           approved_jar_sha=64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50
           git fetch --no-tags --depth=1 origin "$approved_sha"
-          # Java、DDL、运行配置与Wrapper继续冻结；pom只允许已实证修复的H2版本属性。
+          # 仅放行本轮只读详情的五个明确文件；算法、任务、检索、DDL、运行配置与Wrapper继续冻结。
           git diff --exit-code "$approved_sha" HEAD -- src/main mvnw mvnw.cmd .mvn \
-            ':(exclude)src/main/resources/static/**'
+            ':(exclude)src/main/resources/static/**' \
+            ':(exclude)src/main/java/dev/twelvetimes/vector/api/contract/ApiModels.java' \
+            ':(exclude)src/main/java/dev/twelvetimes/vector/document/DocumentQueryService.java' \
+            ':(exclude)src/main/java/dev/twelvetimes/vector/document/DocumentViews.java' \
+            ':(exclude)src/main/java/dev/twelvetimes/vector/persistence/DocumentDetailMapper.java' \
+            ':(exclude)src/main/java/dev/twelvetimes/vector/persistence/DocumentDetailRow.java'
           python3 - <<'PYXML'
           import subprocess
           import xml.etree.ElementTree as ET
