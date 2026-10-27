@@ -5,6 +5,8 @@ import dev.twelvetimes.vector.api.contract.ApiModels.DocumentPage;
 import dev.twelvetimes.vector.api.contract.ApiModels.Invalidation;
 import dev.twelvetimes.vector.api.error.BusinessException;
 import dev.twelvetimes.vector.api.validation.RequestValidator;
+import dev.twelvetimes.vector.persistence.DocumentDetailMapper;
+import dev.twelvetimes.vector.persistence.DocumentDetailRow;
 import dev.twelvetimes.vector.persistence.DocumentRow;
 import dev.twelvetimes.vector.persistence.KnowledgeMapper;
 import dev.twelvetimes.vector.task.TaskReadiness;
@@ -18,19 +20,26 @@ import org.springframework.transaction.support.TransactionTemplate;
 @Service
 public final class DocumentQueryService {
     private final KnowledgeMapper mapper;
+    private final DocumentDetailMapper detailMapper;
     private final RequestValidator validator;
     private final TransactionTemplate transaction;
     private final TaskReadiness readiness;
 
-    public DocumentQueryService(KnowledgeMapper mapper, RequestValidator validator, PlatformTransactionManager manager, TaskReadiness readiness) {
+    public DocumentQueryService(KnowledgeMapper mapper, DocumentDetailMapper detailMapper,
+                                RequestValidator validator, PlatformTransactionManager manager, TaskReadiness readiness) {
         this.mapper = mapper;
+        this.detailMapper = detailMapper;
         this.validator = validator;
         this.readiness = readiness;
         transaction = new TransactionTemplate(manager);
         transaction.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
     }
 
-    public DocumentDetail detail(String id) { return DocumentViews.detail(required(validator.documentId(id))); }
+    public DocumentDetail detail(String id) {
+        DocumentDetailRow row = detailMapper.findDetail(validator.documentId(id));
+        if (row == null) { throw new BusinessException(404, "DOCUMENT_NOT_FOUND", "文档不存在"); }
+        return DocumentViews.detail(row);
+    }
 
     public DocumentPage list(int page, int size, String channel, Boolean invalidated) {
         validator.page(Integer.toString(page));
