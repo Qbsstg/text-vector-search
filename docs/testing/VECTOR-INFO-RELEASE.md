@@ -91,3 +91,9 @@ CI冻结检查仍保护算法、任务、搜索、DDL、运行配置和Wrapper�
 仅调整候选封装和CI测试：发布HTML引用`/assets/<完整源码SHA>/app.js`、同版本CSS/favicon，所有模块按原始字节复制到该不可变目录，原相对import自然落到同一目录。只改入口app.js查询参数不足以版本化相对依赖，故保持模块源和Node模块实例不变，整体版本化资源图。
 
 封装保持全部Java/嵌套依赖压缩方式、schema/application及原始静态源字节不变；只改发布HTML资源URL并增加版本目录。manifest登记staticAssetPrefix。新增5个Python标准库测试覆盖完整模块图、实际前端依赖、两版本隔离、业务字节/依赖格式与拒绝覆盖/坏入口。需要重新执行Java、Node、封装测试和固定JAR浏览器，再固定新CI/JAR并重新取得精确批准；不能沿用6b/f048批准值。
+
+4afec20修复本地已重跑116 Unit+135 IT+68 Node及5 Python，共324通过。真实封装JAR正常启动，保留缓存的浏览器普通刷新后八项资源均使用`/assets/4afec20aeae64850da6546dabea3b5639d8ee4a3/`且200，实际加载vector-info.mjs，详情指纹正常、Console无错误；未强刷或禁缓存。QA独立核JAR只有index.html原条目改变、新增8资源副本，其他条目字节及嵌套依赖压缩方式相同。
+
+新[CI40517563887](https://github.com/Qbsstg/text-vector-search/actions/runs/40517563887)真实FAIL：324测试全部通过，封装脚本生成候选后，旧流水线仍从`target/vector-search.jar`计算独立校验值，校验器正确拒绝其与封装候选不符；未上传发布候选，未部署4af，失败日志本地完整保留。该次Linux恢复使用封装前原包，不能冒称最终封装包恢复已通过。
+
+后续最小修正仅为流水线绑定：独立摘要改取候选app.jar，Linux冷备恢复移到封装后并使用同一候选；校验器仍拒绝原包错误摘要，未放松校验。新增第6个CLI协议回归，真实临时Git来源/封装/六参核验正确摘要通过、原包摘要拒绝。Python6全部通过，加原319为325项；新CI仍需完整实际执行，不沿用前次失败结论。

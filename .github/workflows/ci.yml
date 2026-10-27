@@ -94,22 +94,23 @@ jobs:
           schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
           bash deploy/scripts/verify-release.sh "$approved_sha" "$approved_jar_sha" "$schema_sha" \
             target/approved-candidate/release-manifest.json target/approved-candidate/app.jar target/approved-candidate/SHA256SUMS
+      - name: 封装固定源码与校验和的候选JAR
+        run: |
+          python3 .github/scripts/package_release_candidate.py --expected-sha "$GITHUB_SHA"
+          candidate_dir="target/release-candidate/$GITHUB_SHA"
+          # 封装会版本化HTML和静态资源，独立摘要必须取最终候选，不能再取Maven原包。
+          jar_sha=$(sha256sum "$candidate_dir/app.jar" | cut -d ' ' -f 1)
+          schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
+          bash deploy/scripts/verify-release.sh "$GITHUB_SHA" "$jar_sha" "$schema_sha" \
+            "$candidate_dir/release-manifest.json" "$candidate_dir/app.jar" "$candidate_dir/SHA256SUMS"
       - name: 验证 Linux 隔离冷备恢复与单实例保护
         env:
           RUNNER_ENVIRONMENT: ${{ runner.environment }}
           FINAL_JAR_SOURCE_SHA: ${{ github.sha }}
         run: |
           for script in deploy/scripts/*.sh; do bash -n "$script"; done
-          bash docs/testing/final-linux-check.sh --github-hosted-test-only target/vector-search.jar
-      - name: 封装固定源码与校验和的候选JAR
-        if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
-        run: |
-          python3 .github/scripts/package_release_candidate.py --expected-sha "$GITHUB_SHA"
-          candidate_dir="target/release-candidate/$GITHUB_SHA"
-          jar_sha=$(sha256sum target/vector-search.jar | cut -d ' ' -f 1)
-          schema_sha=$(sha256sum src/main/resources/schema.sql | cut -d ' ' -f 1)
-          bash deploy/scripts/verify-release.sh "$GITHUB_SHA" "$jar_sha" "$schema_sha" \
-            "$candidate_dir/release-manifest.json" "$candidate_dir/app.jar" "$candidate_dir/SHA256SUMS"
+          # 实际恢复的是同一封装候选；PR也在runner内封装，但只在main/手动执行时上传候选。
+          bash docs/testing/final-linux-check.sh --github-hosted-test-only "target/release-candidate/$GITHUB_SHA/app.jar"
       - name: 保存待人工批准的发布候选
         if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

@@ -1,8 +1,12 @@
 """发布封装的回归测试：版本化整个模块图，不靠用户强刷或关闭浏览器缓存。"""
 
 import importlib.util
+import hashlib
+import json
 from pathlib import Path
 import re
+import subprocess
+import sys
 import tempfile
 import unittest
 from urllib.parse import urljoin
@@ -17,7 +21,7 @@ class VersionedStaticResourcesTest(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
         self.source = self.root / "source.jar"
         self.static = "BOOT-INF/classes/static/"
         self.resources = {
@@ -109,6 +113,43 @@ class VersionedStaticResourcesTest(unittest.TestCase):
                     resolved = urljoin(prefix + name, dependency)
                     self.assertTrue(resolved.startswith(prefix))
                     self.assertEqual(actual[dependency[2:]], sealed.read(self.static + resolved.lstrip("/")))
+
+    def test_CLI封装后必须独立核验最终候选而不是Maven原包(self):
+        # 临时Git只提供来源SHA夹具，不改真实项目历史，也不进行任何网络操作。
+        repository = self.root / "fixture-repository"
+        repository.mkdir()
+        resources = repository / "src/main/resources"
+        resources.mkdir(parents=True)
+        (resources / "schema.sql").write_bytes(b"unchanged-schema")
+        (repository / ".gitignore").write_text("target/\n")
+        subprocess.run(["git", "init", "-q", str(repository)], check=True)
+        subprocess.run(["git", "-C", str(repository), "add", "."], check=True)
+        subprocess.run(["git", "-C", str(repository), "-c", "user.name=fixture",
+                        "-c", "user.email=fixture@example.invalid", "commit", "-qm", "测试来源夹具"], check=True)
+        sha = subprocess.check_output(["git", "-C", str(repository), "rev-parse", "HEAD"], text=True).strip()
+        original = repository / "target/vector-search.jar"
+        original.parent.mkdir()
+        with zipfile.ZipFile(self.source) as source, zipfile.ZipFile(original, "x") as archive:
+            for info in source.infolist():
+                archive.writestr(info, source.read(info))
+            archive.writestr("BOOT-INF/classes/application.yml", b"unchanged-config")
+            # 该测试只检查封装协议中的class版本头，真实Java启动由独立JAR/浏览器和Linux门禁验证。
+            archive.writestr("BOOT-INF/classes/dev/twelvetimes/vector/VectorSearchApplication.class",
+                             b"\xca\xfe\xba\xbe\x00\x00\x00\x3d")
+        subprocess.run([sys.executable, str(Path(packager.__file__).resolve()), "--expected-sha", sha],
+                       cwd=repository, check=True, capture_output=True)
+        candidate = repository / "target/release-candidate" / sha
+        manifest = json.loads((candidate / "release-manifest.json").read_text())
+        actual = hashlib.sha256((candidate / "app.jar").read_bytes()).hexdigest()
+        raw = hashlib.sha256(original.read_bytes()).hexdigest()
+        self.assertNotEqual(raw, actual)
+        self.assertEqual(actual, manifest["jarSha256"])
+        verifier = Path(__file__).resolve().parents[2] / "deploy/scripts/verify-release.sh"
+        command = ["bash", str(verifier), sha, actual, hashlib.sha256(b"unchanged-schema").hexdigest(),
+                   str(candidate / "release-manifest.json"), str(candidate / "app.jar"), str(candidate / "SHA256SUMS")]
+        self.assertEqual(0, subprocess.run(command, capture_output=True).returncode)
+        command[3] = raw
+        self.assertNotEqual(0, subprocess.run(command, capture_output=True).returncode)
 
 
 if __name__ == "__main__":
