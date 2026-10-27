@@ -1,6 +1,6 @@
-# API契约 v1.0（C0冻结）
+# API契约 v1.1（文档向量详情只读扩展）
 
-依据已评审V1.1方案，日期2026-10-22，最终健康说明更新于2026-10-23。Owner：主控。六业务接口字段/路径/规则仍为冻结v1.0。B2已实现五个文档/任务管理接口，B3接入真实生产任务及恢复，B4已实现POST /api/search及最终命中原子计数；`GET /health`按运行事实报告任务与完整业务就绪，具体字段、检查及503规则见下文。
+依据已评审V1.1方案，日期2026-10-22，最终健康说明更新于2026-10-23，向量详情于2026-10-27获用户批准开发上线。Owner：主控。六接口路径和原有字段/规则保持v1.0；v1.1仅新增可空只读vectorInfo，不改变算法、DDL、状态机、事务或资源参数。B2已实现五个管理接口，B3接入真实任务及恢复，B4已实现搜索与命中计数；健康检查规则见下文。
 
 ## 通用规则
 
@@ -26,7 +26,9 @@
 
 DocumentSummary：`documentId,channel,taskId,taskStatus,vectorReady,invalidated,submittedAt,vectorCompletedAt,invalidatedAt,hitCount`。
 
-DocumentDetail：DocumentSummary全部字段（平铺）加`text`；不包含向量。TaskView：`taskId,documentId,status,submittedAt,startedAt,finishedAt,errorCode,errorMessage,document`，`document`仅成功时为DocumentDetail，否则null，满足完成后获取文档信息。状态枚举`QUEUED/RUNNING/SUCCEEDED/FAILED`。
+DocumentDetail：DocumentSummary全部字段（平铺）加`text,vectorInfo`。详情GET成功且向量实际就绪时，vectorInfo为`{embeddingVersion,dimensions,byteLength,zeroVector,sha256,values}`：版本取文档存储值，维度256、字节数1024，sha256为原始向量字节的64位小写摘要，values为全部256个有限float32数值；其余状态null，不用零向量占位。已失效但已完成的文档仍返回历史向量；坏向量使用既有500 INTERNAL_ERROR。GET不重算、不计数、不写库。
+
+TaskView：`taskId,documentId,status,submittedAt,startedAt,finishedAt,errorCode,errorMessage,document`，document仅成功时为DocumentDetail，否则null；其中vectorInfo保持null，轮询不额外加载向量。列表字段不变，四态仍为`QUEUED/RUNNING/SUCCEEDED/FAILED`。精度、负零、兼容与只读边界见[向量详情契约](../design/vector-information-contract.md)。
 
 具体Java类型见`src/main/java/dev/twelvetimes/vector/api/contract/ApiModels.java`；修改必须同时更新契约、代码和测试。
 
