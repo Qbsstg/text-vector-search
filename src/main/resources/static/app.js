@@ -432,9 +432,9 @@ function renderDetail() {
             ["向量", detailData.vectorReady ? "已就绪" : "未就绪", detailData.vectorReady ? "badge badge-success" : "badge"],
             ["文档", detailData.invalidated ? "已失效" : "有效", detailData.invalidated ? "badge" : "badge badge-success"],
             ["渠道", detailData.channel, "badge badge-blue"]]);
-        fields(byId("detail-stats"), [["命中次数（读取快照）", detailData.hitCount],
-            ["提交时间（UTC+8）", formatTime(detailData.submittedAt)], ["完成时间（UTC+8）", formatTime(detailData.vectorCompletedAt)],
-            ["失效时间（UTC+8）", formatTime(detailData.invalidatedAt)]]);
+        fields(byId("detail-stats"), [["命中次数", detailData.hitCount],
+            ["提交时间", formatTime(detailData.submittedAt)], ["完成时间", formatTime(detailData.vectorCompletedAt)],
+            ["失效时间", formatTime(detailData.invalidatedAt)]]);
         fields(byId("detail-fields"), [["任务 ID", detailData.taskId]]);
         byId("detail-text").textContent = detailData.text;
         byId("invalidate-document").textContent = detailData.invalidated ? "已失效" : "标记失效";
