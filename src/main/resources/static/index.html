@@ -120,11 +120,11 @@
       <div class="dialog-body">
         <label for="submit-id">文档 ID <span class="label-note">（唯一）</span></label>
         <input id="submit-id" name="documentId" type="text" autocomplete="off" spellcheck="false" aria-describedby="submit-id-hint submit-id-error" placeholder="例如：refund-policy-01">
-        <p id="submit-id-hint" class="hint">1—128 位字母、数字、点、下划线或连字符，首位为字母或数字。</p><p id="submit-id-error" class="field-error" data-error-for="documentId"></p>
+        <p id="submit-id-hint" class="hint">1—128 位字母、数字、点、下划线或连字符，首位为字母或数字。相同 ID 不可重复提交。</p><p id="submit-id-error" class="field-error" data-error-for="documentId"></p>
         <label for="submit-text">原文</label><textarea id="submit-text" name="text" rows="5" aria-describedby="submit-text-hint submit-text-error" placeholder="输入需要向量化与检索的原文…"></textarea>
         <p id="submit-text-hint" class="hint">空原文可提交；最多 20000 Unicode 码点，不裁剪或改写。</p><p id="submit-text-error" class="field-error" data-error-for="text"></p>
         <label for="submit-channel">渠道 <span class="label-note">（可选）</span></label><input id="submit-channel" name="channel" type="text" placeholder="不填时使用 default" aria-describedby="submit-channel-error"><p id="submit-channel-error" class="field-error" data-error-for="channel"></p>
-        <details class="rules"><summary>输入规则</summary><p>文档 ID 不自动裁剪或转大小写，重复 ID 不覆盖已有文档。渠道首尾 Unicode 空白由服务端去除，非空渠道最多 64 码点；留空使用 default。原始与规范化文本分别最多 20000 码点。</p></details>
+        <details class="rules" open><summary>文档与向量规则</summary><ol><li>文档 ID 唯一，重复 ID 会被拒绝。</li><li>相同原文可使用不同 ID 提交，各自独立统计。</li><li>同一文本 + 同一算法版本 → 相同向量。</li></ol><p>文档 ID 不自动裁剪或转大小写，重复 ID 不覆盖已有文档。渠道首尾 Unicode 空白由服务端去除，非空渠道最多 64 码点；留空使用 default。原始与规范化文本分别最多 20000 码点。</p></details>
         <p id="submit-message" class="feedback" role="status" aria-live="polite">提交成功表示已接收，不表示向量化完成。</p>
         <div id="submit-actions" class="actions" hidden><button id="submitted-detail" type="button">按提交 ID 查询详情</button><button id="submitted-task" type="button" hidden>查看真实任务</button></div>
       </div>
@@ -138,11 +138,21 @@
       <p id="detail-message" class="feedback" role="status" aria-live="polite"></p>
       <div id="detail-content" hidden>
         <div id="detail-document-id" class="detail-id"></div><dl id="detail-status" class="status-strip"></dl>
-        <div class="detail-layout"><section class="original-text"><h3>原文</h3><pre id="detail-text" tabindex="0" aria-label="文档原文，可滚动"></pre></section><aside class="detail-aside"><dl id="detail-stats" class="stacked-fields"></dl><details class="rules"><summary>更多信息</summary><dl id="detail-fields" class="stacked-fields"></dl></details></aside></div>
-        <p class="hint">原文按纯文本显示；查看详情不会增加命中次数。</p>
+        <div class="detail-layout">
+          <section class="original-text"><h3>原文</h3><pre id="detail-text" tabindex="0" aria-label="文档原文，可滚动"></pre><dl id="detail-stats" class="detail-metadata"></dl><dl id="detail-fields" class="detail-metadata"></dl><p class="hint">原文按纯文本显示；查看详情不会增加命中次数。</p></section>
+          <aside class="detail-aside" aria-labelledby="vector-title">
+            <h3 id="vector-title">向量信息</h3><p id="vector-message" class="hint" role="status"></p>
+            <div id="vector-content" hidden>
+              <dl class="vector-metadata"><div><dt>算法版本</dt><dd id="vector-version"></dd></div><div><dt>向量维度</dt><dd id="vector-dimensions"></dd></div><div><dt>存储大小</dt><dd id="vector-bytes"></dd></div><div><dt>零向量</dt><dd id="vector-zero"></dd></div></dl>
+              <div class="vector-fingerprint-heading"><h4>向量指纹（SHA-256）</h4><button id="copy-vector-fingerprint" class="copy-button" type="button" aria-label="复制完整 SHA-256 指纹" disabled>复制</button></div>
+              <pre id="vector-fingerprint" class="mono" tabindex="0" aria-label="完整向量 SHA-256 指纹"></pre><p class="hint">同文同版本可对照指纹；文档仍按 ID 独立管理。</p>
+              <section class="vector-values" aria-labelledby="vector-values-heading"><h4 id="vector-values-heading">向量数值</h4><pre id="vector-values" class="mono" tabindex="0" aria-label="向量数值预览"></pre><div class="vector-actions"><button id="toggle-vector" class="text-button" type="button" aria-expanded="false" aria-controls="vector-values" disabled>展开全部 256 维</button><button id="copy-vector" class="text-button" type="button" disabled>复制完整向量</button></div><p class="hint">数值预览经过舍入，完整精度以复制结果为准。</p></section>
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
-    <div class="dialog-footer"><button id="detail-refresh" type="button">刷新详情</button><button id="detail-task" class="text-button" type="button" disabled>查看任务</button><p class="hint">失效后不参与新检索，当前不支持恢复。</p><button id="invalidate-document" class="danger" type="button" disabled>标记失效</button></div>
+    <div class="dialog-footer"><p class="hint">向量信息读取已保存结果，不会重新计算。</p><button id="detail-refresh" type="button">刷新详情</button><button id="detail-task" class="text-button" type="button" disabled>查看任务</button><button id="invalidate-document" class="danger" type="button" disabled>标记失效</button></div>
   </dialog>
   <dialog id="invalidation-dialog" aria-labelledby="invalidation-title" aria-describedby="invalidation-description">
     <div class="dialog-heading"><h2 id="invalidation-title">确认标记失效</h2></div><div class="dialog-body"><p id="invalidation-description">失效后，该文档不会参与新的检索。文档、任务和历史计数仍保留，当前不支持恢复有效。是否继续？</p><p id="invalidation-id" class="mono"></p></div><div class="dialog-footer"><button id="cancel-invalidation" type="button" autofocus>取消</button><button id="confirm-invalidation" class="danger" type="button">确认失效</button></div>

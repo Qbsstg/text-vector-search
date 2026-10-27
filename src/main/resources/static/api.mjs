@@ -1,3 +1,5 @@
+import { validVectorInfo } from "./vector-info.mjs";
+
 /** 前端只做输入提示和响应边界校验；服务端仍是参数与业务状态的最终依据。 */
 export class InputError extends Error {
     constructor(field, message) {
@@ -100,7 +102,7 @@ export function validDocument(value, detail = false) {
     return object(value) && string(value.documentId) && string(value.channel) && string(value.taskId) &&
         status(value.taskStatus) && typeof value.vectorReady === "boolean" && typeof value.invalidated === "boolean" &&
         string(value.hitCount) && /^\d+$/.test(value.hitCount) && string(value.submittedAt) && time(value.submittedAt) &&
-        time(value.vectorCompletedAt) && time(value.invalidatedAt) && (!detail || string(value.text));
+        time(value.vectorCompletedAt) && time(value.invalidatedAt) && (!detail || (string(value.text) && (!Object.hasOwn(value, "vectorInfo") || validVectorInfo(value.vectorInfo, value))));
 }
 const validTask = (value) => object(value) && string(value.taskId) && string(value.documentId) && status(value.status) &&
     string(value.submittedAt) && time(value.submittedAt) && time(value.startedAt) && time(value.finishedAt) &&

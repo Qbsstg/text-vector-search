@@ -2,6 +2,7 @@ import { createApi, documentId, taskId, listQuery, TASK_LABELS, InputError, erro
 import { TaskTracker, pollingText } from "./tasks.mjs";
 import { SearchSession, formatScore } from "./search.mjs";
 import { dialogLifecycle, taskBadgeClass, taskErrorFields } from "./presentation.mjs";
+import { createVectorPanel } from "./vector-info.mjs";
 
 const api = createApi();
 const byId = (id) => document.getElementById(id);
@@ -390,6 +391,12 @@ byId("filter-form").addEventListener("input", () => {
 byId("previous-page").addEventListener("click", () => { if (listData && !filtersChanged()) void loadList({ ...listParameters, page: listData.page - 1 }); });
 byId("next-page").addEventListener("click", () => { if (listData && !filtersChanged()) void loadList({ ...listParameters, page: listData.page + 1 }); });
 
+const vectorPanel = createVectorPanel({
+    content: byId("vector-content"), message: byId("vector-message"), version: byId("vector-version"),
+    dimensions: byId("vector-dimensions"), bytes: byId("vector-bytes"), zero: byId("vector-zero"),
+    fingerprint: byId("vector-fingerprint"), values: byId("vector-values"), heading: byId("vector-values-heading"),
+    toggle: byId("toggle-vector"), copyFingerprint: byId("copy-vector-fingerprint"), copyVector: byId("copy-vector"),
+}, { notify: (message, error) => feedback("detail-message", message, error) });
 const detailRead = new LatestRead();
 const dialog = byId("detail-dialog");
 let detailId = null;
@@ -405,6 +412,7 @@ const detailModal = dialogLifecycle(dialog, { fallbackFocus: () => tabs.find((ta
     detailId = null;
     detailData = null;
     detailLoading = false;
+    renderDetail();
 } });
 function detailButtons() {
     byId("detail-refresh").disabled = !detailId || detailLoading || invalidating;
@@ -413,7 +421,11 @@ function detailButtons() {
 }
 function renderDetail() {
     byId("detail-content").hidden = !detailData;
-    if (detailData) {
+    if (!detailData) {
+        for (const id of ["detail-document-id", "detail-status", "detail-stats", "detail-fields", "detail-text"]) byId(id).replaceChildren();
+        vectorPanel.clear();
+    } else {
+        vectorPanel.set(detailData);
         byId("detail-document-id").replaceChildren(element("span", "文档 ID："),
             idView(detailData.documentId, { onOpen: () => byId("detail-text").focus(), copyFeedback: "detail-message" }));
         statusFields(byId("detail-status"), [["任务", taskLabel(detailData.taskStatus), taskBadgeClass(detailData.taskStatus)],
@@ -423,8 +435,7 @@ function renderDetail() {
         fields(byId("detail-stats"), [["命中次数（读取快照）", detailData.hitCount],
             ["提交时间（UTC+8）", formatTime(detailData.submittedAt)], ["完成时间（UTC+8）", formatTime(detailData.vectorCompletedAt)],
             ["失效时间（UTC+8）", formatTime(detailData.invalidatedAt)]]);
-        fields(byId("detail-fields"), [["任务 ID", detailData.taskId], ["向量就绪", detailData.vectorReady ? "是" : "否"],
-            ["有效状态", detailData.invalidated ? "已失效" : "有效"]]);
+        fields(byId("detail-fields"), [["任务 ID", detailData.taskId]]);
         byId("detail-text").textContent = detailData.text;
         byId("invalidate-document").textContent = detailData.invalidated ? "已失效" : "标记失效";
     }

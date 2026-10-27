@@ -54,6 +54,8 @@ input:focus-visible, textarea:focus-visible, select:focus-visible, pre:focus-vis
 .rules { background: var(--soft); border-radius: 4px; margin-top: 17px; padding: 11px 15px; color: #475569; }
 summary { cursor: pointer; font-weight: 500; }
 .rules p { margin: 12px 0 0; }
+.rules ol { padding-left: 21px; margin: 10px 0 0; }
+.rules li + li { margin-top: 3px; }
 .feedback { color: var(--muted); overflow-wrap: anywhere; margin: 15px 0 0; font-size: 13px; }
 .feedback.error { padding: 11px 14px; background: #fff1f2; border-radius: 5px; color: #9f1239; }
 .field-error { color: #b91c1c; font-size: 13px; margin: 5px 0 0; }
@@ -156,13 +158,25 @@ dialog[open] { display: flex; flex-direction: column; }
 .status-strip > div { border-right: 1px solid var(--line); padding-right: 12px; }
 .status-strip > div:last-child { border: 0; }
 .status-strip dd { font-size: 13px; }
-.detail-layout { display: grid; grid-template-columns: minmax(0, 2.25fr) minmax(220px, 1fr); gap: 28px; }
+.detail-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .original-text { min-width: 0; }
 pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; max-height: 360px; overflow: auto; padding: 12px; background: var(--soft); border: 1px solid var(--line); border-radius: 4px; min-height: 60px; }
-#detail-text { background: transparent; border: 0; padding: 0; min-height: 230px; line-height: 1.9; font-size: 16px; margin: 0; }
-.detail-aside { border-left: 1px solid var(--line); padding-left: 27px; min-width: 0; }
-.detail-aside .rules { padding: 10px; }
-#detail-stats > div:first-child dd { font-size: 29px; color: #0f172a; font-weight: 650; }
+#detail-text { min-height: 180px; line-height: 1.75; font-size: 15px; margin: 0 0 18px; }
+.detail-aside { border-left: 1px solid var(--line); padding-left: 24px; min-width: 0; }
+/* 元数据与原文同栏；向量栏所有长版本、指纹和数值均在各自边界内换行或滚动。 */
+.detail-metadata > div, .vector-metadata > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px; padding: 5px 0; }
+.detail-metadata dd, .vector-metadata dd { margin: 0; color: #475569; }
+#detail-stats { padding-top: 12px; border-top: 1px solid var(--line); }
+.vector-metadata > div { grid-template-columns: 80px minmax(0, 1fr); }
+.vector-fingerprint-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
+.vector-fingerprint-heading h4, .vector-values h4 { font-size: 14px; margin: 0; }
+#vector-fingerprint { margin: 0; min-height: 0; padding: 8px 10px; font-size: 12px; line-height: 1.5; user-select: text; }
+.vector-values { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 12px; }
+#vector-values { margin: 7px 0 0; font-size: 12px; line-height: 1.45; max-height: 280px; min-height: 0; white-space: pre-wrap; }
+.vector-actions { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 5px; }
+.vector-actions .text-button { min-height: 36px; padding: 4px 0; text-align: left; }
+#vector-message:empty { display: none; }
+#vector-content .hint { font-size: 12px; margin-top: 5px; }
 @media (max-width: 1100px) {
   .header-inner, main { width: calc(100% - 56px); }
   .search-controls { grid-template-columns: minmax(130px, 1fr) minmax(200px, 1.7fr) minmax(150px, 1fr); }
@@ -246,8 +260,8 @@ pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; max-height:
   .status-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding: 14px; margin-bottom: 20px; }
   .status-strip > div:nth-child(2) { border: 0; }
   #detail-text { min-height: 140px; max-height: 40dvh; font-size: 15px; }
-  #detail-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  #detail-stats > div:first-child dd { font-size: 23px; }
+  .detail-metadata > div { grid-template-columns: 100px minmax(0, 1fr); }
+  .vector-actions { gap: 4px 16px; }
   .detail-id { gap: 4px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
