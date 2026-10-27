@@ -18,7 +18,7 @@
 | [项目交付资料](docs/DELIVERY.md) | 测试、部署、版本和技术成果 |
 | [完整文档目录](docs/README.md) | 详细设计契约、测试报告和历史记录 |
 
-当前上线版本为`9883400`，固定发布构建的283项自动化测试通过。版本、浏览器分层验收、数据核账及详细验证范围见[测试与质量验证](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。
+本轮向量详情升级已实际切换`6b5e159`并核对旧51篇数据，但正式Chrome普通刷新发现旧脚本磁盘缓存，发布总门禁尚未关闭。修复候选`a2f0e25`已通过325项及同包Linux/本地浏览器，等待新固定版本精确批准；当前不自动换包。最新状态见[本轮发布核证](docs/testing/VECTOR-INFO-RELEASE.md)。2026-10-23的`9883400`/283项最终验收作为历史保留。
 
 ## 技术栈
 
@@ -145,11 +145,11 @@ flowchart TB
 演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。演示服务使用下方固定发布版本。FINAL-QUALITY性能报告对应此前原JAR；本次已实际发布前端改版，不将旧版性能数据当作新版复测成绩。
 
 <details>
-<summary>固定发布版本与验收 CI</summary>
+<summary>2026-10-23历史固定发布版本与验收 CI</summary>
 
-- 当前应用源码：`9883400451c9b2a22d13134cbd698d7478851b3d`。
-- 当前JAR SHA-256：`becb3b46be10e25822fcfafc4636d7516d29c87b001b3d173d0943fbb0cb7ece`。
-- 当前发布：[CI39927516112](https://github.com/Qbsstg/text-vector-search/actions/runs/39927516112)，105 Unit + 126 IT + 52 Node = 283；两平台35分钟、正常重启、生产冷备与独立恢复均有分层实证，见[发布检查单](docs/testing/RELEASE-FINAL-CHECKLIST.md)。
+- 历史应用源码：`9883400451c9b2a22d13134cbd698d7478851b3d`。
+- 历史JAR SHA-256：`becb3b46be10e25822fcfafc4636d7516d29c87b001b3d173d0943fbb0cb7ece`。
+- 历史发布：[CI39927516112](https://github.com/Qbsstg/text-vector-search/actions/runs/39927516112)，105 Unit + 126 IT + 52 Node = 283；两平台35分钟、正常重启、生产冷备与独立恢复均有分层实证，见[发布检查单](docs/testing/RELEASE-FINAL-CHECKLIST.md)。
 - 前端改版历史：[CI39915764822](https://github.com/Qbsstg/text-vector-search/actions/runs/39915764822)，固定2764/b8b，282项；缓存模板同步[CI39921238979](https://github.com/Qbsstg/text-vector-search/actions/runs/39921238979)当时未替换该固定包。原件和历史失败继续保留。
 - 首发/后端字节冻结及代码回退基线：`d016d6e8bb431ff17ba81f8977d31a1b96f51f7f` / `64bc9c0ba187b6779622a7ddab5beb4b50152424e3926c55b76249c98b609b50`。
 - 原批准产物：[CI39838054946](https://github.com/Qbsstg/text-vector-search/actions/runs/39838054946)。
@@ -185,7 +185,7 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 ## 测试与验收
 
-当前固定包为283项自动化，真实Chrome、HTTPS与70条分层映射见[最终验收报告](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。以下为既有FINAL-RELEASE历史结果，不与新一轮重复相加；本轮没有新增性能压测。
+2026-10-23最终验收固定包为283项，真实Chrome、HTTPS与70条分层映射见[历史最终验收报告](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。本轮向量详情和缓存修复候选为116 Unit+135 IT+68 Node+6 Python=325，范围及实际发布状态见本轮核证。以下为既有FINAL-RELEASE历史结果，不与新一轮重复相加；本轮没有新增性能压测。
 
 | 统计维度 | 已核证结果 |
 | --- | --- |
