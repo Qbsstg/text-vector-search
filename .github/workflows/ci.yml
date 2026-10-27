@@ -41,6 +41,8 @@ jobs:
           node-version: '22.16.0'
       - name: 验证真实请求边界与有限轮询逻辑
         run: node --test tests/frontend/*.test.mjs
+      - name: 验证发布资源版本化与完整模块图
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py' -v
       - name: 验证隔离性能探针与部署诊断工具
         run: |
           python3 -m py_compile docs/testing/final-release-perf-client.py

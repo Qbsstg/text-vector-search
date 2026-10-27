@@ -2,12 +2,12 @@
 """仅封装当前已验证构建的候选，不上传服务器、不生成凭据，也不覆盖已有候选。"""
 
 import argparse
+import copy
 import hashlib
 import json
 import os
 from pathlib import Path
 import re
-import shutil
 import subprocess
 from datetime import datetime, timezone
 import zipfile
@@ -23,6 +23,43 @@ def sha256(path):
         for chunk in iter(lambda: source.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def version_static_resources(source, target, source_sha):
+    """给入口和完整模块图分配不可变发布路径，避免新HTML命中旧脚本的本机缓存。"""
+    if not re.fullmatch(r"[0-9a-f]{40}", source_sha):
+        raise ValueError("资源版本必须为完整源码SHA")
+    if target.exists():
+        raise FileExistsError("拒绝覆盖既有封装产物")
+    static_root = "BOOT-INF/classes/static/"
+    asset_prefix = f"/assets/{source_sha}/"
+    with zipfile.ZipFile(source) as original:
+        resources = {name[len(static_root):]: original.read(name) for name in original.namelist()
+                     if name.startswith(static_root) and not name.endswith("/")}
+        if not {"index.html", "app.js", "styles.css", "favicon.svg"}.issubset(resources):
+            raise ValueError("缺少必须的前端入口资源")
+        for name in resources:
+            if ".." in Path(name).parts or re.match(r"assets/[0-9a-f]{40}/", name):
+                raise ValueError("原始构建含异常或已经封装的资源路径")
+        html = resources["index.html"].decode("utf-8")
+        for name in ("app.js", "styles.css", "favicon.svg"):
+            pattern = r"(?P<start>\b(?:src|href)=[\"'])/" + re.escape(name) + r"(?P<end>[\"'])"
+            html, changed = re.subn(pattern,
+                                   lambda match: match.group("start") + asset_prefix + name + match.group("end"), html)
+            if changed != 1:
+                raise ValueError("入口资源引用必须恰好出现一次：" + name)
+        with zipfile.ZipFile(target, "x") as sealed:
+            for info in original.infolist():
+                data = html.encode("utf-8") if info.filename == static_root + "index.html" else original.read(info)
+                # 保留原ZipInfo的压缩方式；Spring Boot嵌套依赖必须继续为原来的STORED格式。
+                sealed.writestr(copy.copy(info), data)
+                if info.filename.startswith(static_root) and not info.is_dir():
+                    relative = info.filename[len(static_root):]
+                    if relative != "index.html":
+                        versioned = copy.copy(info)
+                        versioned.filename = static_root + asset_prefix.lstrip("/") + relative
+                        sealed.writestr(versioned, resources[relative])
+    return asset_prefix
 
 
 def main():
@@ -55,7 +92,7 @@ def main():
         raise SystemExit("候选目录已存在或路径异常，拒绝覆盖")
     destination.mkdir(parents=True)
     artifact = destination / "app.jar"
-    shutil.copyfile(jar, artifact)
+    asset_prefix = version_static_resources(jar, artifact, source_sha)
     manifest = {
         "schemaVersion": 1, "sourceSha": source_sha, "jarFile": "app.jar",
         "jarSha256": sha256(artifact), "sizeBytes": artifact.stat().st_size,
@@ -63,6 +100,7 @@ def main():
         "schemaSha256": sha256(root / "src/main/resources/schema.sql"),
         "createdAtUtc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "ciRunId": os.environ.get("GITHUB_RUN_ID"), "ciRunAttempt": os.environ.get("GITHUB_RUN_ATTEMPT"),
+        "staticAssetPrefix": asset_prefix,
     }
     manifest_path = destination / "release-manifest.json"
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
