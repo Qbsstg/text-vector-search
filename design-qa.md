@@ -2,6 +2,8 @@
 
 日期：2026-10-27。仅核证本轮提交规则与向量详情，不重新宣称历史全部UI场景已执行。
 
+2026-10-23前端改版设计核证已[原样归档](docs/testing/UI-REDESIGN-DESIGN-QA-20261023.md)，其字节SHA256为`514087fb2f302b117eb8b8b0c8140f99ebecc99da1869a7e09473bd7771ce375`；历史结果、截图引用和修复轨迹均完整保留，根文件仅作为最新一轮入口。
+
 ## 参考与实际画面
 
 - 用户选定设计：`/Users/qbss/.codex/generated_images/01a164fc-417d-7941-8b7a-e62fe0b8786d/exec-edecbe96-2926-415d-9fd3-751848ffc13c.png`，1586×992，SHA256 `4f738533de4f307208b6c983c86e16e947c0ff018af79a1d7e701ffc32aeb1f6`。
