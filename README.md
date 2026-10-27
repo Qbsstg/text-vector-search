@@ -4,7 +4,7 @@
 
 项目使用**确定性的字面特征向量算法**，适合演示文本特征提取和检索工程设计；不调用外部模型，不使用大模型语义 Embedding，也不将相似度解释为语义准确率。
 
-本轮源码已增加文档规则说明与持久向量详情：查看实际算法版本、零向量、SHA-256指纹及完整256维，支持展开和完整精度复制。不同ID的相同原文独立管理，指纹不作为去重键。该候选的测试和实际发布状态独立记录于[向量详情发布核证](docs/testing/VECTOR-INFO-RELEASE.md)，下方旧固定发布版本不自动改变。
+已上线文档规则说明与持久向量详情：查看实际算法版本、零向量、SHA-256指纹及完整256维，支持展开和完整精度复制。不同ID的相同原文独立管理，指纹不作为去重键。测试与固定发布信息见[向量详情发布核证](docs/testing/VECTOR-INFO-RELEASE.md)。
 
 **[查看设计思路](docs/DESIGN.md) | [查看使用说明](docs/USER-GUIDE.md) | [查看AI关键对话](docs/AI-COLLABORATION.md)**
 
@@ -18,7 +18,7 @@
 | [项目交付资料](docs/DELIVERY.md) | 测试、部署、版本和技术成果 |
 | [完整文档目录](docs/README.md) | 详细设计契约、测试报告和历史记录 |
 
-本轮向量详情升级已实际切换`6b5e159`并核对旧51篇数据，但正式Chrome普通刷新发现旧脚本磁盘缓存，发布总门禁尚未关闭。修复候选`a2f0e25`已通过325项及同包Linux/本地浏览器，等待新固定版本精确批准；当前不自动换包。最新状态见[本轮发布核证](docs/testing/VECTOR-INFO-RELEASE.md)。2026-10-23的`9883400`/283项最终验收作为历史保留。
+当前实际运行源码`a2f0e250904e0d63cd3f7df3d06dac783299d5b2`，JAR SHA-256 `3e540c094e30658c55779917fcb9e661f3e68eadc3d5b1ddcb006e6e54590af0`，成功[CI40519505450](https://github.com/Qbsstg/text-vector-search/actions/runs/40519505450)。325项测试、同包Linux恢复、正式Chrome普通刷新与HTTPS闭环均通过；旧51篇字段/计数/向量无差异，新增3篇隔离样例。详见[发布聚合](docs/testing/VECTOR-INFO-DEPLOYMENT.md)。首包缓存FAIL和封装CI FAIL保留；2026-10-23的`9883400`/283项为历史。
 
 ## 技术栈
 
@@ -142,7 +142,7 @@ flowchart TB
 
 **[https://text-vector-search.lemoncharger.com](https://text-vector-search.lemoncharger.com)**
 
-演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。演示服务使用下方固定发布版本。FINAL-QUALITY性能报告对应此前原JAR；本次已实际发布前端改版，不将旧版性能数据当作新版复测成绩。
+演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。当前固定运行a2f0e25/CI40519505450；后续文档HEAD不替换该包。下方保留2026-10-23历史发布。性能报告对应此前原JAR，不将旧版性能数据当作新版复测成绩。
 
 <details>
 <summary>2026-10-23历史固定发布版本与验收 CI</summary>
