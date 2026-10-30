@@ -2,9 +2,11 @@
 
 一个基于 Java 17 的文本检索项目，覆盖文档接收、异步向量化、持久任务恢复、相似度检索和命中计数，提供 REST API 与原生 Web 演示台。
 
+**演示环境状态：测试与在线演示环境已下线，不再提供在线访问入口。** 可按[本地运行](#本地运行)启动项目；下文的部署、浏览器和 HTTPS 验证结果均为已保留的历史实测记录。
+
 项目使用**确定性的字面特征向量算法**，适合演示文本特征提取和检索工程设计；不调用外部模型，不使用大模型语义 Embedding，也不将相似度解释为语义准确率。
 
-已上线文档规则说明与持久向量详情：查看实际算法版本、零向量、SHA-256指纹及完整256维，支持展开和完整精度复制。不同ID的相同原文独立管理，指纹不作为去重键。测试与固定发布信息见[向量详情发布核证](docs/testing/VECTOR-INFO-RELEASE.md)。
+已实现文档规则说明与持久向量详情：查看实际算法版本、零向量、SHA-256 指纹及完整 256 维，支持展开和完整精度复制。不同 ID 的相同原文独立管理，指纹不作为去重键。测试与历史发布信息见[向量详情发布核证](docs/testing/VECTOR-INFO-RELEASE.md)。
 
 **[查看设计思路](docs/DESIGN.md) | [查看使用说明](docs/USER-GUIDE.md) | [查看AI关键对话](docs/AI-COLLABORATION.md)**
 
@@ -18,7 +20,7 @@
 | [项目交付资料](docs/DELIVERY.md) | 测试、部署、版本和技术成果 |
 | [完整文档目录](docs/README.md) | 详细设计契约、测试报告和历史记录 |
 
-当前实际运行源码`a2f0e250904e0d63cd3f7df3d06dac783299d5b2`，JAR SHA-256 `3e540c094e30658c55779917fcb9e661f3e68eadc3d5b1ddcb006e6e54590af0`，成功[CI40519505450](https://github.com/Qbsstg/text-vector-search/actions/runs/40519505450)。325项测试、同包Linux恢复、正式Chrome普通刷新与HTTPS闭环均通过；旧51篇字段/计数/向量无差异，新增3篇隔离样例。详见[发布聚合](docs/testing/VECTOR-INFO-DEPLOYMENT.md)。首包缓存FAIL和封装CI FAIL保留；2026-10-23的`9883400`/283项为历史。
+最近一次已核证发布的源码为 `a2f0e250904e0d63cd3f7df3d06dac783299d5b2`，JAR SHA-256 为 `3e540c094e30658c55779917fcb9e661f3e68eadc3d5b1ddcb006e6e54590af0`，成功 [CI40519505450](https://github.com/Qbsstg/text-vector-search/actions/runs/40519505450)。该版本的 325 项测试、同包 Linux 恢复、真实 Chrome 普通刷新与 HTTPS 闭环均已通过；当时旧 51 篇文档的字段、计数和向量无差异，新增 3 篇隔离样例。详见[发布聚合](docs/testing/VECTOR-INFO-DEPLOYMENT.md)。这些记录不表示环境仍在线；首包缓存 FAIL、封装 CI FAIL 及更早版本的验收记录继续保留。
 
 ## 技术栈
 
@@ -38,7 +40,7 @@
 - **命中计数**：仅最终命中的文档原子加一；列表、详情和任务 GET 不计数。
 - **持久化与恢复**：文件数据库保存任务和向量；支持启动恢复、优雅关闭，以及已在隔离环境验证的独立进程强杀恢复。
 
-六个业务接口及错误码见 [API v1.0 契约](docs/api/api-contract.md)。检索请求会更新命中计数，属于有副作用操作；网络失败或提交结果未知时不自动重试。
+六个业务接口及错误码见 [API v1.1 契约](docs/api/api-contract.md)。v1.1 仅扩展详情的只读 `vectorInfo`，六接口路径和原有规则保持。检索请求会更新命中计数，属于有副作用操作；网络失败或提交结果未知时不自动重试。
 
 ## 核心技术设计
 
@@ -50,7 +52,7 @@
 
 ## 系统架构
 
-生产默认 Worker=1、Queue=64、SearchPermits=1、Hikari 最大连接数=4。H2 任务表负责可靠持久化，内存队列只保存待执行任务 ID；两条 CPU 计算路径都不长期持有数据库事务。
+默认运行参数为 Worker=1、Queue=64、SearchPermits=1、Hikari 最大连接数=4。H2 任务表负责可靠持久化，内存队列只保存待执行任务 ID；两条 CPU 计算路径都不长期持有数据库事务。
 
 ![系统架构静态总览](docs/design/system-architecture.svg)
 
@@ -113,13 +115,13 @@ flowchart TB
 
 </details>
 
-图中数据库箭头表示读取或写入依赖；GET 不增加命中计数，文档失效与任务终态独立。正式实例的 Worker 与搜索许可不会因本轮测试而修改。
+图中数据库箭头表示读取或写入依赖；GET 不增加命中计数，文档失效与任务终态独立。图示为项目部署架构，不表示当前存在在线实例。
 
 ## 并发设计与线程安全
 
 提交锁覆盖文档和任务的物理事务提交；后台仅在条件领取成功后计算，终态由 `RUNNING + run_token` 约束。搜索许可覆盖计算至命中计数提交，CPU 阶段不占数据库连接；计数使用原子更新，文档失效字段独立维护。HTTP 客户端并发与后台 Worker 并发分别观测。
 
-本轮正式环境核证了重复 ID 竞争、搜索与失效竞态、149 次成功搜索对应的精确计数增量，以及单 Worker 的真实 CPU 活动。Worker=2/4、队列饱和和故障注入没有在本轮执行，详见[Java 多线程并发报告](docs/testing/CONCURRENCY-REPORT.md)。
+历史正式环境验收核证了重复 ID 竞争、搜索与失效竞态、149 次成功搜索对应的精确计数增量，以及单 Worker 的真实 CPU 活动。该轮未执行 Worker=2/4、队列饱和和故障注入，详见[Java 多线程并发报告](docs/testing/CONCURRENCY-REPORT.md)。
 
 ## 性能测试与基线
 
@@ -134,15 +136,15 @@ flowchart TB
 
 631 次请求中，570 次 HTTP 200、4 次接收成功 202、57 次搜索保护 429；未知结果和 5xx 均为 0。QPS 只计测量窗内完成的业务成功，延迟与上表 429 保留窗口内发起、宽限期完成的尾请求；202 不等于向量化完成。该成绩是短窗、小候选集、长查询的混合负载基线，**不是最大容量或 SLA**。
 
-本轮新增 17/20 篇，原有 9 篇的元信息和计数保持不变；Chrome 已完成提交、真实任务终态、列表、搜索计数和失效闭环。Worker=2/4、N=100/1000/5000 及隔离环境最大吞吐仍未执行，连接池精确占用与 GC 单次暂停未测量。
+该轮新增 17/20 篇，原有 9 篇的元信息和计数保持不变；Chrome 当时完成了提交、真实任务终态、列表、搜索计数和失效闭环。Worker=2/4、N=100/1000/5000 及隔离环境最大吞吐仍未执行，连接池精确占用与 GC 单次暂停未测量。
 
-公开报告：[线上功能与 70 条分层映射](docs/testing/ONLINE-FUNCTIONAL-REPORT.md) · [并发与一致性](docs/testing/CONCURRENCY-REPORT.md) · [QPS、资源图表及复核方法](docs/testing/PERFORMANCE-BASELINE.md)。本轮 39 个线上功能声明场景与历史 273 项自动化、70 条主验收采用不同统计维度，不相加，也不将历史 70 条全部标为本轮线上通过。
+公开报告：[历史线上功能与 70 条分层映射](docs/testing/ONLINE-FUNCTIONAL-REPORT.md) · [并发与一致性](docs/testing/CONCURRENCY-REPORT.md) · [QPS、资源图表及复核方法](docs/testing/PERFORMANCE-BASELINE.md)。该轮 39 个线上功能声明场景与历史 273 项自动化、70 条主验收采用不同统计维度，不相加，也不将历史 70 条全部标为该轮线上通过。
 
-## 在线演示
+## 演示环境状态
 
-**[https://text-vector-search.lemoncharger.com](https://text-vector-search.lemoncharger.com)**
+测试与在线演示环境已下线，README 不再提供原访问地址。体验功能请按下方[本地运行](#本地运行)说明启动应用。
 
-演示环境使用 HTTPS，页面和 API 均需要入口认证。请通过授权渠道获取访问凭据，公开仓库不提供账号密码。当前固定运行a2f0e25/CI40519505450；后续文档HEAD不替换该包。下方保留2026-10-23历史发布。性能报告对应此前原JAR，不将旧版性能数据当作新版复测成绩。
+已有部署、认证、浏览器和数据核账记录保留用于工程追溯，不代表当前可在线访问。最近一次已核证版本见上方发布记录；下方保留更早的发布 SHA 和 CI。性能报告对应当时的固定 JAR，不作为其他版本的复测成绩。
 
 <details>
 <summary>2026-10-23历史固定发布版本与验收 CI</summary>
@@ -185,7 +187,20 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 ## 测试与验收
 
-2026-10-23最终验收固定包为283项，真实Chrome、HTTPS与70条分层映射见[历史最终验收报告](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。本轮向量详情和缓存修复候选为116 Unit+135 IT+68 Node+6 Python=325，范围及实际发布状态见本轮核证。以下为既有FINAL-RELEASE历史结果，不与新一轮重复相加；本轮没有新增性能压测。
+最近一次向量详情与缓存修复候选的自动化结果为 **325 项通过**，对应上方固定源码与成功 CI，详见[发布核证](docs/testing/VECTOR-INFO-RELEASE.md)。该轮未新增性能压测；环境下线不改变已保留的测试证据，也不意味着本次文档更新重新执行了测试。
+
+| 测试层次 | 已核证数量 |
+| --- | --- |
+| Java 单元测试（Unit） | 116 |
+| Java 集成与验收测试（IT） | 135 |
+| 前端 Node 测试 | 68 |
+| 发布封装 Python 测试 | 6 |
+| 合计 | **325** |
+
+2026-10-23 最终验收固定包为 283 项，真实 Chrome、HTTPS 与 70 条分层映射见[历史最终验收报告](docs/testing/FINAL-ACCEPTANCE-REPORT.md)。不同版本的数量分别统计，不重复相加。
+
+<details>
+<summary>展开首发 FINAL-RELEASE 历史验收结果</summary>
 
 | 统计维度 | 已核证结果 |
 | --- | --- |
@@ -197,6 +212,8 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 
 覆盖确定性黄金向量、独立 JVM、codec、余弦与 Top-K oracle，以及真实 H2 事务、并发竞态、条件领取、终态、关闭和进程恢复。语义准确率、无限长期负载与 SLA 没有验收承诺；首发没有已验旧版，未伪称执行旧版回滚。
 
+</details>
+
 ## 深入阅读与历史记录
 
 完整分类说明见[项目文档目录](docs/README.md)。下列文件用于深入追溯，不是首次阅读的必经路径。
@@ -204,7 +221,8 @@ APP_DATA_DIR="$PWD/.local-data" java -jar target/vector-search.jar
 | 资料内容 | 公开文档 |
 | --- | --- |
 | 项目成果、版本与交付资料 | [项目交付资料](docs/DELIVERY.md) |
-| 当前固定版最终验收 | [最终全面验收](docs/testing/FINAL-ACCEPTANCE-REPORT.md) · [浏览器](docs/testing/UI-FINAL-VERIFICATION.md) · [稳定性](docs/testing/STABILITY-35MIN-REPORT.md) |
+| 向量详情与缓存修复发布 | [发布核证](docs/testing/VECTOR-INFO-RELEASE.md) · [部署聚合](docs/testing/VECTOR-INFO-DEPLOYMENT.md) |
+| 2026-10-23 历史最终验收 | [最终全面验收](docs/testing/FINAL-ACCEPTANCE-REPORT.md) · [浏览器](docs/testing/UI-FINAL-VERIFICATION.md) · [稳定性](docs/testing/STABILITY-35MIN-REPORT.md) |
 | 最终结论、版本与未执行边界 | [最终交付聚合结果](docs/testing/最终交付聚合结果.md) |
 | 六接口、校验与错误码 | [API 契约](docs/api/api-contract.md) |
 | 算法、codec、余弦与堆排序 | [B1 算法设计](docs/design/b1-algorithm-contract.md) |
